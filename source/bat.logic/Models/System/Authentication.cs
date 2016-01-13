@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Shearnie.Net.Encryption;
+using bat.data;
+
+namespace bat.logic.Models.System
+{
+    public class Authentication
+    {
+        private const string AUTH_NAME = "1a54e569-10cf-4ec5-9b3e-531a66e2d852";
+        private const int COOKIE_EXPIRE_DAYS = 2;
+        private IOwinContext context { get; set; }
+
+        public Authentication(IOwinContext context)
+        {
+            this.context = context;
+        }
+
+        public static CookieAuthenticationOptions CookieOptions
+        {
+            get
+            {
+                return new CookieAuthenticationOptions
+                {
+                    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                    //AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
+                    LoginPath = new PathString("/login"),
+                    //CookieDomain = ".myapp.com",
+                    CookieName = AUTH_NAME,
+                    CookieHttpOnly = true,
+                    CookieSecure = CookieSecureOption.SameAsRequest,
+                    ExpireTimeSpan = TimeSpan.FromDays(COOKIE_EXPIRE_DAYS),
+                    //ReturnUrlParameter = "",
+                    //SlidingExpiration = true,
+                    Provider = new CookieAuthenticationProvider
+                    {
+                        // Enables the application to validate the security stamp when the user logs in.
+                        // This is a security feature which is used when you change a password or add an external login to your account.  
+                        //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                        //    validateInterval: TimeSpan.FromMinutes(30),
+                        //    regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                    }
+                };
+            }
+        }
+
+        public Account GetUser(string username, string password)
+        {
+            using (var conn = new dbEntities())
+            {
+                var user =
+                    conn.Accounts.FirstOrDefault(
+                        a => a.Email.Equals(username, StringComparison.CurrentCultureIgnoreCase));
+                if (user == null)
+                    throw new Exception("Invalid username or password.");
+//#if (!DEBUG)
+//                if (!Hash_PBKDF2.ValidatePassword(password, user.Password))
+//                    throw new Exception("Invalid username or password.");
+//#endif
+#if (!DEBUG)
+                if (user.Password != password)
+                    throw new Exception("Invalid username or password.");
+#endif
+                return user;
+            }
+        }
+
+        public Account GetLoggedInUser()
+        {
+            if (this.context == null) return null;
+            var authenticationManager = this.context.Authentication;
+            var claim = authenticationManager.User.Identities.FirstOrDefault();
+            if (claim == null) return null;
+            var id = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var pid = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData);
+            var email = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+            if (id == null || pid == null || email == null) return null;
+            return new Account()
+            {
+                ID = Convert.ToInt32(id.Value),
+                Email = email.Value
+            };
+        }
+
+        public void Login(Account user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", AUTH_NAME + "-" + user.ID.ToString())
+            };
+            var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+            var authenticationManager = this.context.Authentication;
+            authenticationManager.SignIn(id);
+        }
+
+        public void Logout()
+        {
+            var authenticationManager = this.context.Authentication;
+            authenticationManager.SignOut();
+        }
+    }
+}
