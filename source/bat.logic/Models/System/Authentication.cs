@@ -78,9 +78,8 @@ namespace bat.logic.Models.System
             var claim = authenticationManager.User.Identities.FirstOrDefault();
             if (claim == null) return null;
             var id = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            var pid = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData);
             var email = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
-            if (id == null || pid == null || email == null) return null;
+            if (id == null || email == null) return null;
             return new Account()
             {
                 ID = Convert.ToInt32(id.Value),

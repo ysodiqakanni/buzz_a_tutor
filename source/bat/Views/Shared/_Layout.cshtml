@@ -31,7 +31,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="@Url.RouteUrl("home")">
-                <img src="@Url.Content("~/assets/img/LogoNav.png")" alt="TIE" style="height: 30px;" />
+                <img src="@Url.Content("~/assets/img/LogoNav.png")" alt="Buzz a Tutor" style="height: 30px;" />
             </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -41,9 +41,6 @@
             @RenderSection("nav", required: false)
 
             <ul class="nav navbar-nav pull-right">
-                <li>
-                    <a href="@Url.RouteUrl("settings")">&nbsp;<i class="fa fa-cog"></i>&nbsp;</a>
-                </li>
                 <li>
                     <a data-toggle="dropdown" class="dropdown-toggle" href=""><i class="fa fa-user"></i> &nbsp; @Model.account.Email &nbsp; <i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown-menu pull-right">
