@@ -209,6 +209,7 @@
     <Content Include="assets\font\fontello.svg" />
     <Content Include="assets\img\bg.png" />
     <Content Include="assets\img\big-image.png" />
+    <Content Include="assets\img\Brand16x16.png" />
     <Content Include="assets\img\btn-bg.png" />
     <Content Include="assets\img\line.gif" />
     <Content Include="assets\img\logo.png" />
