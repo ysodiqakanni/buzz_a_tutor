@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+/* ============================== */
+/* 
+	- Title: Diploma Landing Page
+	- Autor: Coralix Themes
+	- Version: 1.0
+*/
+/* ============================== */
+
+
+/* ---------------------------------------------------------------------- */
+/*	Mobile Version 1024px
+/* ---------------------------------------------------------------------- */
+
+@media handheld, only screen and (max-width: 1024px) {	
+	.navbar ul li {
+		font-size: 1.2em;
+	}
+	.jumbotron h1 {
+		font-size: 3em;
+		letter-spacing: -4px;
+	}
+	.navbar-default .navbar-nav>li>a {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+	.features .item {
+		margin:30px 0;
+	}
+
+}
+
+
+/* ---------------------------------------------------------------------- */
+/*	Mobile Version 768px
+/* ---------------------------------------------------------------------- */
+
+@media handheld, only screen and (max-width: 768px) {	
+
+	.jumbotron h1 {
+		font-size: 2.3em;
+		letter-spacing: -4px;
+	}
+	.newsletter {
+		text-align: center;
+	}
+	.newsletter .fields h3 {
+		font-size: 1.6em;
+		text-align: center;
+	}
+	.newsletter .fields input.btn {
+		font-size: 1em;
+		padding: 10px 15px;
+	}
+	.copy h6 {
+		text-align: center;
+	}
+	.copy ul {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.copy ul li {
+		float: none;
+	}
+
+}	
+
+
+/* ---------------------------------------------------------------------- */
+/*	Mobile Version 480px
+ /* ---------------------------------------------------------------------- */
+
+@media handheld, only screen and (max-width: 480px) { 
+	.jumbotron h1 {
+		font-size: 2em;
+		letter-spacing: -4px;
+	}
+	
+	.newsletter .fields input.form-control {
+		width: 100%;
+		float: none;
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+
+	.video iframe {
+	    height: 200px;
+	}
+
+}

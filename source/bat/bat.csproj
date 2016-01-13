@@ -198,9 +198,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\login.css" />
+    <Content Include="assets\css\media-queries.css" />
+    <Content Include="assets\css\yellow.css" />
+    <Content Include="assets\font\animation.css" />
+    <Content Include="assets\font\fontello-codes.css" />
+    <Content Include="assets\font\fontello-embedded.css" />
+    <Content Include="assets\font\fontello-ie7-codes.css" />
+    <Content Include="assets\font\fontello-ie7.css" />
+    <Content Include="assets\font\fontello.css" />
+    <Content Include="assets\font\fontello.svg" />
+    <Content Include="assets\img\bg.png" />
+    <Content Include="assets\img\big-image.png" />
+    <Content Include="assets\img\btn-bg.png" />
+    <Content Include="assets\img\line.gif" />
+    <Content Include="assets\img\logo.png" />
+    <Content Include="assets\img\vertical_line.png" />
+    <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\vendor\bootstrap.min.css" />
     <Content Include="assets\vendor\font-awesome.min.css" />
-    <Content Include="assets\css\main.css" />
+    <Content Include="assets\vendor\respond.min.js" />
+    <Content Include="assets\vendor\retina.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -218,8 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\img\" />
-    <Folder Include="assets\js\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +255,11 @@
       <Project>{2c5439ac-f920-4e61-bc0b-c4d515eda8f0}</Project>
       <Name>bat.logic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\font\fontello.eot" />
+    <Content Include="assets\font\fontello.ttf" />
+    <Content Include="assets\font\fontello.woff" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
