@@ -11,6 +11,10 @@ namespace bat
             bundles.Add(new StyleBundle("~/assets/css/main").Include(
                 "~/assets/css/main.css"
             ));
+
+            bundles.Add(new StyleBundle("~/assets/css/landinglogin").Include(
+                "~/assets/css/login.css"
+            ));
         }
     }
 }

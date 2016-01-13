@@ -197,6 +197,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\login.css" />
     <Content Include="assets\vendor\bootstrap.min.css" />
     <Content Include="assets\vendor\font-awesome.min.css" />
     <Content Include="assets\css\main.css" />
