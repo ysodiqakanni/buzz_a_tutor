@@ -3,5 +3,13 @@
     ViewBag.Title = "Teacher";
 }
 
-<h2>DashTeacher</h2>
+<h2>Welcome, @Model.account.Email</h2>
 
+<p>Here are your available students:</p>
+
+@foreach (var item in Model.students)
+{
+    <p>
+        @item.Email
+    </p>
+}

@@ -9,7 +9,7 @@ namespace bat
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/assets/css/main").Include(
-                "~/assets/css/main.css"
+                "~/assets/css/batmain.css"
             ));
 
             bundles.Add(new StyleBundle("~/assets/css/landinglogin").Include(
