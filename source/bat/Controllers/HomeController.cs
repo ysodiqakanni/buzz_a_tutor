@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using bat.logic.Constants;
 using Elmah;
 using Microsoft.AspNet.Identity;
 
@@ -30,6 +31,16 @@ namespace bat.Controllers
                 ViewBag.Error = ex.Message;
             }
 
+            switch (model.accountType)
+            {
+                case Types.AccountTypes.Student:
+                    return View("DashStudent", model);
+
+                case Types.AccountTypes.Teacher:
+                    return View("DashTeacher", model);
+            }
+
+            // maybe for admin later
             return View(model);
         }
 

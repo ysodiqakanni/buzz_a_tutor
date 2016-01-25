@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace bat.logic.Constants
 {
-    public class AccountTypes
+    public class Types
     {
-        public static int Student = 1;
-        public static int Teacher = 2;
+        public enum AccountTypes
+        {
+            Student = 1,
+            Teacher = 2
+        }
     }
 }

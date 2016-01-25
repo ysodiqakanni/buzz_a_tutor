@@ -122,7 +122,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\AccountTypes.cs" />
+    <Compile Include="Constants\Types.cs" />
     <Compile Include="Exceptions\MasterModelNotInitialised.cs" />
     <Compile Include="Helpers\DateTimeExtensions.cs" />
     <Compile Include="Helpers\Numbers.cs" />

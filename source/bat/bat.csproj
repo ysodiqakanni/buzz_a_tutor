@@ -262,6 +262,12 @@
     <Content Include="assets\font\fontello.ttf" />
     <Content Include="assets\font\fontello.woff" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\DashStudent.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\DashTeacher.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

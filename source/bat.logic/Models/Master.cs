@@ -12,6 +12,7 @@ namespace bat.logic.Models
     {
         internal bool initialised { get; set; }
         public Account account { get; set; }
+        public Constants.Types.AccountTypes accountType => (Constants.Types.AccountTypes) this.account.AccountType_ID;
 
         public Master()
         {

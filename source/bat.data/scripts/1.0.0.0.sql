@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[Account](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Email] [varchar](300) NOT NULL,
 	[Password] [varchar](128) NOT NULL,
-	[AccountType_ID] [int] NULL,
+	[AccountType_ID] [int] NOT NULL,
  CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
