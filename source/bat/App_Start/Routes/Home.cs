@@ -28,6 +28,12 @@ namespace bat.Routes
                 url: "logout",
                 defaults: new { controller = "Home", action = "Logout" }
             );
+
+            routes.MapRoute(
+                name: "meet",
+                url: "meet",
+                defaults: new { controller = "Home", action = "Meet" }
+            );
         }
     }
 }

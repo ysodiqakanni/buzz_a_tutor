@@ -10,6 +10,8 @@
 @foreach (var item in Model.students)
 {
     <p>
-        @item.Email
+        <a href="@Url.RouteUrl("meet")">
+            @item.Email
+        </a>
     </p>
 }

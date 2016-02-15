@@ -97,5 +97,27 @@ namespace bat.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Meet()
+        {
+
+            var model = new bat.logic.Models.Meet();
+
+            try
+            {
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
     }
 }
