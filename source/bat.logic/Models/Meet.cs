@@ -9,9 +9,6 @@ namespace bat.logic.Models
 {
     public class Meet : Master
     {
-        private string pubToken => "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9OGZhNjgzMTIxYjMyMDRiZmJlNjRiYzExNjI1MzFhMzc3MWZlNDE4Nzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTFfTVg0ME5UUTVOalkxTW41LU1UUTFOakF4TURRNU5qSTRNSDVNVFVOR1QzUjZSVGhFVkd0eGFGSndTVE5vUlhCcFVXZC1VSDQmY3JlYXRlX3RpbWU9MTQ1NjAxMDUyOCZub25jZT0wLjUzODQ4MjY5Njg0NDY2NzcmZXhwaXJlX3RpbWU9MTQ1ODYwMDk4NyZjb25uZWN0aW9uX2RhdGE9";
-        private string subToken => "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9ZWNiNjUxZjUxYWNlYTg3NmUyYzE4NmU2YmEyMTI3YTg4ZTY0ZmI0Zjpyb2xlPXN1YnNjcmliZXImc2Vzc2lvbl9pZD0xX01YNDBOVFE1TmpZMU1uNS1NVFExTmpBeE1EUTVOakk0TUg1TVRVTkdUM1I2UlRoRVZHdHhhRkp3U1ROb1JYQnBVV2QtVUg0JmNyZWF0ZV90aW1lPTE0NTYwMTA1NDcmbm9uY2U9MC41NzQ4MzExOTUxMTM2MjkxJmV4cGlyZV90aW1lPTE0NTg2MDA5ODcmY29ubmVjdGlvbl9kYXRhPQ==";
-
         public string session { get; set; }
         public string token { get; set; }
 
@@ -32,6 +29,11 @@ namespace bat.logic.Models
 
                 this.other = conn.Accounts.FirstOrDefault(a => a.ID == otherId);
                 if (this.other == null) throw new Exception("Invalid user.");
+
+                if (this.me.Email == "alex")
+                    this.token = "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9NzZkM2Q1YmM5MWQyZmUzZDcwMzZiZmU4MDQxOTA4MTRmNDk3NmY2Yjpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTFfTVg0ME5UUTVOalkxTW41LU1UUTFOakF4TURRNU5qSTRNSDVNVFVOR1QzUjZSVGhFVkd0eGFGSndTVE5vUlhCcFVXZC1VSDQmY3JlYXRlX3RpbWU9MTQ1NjAxMTkyMyZub25jZT0wLjMyMTY5MTkwNTc1NTYxMTQ2JmV4cGlyZV90aW1lPTE0NTg2MDA5ODcmY29ubmVjdGlvbl9kYXRhPQ==";
+                else
+                    this.token = "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9OGE4OTZjZGM1NGQyZTMzMDI1YmI0NzQ4ODZlZDlhM2Y5ZjFjNDEzNDpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTFfTVg0ME5UUTVOalkxTW41LU1UUTFOakF4TURRNU5qSTRNSDVNVFVOR1QzUjZSVGhFVkd0eGFGSndTVE5vUlhCcFVXZC1VSDQmY3JlYXRlX3RpbWU9MTQ1NjAxMTk3OSZub25jZT0wLjg4MzcxMDU4NDg4MDIyMDQmZXhwaXJlX3RpbWU9MTQ1ODYwMDk4NyZjb25uZWN0aW9uX2RhdGE9";
             }
         }
     }
