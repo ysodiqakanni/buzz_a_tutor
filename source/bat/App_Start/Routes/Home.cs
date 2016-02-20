@@ -31,7 +31,7 @@ namespace bat.Routes
 
             routes.MapRoute(
                 name: "meet",
-                url: "meet",
+                url: "meet/{id}",
                 defaults: new { controller = "Home", action = "Meet" }
             );
 

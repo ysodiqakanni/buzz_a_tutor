@@ -99,7 +99,7 @@ namespace bat.Controllers
         }
 
         [Authorize]
-        public ActionResult Meet()
+        public ActionResult Meet(int id)
         {
 
             var model = new bat.logic.Models.Meet();
@@ -110,6 +110,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
+                model.Load(user.ID, id);
             }
             catch (Exception ex)
             {
