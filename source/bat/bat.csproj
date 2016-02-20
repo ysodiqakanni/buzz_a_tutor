@@ -272,9 +272,6 @@
   <ItemGroup>
     <Content Include="Views\Home\Meet.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\MeetS.cshtml" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -34,12 +34,6 @@ namespace bat.Routes
                 url: "meet/{id}",
                 defaults: new { controller = "Home", action = "Meet" }
             );
-
-            routes.MapRoute(
-                name: "meetS",
-                url: "meetS",
-                defaults: new { controller = "Home", action = "MeetS" }
-            );
         }
     }
 }

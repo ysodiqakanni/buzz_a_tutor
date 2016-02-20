@@ -17,3 +17,20 @@ select 'steve', 'steve', 1
 go
 insert into account
 select 'alex', 'alex', 2
+
+GO
+ALTER TABLE dbo.Account ADD
+	Fname varchar(500) NULL,
+	Lname varchar(500) NULL
+
+go
+update account set fname = 'Steve', lname = 'Shearn' where email = 'steve'
+
+go
+update account set fname = 'Alex', lname = 'Ho-Terry' where email = 'alex'
+
+
+go
+insert into account
+select 'sam', 'sam', 1, 'Sam', 'Eames'
+

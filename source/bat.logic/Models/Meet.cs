@@ -15,6 +15,9 @@ namespace bat.logic.Models
         public string session { get; set; }
         public string token { get; set; }
 
+        public Account me { get; set; }
+        public Account other { get; set; }
+
         public Meet()
         {
             this.session = "1_MX40NTQ5NjY1Mn5-MTQ1NjAxMDQ5NjI4MH5MTUNGT3R6RThEVGtxaFJwSTNoRXBpUWd-UH4";
@@ -24,22 +27,11 @@ namespace bat.logic.Models
         {
             using (var conn = new dbEntities())
             {
-                var me = conn.Accounts.FirstOrDefault(a => a.ID == meId);
-                if (me == null) throw new Exception("Invalid user.");
+                this.me = conn.Accounts.FirstOrDefault(a => a.ID == meId);
+                if (this.me == null) throw new Exception("Invalid user.");
 
-                var other = conn.Accounts.FirstOrDefault(a => a.ID == otherId);
-                if (other == null) throw new Exception("Invalid user.");
-
-                switch (me.AccountType_ID)
-                {
-                    case (int) bat.logic.Constants.Types.AccountTypes.Teacher:
-                        this.token = this.pubToken;
-                        break;
-
-                    case (int)bat.logic.Constants.Types.AccountTypes.Student:
-                        this.token = this.subToken;
-                        break;
-                }
+                this.other = conn.Accounts.FirstOrDefault(a => a.ID == otherId);
+                if (this.other == null) throw new Exception("Invalid user.");
             }
         }
     }

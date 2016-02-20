@@ -13,6 +13,8 @@
           <Property Name="Email" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="AccountType_ID" Type="int" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="500" />
+          <Property Name="Lname" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
@@ -32,6 +34,8 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="AccountType_ID" Type="Int32" Nullable="false" />
+          <Property Name="Fname" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Lname" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -42,6 +46,8 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="dbModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
                 <ScalarProperty Name="AccountType_ID" ColumnName="AccountType_ID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
