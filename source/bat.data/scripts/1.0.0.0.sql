@@ -34,3 +34,26 @@ go
 insert into account
 select 'sam', 'sam', 1, 'Sam', 'Eames'
 
+GO
+CREATE TABLE [dbo].[Lesson](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Account_ID] [int] NOT NULL,
+	[BookingDate] [datetime] NOT NULL,
+	[Description] [varchar](max) NOT NULL,
+	[ClassSize] [int] NOT NULL,
+ CONSTRAINT [PK_Lesson] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+) 
+
+GO
+ALTER TABLE dbo.Lesson ADD CONSTRAINT
+	FK_Lesson_Account FOREIGN KEY
+	(
+	Account_ID
+	) REFERENCES dbo.Account
+	(
+	ID
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 

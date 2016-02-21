@@ -14,11 +14,20 @@ namespace bat.data
     
     public partial class Account
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Account()
+        {
+            this.Lessons = new HashSet<Lesson>();
+        }
+    
         public int ID { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public int AccountType_ID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }
