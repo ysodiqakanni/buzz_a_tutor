@@ -23,6 +23,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Account_ID" Type="int" Nullable="false" />
           <Property Name="BookingDate" Type="datetime" Nullable="false" />
+          <Property Name="DurationMins" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="ClassSize" Type="int" Nullable="false" />
         </EntityType>
@@ -77,6 +78,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Account_ID" Type="Int32" Nullable="false" />
           <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DurationMins" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClassSize" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
@@ -116,6 +118,7 @@
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
                 <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

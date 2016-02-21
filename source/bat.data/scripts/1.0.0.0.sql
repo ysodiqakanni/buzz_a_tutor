@@ -39,6 +39,7 @@ CREATE TABLE [dbo].[Lesson](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Account_ID] [int] NOT NULL,
 	[BookingDate] [datetime] NOT NULL,
+	[DurationMins] [int] NOT NULL,
 	[Description] [varchar](max) NOT NULL,
 	[ClassSize] [int] NOT NULL,
  CONSTRAINT [PK_Lesson] PRIMARY KEY CLUSTERED 

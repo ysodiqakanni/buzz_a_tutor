@@ -186,11 +186,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Routes\Lessons.cs" />
     <Compile Include="App_Start\Routes\Home.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="assets\css\batmain.css" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +218,10 @@
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\img\vertical_line.png" />
     <Content Include="assets\js\modernizr.custom.js" />
+    <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
+    <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
+    <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="assets\vendor\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\vendor\bootstrap.min.css" />
     <Content Include="assets\vendor\font-awesome.min.css" />
     <Content Include="assets\vendor\respond.min.js" />
@@ -271,6 +277,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Meet.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Lessons\New.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

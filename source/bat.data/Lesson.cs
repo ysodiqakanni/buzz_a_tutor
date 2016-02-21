@@ -17,6 +17,7 @@ namespace bat.data
         public int ID { get; set; }
         public int Account_ID { get; set; }
         public System.DateTime BookingDate { get; set; }
+        public int DurationMins { get; set; }
         public string Description { get; set; }
         public int ClassSize { get; set; }
     

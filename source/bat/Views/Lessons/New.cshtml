@@ -1,0 +1,59 @@
+﻿@model bat.logic.Models.Lessons.New
+@{
+    ViewBag.Title = "New Lesson";
+}
+
+@section head {
+    <link rel="stylesheet" href="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")">
+}
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/en-au.js"></script>
+    <script src="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#BookingDate').datetimepicker({
+                locale: 'en-au'
+            });
+        });
+    </script>
+}
+<h2>New Lesson</h2>
+
+
+@{ Html.BeginForm("New", "Lessons", FormMethod.Post); }
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">Date of lesson</label>
+            <input type='text' class="form-control" name="BookingDate" id="BookingDate" value="@Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Duration in mins</label>
+            <input type='number' step="15" class="form-control" name="DurationMins" id="DurationMins" value="@Model.lesson.DurationMins" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Class size</label>
+            <input type='number' step="1" class="form-control" name="ClassSize" id="ClassSize" value="@Model.lesson.ClassSize" />
+        </div>
+    </div>
+    <div class="col-md-6">
+                <div class="form-group">
+            <label class="control-label required">Description</label>
+            <textarea class="form-control" rows="5" placeholder="Description" name="Description" required>@Model.lesson.Description</textarea>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 40px; overflow: auto;">
+    <input type="submit" value="Ok" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
+    <a href="javascript:;" onclick="history.back();" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
+        Cancel
+    </a>
+</div>
+
+@{ Html.EndForm(); }
