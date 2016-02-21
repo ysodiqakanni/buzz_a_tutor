@@ -14,6 +14,8 @@ namespace bat.logic.Models.Homepage
         public List<Account> students { get; set; }
         public List<Account> teachers { get; set; }
 
+        public List<Lesson> lessons { get; set; }
+
         public void Load()
         {
             if (!this.initialised) throw new MasterModelNotInitialised();
@@ -39,6 +41,8 @@ namespace bat.logic.Models.Homepage
                     default:
                         throw new Exception("Invalid account type.");
                 }
+
+                this.lessons = conn.Lessons.Where(l => l.Account_ID == this.account.ID).ToList();
             }
         }
     }

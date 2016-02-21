@@ -15,3 +15,14 @@
         </a>
     </p>
 }
+
+<h2>Here are your lessons:</h2>
+
+@foreach (var lesson in Model.lessons)
+{
+    <p>
+        <a href="@Url.RouteUrl("lessons", new { id = lesson.ID })">
+            @lesson.Description
+        </a>
+    </p>
+}
