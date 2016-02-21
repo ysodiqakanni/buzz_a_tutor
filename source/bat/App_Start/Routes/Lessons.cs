@@ -16,6 +16,12 @@ namespace bat.Routes
                 url: "lessons/new",
                 defaults: new { controller = "Lessons", action = "New" }
             );
+
+            routes.MapRoute(
+                name: "lessons",
+                url: "lessons/{id}",
+                defaults: new { controller = "Lessons", action = "Index" }
+            );
         }
     }
 }

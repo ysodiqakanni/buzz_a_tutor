@@ -12,7 +12,24 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Index(int id)
         {
-            return RedirectToRoute("home");
+            var model = new bat.logic.Models.Lessons.View();
+
+            try
+            {
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return View("Landing");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Load(id);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View("View", model);
         }
 
         [Authorize]

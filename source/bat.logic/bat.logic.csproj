@@ -130,6 +130,7 @@
     <Compile Include="Exceptions\InvalidRecordException.cs" />
     <Compile Include="Exceptions\SaveException.cs" />
     <Compile Include="Models\Homepage\Dashboard.cs" />
+    <Compile Include="Models\Lessons\View.cs" />
     <Compile Include="Models\Lessons\New.cs" />
     <Compile Include="Models\Master.cs" />
     <Compile Include="Models\Meet.cs" />
