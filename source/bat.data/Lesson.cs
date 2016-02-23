@@ -14,6 +14,12 @@ namespace bat.data
     
     public partial class Lesson
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Lesson()
+        {
+            this.LessonParticipants = new HashSet<LessonParticipant>();
+        }
+    
         public int ID { get; set; }
         public int Account_ID { get; set; }
         public System.DateTime BookingDate { get; set; }
@@ -22,5 +28,7 @@ namespace bat.data
         public int ClassSize { get; set; }
     
         public virtual Account Account { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LessonParticipant> LessonParticipants { get; set; }
     }
 }

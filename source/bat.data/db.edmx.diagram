@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="dbModel.Lesson" Width="1.5" PointX="2.875" PointY="0.75" />
         <AssociationConnector Association="dbModel.FK_Lesson_Account" />
+        <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.75" PointX="5.125" PointY="1.125" />
+        <AssociationConnector Association="dbModel.FK_LessonParticipant_Lesson" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

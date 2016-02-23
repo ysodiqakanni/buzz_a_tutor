@@ -58,3 +58,27 @@ ALTER TABLE dbo.Lesson ADD CONSTRAINT
 	ID
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
+
+
+GO
+
+CREATE TABLE [dbo].[LessonParticipant](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Lesson_ID] [int] NOT NULL,
+	[Account_ID] [int] NOT NULL,
+ CONSTRAINT [PK_LessonParticipant] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+) 
+
+GO
+
+ALTER TABLE [dbo].[LessonParticipant]  WITH CHECK ADD  CONSTRAINT [FK_LessonParticipant_Lesson] FOREIGN KEY([Lesson_ID])
+REFERENCES [dbo].[Lesson] ([ID])
+GO
+
+ALTER TABLE [dbo].[LessonParticipant] CHECK CONSTRAINT [FK_LessonParticipant_Lesson]
+GO
+
+

@@ -27,6 +27,14 @@
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="ClassSize" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="LessonParticipant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lesson_ID" Type="int" Nullable="false" />
+          <Property Name="Account_ID" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Lesson_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
@@ -39,12 +47,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LessonParticipant_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="LessonParticipant" Type="Self.LessonParticipant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessonParticipant">
+              <PropertyRef Name="Lesson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonParticipant" EntityType="Self.LessonParticipant" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Lesson_Account" Association="Self.FK_Lesson_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonParticipant_Lesson" Association="Self.FK_LessonParticipant_Lesson">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="LessonParticipant" EntitySet="LessonParticipant" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -57,6 +82,11 @@
           <AssociationSet Name="FK_Lesson_Account" Association="dbModel.FK_Lesson_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
+          <AssociationSet Name="FK_LessonParticipant_Lesson" Association="dbModel.FK_LessonParticipant_Lesson">
+            <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="LessonParticipant" EntitySet="LessonParticipants" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
@@ -82,6 +112,7 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClassSize" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
+          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
         </EntityType>
         <Association Name="FK_Lesson_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
@@ -92,6 +123,27 @@
             </Principal>
             <Dependent Role="Lesson">
               <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LessonParticipant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="LessonParticipant" ToRole="Lesson" />
+        </EntityType>
+        <Association Name="FK_LessonParticipant_Lesson">
+          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
+          <End Type="dbModel.LessonParticipant" Role="LessonParticipant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessonParticipant">
+              <PropertyRef Name="Lesson_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -121,6 +173,15 @@
                 <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
                 <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonParticipants">
+            <EntityTypeMapping TypeName="dbModel.LessonParticipant">
+              <MappingFragment StoreEntitySet="LessonParticipant">
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Lesson_ID" ColumnName="Lesson_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
