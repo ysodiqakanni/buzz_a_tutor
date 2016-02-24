@@ -3,26 +3,41 @@
     ViewBag.Title = "Teacher";
 }
 
-<h2>Welcome, @Model.account.Email</h2>
+<div class="col-sm-12">
+    <div class="col-sm-12">
+        <h2>Welcome, @Model.account.Email</h2>
+    </div>
 
-<p>Here are your available students:</p>
+    <div class="col-sm-12">
 
-@foreach (var item in Model.students)
-{
-    <p>
-        <a href="@Url.RouteUrl("meet", new { id = item.ID })">
-            @item.Email
-        </a>
-    </p>
-}
+        <p>Here are your available students:</p>
 
-<h2>Here are your lessons:</h2>
+        @foreach (var item in Model.students)
+        {
+            <p>
+                <a href="@Url.RouteUrl("meet", new { id = item.ID })">
+                    @item.Email
+                </a>
+            </p>
+        }
+    </div>
 
-@foreach (var lesson in Model.lessons)
-{
-    <p>
-        <a href="@Url.RouteUrl("lessons", new { id = lesson.ID })">
-            @lesson.Description
-        </a>
-    </p>
-}
+    <div class="col-sm-6">
+        <h2>Here are your lessons:</h2>
+    </div>
+    <div class="col-sm-6">
+        <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Add lesson.</a>
+    </div>
+    <div class="col-sm-12">
+        @foreach (var lesson in Model.lessons)
+        {
+            <p>
+                <a href="@Url.RouteUrl("lessons", new { id = lesson.ID })">
+                    @lesson.Description
+                </a>
+            </p>
+        }
+    </div>
+</div>
+
+
