@@ -1,6 +1,7 @@
 ﻿using bat.data;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,13 +37,7 @@ namespace bat.logic.Models.Lessons
                 this.lesson = new Lesson()
                 {
                     Account_ID = this.account.ID,
-                    BookingDate = new DateTime(
-                                    year: Convert.ToInt32(bkdt.Substring(6, 4)),
-                                    month: Convert.ToInt32(bkdt.Substring(3, 2)),
-                                    day: Convert.ToInt32(bkdt.Substring(0, 2)),
-                                    hour: Convert.ToInt32(bkdt.Substring(11, 2)),
-                                    minute: Convert.ToInt32(bkdt.Substring(14, 2)),
-                                    second: 0),
+                    BookingDate = Convert.ToDateTime(bkdt, new CultureInfo("en-AU")),
                     DurationMins = int.Parse(frm["DurationMins"]),
                     Description = (frm["Description"] ?? "").Trim(),
                     ClassSize = int.Parse(frm["ClassSize"])
