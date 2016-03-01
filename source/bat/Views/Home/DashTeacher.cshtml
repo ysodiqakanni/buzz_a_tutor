@@ -5,21 +5,7 @@
 
 <div class="col-sm-12">
     <div class="col-sm-12">
-        <h2>Welcome, @Model.account.Email</h2>
-    </div>
-
-    <div class="col-sm-12">
-
-        <p>Here are your available students:</p>
-
-        @foreach (var item in Model.students)
-        {
-            <p>
-                <a href="@Url.RouteUrl("meet", new { id = item.ID })">
-                    @item.Email
-                </a>
-            </p>
-        }
+        <h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
     </div>
 
     <div class="col-sm-6">
