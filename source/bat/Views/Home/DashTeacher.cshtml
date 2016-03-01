@@ -3,18 +3,11 @@
     ViewBag.Title = "Teacher";
 }
 
-<div class="col-sm-12">
-    <div class="col-sm-12">
-        <h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
-    </div>
+<h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
 
+<div class="row">
     <div class="col-sm-6">
         <h2>Here are your lessons:</h2>
-    </div>
-    <div class="col-sm-6">
-        <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Add lesson.</a>
-    </div>
-    <div class="col-sm-12">
         @foreach (var lesson in Model.lessons)
         {
             <p>
@@ -23,6 +16,9 @@
                 </a>
             </p>
         }
+    </div>
+    <div class="col-sm-6">
+        <h2>Here are lessons you can join:</h2>
     </div>
 </div>
 
