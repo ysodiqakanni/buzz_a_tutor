@@ -60,9 +60,9 @@ var startStream = function (sessionId, token) {
             }
         });
 
-        session.on("streamCreated", function (event) {
-            session.subscribe(event.stream);
-        });
+        //session.on("streamCreated", function (event) {
+        //    session.subscribe(event.stream);
+        //});
     } else {
         console.log("Not connected to session");
     }
