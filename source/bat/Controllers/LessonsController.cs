@@ -17,10 +17,10 @@ namespace bat.Controllers
             try
             {
                 var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-                if (user == null) return View("Landing");
+                if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
+                //if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Load(id);
             }
             catch (Exception ex)
@@ -40,7 +40,7 @@ namespace bat.Controllers
             try
             {
                 var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-                if (user == null) return View("Landing");
+                if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
@@ -63,7 +63,7 @@ namespace bat.Controllers
             try
             {
                 var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-                if (user == null) return View("Landing");
+                if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
@@ -86,7 +86,7 @@ namespace bat.Controllers
             try
             {
                 var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-                if (user == null) return View("Landing");
+                if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
                 model.Load(id);
@@ -98,6 +98,30 @@ namespace bat.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Join(int id, FormCollection frm)
+        {
+            var model = new bat.logic.Models.Lessons.View();
+
+            try
+            {
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                model.Load(id);
+                model.Save(frm);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index", new { id = model.lesson.ID });
         }
     }
 }

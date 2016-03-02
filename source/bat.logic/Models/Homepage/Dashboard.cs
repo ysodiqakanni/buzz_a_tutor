@@ -20,33 +20,23 @@ namespace bat.logic.Models.Homepage
 
             using (var conn = new dbEntities())
             {
-                //switch (this.accountType)
-                //{
-                //    case Types.AccountTypes.Student:
-                //        this.teachers =
-                //            conn.Accounts.Where(
-                //                a => a.ID != this.account.ID && a.AccountType_ID == (int) Types.AccountTypes.Teacher)
-                //                .ToList();
-                //        break;
-
-                //    case Types.AccountTypes.Teacher:
-                //        this.students =
-                //            conn.Accounts.Where(
-                //                a => a.ID != this.account.ID && a.AccountType_ID == (int)Types.AccountTypes.Student)
-                //                .ToList();
-                //        break;
-
-                //    default:
-                //        throw new Exception("Invalid account type.");
-                //}
-
-                this.lessons = conn.Lessons.Where(l => l.Account_ID == this.account.ID).ToList();
-
-                // show lessons student can join
-                if (this.accountType == Types.AccountTypes.Student)
+                switch (this.accountType)
                 {
-                    this.lessonsToJoin =
-                        conn.Lessons.Where(l => !this.lessons.Select(ml => ml.ID).Contains(l.ID)).ToList();
+                    case Types.AccountTypes.Student:
+                        this.lessons =
+                            conn.LessonParticipants.Where(p => p.Account_ID == this.account.ID)
+                                .Select(p => p.Lesson)
+                                .ToList();
+
+                        var lessonIds = this.lessons.Select(ml => ml.ID);
+
+                        this.lessonsToJoin =
+                            conn.Lessons.Where(l => !lessonIds.Contains(l.ID)).ToList();
+                        break;
+
+                    case Types.AccountTypes.Teacher:
+                        this.lessons = conn.Lessons.Where(l => l.Account_ID == this.account.ID).ToList();
+                        break;
                 }
             }
         }

@@ -9,6 +9,11 @@
 }
 <h2>Lesson Details</h2>
 
+
+@{ Html.BeginForm("Join", "Lessons", FormMethod.Post); }
+
+<input type="hidden" name="lessonId" value="@Model.lesson.ID" />
+
 <p>
     Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
 </p>
@@ -22,3 +27,12 @@
     Description: @Model.lesson.Description
 </p>
 
+
+<div style="margin-top: 40px; overflow: auto;">
+    <input type="submit" value="Join" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
+    <a href="javascript:;" onclick="history.back();" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
+        Cancel
+    </a>
+</div>
+
+@{ Html.EndForm(); }
