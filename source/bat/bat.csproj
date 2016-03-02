@@ -277,9 +277,6 @@
     <Content Include="Views\Home\DashTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Meet.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Lessons\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
