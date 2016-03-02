@@ -28,7 +28,8 @@
 <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Stream</button>
 
 <div id="streamCon">
-    <div id="streamBox" style="width:500px; height:500px"></div>
+    <div id="streamBoxSelf" style="width:400px; height:300px"></div>
+    <div id="streamBoxOther" style="width:400px; height:300px"></div>
 </div>
 
 <!-- TokBox API  -->
@@ -43,7 +44,33 @@
 
     //Publisher Token
     var token = "@Model.token";
-    streamName = "@Model.host.ID";
-    connect(sessionId);
-</script>
 
+    var lessonId = "@Model.lesson.ID";
+    var streamName = lessonId+"-@Model.host.ID";
+    connect(sessionId);
+
+
+    var streamConnect = false;
+
+    session.on("streamCreated", function (event) {
+        stream = event.stream;
+        console.log("New stream in the session: " + stream.streamId);
+        var streamName = stream.name;
+        var streamNameArray = streamName.split('-');
+        var streamLessonID = streamNameArray[0];
+
+        // Debugging
+        console.log(streamLessonID);
+
+        if (streamLessonID == lessonId) {
+            if (streamConnect === false) {
+                session.subscribe(stream, streamBoxOther);
+                streamConnect = true;
+            } else {
+                console.log("Already subscribed.");
+            }
+        } else {
+            console.log("Not the lesson.")
+        }
+    });
+</script>
