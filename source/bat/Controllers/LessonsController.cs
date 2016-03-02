@@ -77,5 +77,27 @@ namespace bat.Controllers
 
             return RedirectToAction("Index", new { id = model.lesson.ID });
         }
+
+        [Authorize]
+        public ActionResult Join(int id)
+        {
+            var model = new bat.logic.Models.Lessons.View();
+
+            try
+            {
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return View("Landing");
+
+                model.Initialise(user.ID);
+                model.Load(id);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
     }
 }

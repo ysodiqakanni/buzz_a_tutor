@@ -12,6 +12,7 @@ namespace bat.logic.Models.Homepage
     public class Dashboard : Master
     {
         public List<Lesson> lessons { get; set; }
+        public List<Lesson> lessonsToJoin { get; set; } 
 
         public void Load()
         {
@@ -40,6 +41,13 @@ namespace bat.logic.Models.Homepage
                 //}
 
                 this.lessons = conn.Lessons.Where(l => l.Account_ID == this.account.ID).ToList();
+
+                // show lessons student can join
+                if (this.accountType == Types.AccountTypes.Student)
+                {
+                    this.lessonsToJoin =
+                        conn.Lessons.Where(l => !this.lessons.Select(ml => ml.ID).Contains(l.ID)).ToList();
+                }
             }
         }
     }

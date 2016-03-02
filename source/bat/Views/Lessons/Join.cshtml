@@ -1,0 +1,24 @@
+﻿@model bat.logic.Models.Lessons.View
+@{
+    ViewBag.Title = "Join Lesson";
+}
+
+@section head {
+}
+@section scripts {
+}
+<h2>Lesson Details</h2>
+
+<p>
+    Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+</p>
+<p>
+    Duration mins: @Model.lesson.DurationMins
+</p>
+<p>
+    Class size: @Model.lesson.ClassSize
+</p>
+<p>
+    Description: @Model.lesson.Description
+</p>
+
