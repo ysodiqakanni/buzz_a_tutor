@@ -1,16 +1,27 @@
 ﻿//Tokbox
+
+// Shared variables
+
 var apiKey = "45496652"; //API Key
 
-var session;
-var publisher;
-var connected = false;
-var targetElement = 'streamBoxSelf';
+var session; // Session object
+var publisher; // Publisher object
 
+var sessionId; // Session Id
+
+var token; // Client's token
+
+var lessonId; // the lesson's id
+var streamName; // The stream's name: lessonId - clients ID
+
+//  **** Sessions *****
+var connected = false; // Check if connected to the session
+
+//Connecting to the session
 var connect = function (sessionId) {
-
     session = OT.initSession(apiKey, sessionId);
 
-    //Logs when someone joins and disconnects
+    //Logs when clients joins and disconnects from the session
     var connectionCount = 0;
     session.on({
         connectionCreated: function (event) {
@@ -37,20 +48,54 @@ var connect = function (sessionId) {
             console.log("Connected to the session");
         }
     });
-}
-   
 
+    // ***** Subscribing *****
+    session.on("streamCreated", function (event) {
+        stream = event.stream;
+        console.log("New stream in the session: " + stream.streamId);
+        var streamName = stream.name;
+        var streamNameArray = streamName.split('-');
+        var streamLessonID = streamNameArray[0];
+
+        // Debugging
+        console.log(streamLessonID);
+
+        if (streamLessonID == lessonId) {
+            session.subscribe(stream, streamBoxOther);
+        } else {
+            console.log("Not the lesson.")
+        }
+    });
+
+    session.on("streamDestroyed", function (event) {
+        console.log("Stream stopped. Reason: " + event.reason);
+        $("#streamCon").append('<div id="streamBoxOther"></div>')
+    });
+}
+
+// Disconnecting for the session
+var sessionDisconnect = function () {
+    session.disconnect();
+    connected = false;
+    console.log("Disconnected from session");
+}
+
+// ***** Publishing *****
+// Variables
+var targetElement = 'streamBoxSelf'; // The element on page to be replaced with tokbox video element.
+
+// Creating a stream
 var startStream = function (sessionId, token) {
     if (connected == true) {
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
-            width:400, 
+            width: 400,
             height: 300,
             name: streamName
         });
 
-        session.publish(publisher, function(error) {
+        session.publish(publisher, function (error) {
             if (error) {
                 console.log(error);
             } else {
@@ -60,20 +105,12 @@ var startStream = function (sessionId, token) {
             }
         });
 
-        //session.on("streamCreated", function (event) {
-        //    session.subscribe(event.stream);
-        //});
     } else {
         console.log("Not connected to session");
     }
 }
 
-var sessionDisconnect = function () {
-    session.disconnect();
-    connected = false;
-    console.log("Disconnected from session");
-}
-
+// Stop publishing
 var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
@@ -81,9 +118,4 @@ var stopStream = function () {
     $("#streamCon").append('<div id="streamBoxSelf"></div>')
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
-}
-
-function resizePublisher() {
-    publisher.element.style.width = "1000px";
-    publisher.element.style.height = "750px";
 }
