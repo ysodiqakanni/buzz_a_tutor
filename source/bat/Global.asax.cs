@@ -21,9 +21,9 @@ namespace bat
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier; // http://stackoverflow.com/questions/19977833/anti-forgery-token-issue-mvc-5
-#if !DEBUG
-            GlobalFilters.Filters.Add(new RequireHttpsAttribute());
-#endif
+//#if !DEBUG
+//            GlobalFilters.Filters.Add(new RequireHttpsAttribute());
+//#endif
         }
     }
 }
