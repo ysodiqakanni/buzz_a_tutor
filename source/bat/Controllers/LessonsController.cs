@@ -29,7 +29,8 @@ namespace bat.Controllers
                 ViewBag.Error = ex.Message;
             }
 
-            return View("View", model);
+            return View("View", model); // TokBox view
+            //return View("ViewZoom", model); // Zoom view
         }
 
         [Authorize]
