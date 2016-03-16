@@ -27,6 +27,15 @@ $(function () {
     });
 });
 
+// Scaling function
+// Based on Choose scale by MarkE
+//http://stackoverflow.com/questions/19672426/chose-scale-in-coordinate-system
+
+function remap(value, actualMin, actualMax, newMin, newMax) {
+    return(newMin + (newMax - newMin) * (value - actualMin) / (actualMax - actualMin));
+}
+
+
 // Canvas Functions
 // Users Paint function
 
@@ -40,8 +49,11 @@ var canvas = document.getElementById("canvas"),
     lastY = 0,
     lineThickness = 1;
 
-canvas.width = $('#blackBoard').width();
-canvas.height = $('#blackBoard').height();
+var blackboardWidth = $('#blackBoard').width();
+var blackboardHeight = $('#blackBoard').height();
+
+canvas.width = blackboardWidth;
+canvas.height = blackboardHeight;
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 canvas.onmousedown = function (e) {
@@ -57,22 +69,27 @@ canvas.onmouseup = function (e) {
 
 canvas.onmousemove = function (e) {
     if (painting) {
-        chalkModel.x = e.pageX - this.offsetLeft;
-        chalkModel.y = e.pageY - this.offsetTop;
-        paint();
+        var cursorX = e.pageX - this.offsetLeft;
+        var cursorY = e.pageY - this.offsetTop;
+        paint(cursorX, cursorY);
 
         //debugging
         //console.log("color: " + shapeModel.color)
 
         // Sends Chalks x y and color to server.
+        var adjustedWidth;
+        var adjustedHeight;
+
+        chalkModel.x = remap(cursorX, 0, blackboardWidth, 0, 600);
+        chalkModel.y = remap(cursorY, 0, blackboardHeight, 0, 600);
         blackboardHub.server.updateModel(chalkModel);
 
     }
 }
 
-function paint() {
-    var mouseX = chalkModel.x;
-    var mouseY = chalkModel.y;
+function paint(x,y) {
+    var mouseX = x;
+    var mouseY = y;
 
     //debugging
     //console.log("Paint - X: " + mouseX + ", Y: " + mouseY)
@@ -142,7 +159,10 @@ function paint() {
 // Server's Print function
 function print() {
     ctx.fillStyle = chalkModel.color;
-    ctx.fillRect(chalkModel.x, chalkModel.y, 4, 4);
+
+    var adjustWidth = remap(chalkModel.x, 0, 600, 0, blackboardWidth);
+    var adjustHeight = remap(chalkModel.y, 0, 600, 0, blackboardHeight);
+    ctx.fillRect(adjustWidth, adjustHeight, 4, 4);
 }
 // end of Canvas function
 
