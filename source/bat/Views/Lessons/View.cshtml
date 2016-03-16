@@ -4,35 +4,54 @@
 }
 
 @section head {
+<link rel="stylesheet" type="text/css" href="~/assets/css/lessonStyle.css">
+<link rel="stylesheet" type="text/css" href="~/assets/css/blackboard.css">
 }
 @section scripts {
 }
-<h2>Lesson Details</h2>
 
-<p>
-    Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-</p>
-<p>
-    Duration mins: @Model.lesson.DurationMins
-</p>
-<p>
-    Class size: @Model.lesson.ClassSize
-</p>
-<p>
-    Description: @Model.lesson.Description
-</p>
+<h3>Lesson Page</h3>
 
 
-
-<button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Start Stream</button>
-<button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Stream</button>
-
-<div id="streamCon">
-    <div id="streamBoxSelf" style="width:400px; height:300px"></div>
-    <div id="streamBoxOther" style="width:400px; height:300px"></div>
+<row>
+    <div class="col-sm-10 topRow">
+        <button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Start Stream</button>
+        <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Stream</button>  
+    </div>
+    <div class="col-sm-2">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                Lesson Details
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")</li>
+                <li>Duration mins: @Model.lesson.DurationMins</li>
+                <li>Class size: @Model.lesson.ClassSize</li>
+                <li class="divider"></li>
+                <li>Description: @Model.lesson.Description</li>
+            </ul>
+        </div>
+    </div>
+</row>
+<div class="row">
+    <div id="streamCon" class="col-sm-6">
+        <div id="selfCon" class="col-sm-6">
+            <div>
+                <div id="streamBoxSelf" class="stream"></div>
+            </div>
+        </div> 
+        <div id="otherCon" class="col-sm-6">
+            <div>
+                <div id="streamBoxOther" class="stream"></div>
+            </div>
+        </div> 
+    </div>
+    <div class="col-sm-1"></div>
+    <div id="blackBoardCon" class="col-sm-5">
+       @Html.Partial("_PartialWhiteboard")
+    </div>
 </div>
-
-@Html.Partial("_PartialWhiteboard");
 
 <!-- TokBox API  -->
 <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>

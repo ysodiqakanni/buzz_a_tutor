@@ -69,7 +69,7 @@ var connect = function (sessionId) {
 
     session.on("streamDestroyed", function (event) {
         console.log("Stream stopped. Reason: " + event.reason);
-        $("#streamCon").append('<div id="streamBoxOther"></div>')
+        $("#otherCon").append('<div id="streamBoxOther" class="stream"></div>')
     });
 }
 
@@ -90,7 +90,7 @@ var startStream = function (sessionId, token) {
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
-            width: 400,
+            width: 300,
             height: 300,
             name: streamName
         });
@@ -115,7 +115,7 @@ var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
 
-    $("#streamCon").append('<div id="streamBoxSelf"></div>')
+    $("#selfCon").append('<div id="streamBoxSelf" class="stream"></div>')
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }
