@@ -18,7 +18,6 @@
     streamName = lessonId + "-@Model.host.ID";
 
     hostName = "@Model.host.Fname" + " " + "@Model.host.Lname";
-    connect(sessionId);
 </script>
 
 <h3>Lesson Page</h3>
@@ -74,3 +73,7 @@
 
 <!-- Link to local TokBox script  -->
 <script type="text/javascript" src="~/assets/js/videoStreaming.js"></script>
+
+<script>
+    connect(sessionId);
+</script>

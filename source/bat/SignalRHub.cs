@@ -47,11 +47,6 @@ namespace bat
             Clients.Group(groupName).addChatMessage(Context.User.Identity.Name + " joined.");
         }
 
-        //public void Send(string name, string message)
-        //{
-        //    // Call the broadcastMessage method to update clients.
-        //    Clients.All.broadcastMessage(name, message);
-        //}
 
         public void Send(MyMessage message)
         {
