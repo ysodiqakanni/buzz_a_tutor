@@ -58,7 +58,7 @@ var connect = function (sessionId) {
         var streamLessonID = streamNameArray[0];
 
         // Debugging
-        console.log(streamLessonID);
+        //console.log(streamLessonID);
 
         if (streamLessonID == lessonId) {
             session.subscribe(stream, streamBoxOther);
