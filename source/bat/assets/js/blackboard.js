@@ -11,6 +11,7 @@ var blackboardHub = $.connection.blackboardHub,
         x: 0,
         y: 0,
         color: '#fff',
+        group: lessonId,
     },
     moved = false;
 
@@ -21,6 +22,10 @@ $(function () {
         print();
     };
     $.connection.hub.start().done(function () {
+
+        // Join the Lesson's Blackboard
+        blackboardHub.server.joinGroup(lessonId);
+
         paint();
         // Start the client side server update interval
         //setInterval(updateServerModel, updateRate);

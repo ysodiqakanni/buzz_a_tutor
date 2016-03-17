@@ -231,6 +231,7 @@
     <Content Include="assets\img\offline.jpg" />
     <Content Include="assets\img\vertical_line.png" />
     <Content Include="assets\js\blackboard.js" />
+    <Content Include="assets\js\chatRoom.js" />
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\zoom.js" />
@@ -261,6 +262,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_PartialChatBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
