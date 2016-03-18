@@ -6,6 +6,7 @@
 @section head {
 <link rel="stylesheet" type="text/css" href="~/assets/css/lessonStyle.css">
 <link rel="stylesheet" type="text/css" href="~/assets/css/blackboard.css">
+<link rel="stylesheet" type="text/css" href="~/assets/css/chatStyle.css">
 }
 @section scripts {
 }
@@ -43,38 +44,44 @@
     </div>
 </row>
 <div class="row">
-    <div id="streamCon" class="col-sm-6">
-        <div class="col-sm-6 stream">
-            <div class="streamHead">
-                <h3>You</h3>
-            </div>
-            <div id="selfCon" class="streamBody">
-                <div id="self" class="streamWindow">
-                    <div id="streamBoxSelf"></div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-12" style="margin-bottom: 2%">
+                <div id="streamCon">
+                    <div class="col-sm-6 stream">
+                        <div class="streamHead">
+                            <h3>You</h3>
+                        </div>
+                        <div id="selfCon" class="streamBody">
+                            <div id="self" class="streamWindow">
+                                <div id="streamBoxSelf"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 stream">
+                        <div class="streamHead">
+                            <h3>Your Partner</h3>
+                        </div>
+                        <div id="otherCon" class="streamBody">
+                            <div id="other" class="streamWindow">
+                                <div id="streamBoxOther"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div> 
-        </div>
-        <div class="col-sm-6 stream">
-            <div class="streamHead">
-                <h3>Your Partner</h3>
             </div>
-            <div id="otherCon" class="streamBody">
-                <div id="other" class="streamWindow">
-                    <div id="streamBoxOther"></div>
-                </div>
-            </div>
-        </div>
+            <div class="col-sm-12">
+                @Html.Partial("_PartialChatBox")
+            </div>   
+        </div>   
+    </div>
+    <div id="blackBoardCon" class="col-sm-6">
+        @Html.Partial("_PartialWhiteboard")
     </div>
 </div>
 <rox>
-    <div id="blackBoardCon" class="col-sm-12">
-        @Html.Partial("_PartialWhiteboard")
-    </div>
 </rox>
-<div class="row" style="margin-top:15px">
-    <div class="col-sm-12">
-        @Html.Partial("_PartialChatBox")
-    </div>
+<div class="row">
 </div>
 
     <!-- TokBox API  -->

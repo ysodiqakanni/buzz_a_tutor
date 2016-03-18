@@ -211,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\blackboard.css" />
+    <Content Include="assets\css\chatStyle.css" />
     <Content Include="assets\css\lessonStyle.css" />
     <Content Include="assets\css\login.css" />
     <Content Include="assets\css\media-queries.css" />

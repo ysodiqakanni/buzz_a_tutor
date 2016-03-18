@@ -1,0 +1,51 @@
+﻿.chatBoxCon{
+    width: 100%;
+    height: 300px;
+    border: 2px black solid;
+    font-size:0;
+}
+
+.chatHead {
+    height: 20%;
+    border-bottom: 2px black solid;
+    background-color: #fbaf41;
+}
+
+#message,
+#sendmessage {
+    font-size: 24px;
+    border: none;
+    padding-left: 1%;
+}
+
+#message {
+    height: 100%;
+    width: 80%;
+    border-right: 2px solid black;
+}
+
+#sendmessage{
+    font-size: 24px;
+    font-weight: bolder;
+    color: white;
+    display: inline-block;
+    height: 100%;
+    width: 20%;
+    background: none;
+}
+
+.chatBody {
+    height: 80%;
+    width: 100%;
+    overflow: scroll;
+}
+
+#discussion {
+    font-size: 16px;
+    padding-top: 1%;
+}
+
+.chatMessage {
+    list-style: none;
+    border-bottom: 0.1px lightgrey solid;
+}
