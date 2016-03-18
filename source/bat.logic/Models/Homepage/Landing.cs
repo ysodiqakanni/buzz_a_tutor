@@ -40,7 +40,7 @@ namespace bat.logic.Models.Homepage
                     Fname = this.firstName,
                     Lname = this.lastName,
                     Email = this.email,
-                    Password = this.password
+                    Password = Helpers.PasswordStorage.CreateHash(this.password)
                 });
                 conn.SaveChanges();
             }
