@@ -51,6 +51,11 @@ var connect = function (sessionId) {
 
     // ***** Subscribing *****
     session.on("streamCreated", function (event) {
+        var options = {
+            width: 300,
+            height: 300
+        }
+
         stream = event.stream;
         console.log("New stream in the session: " + stream.streamId);
         var streamName = stream.name;
@@ -58,10 +63,10 @@ var connect = function (sessionId) {
         var streamLessonID = streamNameArray[0];
 
         // Debugging
-        console.log(streamLessonID);
+        //console.log(streamLessonID);
 
         if (streamLessonID == lessonId) {
-            session.subscribe(stream, streamBoxOther);
+            session.subscribe(stream, streamBoxOther, options);
         } else {
             console.log("Not the lesson.")
         }
