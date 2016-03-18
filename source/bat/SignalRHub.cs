@@ -11,7 +11,6 @@ namespace bat
         public void JoinGroup(string groupName)
         {
             Groups.Add(Context.ConnectionId, groupName);
-            Clients.Group(groupName).addChatMessage(Context.User.Identity.Name + " joined.");
         }
 
         public void UpdateModel(ChalkModel clientModel)
@@ -44,15 +43,14 @@ namespace bat
         public void JoinGroup(string groupName)
         {
             Groups.Add(Context.ConnectionId, groupName);
-            Clients.Group(groupName).addChatMessage(Context.User.Identity.Name + " joined.");
+            Clients.Group(groupName).broadcastMessage("Room","Somebody has joined.");          
         }
 
 
         public void Send(MyMessage message)
         {
             // Call the broadcastMessage method to update clients.
-            Clients.All.broadcastMessage(message.Name, message.Msg);
-            Clients.Group(message.GroupName).broadcastMessage(new MyMessage() { Name = message.Name, Msg = message.Msg });
+            Clients.Group(message.GroupName).broadcastMessage(message.Name, message.Msg);
         }
 
     }

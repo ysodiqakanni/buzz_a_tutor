@@ -26,7 +26,7 @@ $(function () {
             // Checks if message input is blank.
             if ($('#message').val() !== '') {
                 // Call the Send method on the hub.
-                var messagePacket = ({ Name: displayname, Msg: $('#message').val(), Group: lessonId });
+                var messagePacket = ({ Name: displayname, Msg: $('#message').val(), GroupName: lessonId });
                 chat.server.send(messagePacket);
                 // Clear text box and reset focus for next comment.
                 $('#message').val('').focus();
