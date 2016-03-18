@@ -8,6 +8,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Shearnie.Net.Encryption;
 using bat.data;
+using bat.logic.Helpers;
 
 namespace bat.logic.Models.System
 {
@@ -59,14 +60,23 @@ namespace bat.logic.Models.System
                         a => a.Email.Equals(username, StringComparison.CurrentCultureIgnoreCase));
                 if (user == null)
                     throw new Exception("Invalid username or password.");
-//#if (!DEBUG)
-//                if (!Hash_PBKDF2.ValidatePassword(password, user.Password))
-//                    throw new Exception("Invalid username or password.");
-//#endif
+
 #if (!DEBUG)
-                if (user.Password != password)
-                    throw new Exception("Invalid username or password.");
+                try
+                {
+                    if (!Helpers.PasswordStorage.VerifyPassword(password, user.Password))
+                        throw new Exception("Invalid username or password.");
+                }
+                catch (InvalidHashException ex)
+                {
+                    var ignore = ex;
+                    // check plain text
+                    if (password != user.Password) throw new Exception("Invalid username or password.");
+                    user.Password = Helpers.PasswordStorage.CreateHash(password);
+                    conn.SaveChanges();
+                }
 #endif
+
                 return user;
             }
         }

@@ -127,10 +127,12 @@
     <Compile Include="Exceptions\MasterModelNotInitialised.cs" />
     <Compile Include="Helpers\DateTimeExtensions.cs" />
     <Compile Include="Helpers\Numbers.cs" />
+    <Compile Include="Helpers\PasswordStorage.cs" />
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Exceptions\InvalidRecordException.cs" />
     <Compile Include="Exceptions\SaveException.cs" />
     <Compile Include="Models\Homepage\Dashboard.cs" />
+    <Compile Include="Models\Homepage\Landing.cs" />
     <Compile Include="Models\Lessons\View.cs" />
     <Compile Include="Models\Lessons\New.cs" />
     <Compile Include="Models\Master.cs" />

@@ -280,9 +280,9 @@ header .navbar {
 	margin: 0;
 }
 
-form.suscribe input  {
+/*form.suscribe input  {
 	margin: 20px 0;
-}
+}*/
 
 form.suscribe .btn {
 	background:#1e80cf url("../img/btn-bg.png") repeat 0 0;

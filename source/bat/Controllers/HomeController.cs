@@ -15,13 +15,13 @@ namespace bat.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+
             var model = new bat.logic.Models.Homepage.Dashboard();
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-                if (user == null) return View("Landing");
-
                 model.Initialise(user.ID);
                 model.Load();
             }
@@ -42,6 +42,32 @@ namespace bat.Controllers
 
             // maybe for admin later
             return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Index(
+            string type, string firstname, string lastname, string email, string password)
+        {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user != null) return RedirectToRoute("home");
+
+            var model = new bat.logic.Models.Homepage.Landing();
+
+            try
+            {
+                model.Signup(type, firstname, lastname, email, password);
+
+                var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
+                auth.Login(auth.GetUser(email, password));
+                return RedirectToRoute("home");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Landing", model);
+            }
         }
 
         [AllowAnonymous]
