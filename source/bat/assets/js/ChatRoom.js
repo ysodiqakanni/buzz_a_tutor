@@ -14,7 +14,7 @@ $(function () {
     };
 
     // Get the user name and store it to prepend to messages.
-    var displayname = hostName;
+    var displayname = username;
 
     // Start the connection.
     $.connection.hub.start().done(function () {

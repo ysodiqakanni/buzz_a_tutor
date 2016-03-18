@@ -17,10 +17,10 @@
     lessonId = "@Model.lesson.ID";
     streamName = lessonId + "-@Model.host.ID";
 
-    hostName = "@Model.host.Fname" + " " + "@Model.host.Lname";
+    username = "@Model.account.Fname" + " " + "@Model.account.Lname";
 </script>
 
-<h3>Lesson Page</h3>
+<h2>Description: @Model.lesson.Description</h2>
 
 
 <row>
@@ -38,8 +38,6 @@
                 <li>Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")</li>
                 <li>Duration mins: @Model.lesson.DurationMins</li>
                 <li>Class size: @Model.lesson.ClassSize</li>
-                <li class="divider"></li>
-                <li>Description: @Model.lesson.Description</li>
             </ul>
         </div>
     </div>

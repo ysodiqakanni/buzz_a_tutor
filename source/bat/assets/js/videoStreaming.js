@@ -107,7 +107,6 @@ var startStream = function (sessionId, token) {
             width: selfWidth,
             height: selfHeight,
             name: streamName,
-            margin: "auto",
             nameDisplayMode: "off"
         });
 
