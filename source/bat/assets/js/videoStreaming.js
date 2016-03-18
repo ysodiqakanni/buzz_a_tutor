@@ -14,6 +14,14 @@ var token; // Client's token
 var lessonId; // the lesson's id
 var streamName; // The stream's name: lessonId - clients ID
 
+//Get dimentions of stream windows
+var selfWidth = $("#self").width();
+var selfHeight = $("#self").height();
+
+var otherWidth = $("#other").width();
+var otherHeight = $("#other").height()
+
+
 //  **** Sessions *****
 var connected = false; // Check if connected to the session
 
@@ -52,8 +60,9 @@ var connect = function (sessionId) {
     // ***** Subscribing *****
     session.on("streamCreated", function (event) {
         var options = {
-            width: 300,
-            height: 300
+            width: otherWidth,
+            height: otherHeight,
+            nameDisplayMode: "off"
         }
 
         stream = event.stream;
@@ -74,7 +83,7 @@ var connect = function (sessionId) {
 
     session.on("streamDestroyed", function (event) {
         console.log("Stream stopped. Reason: " + event.reason);
-        $("#otherCon").append('<div id="streamBoxOther" class="stream"></div>')
+        $("#other").append('<div id="streamBoxOther"></div>')
     });
 }
 
@@ -95,9 +104,11 @@ var startStream = function (sessionId, token) {
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
-            width: 300,
-            height: 300,
-            name: streamName
+            width: selfWidth,
+            height: selfHeight,
+            name: streamName,
+            margin: "auto",
+            nameDisplayMode: "off"
         });
 
         session.publish(publisher, function (error) {
@@ -120,7 +131,7 @@ var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
 
-    $("#selfCon").append('<div id="streamBoxSelf" class="stream"></div>')
+    $("#self").append('<div id="streamBoxSelf"></div>')
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }

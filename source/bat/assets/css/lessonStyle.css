@@ -2,18 +2,49 @@
 
  }
 
-#selfCon {
-
-}
-
-#otherCon {
-
-}
-
 .stream {
-    width: 300px;
+    /*width: 100%;*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.streamHead {
+    padding: 10px;
+    background-color: #FBAF41;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom: 1px black solid;
+}
+
+.streamHead h3 {
+    margin: 0;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+
+}
+
+.streamBody {
+    background-color: #635DC1;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top: 1px black solid;
+
     height: 300px;
+}
+
+.streamWindow {
+    width: 100%;
+    height: 100%;
     background-image: url("../img/offline.jpg");
+    background-position: center;
+}
+
+#self,
+#other {
+    margin: auto;
+    width: 80%;
+    height: 100%;
 }
 
 .topRow {

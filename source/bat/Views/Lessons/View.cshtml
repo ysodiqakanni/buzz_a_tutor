@@ -25,8 +25,8 @@
 
 <row>
     <div class="col-sm-10 topRow">
-        <button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Start Stream</button>
-        <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Stream</button>  
+        <button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Join</button>
+        <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Leave</button>  
     </div>
     <div class="col-sm-2">
         <div class="dropdown">
@@ -46,24 +46,33 @@
 </row>
 <div class="row">
     <div id="streamCon" class="col-sm-6">
-        <div id="selfCon" class="col-sm-6">
-            <h3>You</h3>
-            <div>
-                <div id="streamBoxSelf" class="stream"></div>
+        <div class="col-sm-6 stream">
+            <div class="streamHead">
+                <h3>You</h3>
             </div>
-        </div> 
-        <div id="otherCon" class="col-sm-6">
-            <h3>Your Partner</h3>
-            <div>
-                <div id="streamBoxOther" class="stream"></div>
+            <div id="selfCon" class="streamBody">
+                <div id="self" class="streamWindow">
+                    <div id="streamBoxSelf"></div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-sm-6 stream">
+            <div class="streamHead">
+                <h3>Your Partner</h3>
             </div>
-        </div> 
-    </div>
-    <div class="col-sm-1"></div>
-    <div id="blackBoardCon" class="col-sm-5">
-       @Html.Partial("_PartialWhiteboard")
+            <div id="otherCon" class="streamBody">
+                <div id="other" class="streamWindow">
+                    <div id="streamBoxOther"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<rox>
+    <div id="blackBoardCon" class="col-sm-12">
+        @Html.Partial("_PartialWhiteboard")
+    </div>
+</rox>
 <div class="row" style="margin-top:15px">
     <div class="col-sm-12">
         @Html.Partial("_PartialChatBox")
