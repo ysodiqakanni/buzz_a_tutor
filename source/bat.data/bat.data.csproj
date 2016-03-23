@@ -56,6 +56,9 @@
     <Compile Include="Account.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="AccountAttachment.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="db.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

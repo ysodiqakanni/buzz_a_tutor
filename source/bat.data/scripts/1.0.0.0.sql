@@ -79,6 +79,25 @@ REFERENCES [dbo].[Lesson] ([ID])
 GO
 
 ALTER TABLE [dbo].[LessonParticipant] CHECK CONSTRAINT [FK_LessonParticipant_Lesson]
-GO
 
+
+
+
+
+GO
+CREATE TABLE [dbo].[AccountAttachment](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Account_ID] [int] NOT NULL,
+	[Title] [varchar](500) NOT NULL,
+	[Data] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_AccountAttachment] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
+GO
+ALTER TABLE [dbo].[AccountAttachment]  WITH CHECK ADD  CONSTRAINT [FK_AccountAttachment_Account] FOREIGN KEY([Account_ID])
+REFERENCES [dbo].[Account] ([ID])
 
