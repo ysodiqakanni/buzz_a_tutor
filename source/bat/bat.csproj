@@ -235,6 +235,7 @@
     <Content Include="assets\js\chatRoom.js" />
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\videoStreaming.js" />
+    <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />

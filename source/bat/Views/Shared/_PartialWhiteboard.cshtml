@@ -1,12 +1,20 @@
-﻿<button class="btn white" onclick="changeColor('White')">Default</button>
-<button class="btn blue" onclick="changeColor('Blue')">Blue</button>
-<button class="btn red" onclick="changeColor('Red')">Red</button>
-<button class="btn green" onclick="changeColor('Green')">Green</button>
+﻿<button id="defaultBtn" class="btn white">Default</button>
+<button id="blueBtn" class="btn blue">Blue</button>
+<button id="redBtn" class="btn red">Red</button>
+<button id="greenBtn" class="btn green">Green</button>
 
-<div id="blackBoard">
-    <canvas id="canvas" style="align-content:center"></canvas>
+<div id="blackBoardCon">
+    <!--Blackboard function will go here-->
 </div>
+
 
 @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
 @Scripts.Render("~/signalr/hubs")
-@Scripts.Render("~/assets/js/blackboard.js")
+@Scripts.Render("~/assets/js/whiteboard.js")
+
+<script>
+    whiteBoard.settings.canvasName = 'canvas';
+    whiteBoard.settings.frameName = 'blackBoard';
+    whiteBoard.settings.container = 'blackBoardCon';
+    whiteBoard.init()
+</script>

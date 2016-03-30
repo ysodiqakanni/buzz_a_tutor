@@ -1,16 +1,24 @@
-﻿#blackBoardCon {
+﻿#blackBoardCon,
+#whiteBoardCon {
     height: 100%;
     position:static;
 }
 
-#blackBoard {
+#blackBoard,
+#whiteBoard {
     height: 700px;
     border: 10px solid #966F33;
     width: 100%;
     background-color: black;
 }
 
-#canvas {
+#blackBoard {
+    background-color: black;
+}
+
+
+#canvas,
+#canvas2 {
     padding-left: 0;
     padding-right: 0;
     margin-left: auto;

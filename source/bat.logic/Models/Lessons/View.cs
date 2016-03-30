@@ -1,9 +1,11 @@
 ﻿using bat.data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace bat.logic.Models.Lessons
@@ -71,6 +73,26 @@ namespace bat.logic.Models.Lessons
                 {
                     Account_ID = this.account.ID,
                     Lesson_ID = lessonId
+                });
+                conn.SaveChanges();
+            }
+        }
+
+        public void UploadImage(string title, HttpPostedFileBase data)
+        {
+            byte[] thePictureAsBytes = new byte[data.ContentLength];
+            using (BinaryReader theReader = new BinaryReader(data.InputStream))
+            {
+                thePictureAsBytes = theReader.ReadBytes(data.ContentLength);
+            }
+
+            using (var conn = new dbEntities())
+            {
+                conn.AccountAttachments.Add(new AccountAttachment()
+                {
+                    Account_ID = this.account.ID,
+                    Title = title,
+                    Data = Convert.ToBase64String(thePictureAsBytes)
                 });
                 conn.SaveChanges();
             }
