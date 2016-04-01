@@ -237,11 +237,28 @@ function saveImg(lessonId) {
     }
 }
 
-function loadImg(data) {
+function loadImg(id) {
     useImg = true;
-    imgData = data;
-    
-    clearBoard();
+
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/getattachment", //The controller/Action
+        dataType: "json",
+        data: {
+            "attachmentid": id
+        },
+
+        success: function (data) {
+            console.log("get image stream succesful");
+            imgData = data
+            clearBoard();
+        },
+
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+//            $('#imgSaveFail').removeClass('hidden');
+        }
+    })
 }
 
 function defaultBoard() {

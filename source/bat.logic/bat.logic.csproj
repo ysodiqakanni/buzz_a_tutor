@@ -131,9 +131,11 @@
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Exceptions\InvalidRecordException.cs" />
     <Compile Include="Exceptions\SaveException.cs" />
+    <Compile Include="Models\Api\Lessons\GetAttachment.cs" />
     <Compile Include="Models\Api\Lessons\Upload.cs" />
     <Compile Include="Models\Homepage\Dashboard.cs" />
     <Compile Include="Models\Homepage\Landing.cs" />
+    <Compile Include="Models\Lessons\Attachment.cs" />
     <Compile Include="Models\Lessons\View.cs" />
     <Compile Include="Models\Lessons\New.cs" />
     <Compile Include="Models\Master.cs" />

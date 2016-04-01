@@ -42,7 +42,7 @@
                     @foreach (var attachment in Model.attachments)
                     {
                         <li>
-                            <button onclick="loadImg('@attachment.Data')">
+                            <button onclick="loadImg('@attachment.ID')">
                                 @attachment.Title
                             </button>
                         </li>

@@ -22,6 +22,12 @@ namespace bat
                 routeTemplate: "api/lessons/upload",
                 defaults: new { controller = "LessonsApi", action = "Upload" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "api/lessons/getattachment",
+                routeTemplate: "api/lessons/getattachment",
+                defaults: new { controller = "LessonsApi", action = "Getattachment" }
+            );
         }
     }
 }

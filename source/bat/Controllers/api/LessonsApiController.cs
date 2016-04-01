@@ -20,5 +20,15 @@ namespace bat.Controllers.api
 
             return bat.logic.Models.Api.Lessons.Upload.UploadImage(Convert.ToInt32(formData["lessonid"]), user.ID, formData["title"], formData["data"]);
         }
+
+        [Authorize]
+        [System.Web.Http.HttpPost]
+        public string Getattachment(FormDataCollection formData)
+        {
+            var user = new logic.Models.System.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) throw new Exception("Unauthorised access.");
+
+            return bat.logic.Models.Api.Lessons.GetAttachment.GetImageStream(Convert.ToInt32(formData["attachmentid"]));
+        }
     }
 }
