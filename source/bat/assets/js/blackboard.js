@@ -197,50 +197,44 @@ function print() {
 // Change Chalk color
 function changeColor(color) {
     clientModel.color = color;
-    //switch (color) {
-    //    case 'White':
-    //        chalkModel.color = '#fff';
-    //        break;
-    //    case 'Blue':
-    //        chalkModel.color = '#0026ff';
-    //        break;
-    //    case 'Red':
-    //        chalkModel.color = '#ff0000';
-    //        break;
-    //    case 'Green':
-    //        chalkModel.color = '#4cff00';
-    //        break;
-    //}
 }
 // end of change chalk color
 
-function saveImg(lessonId, title) {
+function saveImg(lessonId) {
     var img2SaveRaw = canvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
-        img2Save = img2SaveArray[1];
+        img2Save = img2SaveArray[1],
+        title = $('#saveTitle').val();
+    $('#imgSaveFail').addClass('hidden');
+    $('#imgSaveSuccess').addClass('hidden');
+
 
     // For muckup purpose
-    //var title = prompt("Title:", "Please supply a title");
+    if (title == '') {
+        $('#imgSaveFail').removeClass('hidden');
+    } else {
 
-    $.ajax({
-        type: "POST", // Type of request
-        url: "../api/lessons/upload", //The controller/Action
-        dataType: "json",
-        data: {
-            "lessonid": lessonId,
-            "title": title,
-            "data": img2Save,
-        },
+        $.ajax({
+            type: "POST", // Type of request
+            url: "../api/lessons/upload", //The controller/Action
+            dataType: "json",
+            data: {
+                "lessonid": lessonId,
+                "title": title,
+                "data": img2Save,
+            },
 
-        success: function (data) {
-            console.log("save succesful");
-            $('#imgSaveIcon').removeClass('hidden');
-        },
+            success: function (data) {
+                console.log("save succesful");
+                $('#imgSaveSuccess').removeClass('hidden');
+            },
 
-        error: function (err) {
-            console.log("error[" + err.status + "]: " + err.statusText);
-        }
-    })
+            error: function (err) {
+                console.log("error[" + err.status + "]: " + err.statusText);
+                $('#imgSaveFail').removeClass('hidden');
+            }
+        })
+    }
 }
 
 function loadImg(data) {

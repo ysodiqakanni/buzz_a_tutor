@@ -19,17 +19,17 @@
     display: block;
 }
 
-.white,
-.blue,
-.red,
-.green{
-    margin-left:5%;
-    margin-right: 5%;
-}
-
-#imgSaveIcon{
+#imgSaveSuccess, 
+#imgSaveFail{
     font-size: 23px;
     line-height: 100%;
-    color: green;
     display: inline;
+}
+
+#imgSaveFail {
+    color: red;
+}
+
+#imgSaveSuccess {
+    color: green;
 }

@@ -3,7 +3,7 @@
     <div class="col-sm-6">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Upload or load.
+                    Menu
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -11,7 +11,7 @@
                     @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <li>
-                            <label for="data">Filename:</label>
+                            <label for="data">File:</label>
                             <input type="file" name="data" id="data" />
                         </li>
                         <li>
@@ -20,6 +20,23 @@
                             <input type="submit" />
                         </li>
                     }
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <p style="display: inline-block;">Save the board:</p>
+                        <div id="imgSaveSuccess" class="hidden">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div id="imgSaveFail" class="hidden">
+                            <i class="fa fa-exclamation-triangle"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <form>
+                            <label for="saveTitle">Title:</label>
+                            <input type="text" id="saveTitle" name="saveTitle">
+                            <input type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
+                        </form>
+                    </li>
                     <li role="separator" class="divider"></li>
                     <li><p>Load an image:</p></li>
                     @foreach (var attachment in Model.attachments)
@@ -36,8 +53,6 @@
     <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
     <button onclick="defaultBoard()" class="btn">New</button>
     <button onclick="clearBoard()" class="btn">Clean</button>
-    <button class="btn">Save Board</button>
-    <div id="imgSaveIcon" class="hidden"><i class="fa fa-check"></i></div>
 </div>
 <div id="blackBoard">
     <canvas id="canvas" style="align-content:center"></canvas>
