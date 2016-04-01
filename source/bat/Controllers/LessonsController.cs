@@ -125,7 +125,6 @@ namespace bat.Controllers
             return RedirectToAction("Index", new { id = model.lesson.ID });
         }
 
-
         [Authorize]
         [HttpPost]
         public ActionResult Upload(int id, HttpPostedFileBase data, string title)
@@ -138,7 +137,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                model.UploadImage(title, data);
+                model.UploadImage(id, title, data);
             }
             catch (Exception ex)
             {

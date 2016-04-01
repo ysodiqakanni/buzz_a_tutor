@@ -10,8 +10,8 @@
         <AssociationConnector Association="dbModel.FK_Lesson_Account" />
         <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.75" PointX="5.125" PointY="1.125" />
         <AssociationConnector Association="dbModel.FK_LessonParticipant_Lesson" />
-        <EntityTypeShape EntityType="dbModel.AccountAttachment" Width="1.875" PointX="2.75" PointY="4" />
-        <AssociationConnector Association="dbModel.FK_AccountAttachment_Account" />
+        <EntityTypeShape EntityType="dbModel.LessonAttachment" Width="1.75" PointX="5.125" PointY="4" />
+        <AssociationConnector Association="dbModel.FK_LessonAttachment_Lesson" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

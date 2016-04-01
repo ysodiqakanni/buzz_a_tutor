@@ -200,6 +200,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="assets\css\batmain.css" />
+    <Compile Include="Controllers\api\LessonsApiController.cs" />
     <Compile Include="SignalRHub.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />

@@ -39,15 +39,18 @@ var whiteBoard = {
 
     init: function () {
         this.s = this.settings;
-        var blackboardHubProxy = $.connection.blackboardHub;
+        this.createElements();
+        this.bindUIActions();
+    },
 
+    signalr: function () {
+        var blackboardHubProxy = $.connection.blackboardHub;
         whiteBoard.s.blackboardHub.client.updateChalk = function (model) {
-            console.log("update:" + whiteBoard.s.chalkModel)
             whiteBoard.s.chalkModel = model;
             whiteBoard.print();
         };
         $.connection.hub.start().done(function () {
-            console.log("Start: " +whiteBoard.s);
+            console.log(whiteBoard.s);
 
             // Join the Lesson's Blackboard
             blackboardHubProxy.server.joinGroup(lessonId);
@@ -55,10 +58,6 @@ var whiteBoard = {
             // Start the client side server update interval
             //setInterval(updateServerModel, updateRate);
         });
-
-
-        this.createElements();
-        this.bindUIActions();
     },
 
     createElements: function () {

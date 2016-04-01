@@ -1,20 +1,63 @@
-﻿<button id="defaultBtn" class="btn white">Default</button>
-<button id="blueBtn" class="btn blue">Blue</button>
-<button id="redBtn" class="btn red">Red</button>
-<button id="greenBtn" class="btn green">Green</button>
-
-<div id="blackBoardCon">
-    <!--Blackboard function will go here-->
+﻿@model bat.logic.Models.Partials.IPartialWhiteboard
+<div id="blackBoardButtons">
+    <div class="col-sm-6">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Menu
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><p>Upload:</p></li>
+                    @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <li>
+                            <label for="data">File:</label>
+                            <input type="file" name="data" id="data" />
+                        </li>
+                        <li>
+                            <label for="title">Title:</label>
+                            <input type="text" name="title" id="title" />
+                            <input type="submit" />
+                        </li>
+                    }
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <p style="display: inline-block;">Save the board:</p>
+                        <div id="imgSaveSuccess" class="hidden">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div id="imgSaveFail" class="hidden">
+                            <i class="fa fa-exclamation-triangle"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <form>
+                            <label for="saveTitle">Title:</label>
+                            <input type="text" id="saveTitle" name="saveTitle">
+                            <input type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
+                        </form>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li><p>Load an image:</p></li>
+                    @foreach (var attachment in Model.attachments)
+                    {
+                        <li>
+                            <button onclick="loadImg('@attachment.Data')">
+                                @attachment.Title
+                            </button>
+                        </li>
+                    }
+                </ul>
+        </div>
+    </div>
+    <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
+    <button onclick="defaultBoard()" class="btn">New</button>
+    <button onclick="clearBoard()" class="btn">Clean</button>
 </div>
-
+<div id="blackBoard">
+    <canvas id="canvas" style="align-content:center"></canvas>
+</div>
 
 @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
 @Scripts.Render("~/signalr/hubs")
-@Scripts.Render("~/assets/js/whiteboard.js")
-
-<script>
-    whiteBoard.settings.canvasName = 'canvas';
-    whiteBoard.settings.frameName = 'blackBoard';
-    whiteBoard.settings.container = 'blackBoardCon';
-    whiteBoard.init()
-</script>
+@Scripts.Render("~/assets/js/blackboard.js")

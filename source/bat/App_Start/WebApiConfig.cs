@@ -16,7 +16,12 @@ namespace bat
 
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
-            
+
+            config.Routes.MapHttpRoute(
+                name: "api/lessons/upload",
+                routeTemplate: "api/lessons/upload",
+                defaults: new { controller = "LessonsApi", action = "Upload" }
+            );
         }
     }
 }

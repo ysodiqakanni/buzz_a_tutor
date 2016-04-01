@@ -12,13 +12,14 @@ namespace bat.data
     using System;
     using System.Collections.Generic;
     
-    public partial class AccountAttachment
+    public partial class LessonAttachment
     {
         public int ID { get; set; }
+        public int Lesson_ID { get; set; }
         public int Account_ID { get; set; }
         public string Title { get; set; }
         public string Data { get; set; }
     
-        public virtual Account Account { get; set; }
+        public virtual Lesson Lesson { get; set; }
     }
 }

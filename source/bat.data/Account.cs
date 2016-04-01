@@ -18,7 +18,6 @@ namespace bat.data
         public Account()
         {
             this.Lessons = new HashSet<Lesson>();
-            this.AccountAttachments = new HashSet<AccountAttachment>();
         }
     
         public int ID { get; set; }
@@ -30,7 +29,5 @@ namespace bat.data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountAttachment> AccountAttachments { get; set; }
     }
 }
