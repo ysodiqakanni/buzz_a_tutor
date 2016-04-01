@@ -1,21 +1,25 @@
 ﻿using bat.data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace bat.logic.Models.Lessons
 {
-    public class View : Master
+    public class View : Master, Partials.IPartialWhiteboard
     {
-        public Lesson lesson { get; set; }
         public string session { get; set; }
         public string token { get; set; }
 
         public Account host { get; set; }
         public List<Account> others { get; set; }
+
+        public Lesson lesson { get; set; }
+        public List<bat.data.AccountAttachment> attachments { get; set; }
 
         public View()
         {
@@ -25,7 +29,7 @@ namespace bat.logic.Models.Lessons
                 DurationMins = 15,
                 ClassSize = 1
             };
-
+            this.attachments = new List<AccountAttachment>();
             this.session = "2_MX40NTQ5NjY1Mn5-MTQ1ODI1NjE1Nzk0OH5OTnRSTUR5c0FZMnpSYkFob1doR2xNT3h-UH4";
             this.host = new Account();
             this.others = new List<Account>();
@@ -40,6 +44,9 @@ namespace bat.logic.Models.Lessons
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
+
+                //TODO, only from this lesson
+                this.attachments = conn.AccountAttachments.ToList();
 
                 this.host = this.lesson.Account;
                 foreach (var participant in this.lesson.LessonParticipants.ToList())
@@ -71,6 +78,26 @@ namespace bat.logic.Models.Lessons
                 {
                     Account_ID = this.account.ID,
                     Lesson_ID = lessonId
+                });
+                conn.SaveChanges();
+            }
+        }
+
+        public void UploadImage(string title, HttpPostedFileBase data)
+        {
+            byte[] thePictureAsBytes = new byte[data.ContentLength];
+            using (BinaryReader theReader = new BinaryReader(data.InputStream))
+            {
+                thePictureAsBytes = theReader.ReadBytes(data.ContentLength);
+            }
+
+            using (var conn = new dbEntities())
+            {
+                conn.AccountAttachments.Add(new AccountAttachment()
+                {
+                    Account_ID = this.account.ID,
+                    Title = title,
+                    Data = Convert.ToBase64String(thePictureAsBytes)
                 });
                 conn.SaveChanges();
             }

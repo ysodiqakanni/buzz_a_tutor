@@ -124,5 +124,28 @@ namespace bat.Controllers
 
             return RedirectToAction("Index", new { id = model.lesson.ID });
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Upload(int id, HttpPostedFileBase data, string title)
+        {
+            var model = new bat.logic.Models.Lessons.View();
+
+            try
+            {
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                model.UploadImage(title, data);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index", new { id = id });
+        }
     }
 }

@@ -26,3 +26,10 @@
     margin-left:5%;
     margin-right: 5%;
 }
+
+#imgSaveIcon{
+    font-size: 23px;
+    line-height: 100%;
+    color: green;
+    display: inline;
+}

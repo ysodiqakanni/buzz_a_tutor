@@ -200,6 +200,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="assets\css\batmain.css" />
+    <Compile Include="Controllers\api\LessonsApiController.cs" />
     <Compile Include="SignalRHub.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
@@ -235,6 +236,7 @@
     <Content Include="assets\js\chatRoom.js" />
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\videoStreaming.js" />
+    <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />

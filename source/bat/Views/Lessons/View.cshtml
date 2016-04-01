@@ -50,7 +50,7 @@
                 <div id="streamCon">
                     <div class="col-sm-6 stream">
                         <div class="streamHead">
-                            <h3>You</h3>
+                            <h3>@Model.host.Fname @Model.host.Lname</h3>
                         </div>
                         <div id="selfCon" class="streamBody">
                             <div id="self" class="streamWindow">
@@ -58,31 +58,44 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 stream">
-                        <div class="streamHead">
-                            <h3>Your Partner</h3>
-                        </div>
+                </div>
+                <div class="col-sm-6 stream">
+                    <div class="streamHead">
+                        <h3>@Model.account.Fname @Model.account.Lname</h3>
+                    </div>
+                    <div id="otherCon" class="streamBody">
                         <div id="otherCon" class="streamBody">
                             <div id="other" class="streamWindow">
                                 <div id="streamBoxOther"></div>
                             </div>
                         </div>
                     </div>
+
+                    @foreach (var other in Model.others.Where(o => o.ID != Model.account.ID))
+                    {
+                        <div class="col-sm-6 stream">
+                            <div class="streamHead">
+                                <h3>@other.Fname @other.Lname</h3>
+                            </div>
+                            <div id="otherCon" class="streamBody">
+                                <div id="other" class="streamWindow">
+                                    <div id="streamBoxOther"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                        </div>
+                    </div>
                 </div>
-            </div>
             <div class="col-sm-12">
                 @Html.Partial("_PartialChatBox")
             </div>   
         </div>   
-    </div>
     <div id="blackBoardCon" class="col-sm-6">
-        @Html.Partial("_PartialWhiteboard")
+        @Html.Partial("_PartialWhiteboard", Model)
     </div>
 </div>
-<rox>
-</rox>
-<div class="row">
-</div>
+
 
     <!-- TokBox API  -->
 <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
