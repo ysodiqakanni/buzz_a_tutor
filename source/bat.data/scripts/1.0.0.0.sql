@@ -85,12 +85,12 @@ ALTER TABLE [dbo].[LessonParticipant] CHECK CONSTRAINT [FK_LessonParticipant_Les
 
 
 GO
-CREATE TABLE [dbo].[AccountAttachment](
+CREATE TABLE [dbo].[LessonAttachment](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Account_ID] [int] NOT NULL,
 	[Title] [varchar](500) NOT NULL,
 	[Data] [varchar](max) NOT NULL,
- CONSTRAINT [PK_AccountAttachment] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_LessonAttachment] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -98,6 +98,36 @@ CREATE TABLE [dbo].[AccountAttachment](
 
 
 GO
-ALTER TABLE [dbo].[AccountAttachment]  WITH CHECK ADD  CONSTRAINT [FK_AccountAttachment_Account] FOREIGN KEY([Account_ID])
+ALTER TABLE [dbo].[LessonAttachment]  WITH CHECK ADD  CONSTRAINT [FK_LessonAttachment_Account] FOREIGN KEY([Account_ID])
 REFERENCES [dbo].[Account] ([ID])
+
+
+
+go
+drop table LessonAttachment
+
+GO
+CREATE TABLE [dbo].[LessonAttachment](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Lesson_ID] [int] NOT NULL,
+	[Account_ID] [int] NOT NULL,
+	[Title] [varchar](500) NOT NULL,
+	[Data] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_LessonAttachment] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.LessonAttachment ADD CONSTRAINT
+	FK_LessonAttachment_Lesson FOREIGN KEY
+	(
+	Lesson_ID
+	) REFERENCES dbo.Lesson
+	(
+	ID
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
 

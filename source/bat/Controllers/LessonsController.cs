@@ -137,7 +137,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                model.UploadImage(title, data);
+                model.UploadImage(id, title, data);
             }
             catch (Exception ex)
             {

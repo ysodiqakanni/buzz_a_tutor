@@ -9,6 +9,6 @@ namespace bat.logic.Models.Partials
     public interface IPartialWhiteboard
     {
         bat.data.Lesson lesson { get; set; }
-        List<bat.data.AccountAttachment> attachments { get; set; }
+        List<bat.data.LessonAttachment> attachments { get; set; }
     }
 }

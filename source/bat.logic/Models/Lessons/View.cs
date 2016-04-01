@@ -19,7 +19,7 @@ namespace bat.logic.Models.Lessons
         public List<Account> others { get; set; }
 
         public Lesson lesson { get; set; }
-        public List<bat.data.AccountAttachment> attachments { get; set; }
+        public List<bat.data.LessonAttachment> attachments { get; set; }
 
         public View()
         {
@@ -29,7 +29,7 @@ namespace bat.logic.Models.Lessons
                 DurationMins = 15,
                 ClassSize = 1
             };
-            this.attachments = new List<AccountAttachment>();
+            this.attachments = new List<LessonAttachment>();
             this.session = "2_MX40NTQ5NjY1Mn5-MTQ1ODI1NjE1Nzk0OH5OTnRSTUR5c0FZMnpSYkFob1doR2xNT3h-UH4";
             this.host = new Account();
             this.others = new List<Account>();
@@ -45,8 +45,7 @@ namespace bat.logic.Models.Lessons
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
 
-                //TODO, only from this lesson
-                this.attachments = conn.AccountAttachments.ToList();
+                this.attachments = this.lesson.LessonAttachments.ToList();
 
                 this.host = this.lesson.Account;
                 foreach (var participant in this.lesson.LessonParticipants.ToList())
@@ -83,7 +82,7 @@ namespace bat.logic.Models.Lessons
             }
         }
 
-        public void UploadImage(string title, HttpPostedFileBase data)
+        public void UploadImage(int lessonId, string title, HttpPostedFileBase data)
         {
             byte[] thePictureAsBytes = new byte[data.ContentLength];
             using (BinaryReader theReader = new BinaryReader(data.InputStream))
@@ -93,8 +92,9 @@ namespace bat.logic.Models.Lessons
 
             using (var conn = new dbEntities())
             {
-                conn.AccountAttachments.Add(new AccountAttachment()
+                conn.LessonAttachments.Add(new LessonAttachment()
                 {
+                    Lesson_ID = lessonId,
                     Account_ID = this.account.ID,
                     Title = title,
                     Data = Convert.ToBase64String(thePictureAsBytes)

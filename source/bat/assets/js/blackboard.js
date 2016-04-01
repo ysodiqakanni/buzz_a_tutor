@@ -214,21 +214,22 @@ function changeColor(color) {
 }
 // end of change chalk color
 
-function saveImg() {
+function saveImg(lessonId, title) {
     var img2SaveRaw = canvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1];
 
     // For muckup purpose
-    var title = prompt("Title:", "Please supply a title");
+    //var title = prompt("Title:", "Please supply a title");
 
     $.ajax({
         type: "POST", // Type of request
         url: "../api/lessons/upload", //The controller/Action
         dataType: "json",
         data: {
-            "Title": title,
-            "Data": img2Save,
+            "lessonid": lessonId,
+            "title": title,
+            "data": img2Save,
         },
 
         success: function (data) {

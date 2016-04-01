@@ -56,9 +56,6 @@
     <Compile Include="Account.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
-    <Compile Include="AccountAttachment.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
     <Compile Include="db.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,6 +72,9 @@
       <DependentUpon>db.edmx</DependentUpon>
     </Compile>
     <Compile Include="Lesson.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LessonAttachment.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="LessonParticipant.cs">
