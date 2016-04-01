@@ -85,7 +85,7 @@ ALTER TABLE [dbo].[LessonParticipant] CHECK CONSTRAINT [FK_LessonParticipant_Les
 
 
 GO
-CREATE TABLE [dbo].[LessonAttachment](
+CREATE TABLE [dbo].[AccountAttachment](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Account_ID] [int] NOT NULL,
 	[Title] [varchar](500) NOT NULL,
@@ -98,13 +98,13 @@ CREATE TABLE [dbo].[LessonAttachment](
 
 
 GO
-ALTER TABLE [dbo].[LessonAttachment]  WITH CHECK ADD  CONSTRAINT [FK_LessonAttachment_Account] FOREIGN KEY([Account_ID])
+ALTER TABLE [dbo].[AccountAttachment]  WITH CHECK ADD  CONSTRAINT [FK_AccountAttachment_Account] FOREIGN KEY([Account_ID])
 REFERENCES [dbo].[Account] ([ID])
 
 
 
 go
-drop table LessonAttachment
+drop table [AccountAttachment]
 
 GO
 CREATE TABLE [dbo].[LessonAttachment](
