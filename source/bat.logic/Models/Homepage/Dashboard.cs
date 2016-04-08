@@ -31,7 +31,9 @@ namespace bat.logic.Models.Homepage
                         var lessonIds = this.lessons.Select(ml => ml.ID);
 
                         this.lessonsToJoin =
-                            conn.Lessons.Where(l => !lessonIds.Contains(l.ID)).ToList();
+                            conn.Lessons
+                                .Where(l => !lessonIds.Contains(l.ID) &&
+                                            l.ClassSize > l.LessonParticipants.Count).ToList();
                         break;
 
                     case Types.AccountTypes.Teacher:
