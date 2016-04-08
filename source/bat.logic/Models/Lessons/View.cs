@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
 using OpenTokSDK;
 
 namespace bat.logic.Models.Lessons
@@ -69,26 +68,6 @@ namespace bat.logic.Models.Lessons
             var opentok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
             var connectionMetadata = "email=" + this.account.Email + ";accid=" + this.account.ID;
             this.token = opentok.GenerateToken(this.lesson.TokBoxSessionId, Role.PUBLISHER, 0, connectionMetadata);
-        }
-
-        public void Save()
-        {
-            using (var conn = new dbEntities())
-            {
-                if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
-                    return;
-
-                if (this.lesson.ClassSize > 0 && 
-                    conn.LessonParticipants.Count(l => l.Lesson_ID == this.lesson.ID) >= this.lesson.ClassSize)
-                    throw new Exception("Class is full.");
-
-                conn.LessonParticipants.Add(new LessonParticipant()
-                {
-                    Account_ID = this.account.ID,
-                    Lesson_ID = this.lesson.ID
-                });
-                conn.SaveChanges();
-            }
         }
 
         public void UploadImage(int lessonId, string title, HttpPostedFileBase data)

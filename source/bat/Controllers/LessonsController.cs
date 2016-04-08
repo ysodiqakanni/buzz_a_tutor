@@ -83,7 +83,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Join(int id)
         {
-            var model = new bat.logic.Models.Lessons.View();
+            var model = new bat.logic.Models.Lessons.Join();
 
             try
             {
@@ -91,7 +91,8 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                model.Load(id);
+                if (!model.Load(id))
+                    return RedirectToRoute("home");
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult Join(int id, FormCollection frm)
         {
-            var model = new bat.logic.Models.Lessons.View();
+            var model = new bat.logic.Models.Lessons.Join();
 
             try
             {
