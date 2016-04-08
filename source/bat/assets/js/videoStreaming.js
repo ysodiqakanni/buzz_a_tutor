@@ -2,7 +2,7 @@
 
 // Shared variables
 
-var apiKey = "45496652"; //API Key
+var apiKey = tbKey;
 
 var session; // Session object
 var publisher; // Publisher object
