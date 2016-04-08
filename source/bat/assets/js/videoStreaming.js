@@ -18,9 +18,15 @@ var streamName; // The stream's name: lessonId - clients ID
 var selfWidth = $("#self").width();
 var selfHeight = $("#self").height();
 
-var otherWidth = $("#other").width();
-var otherHeight = $("#other").height()
+var teacherWidth = $("#teacher").width();
+var teacherHeight = $("#teacher").height();
 
+var otherWidth = $("#other").width();
+var otherHeight = $("#other").height();
+
+var selfBox = 'streamBoxSelf';
+var teacherBox = 'streamBoxTeacher';
+var otherBox = 'streamBoxOther';
 
 //  **** Sessions *****
 var connected = false; // Check if connected to the session
@@ -59,9 +65,12 @@ var connect = function (sessionId) {
 
     // ***** Subscribing *****
     session.on("streamCreated", function (event) {
+        var subStreamWidth,
+            subStreamHeight;
+
         var options = {
-            width: otherWidth,
-            height: otherHeight,
+            width: subStreamWidth,
+            height: subStreamHeight,
             nameDisplayMode: "off"
         }
 
@@ -69,21 +78,34 @@ var connect = function (sessionId) {
         console.log("New stream in the session: " + stream.streamId);
         var streamName = stream.name;
         var streamNameArray = streamName.split('-');
-        var streamLessonID = streamNameArray[0];
+        var streamRole = streamNameArray[0];
 
         // Debugging
-        //console.log(streamLessonID);
-
-        if (streamLessonID == lessonId) {
-            session.subscribe(stream, streamBoxOther, options);
+        //console.log(streamLessonID);       
+        //if teacher
+        if (streamRole == 'Teacher') {
+            options.width = teacherWidth;
+            options.height = teacherHeight;
+            session.subscribe(stream, teacherBox, options);
         } else {
-            console.log("Not the lesson.")
+            options.width = otherWidth;
+            options.height = otherHeight;
+            session.subscribe(stream, otherBox, options);
         }
     });
 
     session.on("streamDestroyed", function (event) {
         console.log("Stream stopped. Reason: " + event.reason);
-        $("#other").append('<div id="streamBoxOther"></div>')
+
+        stream = event.stream;
+        var streamName = stream.name;
+        var streamNameArray = streamName.split('-');
+        var streamRole = streamNameArray[0];
+        if (streamRole == 'Teacher') {
+            $("#teacher").append('<div id="streamBoxTeacher"></div>')
+        } else {
+            $("#other").append('<div id="streamBoxOther"></div>')
+        }
     });
 }
 
@@ -96,7 +118,19 @@ var sessionDisconnect = function () {
 
 // ***** Publishing *****
 // Variables
-var targetElement = 'streamBoxSelf'; // The element on page to be replaced with tokbox video element.
+var targetElement; // The element on page to be replaced with tokbox video element.
+var streamWidth,
+    streamHeight;
+if (role == '2') {
+    targetElement = 'streamBoxTeacher';
+    streamWidth = teacherWidth;
+    streamHeight = teacherHeight;
+} else {
+    targetElement = 'streamBoxSelf';
+    streamWidth = selfWidth;
+    streamHeight = selfHeight;
+}
+
 
 // Creating a stream
 var startStream = function (sessionId, token) {
@@ -104,8 +138,8 @@ var startStream = function (sessionId, token) {
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
-            width: selfWidth,
-            height: selfHeight,
+            width: streamWidth,
+            height: streamHeight,
             name: streamName,
             nameDisplayMode: "off"
         });
@@ -130,7 +164,11 @@ var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
 
-    $("#self").append('<div id="streamBoxSelf"></div>')
+    if (role == '2') {
+        $("#teacher").append('<div id="streamBoxTeacher"></div>')
+    } else {
+        $("#self").append('<div id="streamBoxSelf"></div>')
+    }
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }
