@@ -62,13 +62,13 @@ namespace bat.logic.Models.Lessons
                         this.others.Add(other);
                 }
             }
+        }
 
-            if (this.host.Email == "alex")
-                this.token = "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9ODgzMzExYmRlM2NiMmRmMDNkZTdjYjU2NGZiYWMxZDkwZGJkZjM5YTpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUTVOalkxTW41LU1UUTFPREkxTmpFMU56azBPSDVPVG5SU1RVUjVjMEZaTW5wU1lrRm9iMWRvUjJ4TlQzaC1VSDQmY3JlYXRlX3RpbWU9MTQ1ODI1NjE4MCZub25jZT0wLjM1NjU1ODUwNzMyMjAyNzImZXhwaXJlX3RpbWU9MTQ2MDg0NzkzNiZjb25uZWN0aW9uX2RhdGE9";
-            else if (this.host.Email == "steve")
-                this.token = "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9MGM2NTZjOTBlN2JhZWI5OTVkOTEwNDk3ZWM2ODNlNWY1YTk5ZDhmNzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUTVOalkxTW41LU1UUTFPREkxTmpFMU56azBPSDVPVG5SU1RVUjVjMEZaTW5wU1lrRm9iMWRvUjJ4TlQzaC1VSDQmY3JlYXRlX3RpbWU9MTQ1ODI1NjIxNiZub25jZT0wLjQzMjU0MTk3Njc3OTEzODEmZXhwaXJlX3RpbWU9MTQ2MDg0NzkzNiZjb25uZWN0aW9uX2RhdGE9";
-            else
-                this.token = "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9ZDg1MGZiNWNkZWMxMjBhYzE2NWJjNWNhYzIwYzk3YTYxNThiZTRjMTpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUTVOalkxTW41LU1UUTFPREkxTmpFMU56azBPSDVPVG5SU1RVUjVjMEZaTW5wU1lrRm9iMWRvUjJ4TlQzaC1VSDQmY3JlYXRlX3RpbWU9MTQ1ODI1NjIzMyZub25jZT0wLjY2MDc2MzUwMjgzODQ5OTImZXhwaXJlX3RpbWU9MTQ2MDg0NzkzNiZjb25uZWN0aW9uX2RhdGE9";
+        public void GenerateTokBoxToken()
+        {
+            var opentok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+            var connectionMetadata = "email=" + this.account.Email + ";accid=" + this.account.ID;
+            this.token = opentok.GenerateToken(this.lesson.TokBoxSessionId, Role.PUBLISHER, 0, connectionMetadata);
         }
 
         public void Save(FormCollection frm)
