@@ -134,3 +134,6 @@ ALTER TABLE dbo.LessonAttachment ADD CONSTRAINT
 GO
 ALTER TABLE dbo.Lesson ADD
 	TokBoxSessionId varchar(128) NULL
+
+go
+update lesson set tokboxsessionid = '2_MX40NTQ5NjY1Mn5-MTQ1ODI1NjE1Nzk0OH5OTnRSTUR5c0FZMnpSYkFob1doR2xNT3h-UH4'

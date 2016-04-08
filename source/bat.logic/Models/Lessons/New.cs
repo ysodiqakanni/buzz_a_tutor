@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using OpenTokSDK;
 
 namespace bat.logic.Models.Lessons
 {
@@ -34,13 +35,19 @@ namespace bat.logic.Models.Lessons
 
             using (var conn = new dbEntities())
             {
+                var opentok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+
                 this.lesson = new Lesson()
                 {
                     Account_ID = this.account.ID,
                     BookingDate = Convert.ToDateTime(bkdt, new CultureInfo("en-AU")),
                     DurationMins = int.Parse(frm["DurationMins"]),
                     Description = (frm["Description"] ?? "").Trim(),
-                    ClassSize = int.Parse(frm["ClassSize"])
+                    ClassSize = int.Parse(frm["ClassSize"]),
+
+                    // note, relayed can't be archived (saved)
+                    // when saving or archiving video, must be routed not relayed
+                    TokBoxSessionId = opentok.CreateSession(null, MediaMode.RELAYED, ArchiveMode.MANUAL).Id
                 };
                 conn.Lessons.Add(this.lesson);
                 conn.SaveChanges();

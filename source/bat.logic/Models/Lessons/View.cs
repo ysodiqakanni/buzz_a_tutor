@@ -71,23 +71,6 @@ namespace bat.logic.Models.Lessons
                 this.token = "T1==cGFydG5lcl9pZD00NTQ5NjY1MiZzaWc9ZDg1MGZiNWNkZWMxMjBhYzE2NWJjNWNhYzIwYzk3YTYxNThiZTRjMTpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUTVOalkxTW41LU1UUTFPREkxTmpFMU56azBPSDVPVG5SU1RVUjVjMEZaTW5wU1lrRm9iMWRvUjJ4TlQzaC1VSDQmY3JlYXRlX3RpbWU9MTQ1ODI1NjIzMyZub25jZT0wLjY2MDc2MzUwMjgzODQ5OTImZXhwaXJlX3RpbWU9MTQ2MDg0NzkzNiZjb25uZWN0aW9uX2RhdGE9";
         }
 
-        public void InitialiseTokBox()
-        {
-            if (!string.IsNullOrEmpty(this.lesson.TokBoxSessionId))
-                return;
-
-            using (var conn = new dbEntities())
-            {
-                this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
-                if (this.lesson == null) throw new Exception("Lesson does not exist.");
-
-                var opentok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
-                // note, relayed can't be archived (saved)
-                // when saving or archiving video, must be routed not relayed
-                this.lesson.TokBoxSessionId = opentok.CreateSession(null, MediaMode.RELAYED, ArchiveMode.MANUAL).Id;
-            }
-        }
-
         public void Save(FormCollection frm)
         {
             var lessonId = int.Parse(frm["lessonId"]);

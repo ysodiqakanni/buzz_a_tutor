@@ -22,8 +22,6 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 //if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Load(id);
-
-                model.InitialiseTokBox();
             }
             catch (Exception ex)
             {
