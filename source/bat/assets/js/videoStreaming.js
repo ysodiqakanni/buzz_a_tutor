@@ -21,12 +21,12 @@ var selfHeight = $("#self").height();
 var teacherWidth = $("#teacher").width();
 var teacherHeight = $("#teacher").height();
 
-var otherWidth = $("#other").width();
-var otherHeight = $("#other").height();
-
+var otherWidth = $("div[id^=other-]").width();
+var otherHeight = $("div[id^=other-]").height();
+console.log(otherHeight + ', '+ otherWidth)
 var selfBox = 'streamBoxSelf';
 var teacherBox = 'streamBoxTeacher';
-var otherBox = 'streamBoxOther';
+var otherBox;
 
 //  **** Sessions *****
 var connected = false; // Check if connected to the session
@@ -78,7 +78,8 @@ var connect = function (sessionId) {
         console.log("New stream in the session: " + stream.streamId);
         var streamName = stream.name;
         var streamNameArray = streamName.split('-');
-        var streamRole = streamNameArray[0];
+        var streamUserId = streamNameArray[0];
+        var streamRole = streamNameArray[1];
 
         // Debugging
         //console.log(streamLessonID);       
@@ -90,6 +91,7 @@ var connect = function (sessionId) {
         } else {
             options.width = otherWidth;
             options.height = otherHeight;
+            otherBox = 'streamBoxOther-' + streamUserId;
             session.subscribe(stream, otherBox, options);
         }
     });
@@ -100,11 +102,12 @@ var connect = function (sessionId) {
         stream = event.stream;
         var streamName = stream.name;
         var streamNameArray = streamName.split('-');
-        var streamRole = streamNameArray[0];
+        var streamUserId = streamNameArray[0];
+        var streamRole = streamNameArray[1];
         if (streamRole == 'Teacher') {
             $("#teacher").append('<div id="streamBoxTeacher"></div>')
         } else {
-            $("#other").append('<div id="streamBoxOther"></div>')
+            $("#other-"+ streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
         }
     });
 }

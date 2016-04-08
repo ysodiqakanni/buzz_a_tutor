@@ -17,14 +17,15 @@
     sessionId = "@Model.lesson.TokBoxSessionId";
     token = "@Model.token";
     lessonId = "@Model.lesson.ID";
+    id = @Model.account.ID;
     username = "@Model.account.Fname" + " " + "@Model.account.Lname";
-    role = @Model.account.AccountType_ID; 
-    if (role == '2'){      
+    role = @Model.account.AccountType_ID;
+    if (role == '2'){
         // Is a teacher
-        streamName = 'Teacher' + "-@Model.account.Fname";
-    } else {     
+        streamName = '@Model.account.ID-' + 'Teacher' + "-@Model.account.Fname";
+    } else {
         // Is a student
-        streamName = 'Student' + "-@Model.account.Fname";
+        streamName = '@Model.account.ID-' + 'Student' + "-@Model.account.Fname";
     }
 
 </script>
@@ -83,14 +84,14 @@
                     }
                     @foreach (var other in Model.others.Where(o => o.ID != Model.account.ID))
                     {
-                        <div id="otherBox" class="streamOther">
+                        <div id="otherBox-@other.ID" class="streamOther">
                             <div class="col-sm-6 stream">
                                 <div class="streamHead">
                                     <h3>@other.Fname @other.Lname</h3>
                                 </div>
-                                <div id="otherCon" class="streamBody">
-                                    <div id="other" class="streamWindow">
-                                        <div id="streamBoxOther"></div>
+                                <div id="otherCon-@other.ID" class="streamBody">
+                                    <div id="other-@other.ID" class="streamWindow">
+                                        <div id="streamBoxOther-@other.ID"></div>
                                     </div>
                                 </div>
                             </div>

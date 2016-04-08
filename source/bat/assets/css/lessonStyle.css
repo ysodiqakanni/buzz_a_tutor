@@ -34,18 +34,11 @@
 }
 
 .streamWindow {
-    width: 100%;
-    height: 100%;
-    background-image: url("../img/offline.jpg");
-    background-position: center;
-}
-
-#teacher,
-#self,
-#other {
     margin: auto;
     width: 80%;
     height: 100%;
+    background-image: url("../img/offline.jpg");
+    background-position: center;
 }
 
 .topRow {
