@@ -131,3 +131,6 @@ ALTER TABLE dbo.LessonAttachment ADD CONSTRAINT
 	 ON DELETE  NO ACTION 
 	
 
+GO
+ALTER TABLE dbo.Lesson ADD
+	TokBoxSessionId varchar(128) NULL

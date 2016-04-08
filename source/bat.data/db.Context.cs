@@ -26,8 +26,8 @@ namespace bat.data
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<LessonParticipant> LessonParticipants { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<LessonAttachment> LessonAttachments { get; set; }
     }
 }

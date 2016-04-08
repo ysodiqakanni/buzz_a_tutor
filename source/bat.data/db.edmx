@@ -26,6 +26,7 @@
           <Property Name="DurationMins" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="ClassSize" Type="int" Nullable="false" />
+          <Property Name="TokBoxSessionId" Type="varchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="LessonAttachment">
           <Key>
@@ -105,20 +106,20 @@
       <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="dbModel.Account" />
+          <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
           <EntitySet Name="Lessons" EntityType="dbModel.Lesson" />
+          <EntitySet Name="LessonAttachments" EntityType="dbModel.LessonAttachment" />
           <AssociationSet Name="FK_Lesson_Account" Association="dbModel.FK_Lesson_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Lesson" EntitySet="Lessons" />
           </AssociationSet>
-          <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
-          <AssociationSet Name="FK_LessonParticipant_Lesson" Association="dbModel.FK_LessonParticipant_Lesson">
-            <End Role="Lesson" EntitySet="Lessons" />
-            <End Role="LessonParticipant" EntitySet="LessonParticipants" />
-          </AssociationSet>
-          <EntitySet Name="LessonAttachments" EntityType="dbModel.LessonAttachment" />
           <AssociationSet Name="FK_LessonAttachment_Lesson" Association="dbModel.FK_LessonAttachment_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonAttachment" EntitySet="LessonAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonParticipant_Lesson" Association="dbModel.FK_LessonParticipant_Lesson">
+            <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="LessonParticipant" EntitySet="LessonParticipants" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
@@ -133,6 +134,15 @@
           <Property Name="Lname" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Lessons" Relationship="dbModel.FK_Lesson_Account" FromRole="Account" ToRole="Lesson" />
         </EntityType>
+        <EntityType Name="LessonParticipant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="LessonParticipant" ToRole="Lesson" />
+        </EntityType>
         <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="ID" />
@@ -143,9 +153,21 @@
           <Property Name="DurationMins" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClassSize" Type="Int32" Nullable="false" />
+          <Property Name="TokBoxSessionId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
-          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
           <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
+          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
+        </EntityType>
+        <EntityType Name="LessonAttachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="LessonAttachment" ToRole="Lesson" />
         </EntityType>
         <Association Name="FK_Lesson_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
@@ -159,38 +181,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="LessonParticipant">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
-          <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="LessonParticipant" ToRole="Lesson" />
-        </EntityType>
-        <Association Name="FK_LessonParticipant_Lesson">
-          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
-          <End Type="dbModel.LessonParticipant" Role="LessonParticipant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lesson">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="LessonParticipant">
-              <PropertyRef Name="Lesson_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="LessonAttachment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
-          <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="LessonAttachment" ToRole="Lesson" />
-        </EntityType>
         <Association Name="FK_LessonAttachment_Lesson">
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
           <End Type="dbModel.LessonAttachment" Role="LessonAttachment" Multiplicity="*" />
@@ -199,6 +189,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="LessonAttachment">
+              <PropertyRef Name="Lesson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonParticipant_Lesson">
+          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
+          <End Type="dbModel.LessonParticipant" Role="LessonParticipant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessonParticipant">
               <PropertyRef Name="Lesson_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -221,23 +223,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lessons">
-            <EntityTypeMapping TypeName="dbModel.Lesson">
-              <MappingFragment StoreEntitySet="Lesson">
-                <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
-                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
-                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LessonParticipants">
             <EntityTypeMapping TypeName="dbModel.LessonParticipant">
               <MappingFragment StoreEntitySet="LessonParticipant">
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
                 <ScalarProperty Name="Lesson_ID" ColumnName="Lesson_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="dbModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="TokBoxSessionId" ColumnName="TokBoxSessionId" />
+                <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

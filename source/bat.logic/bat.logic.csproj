@@ -80,6 +80,10 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OpenTok, Version=2.3.5599.34963, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTok.2.3.0\lib\net35\OpenTok.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -123,6 +127,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\TokBox.cs" />
     <Compile Include="Constants\Types.cs" />
     <Compile Include="Exceptions\MasterModelNotInitialised.cs" />
     <Compile Include="Helpers\DateTimeExtensions.cs" />

@@ -6,12 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="c5a9d25a17ad4b2e99ccb9996ee6952d" Name="Diagram1">
         <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbModel.Lesson" Width="1.5" PointX="2.875" PointY="0.75" />
+        <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.75" PointX="2.75" PointY="4.125" />
+        <EntityTypeShape EntityType="dbModel.Lesson" Width="1.5" PointX="2.875" PointY="0.5" />
+        <EntityTypeShape EntityType="dbModel.LessonAttachment" Width="1.875" PointX="5" PointY="0.75" />
         <AssociationConnector Association="dbModel.FK_Lesson_Account" />
-        <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.75" PointX="5.125" PointY="1.125" />
-        <AssociationConnector Association="dbModel.FK_LessonParticipant_Lesson" />
-        <EntityTypeShape EntityType="dbModel.LessonAttachment" Width="1.75" PointX="5.125" PointY="4" />
         <AssociationConnector Association="dbModel.FK_LessonAttachment_Lesson" />
+        <AssociationConnector Association="dbModel.FK_LessonParticipant_Lesson" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
