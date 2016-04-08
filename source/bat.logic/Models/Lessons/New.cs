@@ -47,7 +47,7 @@ namespace bat.logic.Models.Lessons
 
                     // note, relayed can't be archived (saved)
                     // when saving or archiving video, must be routed not relayed
-                    TokBoxSessionId = opentok.CreateSession(null, MediaMode.RELAYED, ArchiveMode.MANUAL).Id
+                    TokBoxSessionId = opentok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL).Id
                 };
                 conn.Lessons.Add(this.lesson);
                 conn.SaveChanges();
