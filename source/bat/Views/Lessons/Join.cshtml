@@ -12,8 +12,6 @@
 
 @{ Html.BeginForm("Join", "Lessons", FormMethod.Post); }
 
-<input type="hidden" name="lessonId" value="@Model.lesson.ID" />
-
 <p>
     Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
 </p>

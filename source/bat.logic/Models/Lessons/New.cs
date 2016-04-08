@@ -20,7 +20,7 @@ namespace bat.logic.Models.Lessons
             {
                 BookingDate = Shearnie.Net.OzTime.GetNowAEST(),
                 DurationMins = 15,
-                ClassSize = 1
+                ClassSize = 0
             };
         }
 

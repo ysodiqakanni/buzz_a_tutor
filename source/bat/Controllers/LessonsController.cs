@@ -115,7 +115,7 @@ namespace bat.Controllers
 
                 model.Initialise(user.ID);
                 model.Load(id);
-                model.Save(frm);
+                model.Save();
             }
             catch (Exception ex)
             {

@@ -27,7 +27,7 @@ namespace bat.logic.Models.Lessons
             {
                 BookingDate = Shearnie.Net.OzTime.GetNowAEST(),
                 DurationMins = 15,
-                ClassSize = 1,
+                ClassSize = 0,
                 TokBoxSessionId = ""
             };
             this.attachments = new List<Attachment>();
@@ -71,19 +71,21 @@ namespace bat.logic.Models.Lessons
             this.token = opentok.GenerateToken(this.lesson.TokBoxSessionId, Role.PUBLISHER, 0, connectionMetadata);
         }
 
-        public void Save(FormCollection frm)
+        public void Save()
         {
-            var lessonId = int.Parse(frm["lessonId"]);
-
             using (var conn = new dbEntities())
             {
-                if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == lessonId))
+                if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
                     return;
+
+                if (this.lesson.ClassSize > 0 && 
+                    conn.LessonParticipants.Count(l => l.Lesson_ID == this.lesson.ID) >= this.lesson.ClassSize)
+                    throw new Exception("Class is full.");
 
                 conn.LessonParticipants.Add(new LessonParticipant()
                 {
                     Account_ID = this.account.ID,
-                    Lesson_ID = lessonId
+                    Lesson_ID = this.lesson.ID
                 });
                 conn.SaveChanges();
             }
