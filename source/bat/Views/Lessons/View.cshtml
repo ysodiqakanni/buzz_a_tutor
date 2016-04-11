@@ -1,4 +1,5 @@
-﻿@model bat.logic.Models.Lessons.View
+﻿@using bat.logic.Constants
+@model bat.logic.Models.Lessons.View
 @{
     ViewBag.Title = "View Lesson";
 }
@@ -31,10 +32,10 @@
 </script>
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <h2 style="margin-top: 0px;">@Model.lesson.Description</h2>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                 Lesson Details
@@ -56,10 +57,18 @@
                         Class size: @Model.lesson.ClassSize
                     </p>
                 </li>
+                @if (Model.accountType == Types.AccountTypes.Student)
+                {
+                    <li>
+                        <p>
+                            <a href="#" class="btn btn-warning">Leave Lesson</a>
+                        </p>
+                    </li>
+                }
             </ul>
         </div>
     </div>
-    <div class="col-sm-2 topRow">
+    <div class="col-sm-1 topRow">
         <div class="pull-right">
             <button id="start" class="btn btn-success btn-lg" onclick="startStream(sessionId, token)">Start Video</button>
             <button id="stop" class="btn btn-danger btn-lg hidden" onclick="stopStream()">Stop Video</button>
