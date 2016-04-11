@@ -30,28 +30,44 @@
 
 </script>
 
-<h2>@Model.lesson.Description</h2>
-
-
-<row>
-    <div class="col-sm-10 topRow">
-        <button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Start Video</button>
-        <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Video</button>  
+<div class="row">
+    <div class="col-md-10">
+        <h2>@Model.lesson.Description</h2>
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
         <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                 Lesson Details
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li>Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")</li>
-                <li>Duration mins: @Model.lesson.DurationMins</li>
-                <li>Class size: @Model.lesson.ClassSize</li>
+                <li>
+                    <p>
+                        Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Duration mins: @Model.lesson.DurationMins
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Class size: @Model.lesson.ClassSize
+                    </p>
+                </li>
             </ul>
         </div>
     </div>
-</row>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12 topRow">
+        <button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Start Video</button>
+        <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Video</button>  
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-6">
         <div class="row">
