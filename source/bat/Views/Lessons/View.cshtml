@@ -31,11 +31,11 @@
 </script>
 
 <div class="row">
-    <div class="col-md-10">
-        <h2>@Model.lesson.Description</h2>
+    <div class="col-sm-8">
+        <h2 style="margin-top: 0px;">@Model.lesson.Description</h2>
     </div>
-    <div class="col-md-2">
-        <div class="dropdown">
+    <div class="col-sm-2">
+        <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                 Lesson Details
                 <span class="caret"></span>
@@ -59,15 +59,16 @@
             </ul>
         </div>
     </div>
-</div>
-
-
-<div class="row">
-    <div class="col-sm-12 topRow">
-        <button id="start" class="btn btn-success" onclick="startStream(sessionId, token)">Start Video</button>
-        <button id="stop" class="btn btn-danger hidden" onclick="stopStream()">Stop Video</button>  
+    <div class="col-sm-2 topRow">
+        <div class="pull-right">
+            <button id="start" class="btn btn-success btn-lg" onclick="startStream(sessionId, token)">Start Video</button>
+            <button id="stop" class="btn btn-danger btn-lg hidden" onclick="stopStream()">Stop Video</button>
+        </div>
     </div>
 </div>
+
+<hr/>
+
 <div class="row">
     <div class="col-sm-6">
         <div class="row">
