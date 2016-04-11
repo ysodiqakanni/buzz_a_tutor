@@ -33,7 +33,7 @@ namespace bat.logic.Models.Homepage
                         this.lessonsToJoin =
                             conn.Lessons
                                 .Where(l => !lessonIds.Contains(l.ID) &&
-                                            l.ClassSize > l.LessonParticipants.Count).ToList();
+                                            (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count)).ToList();
                         break;
 
                     case Types.AccountTypes.Teacher:
