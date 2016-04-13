@@ -24,6 +24,12 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "lessons/leave",
+                url: "lessons/leave/{lessonid}/{studentid}",
+                defaults: new { controller = "Lessons", action = "Leave" }
+            );
+
+            routes.MapRoute(
                 name: "lessons/upload",
                 url: "lessons/upload",
                 defaults: new { controller = "Lessons", action = "Upload" }

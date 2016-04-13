@@ -59,11 +59,14 @@
                 </li>
                 @if (Model.accountType == Types.AccountTypes.Student)
                 {
-                    <li>
-                        <p>
-                            <a href="#" class="btn btn-warning">Leave Lesson</a>
-                        </p>
-                    </li>
+                    foreach (var userParticipant in Model.others.Where(o => o.ID == Model.account.ID))
+                    {
+                        <li>
+                            <p>
+                                <a href="@Url.Action("Leave", new { lessonid = Model.lesson.ID, studentid = Model.account.ID})" class="btn btn-warning">Leave Lesson</a>
+                            </p>
+                        </li>
+                    }
                 }
             </ul>
         </div>

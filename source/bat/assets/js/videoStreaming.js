@@ -23,7 +23,7 @@ var teacherHeight = $("#teacher").height();
 
 var otherWidth = $("div[id^=other-]").width();
 var otherHeight = $("div[id^=other-]").height();
-console.log(otherHeight + ', '+ otherWidth)
+
 var selfBox = 'streamBoxSelf';
 var teacherBox = 'streamBoxTeacher';
 var otherBox;

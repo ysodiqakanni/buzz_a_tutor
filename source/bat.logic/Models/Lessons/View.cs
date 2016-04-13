@@ -32,6 +32,7 @@ namespace bat.logic.Models.Lessons
             this.attachments = new List<Attachment>();
             this.host = new Account();
             this.others = new List<Account>();
+
         }
 
         public bool IsTeacher =>

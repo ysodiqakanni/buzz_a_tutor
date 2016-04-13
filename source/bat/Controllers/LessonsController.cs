@@ -128,6 +128,27 @@ namespace bat.Controllers
         }
 
         [Authorize]
+        public ActionResult Leave(int lessonid, int studentid)
+        {
+            var model = new bat.logic.Models.Lessons.Leave();
+
+            try
+            {
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Delete(lessonid, studentid);
+                return RedirectToRoute("home");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+            return View(model);
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult Upload(int id, HttpPostedFileBase data, string title)
         {
