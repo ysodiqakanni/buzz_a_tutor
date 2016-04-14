@@ -13,10 +13,8 @@ namespace bat.logic.Models.Lessons
         {
             using (var conn = new dbEntities())
             {
-                var participant = conn.LessonParticipants.FirstOrDefault(i => i.Lesson_ID == lessonid && i.Account_ID == studentid);
-
-                if (participant == null) throw new Exception("Participant is null");
-                conn.LessonParticipants.Remove(participant);
+                var participants = conn.LessonParticipants.Where(i => i.Lesson_ID == lessonid && i.Account_ID == studentid);
+                conn.LessonParticipants.RemoveRange(participants);
                 conn.SaveChanges();
             }
         }

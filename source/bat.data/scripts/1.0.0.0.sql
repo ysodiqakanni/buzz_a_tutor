@@ -137,3 +137,25 @@ ALTER TABLE dbo.Lesson ADD
 
 go
 update lesson set tokboxsessionid = '2_MX40NTQ5NjY1Mn5-MTQ1ODI1NjE1Nzk0OH5OTnRSTUR5c0FZMnpSYkFob1doR2xNT3h-UH4'
+
+
+
+
+
+
+GO
+CREATE TABLE [dbo].[FamilyMember](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Account_ID] [int] NOT NULL,
+	[Name] [varchar](500) NOT NULL,
+ CONSTRAINT [PK_FamilyMember] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[FamilyMember]  WITH CHECK ADD  CONSTRAINT [FK_FamilyMember_Account] FOREIGN KEY([Account_ID])
+REFERENCES [dbo].[Account] ([ID])
+
+
