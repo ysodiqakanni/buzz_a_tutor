@@ -13,6 +13,7 @@ namespace bat.logic.Models
         internal bool initialised { get; set; }
         public Account account { get; set; }
         public Constants.Types.AccountTypes accountType => (Constants.Types.AccountTypes) this.account.AccountType_ID;
+        public List<FamilyMember> familyMembers { get; set; }
 
         public Master()
         {
@@ -26,6 +27,8 @@ namespace bat.logic.Models
             {
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == accountId);
                 if (this.account == null) throw new InvalidRecordException();
+
+                this.familyMembers = conn.FamilyMembers.Where(i => i.Account.ID == accountId).ToList();
             }
             this.initialised = true;
         }

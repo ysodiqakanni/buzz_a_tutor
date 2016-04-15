@@ -10,7 +10,7 @@ namespace bat.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Index()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
@@ -32,7 +32,7 @@ namespace bat.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Edit()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
@@ -77,7 +77,7 @@ namespace bat.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult EditPassword()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
@@ -122,7 +122,7 @@ namespace bat.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult New()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
@@ -164,7 +164,8 @@ namespace bat.Controllers
             }
             return View(model);
         }
-        [AllowAnonymous]
+
+        [Authorize]
         public ActionResult EditMember(int id)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
@@ -208,7 +209,7 @@ namespace bat.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult DeleteMember(int id)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();

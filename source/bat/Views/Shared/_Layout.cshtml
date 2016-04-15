@@ -47,10 +47,15 @@
             <ul class="nav navbar-nav pull-right">
                 <li>
                     <a data-toggle="dropdown" class="dropdown-toggle" href=""><i class="fa fa-user"></i> &nbsp; @Model.account.Fname @Model.account.Lname &nbsp; <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="@Url.RouteUrl("logout")"><i class="fa fa-power-off"></i> Log Out</a></li>
+                    <ul class="dropdown-menu pull-right">                       
+                        @foreach (var familyMember in Model.familyMembers)
+                            {
+                            <li><a href="#">@familyMember.Name</a></li>
+                            }
                         <li role="separator" class="divider"></li>
                         <li><a href="@Url.RouteUrl("profile")">Profile</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="@Url.RouteUrl("logout")"><i class="fa fa-power-off"></i> Log Out</a></li>
                     </ul>
                 </li>
             </ul>
