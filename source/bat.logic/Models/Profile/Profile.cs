@@ -21,7 +21,7 @@ namespace bat.logic.Models.Profile
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
-                this.familyMembers = conn.FamilyMembers.ToList();
+                this.familyMembers = conn.FamilyMembers.Where(i => i.Account.ID == id).ToList();
             }
         }
     }
