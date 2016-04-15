@@ -4,17 +4,41 @@
     ViewBag.Title = "Account";
 }
 
-<h3>Profile: @Model.account.Fname @Model.account.Lname</h3>
 
 @if (ViewBag.Error != null)
 {
     <p style="color: red; font-weight: bold">Error: @ViewBag.Error</p>
 }
 
-<ul>
-    <li><a href="@Url.Action("edit")">Edit Account</a></li>
-    <li><a href="@Url.Action("password")">Change Password</a></li>
-    <li></li>
-    <li>Add Family Member</li>
-    <li>View Family Members</li>
-</ul>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>@Model.account.Fname @Model.account.Lname</h1>
+        <ul>
+            <li><a href="@Url.Action("edit")">Edit Account</a></li>
+            <li><a href="@Url.Action("password")">Change Password</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-8 col-md-offset-2">
+        <div style="overflow: auto;">
+            <h3 class="pull-left">
+                Family Members
+            </h3>
+
+            <div class="pull-right">
+                <a href="@Url.Action("new")" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; New</a>
+            </div>
+        </div>
+
+        <table class="table">
+            @foreach (var familyMember in Model.familyMembers)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("EditMember", new { id = familyMember.ID })">@familyMember.Name</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

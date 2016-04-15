@@ -275,6 +275,8 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\EditPassword.cshtml" />
+    <Content Include="Views\Profile\New.cshtml" />
+    <Content Include="Views\Profile\EditMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

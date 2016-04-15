@@ -150,7 +150,9 @@
     <Compile Include="Models\Partials\IPartialWhiteboard.cs" />
     <Compile Include="Models\Profile\Edit.cs" />
     <Compile Include="Models\Profile\EditPassword.cs" />
+    <Compile Include="Models\Profile\New.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
+    <Compile Include="Models\Profile\EditMember.cs" />
     <Compile Include="Models\System\Authentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\PasswordValidation.cs" />

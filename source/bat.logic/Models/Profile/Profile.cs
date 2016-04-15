@@ -11,12 +11,17 @@ namespace bat.logic.Models.Profile
 {
     public class Profile : Master
     {
+        public List<FamilyMember> familyMembers { get; set; }
+
         public void Load(int id)
         {
+            this.familyMembers = new List<FamilyMember>();
             using (var conn = new dbEntities())
             {
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
                 if (this.account == null) throw new Exception("Account does not exist.");
+
+                this.familyMembers = conn.FamilyMembers.ToList();
             }
         }
     }

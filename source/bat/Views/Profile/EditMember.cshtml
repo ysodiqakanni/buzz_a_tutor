@@ -1,0 +1,35 @@
+﻿@model bat.logic.Models.Profile.EditMember
+@{
+    ViewBag.Title = "Edit Family Member";
+}
+
+@{ Html.BeginForm("EditMember", "Profile", FormMethod.Post); }
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h1>@ViewBag.Title</h1>
+        <hr />
+        @if (ViewBag.Error != null)
+        {
+            <p style="color: red; font-weight: bold">Error: @ViewBag.Error</p>
+        }
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+        <div class="form-group">
+            <input type='hidden' class="form-control" name="MemberID" id="MemberID" value="@Model.familyMember.ID" />
+            <label class="control-label">Name</label>
+            <input type='text' class="form-control" name="Name" id="Name" value="@Model.familyMember.Name" />
+        </div>
+        <div style="margin-top: 40px; overflow: auto;">
+            <input type="submit" value="Ok" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
+            <a href="@Url.Action("DeleteMember", new { id = @Model.familyMember.ID })" class="btn btn-lg btn-danger pull-right" style="width: 110px; margin-right: 20px;">
+                Delete
+            </a>
+            <a href="@Url.Action("Index")" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
+                Cancel
+            </a>
+        </div>
+    </div>
+</div>
+
+@{ Html.EndForm(); }

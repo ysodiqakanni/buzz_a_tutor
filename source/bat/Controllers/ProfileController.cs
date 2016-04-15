@@ -121,5 +121,113 @@ namespace bat.Controllers
             }
             return View(model);
         }
+
+        [AllowAnonymous]
+        public ActionResult New()
+        {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+
+            var model = new bat.logic.Models.Profile.New();
+
+            try
+            {
+                model.Initialise(user.ID);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult New(FormCollection frm)
+        {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+
+            var model = new bat.logic.Models.Profile.New();
+            try
+            {
+                model.Initialise(user.ID);
+                model.Save(user.ID, frm);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+            return View(model);
+        }
+        [AllowAnonymous]
+        public ActionResult EditMember(int id)
+        {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+
+            var model = new bat.logic.Models.Profile.EditMember();
+
+            try
+            {
+                model.Initialise(user.ID);
+                model.load(id);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditMember(FormCollection frm)
+        {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+
+            var model = new bat.logic.Models.Profile.EditMember();
+            try
+            {
+                model.Initialise(user.ID);
+                model.Save(frm);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult DeleteMember(int id)
+        {
+            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+
+            var model = new bat.logic.Models.Profile.EditMember();
+
+            try
+            {
+                model.Initialise(user.ID);
+                model.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

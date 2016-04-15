@@ -24,8 +24,26 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "newMember",
+                url: "profile/family/new",
+                defaults: new { controller = "Profile", action = "NewMember" }
+            );
+
+            routes.MapRoute(
+                name: "editMember",
+                url: "profile/family/edit/{id}",
+                defaults: new { controller = "Profile", action = "EditMember" }
+            );
+
+            routes.MapRoute(
+                name: "deleteMember",
+                url: "profile/family/delete/{id}",
+                defaults: new { controller = "Profile", action = "DeleteMember" }
+            );
+
+            routes.MapRoute(
                 name: "profile",
-                url: "Profile/",
+                url: "profile/",
                 defaults: new { controller = "Profile", action = "Index" }
             );
         }
