@@ -199,10 +199,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Routes\Lessons.cs" />
     <Compile Include="App_Start\Routes\Home.cs" />
+    <Compile Include="App_Start\Routes\Profile.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="assets\css\batmain.css" />
     <Compile Include="Controllers\api\LessonsApiController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="SignalRHub.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
@@ -270,6 +272,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_PartialChatBox.cshtml" />
     <Content Include="Views\Lessons\Leave.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

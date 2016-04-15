@@ -1,0 +1,20 @@
+﻿@using bat.logic.Constants
+@model bat.logic.Models.Profile.Profile
+@{
+    ViewBag.Title = "Account";
+}
+
+<h3>Profile: @Model.account.Fname @Model.account.Lname</h3>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color: red; font-weight: bold">Error: @ViewBag.Error</p>
+}
+
+<ul>
+    <li><a href="@Url.Action("edit")">Edit Account</a></li>
+    <li>Change Password</li>
+    <li></li>
+    <li>Add Family Member</li>
+    <li>View Family Members</li>
+</ul>

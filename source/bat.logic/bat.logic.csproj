@@ -148,6 +148,8 @@
     <Compile Include="Models\Master.cs" />
     <Compile Include="Models\PaginatedLists.cs" />
     <Compile Include="Models\Partials\IPartialWhiteboard.cs" />
+    <Compile Include="Models\Profile\Edit.cs" />
+    <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\System\Authentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

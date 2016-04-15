@@ -15,6 +15,7 @@ namespace bat
 
             new Routes.Home(routes);
             new Routes.Lessons(routes);
+            new Routes.Profile(routes);
 
             routes.MapRoute(
                 name: "Default",
