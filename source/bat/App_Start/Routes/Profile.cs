@@ -18,6 +18,12 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "password",
+                url: "profile/password",
+                defaults: new { controller = "Profile", action = "EditPassword" }
+            );
+
+            routes.MapRoute(
                 name: "profile",
                 url: "Profile/",
                 defaults: new { controller = "Profile", action = "Index" }
