@@ -129,6 +129,7 @@
   <ItemGroup>
     <Compile Include="Constants\TokBox.cs" />
     <Compile Include="Constants\Types.cs" />
+    <Compile Include="Constants\Zoom.cs" />
     <Compile Include="Exceptions\MasterModelNotInitialised.cs" />
     <Compile Include="Helpers\DateTimeExtensions.cs" />
     <Compile Include="Helpers\Numbers.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Models\System\Authentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\PasswordValidation.cs" />
+    <Compile Include="Rules\ZoomApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bat.data\bat.data.csproj">
