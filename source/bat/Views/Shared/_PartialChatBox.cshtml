@@ -1,11 +1,16 @@
-﻿<div class="chatBoxCon">
-    <div class="chatHead">
-        <input type="text" id="message" />
-        <button type="button" id="sendmessage">SEND</button>
-    </div>
-    <div class="chatBody">
-        <ul id="discussion"></ul>
+﻿<div id="message-wrap">
+    <div class="widget subscribe-widget clearfix chatHead">
+        <div class="input-group divcenter">
+            <input type="text" id="message" name="widget-subscribe-form-text" class="form-control required email" placeholder="">
+            <span class="input-group-btn">
+                <button class="button button-3d button-mini button-rounded button-black" id="sendmessage" type="submit">Send</button>
+            </span>
+        </div>
+        <div class="chatBody sm-form-control">
+            <ul id="discussion" style="color:black; list-style-type: none"></ul>
+        </div>
     </div>
 </div>
+<div class="shadow"><img src="@Url.Content("~/assets/img/shadow.png")"></div>
 
 @Scripts.Render("~/assets/js/chatRoom.js")

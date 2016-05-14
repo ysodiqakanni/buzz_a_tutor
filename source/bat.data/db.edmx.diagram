@@ -5,15 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c5a9d25a17ad4b2e99ccb9996ee6952d" Name="Diagram1">
-        <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.75" PointX="5.125" PointY="3.75" />
+        <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="dbModel.FamilyMember" Width="1.5" PointX="0.5" PointY="4.75" />
         <EntityTypeShape EntityType="dbModel.Lesson" Width="1.5" PointX="2.875" PointY="0.5" />
-        <EntityTypeShape EntityType="dbModel.LessonAttachment" Width="1.875" PointX="5" PointY="0.75" />
+        <EntityTypeShape EntityType="dbModel.LessonAttachment" Width="1.875" PointX="5.375" PointY="0.5" />
+        <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.625" PointX="5.5" PointY="3.5" />
+        <AssociationConnector Association="dbModel.FK_FamilyMember_Account" />
+        <AssociationConnector Association="dbModel.FK_FamilyMember_Parent" />
         <AssociationConnector Association="dbModel.FK_Lesson_Account" />
         <AssociationConnector Association="dbModel.FK_LessonAttachment_Lesson" />
         <AssociationConnector Association="dbModel.FK_LessonParticipant_Lesson" />
-        <EntityTypeShape EntityType="dbModel.FamilyMember" Width="1.5" PointX="0.75" PointY="5" />
-        <AssociationConnector Association="dbModel.FK_FamilyMember_Account" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

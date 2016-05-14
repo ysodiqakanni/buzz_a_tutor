@@ -16,8 +16,9 @@ namespace bat.data
     {
         public int ID { get; set; }
         public int Account_ID { get; set; }
-        public string Name { get; set; }
+        public int Parent_ID { get; set; }
     
         public virtual Account Account { get; set; }
+        public virtual Account Account1 { get; set; }
     }
 }

@@ -5,9 +5,13 @@
 }
 
 @section head {
-<link rel="stylesheet" type="text/css" href="~/assets/css/lessonStyle.css">
-<link rel="stylesheet" type="text/css" href="~/assets/css/blackboard.css">
-<link rel="stylesheet" type="text/css" href="~/assets/css/chatStyle.css">
+<link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<!--[if lt IE 9]>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/css/blackboard.css")">
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/css/lessonStyle.css")">
 }
 @section scripts {
 }
@@ -28,122 +32,110 @@
         // Is a student
         streamName = '@Model.account.ID-' + 'Student' + "-@Model.account.Fname";
     }
-
 </script>
+<div class="content-wrap">
+    <div class="container clearfix">
+        <div class="col_two_fifth">
+            <div class="name">Teacher<span>@Model.host.Fname</span></div>
+            <div id="video-wrap" style="width: 415px; height:233px;">
+                <div id="teacher" class="streamWindow">
+                    <div id="streamBoxTeacher"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
 
-<div class="row">
-    <div class="col-sm-9">
-        <h2 style="margin-top: 0px;">@Model.lesson.Description</h2>
-    </div>
-    <div class="col-sm-1">
-        <div class="dropdown pull-right">
-            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                Lesson Details
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <p>
-                        Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        Duration mins: @Model.lesson.DurationMins
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        Class size: @Model.lesson.ClassSize
-                    </p>
-                </li>
-                @if (Model.accountType == Types.AccountTypes.Student)
-                {
-                    foreach (var userParticipant in Model.others.Where(o => o.ID == Model.account.ID))
-                    {
-                        <li>
-                            <p>
-                                <a href="@Url.Action("Leave", new { lessonid = Model.lesson.ID, studentid = Model.account.ID})" class="btn btn-warning">Leave Lesson</a>
-                            </p>
-                        </li>
-                    }
-                }
-            </ul>
-        </div>
-    </div>
-    <div class="col-sm-1 topRow">
-        <div class="pull-right">
-            <button id="start" class="btn btn-success btn-lg" onclick="startStream(sessionId, token)">Start Video</button>
-            <button id="stop" class="btn btn-danger btn-lg hidden" onclick="stopStream()">Stop Video</button>
-        </div>
-    </div>
-</div>
-
-<hr/>
-
-<div class="row">
-    <div class="col-sm-6">
-        <div class="row">
-            <div class="col-sm-12" style="margin-bottom: 2%">
-                <div id="teacherBox">
-                    <div class="col-sm-6 stream">
-                        <div class="streamHead">
-                            <h3>@Model.host.Fname @Model.host.Lname</h3>
-                        </div>
-                        <div id="TeacherCon" class="streamBody">
-                            <div id="teacher" class="streamWindow">
-                                <div id="streamBoxTeacher"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div id="shop" class="clearfix ">
+                <div id="oc-images" class="owl-carousel image-carousel">
                     @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Student)
                     {
-                        <div id="selfBox" class="streamOther">
-                            <div class="col-sm-6 stream">
-                                <div class="streamHead">
-                                    <h3>@Model.account.Fname @Model.account.Lname</h3>
-                                </div>
-                                <div id="selfCon" class="streamBody">
-                                    <div id="self" class="streamWindow">
-                                        <div id="streamBoxSelf"></div>
-                                    </div>
-                                </div>
+                        <div class="oc-item">
+                            <div id="self" class="streamWindow" style="width: 85.76px; height:111px">
+                                <div id="streamBoxSelf"></div>
                             </div>
+                            <div class="name4">@Model.account.Fname</div>
                         </div>
                     }
                     @foreach (var other in Model.others.Where(o => o.ID != Model.account.ID))
                     {
-                        <div id="otherBox-@other.ID" class="streamOther">
-                            <div class="col-sm-6 stream">
-                                <div class="streamHead">
-                                    <h3>@other.Fname @other.Lname</h3>
-                                </div>
-                                <div id="otherCon-@other.ID" class="streamBody">
-                                    <div id="other-@other.ID" class="streamWindow">
-                                        <div id="streamBoxOther-@other.ID"></div>
-                                    </div>
+                        <div id="otherBox-@other.ID" class="oc-item">
+                            <div id="otherCon-@other.ID" class="streamBody">
+                                <div id="other-@other.ID" class="streamWindow" style="width: 85.76px; height:111px">
+                                    <div id="streamBoxOther-@other.ID"></div>
                                 </div>
                             </div>
+                            <div class="name4">@other.Fname</div>                                    
                         </div>
                     }
+                    @*<div class="oc-item">
+                        <a href="#"><img src="@Url.Content("~/assets/img/photos/1.jpg")" alt="Checked Short Dress"></a>
+                        <div class="name4">Michelle</div>
+                    </div>
+                    <div class="oc-item">
+                        <a href="#"><img src="@Url.Content("~/assets/img/photos/2.jpg")" alt="Checked Short Dress"></a>
+                        <div class="name4">Alex</div>
+                    </div>*@
+                </div>
+
+                <script type="text/javascript">
+
+								jQuery(document).ready(function($) {
+
+									var ocImages = $("#oc-images");
+
+									ocImages.owlCarousel({
+										margin: 10,
+										nav: true,
+										navText: ['<i class="icon-angle-left"></i>','<i class="icon-angle-right"></i>'],
+										autoplay: false,
+										autoplayHoverPause: true,
+										dots: false,
+										navRewind: false,
+										responsive:{
+											0:{ items:4 },
+											600:{ items:3 },
+											1000:{ items:3 },
+											1200:{ items:4 }
+										}
+									});
+
+								});
+
+                </script>
+            </div>
+            @Html.Partial("_PartialChatBox")
+        </div>
+
+        <div class="col_three_fifth col_last">
+            <div class="nobottommargin10 clearfix">
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="fright">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Lession Detail <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")</li>
+                                <li class="divider"></li>
+                                <li>Duration mins: @Model.lesson.DurationMins</li>
+                                <li class="divider"></li>
+                                <li>Class size: @Model.lesson.ClassSize</li>
+                            </ul>
+                            <button type="button" id="start" class="button button-3d button-small button-rounded button-red" onclick="startStream(sessionId, token)"><i class="icon-video"></i>Start Video</button>
+                            <button type="button" id="stop" class="button button-3d button-small button-rounded  hidden" onclick="stopStream()"><i class="fa fa-stop"></i>Stop Video</button>
+                            @*<button type="button" class="button button-3d button-small button-rounded button-red"><i class="icon-video"></i>Start Video</button>*@
+                        </div><!-- /btn-group -->
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-12">
-                @Html.Partial("_PartialChatBox")
-            </div> 
-        </div>
-    </div>  
-    <div id="blackBoardCon" class="col-sm-6">
-        @Html.Partial("_PartialWhiteboard", Model)
+            <div class="clear"></div>
+            @Html.Partial("_PartialWhiteboard", Model)
+        </div><!-- /col_three_fifth-->
     </div>
 </div>
-
 
     <!-- TokBox API  -->
 <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 
 <!-- Link to local TokBox script  -->
-<script type="text/javascript" src="~/assets/js/videoStreaming.js"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/js/videoStreaming.js")"></script>
 
 <script>
     connect(sessionId);

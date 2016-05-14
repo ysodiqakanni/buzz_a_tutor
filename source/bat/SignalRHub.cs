@@ -40,10 +40,10 @@ namespace bat
     public class ChatHub : Hub
     {
         //Connect to Group
-        public void JoinGroup(string groupName)
+        public void JoinGroup(string groupName, string name)
         {
             Groups.Add(Context.ConnectionId, groupName);
-            Clients.Group(groupName).broadcastMessage("Room","Somebody has joined.");          
+            Clients.Group(groupName).broadcastMessage("Classroom", name +" has joined.");          
         }
 
 

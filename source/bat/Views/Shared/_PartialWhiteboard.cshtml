@@ -1,44 +1,50 @@
 ﻿@model bat.logic.Models.Partials.IPartialWhiteboard
-<div id="blackBoardButtons">
-    <div class="col-sm-6">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Attachments
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><p>Upload:</p></li>
+
+<script>
+    $(function () {
+        $("ul.dropdown-menu").on("click", "[data-keepOpenOnClick]", function (e) {
+            e.stopPropagation();
+        });
+    });
+</script>
+
+
+<div id="board-wrap">
+    <div id="board-top">
+        <div class="fleft">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Attachment <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>Upload:</li>
                     @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
+                        {
                         <li>
-                            <label for="data">File:</label>
-                            <input type="file" name="data" id="data" />
+                            <label data-keepOpenOnClick for="data">File:</label>
+                            <input data-keepOpenOnClick type="file" name="data" id="data" />
                         </li>
                         <li>
-                            <label for="title">Title:</label>
-                            <input type="text" name="title" id="title" />
-                            <input type="submit" />
+                            <label data-keepOpenOnClick for="title">Title:</label>
+                            <input data-keepOpenOnClick type="text" name="title" id="title" />
+                            <input data-keepOpenOnClick type="submit" />
                         </li>
                     }
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <p style="display: inline-block;">Save the board:</p>
-                        <div id="imgSaveSuccess" class="hidden">
-                            <i class="fa fa-check"></i>
-                        </div>
-                        <div id="imgSaveFail" class="hidden">
-                            <i class="fa fa-exclamation-triangle"></i>
-                        </div>
+                    <li class="divider"></li>
+                    <li>Save the board:</li>
+                    <li id="imgSaveSuccess" class="hidden">
+                        <i class="fa fa-check"></i>
+                    </li>
+                    <li id="imgSaveFail" class="hidden">
+                        <i class="fa fa-exclamation-triangle"></i>
                     </li>
                     <li>
                         <form>
-                            <label for="saveTitle">Title:</label>
-                            <input type="text" id="saveTitle" name="saveTitle">
-                            <input type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
+                            <label data-keepOpenOnClick for="saveTitle">Title:</label>
+                            <input data-keepOpenOnClick type="text" id="saveTitle" name="saveTitle">
+                            <input data-keepOpenOnClick type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
                         </form>
                     </li>
-                    <li role="separator" class="divider"></li>
-                    <li><p>Load an image:</p></li>
+                    <li class="divider"></li>
+                    <li>Load an image:</li>
                     @foreach (var attachment in Model.attachments)
                     {
                         <li>
@@ -48,16 +54,23 @@
                         </li>
                     }
                 </ul>
+            </div>
+        </div>
+
+        <div class="fright">
+            <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
+            <button onclick="defaultBoard()" type="button" class="btn btn-primary">New</button>
+            <button onclick="clearBoard()" type="button" class="btn btn-primary">Clear</button>
         </div>
     </div>
-    <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
-    <button onclick="defaultBoard()" class="btn">New</button>
-    <button onclick="clearBoard()" class="btn">Clean</button>
-</div>
-<div id="blackBoard">
-    <canvas id="canvas" style="align-content:center"></canvas>
-</div>
+    <div id="board-inner">
+        <div id="blackBoard">
+            <canvas id="canvas" style="align-content:center"></canvas>
+        </div>
+    </div>
+</div><!-- /board-wrap-->
 
+<div class="shadow2"><img src="@Url.Content("~/assets/img/shadow.png")"></div>
 @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
 @Scripts.Render("~/signalr/hubs")
 @Scripts.Render("~/assets/js/blackboard.js")
