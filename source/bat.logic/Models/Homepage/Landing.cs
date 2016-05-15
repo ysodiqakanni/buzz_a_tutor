@@ -26,6 +26,15 @@ namespace bat.logic.Models.Homepage
             this.email = email.Trim();
             this.password = password.Trim();
 
+            if (string.IsNullOrEmpty(this.firstName))
+                throw new Exception("First name required.");
+            if (string.IsNullOrEmpty(this.lastName))
+                throw new Exception("Last name required.");
+            if (string.IsNullOrEmpty(this.email))
+                throw new Exception("Email required.");
+            if (string.IsNullOrEmpty(this.password))
+                throw new Exception("Password required.");
+
             using (var conn = new dbEntities())
             {
                 if (conn.Accounts.Any(a => a.Email == this.email))
