@@ -135,24 +135,24 @@
 
 						<div class="col_one_fourth form-group">
 							<label for="template-contactform-name">First name<small>*</small></label>
-							<input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" />
+							<input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" required />
 						</div>
 
 						<div class="col_one_fourth col_last form-group">
 							<label for="template-contactform-email">Last Name <small>*</small></label>
-							<input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" />
+							<input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" required />
 						</div>
 
 						<div class="clear"></div>
 
 						<div class="col_two_third form-group">
 							<label for="template-contactform-phone">Email address</label>
-							<input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" />
+							<input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" required />
 						</div>
 
 						<div class="col_one_fourth  col_last form-group">
 							<label for="template-contactform-pass">Password</label>
-							<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" />
+							<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
 						</div>
 
 						<div class="clear"></div>
@@ -295,7 +295,7 @@
 		<footer id="footer">
 			<div id="copyrights">
 				<div class="container">
-					2016 Copyright &copy; Buzz a Tutor. All rights reserved.
+					@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
 				</div>
 			</div>
 		</footer><!-- #footer end -->

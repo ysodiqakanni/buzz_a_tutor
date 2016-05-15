@@ -70,6 +70,14 @@
         @RenderBody()
     </div>
 
+    <footer class="footer">
+        <div class="container">
+            <p>
+                @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
