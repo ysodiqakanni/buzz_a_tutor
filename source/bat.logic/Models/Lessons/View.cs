@@ -100,7 +100,7 @@ namespace bat.logic.Models.Lessons
 
         public void CreateZoomMeeting()
         {
-            if (string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && string.IsNullOrEmpty(this.lesson.ZoomJoinUrl))
+            if (!string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && !string.IsNullOrEmpty(this.lesson.ZoomJoinUrl))
                 return;
 
             using (var conn = new dbEntities())
@@ -111,6 +111,8 @@ namespace bat.logic.Models.Lessons
                 var zoomLesson = ZoomApi.CreateMeeting(this.lesson.Description);
                 this.lesson.ZoomStartUrl = zoomLesson.start_url;
                 this.lesson.ZoomJoinUrl = zoomLesson.join_url;
+
+                conn.SaveChanges();
             }
         }
 
