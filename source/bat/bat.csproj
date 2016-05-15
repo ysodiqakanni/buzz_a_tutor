@@ -423,9 +423,6 @@
     <Content Include="Views\Lessons\Join.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Lessons\ViewZoom.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_PartialWhiteboard.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -41,6 +41,37 @@ namespace bat.logic.Models.Lessons
         public bool IsTeacher =>
             this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
 
+        public bool WebRTCAvailable
+        {
+            get
+            {
+                var browser = Shearnie.Net.Web.ServerInfo.GetBrowser.ToLower();
+                if (browser.Contains("firefox"))
+                    return true;
+
+                // internet explorer has a plugin available
+                if (browser.Contains("internetexplorer"))
+                    return true;
+
+                if (browser.Contains("chrome"))
+                {
+                    // from: https://stackoverflow.com/questions/31870789/check-whether-browser-is-chrome-or-edge
+                    if (Shearnie.Net.Web.ServerInfo.GetDevice.IndexOf("Edge") > -1)
+                    {
+                        return false;
+                    }
+
+                    return true;
+
+                }
+
+                if (browser.Contains("chrome"))
+                    return false;
+
+                return false;
+            }
+        }
+
         public void Load(int id)
         {
             using (var conn = new dbEntities())

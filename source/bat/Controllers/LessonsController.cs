@@ -20,18 +20,22 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                //if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Load(id);
-                model.GenerateTokBoxToken();
+
+                if (model.WebRTCAvailable)
+                {
+                    model.GenerateTokBoxToken();
+                    return View("View", model);
+                }
+                else
+                    return Redirect(model.lesson.ZoomJoinUrl);
             }
             catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
+                return View("View", model); // TODO show error page
             }
-
-            return View("View", model); // TokBox view
-            //return View("ViewZoom", model); // Zoom view
         }
 
         [Authorize]
