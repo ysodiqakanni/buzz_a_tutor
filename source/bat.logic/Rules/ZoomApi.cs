@@ -31,5 +31,20 @@ namespace bat.logic.Rules
             });
             return JsonConvert.DeserializeObject<MeetingList>(rs);
         }
+
+        public static Meeting CreateMeeting(string topic)
+        {
+            var rs = Shearnie.Net.Web.RESTJSON.PostSync("https://api.zoom.us/v1/meeting/create", new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("api_key", Constants.Zoom.ApiKey),
+                new KeyValuePair<string, string>("api_secret", Constants.Zoom.ApiSecret),
+                new KeyValuePair<string, string>("data_type", "JSON"),
+                new KeyValuePair<string, string>("host_id", Constants.Zoom.HostId_SteveShearn),
+                new KeyValuePair<string, string>("topic", topic),
+                new KeyValuePair<string, string>("type", "2"), // standard scheduled meeting
+                new KeyValuePair<string, string>("option_jbh", "true"),
+            });
+            return JsonConvert.DeserializeObject<Meeting>(rs);
+        }
     }
 }

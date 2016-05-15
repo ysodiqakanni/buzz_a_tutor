@@ -16,7 +16,7 @@ namespace bat.logic.Models.Zoom
         public string host_id { get; set; }
         public string topic { get; set; }
         public int type { get; set; }
-        public DateTime start_time { get; set; }
+        public DateTime? start_time { get; set; }
         public int duration { get; set; }
         public string timezone { get; set; }
         public string password { get; set; }
