@@ -15,10 +15,12 @@ namespace bat.logic.Models.Profile
     public class New : Master
     {
         public FamilyMember familyMemeber { get; set; }
+        public Account Account { get; set; }
 
         public New()
         {
             this.familyMemeber = new FamilyMember();
+            this.Account = new Account();
         }
 
         public void Save(int id, FormCollection frm)
@@ -28,10 +30,21 @@ namespace bat.logic.Models.Profile
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
+                this.Account = new Account()
+                {
+                    AccountType_ID = 1,
+                    Fname = (frm["Fname"]),
+                    Lname = (frm["Lname"]),
+                    Email = (frm["Email"]),
+                    Password = Helpers.PasswordStorage.CreateHash((frm["Password"]))
+                };
+                conn.Accounts.Add(this.Account);
+                conn.SaveChanges();
+
                 this.familyMemeber = new FamilyMember()
                 {
-                    Account_ID = id,
-                    Name = (frm["Name"]),
+                    Account_ID = this.Account.ID,
+                    Parent_ID = id,
                 };
                 conn.FamilyMembers.Add(this.familyMemeber);
                 conn.SaveChanges();

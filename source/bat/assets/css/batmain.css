@@ -1,4 +1,151 @@
-﻿.pad-container {
-    padding-left: 40px;
-    padding-right: 40px;
+﻿html, body {
+  color: #703641;
+  background-color: #f8f6f7;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  direction: ltr;
+}
+
+.navbar-brand {
+    width: 160px;
+    padding-top: 9px;
+}
+
+.nav-header {
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #703641;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #C66921;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #C66921;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #C66921;
+    background-color: #fff;
+}
+
+@media (min-width: 992px) {
+    .page-content {
+        margin-top: -20px;
+    }
+}
+
+.table-word-wrapped {
+    table-layout: fixed;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.button-strip {
+    margin-bottom: 20px;
+}
+
+.txt-fa::-webkit-input-placeholder {
+    font-family: fontAwesome;
+}
+.txt-fa::-moz-placeholder {
+    font-family: fontAwesome;
+}
+.txt-fa::-ms-input-placeholder {
+    font-family: fontAwesome;
+}
+
+.required:after {
+    content: ' *';
+}
+
+.left-border {
+    border-left: 1px solid #27AAE2;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #703641;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+h4 {
+  font-size: 22px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 19px;
+}
+
+/* Headings helper text */
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+  color: #703641;
+}
+
+textarea {
+    -moz-resize: none; -ms-resize: none; -o-resize: none; resize: none;
+}
+
+.btn {
+    font-family: "Lato", sans-serif;
+}
+
+.btn-primary {
+  font-family: "Lato", sans-serif;
+  color: #ffffff;
+  background-color: #C66921;
+  border-color: #C66921;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  color: #ffffff;
+  background-color: #EA8B23;
+  border-color: #EA8B23;
+}
+
+a {
+    color: #C66921;
 }

@@ -1,0 +1,91 @@
+﻿@model bat.logic.Models.Master
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Buzz a Tutor" />
+    <meta name="author" content="">
+    @RenderSection("meta", required: false)
+
+    <title>@ViewBag.Title</title>
+
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/assets/img/fav32x32.ico")" />
+    <link rel="prefetch" href="@Url.Content("~/assets/img/logo.png")">
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/assets/css/mainyucky")
+
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/js/jquery.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
+
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <!-- Header
+    ============================================= -->
+    <header id="header" class="sticky-header">
+
+        <div id="header-wrap">
+            <div class="clearfix container" style="padding: 0 14px;">
+
+                <!-- Logo
+                ============================================= -->
+                <div id="logo">
+                    <a href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor"></a>
+                </div><!-- #logo end -->
+                <!-- Login
+                 ============================================= -->
+                <div id="top-cart">
+                    <a href="#" id="top-cart-trigger"><i class="icon-user"></i> &nbsp; @Model.account.Fname @Model.account.Lname <i class="icon-angle-down"></i></a>
+                    <div class="top-cart-content">
+                        <div class="top-cart-items">
+                            <div class="top-cart-item clearfix">
+                                <div class="top-cart-item-desc">
+                                    <a href="@Url.RouteUrl("profile")"><i class="icon-user"></i> Profile</a>
+                                </div>
+                            </div>
+                            @foreach (var familyMember in Model.familyMembers)
+                            {
+                                <a href="#">@Model.GetAccountName(familyMember.ID)</a>
+                            }
+                            @*<div role="separator" class="divider"></div>*@
+                            <div class="top-cart-item clearfix">
+                                <div class="top-cart-item-desc">
+                                    <a href="@Url.RouteUrl("logout")"><i class="icon-line2-login"></i> Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #login end -->
+            </div>
+        </div>
+    </header><!-- #header end -->
+
+    <div class="pad-container">
+        <section id="content">
+            @RenderBody()
+        </section>
+    </div>
+
+    <!-- Footer
+    ============================================= -->
+    <footer id="footer">
+        <div id="copyrights">
+            <div class="container">
+                @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+            </div>
+        </div>
+    </footer><!-- #footer end -->
+
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="@Url.Content("~/assets/js/functions.js")"></script>
+</body>
+</html>

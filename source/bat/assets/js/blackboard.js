@@ -23,7 +23,6 @@ $(function () {
         print();
     };
     $.connection.hub.start().done(function () {
-
         // Join the Lesson's Blackboard
         blackboardHub.server.joinGroup(lessonId);
 
@@ -66,7 +65,6 @@ var useImg = false,
 
 function clearBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     if (useImg == true) {
         var img = new Image()
         img.src = "data:image/png;base64," + imgData;
@@ -97,19 +95,20 @@ canvas.onmouseup = function (e) {
 
 canvas.onmousemove = function (e) {
     if (painting) {
-        var cursorX = e.pageX - this.offsetLeft;
-        var cursorY = e.pageY - this.offsetTop;
+        var rect = canvas.getBoundingClientRect();
+        var cursorX = e.pageX - rect.left;
+        var cursorY = e.pageY - rect.top;
         paint(cursorX, cursorY);
 
         //debugging
-        //console.log("color: " + shapeModel.color)
+        //console.log("cursorX: " + cursorX + ". CursorY: " + cursorY)
 
         // Sends Chalks x y and color to server.
-        var adjustedWidth;
-        var adjustedHeight;
+        var adjustedWidth = remap(cursorX, 0, blackboardWidth, 0, 600);
+        var adjustedHeight = remap(cursorY, 0, blackboardHeight, 0, 600);
 
-        clientModel.x = remap(cursorX, 0, blackboardWidth, 0, 600);
-        clientModel.y = remap(cursorY, 0, blackboardHeight, 0, 600);
+        clientModel.x = adjustedWidth;
+        clientModel.y = adjustedHeight;
         blackboardHub.server.updateModel(clientModel);
 
     }
@@ -128,56 +127,57 @@ function paint(x,y) {
         y1 = mouseY,
         y2 = lastY;
 
+    ctx.fillRect(x, y, 4, 4);
 
-    var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
-    if (steep) {
-        var x = x1;
-        x1 = y1;
-        y1 = x;
+    //var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
+    //if (steep) {
+    //    var x = x1;
+    //    x1 = y1;
+    //    y1 = x;
 
-        var y = y2;
-        y2 = x2;
-        x2 = y;
-    }
-    if (x1 > x2) {
-        var x = x1;
-        x1 = x2;
-        x2 = x;
+    //    var y = y2;
+    //    y2 = x2;
+    //    x2 = y;
+    //}
+    //if (x1 > x2) {
+    //    var x = x1;
+    //    x1 = x2;
+    //    x2 = x;
 
-        var y = y1;
-        y1 = y2;
-        y2 = y;
-    }
+    //    var y = y1;
+    //    y1 = y2;
+    //    y2 = y;
+    //}
 
-    var dx = x2 - x1,
-        dy = Math.abs(y2 - y1),
-        error = 0,
-        de = dy / dx,
-        yStep = -1,
-        y = y1;
+    //var dx = x2 - x1,
+    //    dy = Math.abs(y2 - y1),
+    //    error = 0,
+    //    de = dy / dx,
+    //    yStep = -1,
+    //    y = y1;
 
-    if (y1 < y2) {
-        yStep = 1;
-    }
+    //if (y1 < y2) {
+    //    yStep = 1;
+    //}
 
-    lineThickness = 5 - Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) / 10;
-    if (lineThickness < 1) {
-        lineThickness = 1;
-    }
+    //lineThickness = 5 - Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) / 10;
+    //if (lineThickness < 1) {
+    //    lineThickness = 1;
+    //}
 
-    for (var x = x1; x < x2; x++) {
-        if (steep) {
-            ctx.fillRect(y, x, lineThickness, lineThickness);
-        } else {
-            ctx.fillRect(x, y, lineThickness, lineThickness);
-        }
+    //for (var x = x1; x < x2; x++) {
+    //    if (steep) {
+    //        ctx.fillRect(y, x, lineThickness, lineThickness);
+    //    } else {
+    //        ctx.fillRect(x, y, lineThickness, lineThickness);
+    //    }
 
-        error += de;
-        if (error >= 0.5) {
-            y += yStep;
-            error -= 1.0;
-        }
-    }
+    //    error += de;
+    //    if (error >= 0.5) {
+    //        y += yStep;
+    //        error -= 1.0;
+    //    }
+    //}
 
     lastX = mouseX;
     lastY = mouseY;
@@ -264,7 +264,13 @@ function loadImg(id) {
 function defaultBoard() {
     useImg = false;
     data = '';
-
     clearBoard();
+}
 
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
 }

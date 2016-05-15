@@ -31,9 +31,14 @@ namespace bat.logic.Models.Profile
             using (var conn = new dbEntities())
             {
                 this.familyMember = conn.FamilyMembers.FirstOrDefault(a => a.ID == memberID);
+                if (this.familyMember == null) throw new Exception("Family Member does not exist.");
+
+                this.account = conn.Accounts.FirstOrDefault(a => a.ID == this.familyMember.Account_ID);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
-                familyMember.Name = (frm["Name"]);              
+                account.Fname = (frm["Fname"]);
+                account.Lname = (frm["Lname"]);
+                account.Email = (frm["Email"]);         
                 conn.SaveChanges();
             }
         }
@@ -46,6 +51,17 @@ namespace bat.logic.Models.Profile
 
                 conn.FamilyMembers.Remove(conn.FamilyMembers.FirstOrDefault(i => i.ID == id));
                 conn.SaveChanges();
+            }
+        }
+
+        public data.Account FamilyMemberAccount
+        {
+            get
+            {
+                using (var conn = new dbEntities())
+                {
+                    return conn.Accounts.FirstOrDefault(a => a.ID == this.familyMember.Account_ID) ?? new Account();
+                }
             }
         }
     }

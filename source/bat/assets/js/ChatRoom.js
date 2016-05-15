@@ -20,7 +20,7 @@ $(function () {
     $.connection.hub.start().done(function () {
 
         // Join the Lesson's Chat room
-        chat.server.joinGroup(lessonId);
+        chat.server.joinGroup(lessonId, displayname);
 
         function sendMessage() {
             // Checks if message input is blank.
@@ -43,4 +43,10 @@ $(function () {
             }
         })
     });
+
+    // Lost connection with Server
+    $.connection.hub.reconnecting(function () {
+        // Add the disconnect message to the page.
+        $('#discussion').prepend('<li class="chatMessage"><strong> Classroom:</strong> Rejoining Classroom</li>');
+    })
 });

@@ -11,7 +11,6 @@ namespace bat.logic.Models.Profile
 {
     public class Profile : Master
     {
-        public List<FamilyMember> familyMembers { get; set; }
 
         public void Load(int id)
         {
@@ -21,7 +20,7 @@ namespace bat.logic.Models.Profile
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
-                this.familyMembers = conn.FamilyMembers.Where(i => i.Account.ID == id).ToList();
+                this.familyMembers = conn.FamilyMembers.Where(i => i.Parent_ID == id).ToList();
             }
         }
     }

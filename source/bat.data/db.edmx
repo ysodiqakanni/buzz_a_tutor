@@ -22,7 +22,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Account_ID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Parent_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -63,6 +63,18 @@
             </Principal>
             <Dependent Role="FamilyMember">
               <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyMember_Parent">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="FamilyMember" Type="Self.FamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyMember">
+              <PropertyRef Name="Parent_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -112,6 +124,10 @@
             <End Role="Account" EntitySet="Account" />
             <End Role="FamilyMember" EntitySet="FamilyMember" />
           </AssociationSet>
+          <AssociationSet Name="FK_FamilyMember_Parent" Association="Self.FK_FamilyMember_Parent">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="FamilyMember" EntitySet="FamilyMember" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lesson_Account" Association="Self.FK_Lesson_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Lesson" EntitySet="Lesson" />
@@ -131,9 +147,18 @@
       <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="dbModel.Account" />
-          <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
+          <EntitySet Name="FamilyMembers" EntityType="dbModel.FamilyMember" />
           <EntitySet Name="Lessons" EntityType="dbModel.Lesson" />
           <EntitySet Name="LessonAttachments" EntityType="dbModel.LessonAttachment" />
+          <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
+          <AssociationSet Name="FK_FamilyMember_Account" Association="dbModel.FK_FamilyMember_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="FamilyMember" EntitySet="FamilyMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyMember_Parent" Association="dbModel.FK_FamilyMember_Parent">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="FamilyMember" EntitySet="FamilyMembers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lesson_Account" Association="dbModel.FK_Lesson_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Lesson" EntitySet="Lessons" />
@@ -146,11 +171,6 @@
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonParticipant" EntitySet="LessonParticipants" />
           </AssociationSet>
-          <EntitySet Name="FamilyMembers" EntityType="dbModel.FamilyMember" />
-          <AssociationSet Name="FK_FamilyMember_Account" Association="dbModel.FK_FamilyMember_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="FamilyMember" EntitySet="FamilyMembers" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -162,17 +182,19 @@
           <Property Name="AccountType_ID" Type="Int32" Nullable="false" />
           <Property Name="Fname" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Lname" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Lessons" Relationship="dbModel.FK_Lesson_Account" FromRole="Account" ToRole="Lesson" />
           <NavigationProperty Name="FamilyMembers" Relationship="dbModel.FK_FamilyMember_Account" FromRole="Account" ToRole="FamilyMember" />
+          <NavigationProperty Name="FamilyMembers1" Relationship="dbModel.FK_FamilyMember_Parent" FromRole="Account" ToRole="FamilyMember" />
+          <NavigationProperty Name="Lessons" Relationship="dbModel.FK_Lesson_Account" FromRole="Account" ToRole="Lesson" />
         </EntityType>
-        <EntityType Name="LessonParticipant">
+        <EntityType Name="FamilyMember">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
           <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="LessonParticipant" ToRole="Lesson" />
+          <Property Name="Parent_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="dbModel.FK_FamilyMember_Account" FromRole="FamilyMember" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="dbModel.FK_FamilyMember_Parent" FromRole="FamilyMember" ToRole="Account" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -200,6 +222,39 @@
           <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="LessonAttachment" ToRole="Lesson" />
         </EntityType>
+        <EntityType Name="LessonParticipant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="LessonParticipant" ToRole="Lesson" />
+        </EntityType>
+        <Association Name="FK_FamilyMember_Account">
+          <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="dbModel.FamilyMember" Role="FamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyMember">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyMember_Parent">
+          <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="dbModel.FamilyMember" Role="FamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FamilyMember">
+              <PropertyRef Name="Parent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lesson_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="*" />
@@ -236,28 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="FamilyMember">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Account" Relationship="dbModel.FK_FamilyMember_Account" FromRole="FamilyMember" ToRole="Account" />
-        </EntityType>
-        <Association Name="FK_FamilyMember_Account">
-          <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
-          <End Type="dbModel.FamilyMember" Role="FamilyMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FamilyMember">
-              <PropertyRef Name="Account_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -275,11 +309,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LessonParticipants">
-            <EntityTypeMapping TypeName="dbModel.LessonParticipant">
-              <MappingFragment StoreEntitySet="LessonParticipant">
+          <EntitySetMapping Name="FamilyMembers">
+            <EntityTypeMapping TypeName="dbModel.FamilyMember">
+              <MappingFragment StoreEntitySet="FamilyMember">
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
-                <ScalarProperty Name="Lesson_ID" ColumnName="Lesson_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -308,11 +342,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FamilyMembers">
-            <EntityTypeMapping TypeName="dbModel.FamilyMember">
-              <MappingFragment StoreEntitySet="FamilyMember">
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="LessonParticipants">
+            <EntityTypeMapping TypeName="dbModel.LessonParticipant">
+              <MappingFragment StoreEntitySet="LessonParticipant">
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Lesson_ID" ColumnName="Lesson_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

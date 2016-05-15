@@ -28,7 +28,7 @@ namespace bat.logic.Models
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == accountId);
                 if (this.account == null) throw new InvalidRecordException();
 
-                this.familyMembers = conn.FamilyMembers.Where(i => i.Account.ID == accountId).ToList();
+                this.familyMembers = conn.FamilyMembers.Where(i => i.Parent_ID == accountId).ToList();
             }
             this.initialised = true;
         }
@@ -37,6 +37,14 @@ namespace bat.logic.Models
         {
             this.account = account;
             this.initialised = true;
+        }
+
+        public string GetAccountName(int accountId)
+        {
+            using (var conn = new dbEntities())
+            {
+                return conn.Accounts.Select(a => new { a.ID, a.Fname }).FirstOrDefault(a => a.ID == accountId)?.Fname;
+            }
         }
     }
 }

@@ -17,8 +17,9 @@ namespace bat.data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account()
         {
-            this.Lessons = new HashSet<Lesson>();
             this.FamilyMembers = new HashSet<FamilyMember>();
+            this.FamilyMembers1 = new HashSet<FamilyMember>();
+            this.Lessons = new HashSet<Lesson>();
         }
     
         public int ID { get; set; }
@@ -29,8 +30,10 @@ namespace bat.data
         public string Lname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lesson> Lessons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FamilyMember> FamilyMembers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }
