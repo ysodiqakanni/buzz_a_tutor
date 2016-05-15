@@ -235,7 +235,6 @@
     <Content Include="assets\css\nivo-slider.css" />
     <Content Include="assets\css\responsive.css" />
     <Content Include="assets\css\style.css" />
-    <Content Include="assets\css\style1.css" />
     <Content Include="assets\css\vmap.css" />
     <Content Include="assets\css\yellow.css" />
     <Content Include="assets\font\animation.css" />
@@ -350,7 +349,6 @@
     <Content Include="assets\css\fonts\Simple-Line-Icons.eot" />
     <Content Include="assets\css\fonts\Simple-Line-Icons.ttf" />
     <Content Include="assets\css\fonts\Simple-Line-Icons.woff" />
-    <Content Include="assets\css\colors.php" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -376,6 +374,7 @@
     <Content Include="Views\Profile\EditPassword.cshtml" />
     <Content Include="Views\Profile\New.cshtml" />
     <Content Include="Views\Profile\EditMember.cshtml" />
+    <Content Include="Views\Shared\_LayoutYucky.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

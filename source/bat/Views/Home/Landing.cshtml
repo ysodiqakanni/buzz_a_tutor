@@ -29,280 +29,280 @@
 	<![endif]-->*@
 	<script src="@Url.Content("~/assets/js/modernizr.custom.js")"></script>
 
-    <!-- Stylesheets
-    ============================================= -->
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" type="text/css" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" type="text/css" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/dark.css")" type="text/css" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/font-icons.css")" type="text/css" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/animate.css")" type="text/css" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/magnific-popup.css")" type="text/css" />
-    <link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
+	<!-- Stylesheets
+	============================================= -->
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/dark.css")" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/font-icons.css")" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/animate.css")" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/magnific-popup.css")" type="text/css" />
+	<link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
 
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/responsive.css")" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <!--[if lt IE 9]>
-        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-    <![endif]-->
-    <!-- External JavaScripts
-    ============================================= -->
-    <script type="text/javascript" src="@Url.Content("~/assets/js/jquery.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/responsive.css")" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+	<!-- External JavaScripts
+	============================================= -->
+	<script type="text/javascript" src="@Url.Content("~/assets/js/jquery.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
 
 </head>
 
 
 <body class="stretched">
 
-    <!-- Document Wrapper
-    ============================================= -->
-    <div id="wrapper" class="clearfix">
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
 
-            <!-- Header
-            ============================================= -->
-            <header id="header" class="">
+			<!-- Header
+			============================================= -->
+			<header id="header" class="">
 
-                <div id="header-wrap">
+				<div id="header-wrap">
 
-                    <div class="container clearfix">
+					<div class="container clearfix">
 
-                        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+						<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
-                        <!-- Logo
-                        ============================================= -->
-                        <div id="logo">
-                            <a href="index.html"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a T Logo"></a>
-                        </div><!-- #logo end -->
-                        <!-- Primary Navigation
-                        ============================================= -->
-                        <nav id="primary-menu">
+						<!-- Logo
+						============================================= -->
+						<div id="logo">
+							<a href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a T Logo"></a>
+						</div><!-- #logo end -->
+						<!-- Primary Navigation
+						============================================= -->
+						<nav id="primary-menu">
 
-                            <ul>
-                                <li><a href="#"><div>Home</div></a></li>
-                                <li><a href="#"><div>About Us</div></a></li>
-                                <li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
-                            </ul>
+							<ul>
+								<li><a href="#"><div>Home</div></a></li>
+								<li><a href="#"><div>About Us</div></a></li>
+								<li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
+							</ul>
 
-                        </nav><!-- #primary-menu end -->
+						</nav><!-- #primary-menu end -->
 
-                    </div>
+					</div>
 
-                </div>
+				</div>
 
-            </header><!-- #header end -->
-            <!-- Contact Form & Map Overlay Section
-            ============================================= -->
-            <div id="slider-overlay">
-                <div class="fslider">
-                    <div class="flexslider">
-                        <div class="slider-wrap">
-                            <div class="slide"><img src="@Url.Content("~/assets/img/slider/1.jpg")" alt="Slider 1"></div>
-                            <div class="slide"><img src="@Url.Content("~/assets/img/slider/2.jpg")" alt="Slider 2"></div>
-                            <div class="slide"><img src="@Url.Content("~/assets/img/slider/3.jpg")" alt="Slider 3"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div id="form-overlay">
-                <!-- Contact Form Overlay
-                ============================================= -->
-                <div id="contact-form-overlay" class="clearfix">
-
-                    <div class="fancy-title">
-                        <h7>Learn right now</h7>
-                        <div class="clear"></div>
-                        <div class="dotslinetop"></div>
-                        <h8>Get quality instruction at any time, at any place</h8>
-                        <div class="dotslinebottom"></div>
-                    </div>
-
-                    <div id="contact-form-result" data-notify-type="success" data-notify-msg="<i class=icon-ok-sign></i> Message Sent Successfully!"></div>
-
-                    <!-- Contact Form
-                    ============================================= -->
-                    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">                      
-                        <div class="col_two_fifth form-group">
-                            <label for="template-contactform-name">Your are a<small>*</small></label>
-                            <select id="template-contactform-service" name="type" class="sm-form-control">
-                                <option value="Student">Student</option>
-                                <option value="Teacher">Teacher</option>
-                            </select>
-                        </div>
-
-                        <div class="col_one_fourth form-group">
-                            <label for="template-contactform-name">First name<small>*</small></label>
-                            <input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" />
-                        </div>
-
-                        <div class="col_one_fourth col_last form-group">
-                            <label for="template-contactform-email">Last Name <small>*</small></label>
-                            <input type="text" id="template-contactform-name" name="lastname" value="" class="required sm-form-control" />
-                        </div>
-
-                        <div class="clear"></div>
-
-                        <div class="col_two_third form-group">
-                            <label for="template-contactform-phone">Email address</label>
-                            <input type="email" id="template-contactform-email" name="email" value="" class="email sm-form-control" />
-                        </div>
-
-                        <div class="col_one_fourth  col_last form-group">
-                            <label for="template-contactform-service">Password</label>
-                            <input type="password" id="template-contactform-name" name="password" value="" class="sm-form-control required" />
-                        </div>
-
-                        <div class="clear"></div>
+			</header><!-- #header end -->
+			<!-- Contact Form & Map Overlay Section
+			============================================= -->
+			<div id="slider-overlay">
+				<div class="fslider">
+					<div class="flexslider">
+						<div class="slider-wrap">
+							<div class="slide"><img src="@Url.Content("~/assets/img/slider/1.jpg")" alt="Slider 1"></div>
+							<div class="slide"><img src="@Url.Content("~/assets/img/slider/2.jpg")" alt="Slider 2"></div>
+							<div class="slide"><img src="@Url.Content("~/assets/img/slider/3.jpg")" alt="Slider 3"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
-                        <div class="col_full hidden">
-                            <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
-                        </div>
 
-                        <div class="col-full">
-                            <p style="color: #000; text-align: center">@ViewBag.Error</p>
-                            <button button class="button button-3d button-purple nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
-                        </div>
+			<div id="form-overlay">
+				<!-- Contact Form Overlay
+				============================================= -->
+				<div id="contact-form-overlay" class="clearfix">
 
-                    </form>
+					<div class="fancy-title">
+						<h7>Learn right now</h7>
+						<div class="clear"></div>
+						<div class="dotslinetop"></div>
+						<h8>Get quality instruction at any time, at any place</h8>
+						<div class="dotslinebottom"></div>
+					</div>
 
-                    @*<script type="text/javascript">
-                            $("#template-contactform").validate({
-                                submitHandler: function(form) {
-                                    $('.form-process').fadeIn();
-                                    $(form).ajaxSubmit({
-                                        target: '#contact-form-result',
-                                        success: function() {
-                                            $('.form-process').fadeOut();
-                                            $('#template-contactform').find('.sm-form-control').val('');
-                                            $('#contact-form-result').attr('data-notify-msg', $('#contact-form-result').html()).html('');
-                                            SEMICOLON.widget.notifications($('#contact-form-result'));
-                                        }
-                                    });
-                                }
-                            });
-                    </script>*@
+					<div id="contact-form-result" data-notify-type="success" data-notify-msg="<i class=icon-ok-sign></i> Message Sent Successfully!"></div>
 
-                </div><!-- Contact Form Overlay End -->
+					<!-- Contact Form
+					============================================= -->
+					<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">                      
+						<div class="col_two_fifth form-group">
+							<label for="template-contactform-service">Your are a<small>*</small></label>
+							<select id="template-contactform-service" name="type" class="sm-form-control">
+								<option value="Student">Student</option>
+								<option value="Teacher">Teacher</option>
+							</select>
+						</div>
 
-            </div>
+						<div class="col_one_fourth form-group">
+							<label for="template-contactform-name">First name<small>*</small></label>
+							<input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" />
+						</div>
+
+						<div class="col_one_fourth col_last form-group">
+							<label for="template-contactform-email">Last Name <small>*</small></label>
+							<input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" />
+						</div>
+
+						<div class="clear"></div>
+
+						<div class="col_two_third form-group">
+							<label for="template-contactform-phone">Email address</label>
+							<input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" />
+						</div>
+
+						<div class="col_one_fourth  col_last form-group">
+							<label for="template-contactform-pass">Password</label>
+							<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" />
+						</div>
+
+						<div class="clear"></div>
 
 
+						<div class="col_full hidden">
+							<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+						</div>
+
+						<div class="col-full">
+							<p style="color: #000; text-align: center">@ViewBag.Error</p>
+							<button button class="button button-3d button-purple nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
+						</div>
+
+					</form>
+
+					@*<script type="text/javascript">
+							$("#template-contactform").validate({
+								submitHandler: function(form) {
+									$('.form-process').fadeIn();
+									$(form).ajaxSubmit({
+										target: '#contact-form-result',
+										success: function() {
+											$('.form-process').fadeOut();
+											$('#template-contactform').find('.sm-form-control').val('');
+											$('#contact-form-result').attr('data-notify-msg', $('#contact-form-result').html()).html('');
+											SEMICOLON.widget.notifications($('#contact-form-result'));
+										}
+									});
+								}
+							});
+					</script>*@
+
+				</div><!-- Contact Form Overlay End -->
+
+			</div>
 
 
 
 
-        <section id="content">
-            <div class="content-wrap">
-                <div class="container clearfix ">
-                    <div class="slogan-title title-center nobottomborder">
-                        <div class="slogan">The future is waiting for you</div>
-                        <div class="clear"></div>
-                        <p>Quisque eu lectus at sem imperdiet aliqua and pendisse a hendsumellus nec turpis sed tellus.</p>
-                    </div>
+
+
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container clearfix ">
+					<div class="slogan-title title-center nobottomborder">
+						<div class="slogan">The future is waiting for you</div>
+						<div class="clear"></div>
+						<p>Quisque eu lectus at sem imperdiet aliqua and pendisse a hendsumellus nec turpis sed tellus.</p>
+					</div>
 
 
 
-                    <div class="rows_container clearfix">
-                        <!-- Portfolio Items
-                        ============================================= -->
-                        <div id="portfolio" class="clearfix">
+					<div class="rows_container clearfix">
+						<!-- Portfolio Items
+						============================================= -->
+						<div id="portfolio" class="clearfix">
 
 
-                            <article class="portfolio-item clearfix">
-                                <div class="portfolio-image">
-                                    <div class="feature-box fbox-effect">
-                                        <div class="fbox-icon">
-                                            <i class="icon-book" style="background-color:#ff982e"></i>
-                                            <h3><span class="orange">ENGLISH</span></h3>
-                                        </div>
-                                    </div>
-                                    <div class="portfolio-overlay" style="background-color:#ff982e">
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">GCS English tutors</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">A-Level English tutors</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">About English tuition</button>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="portfolio-item clearfix">
-                                <div class="portfolio-image">
-                                    <div class="feature-box fbox-effect">
-                                        <div class="fbox-icon">
-                                            <i class="icon-calculator" style="background-color:#4fa1de"></i>
-                                            <h3><span class="blue">MATHS</span></h3>
-                                        </div>
-                                    </div>
-                                    <div class="portfolio-overlay" style="background-color:#4fa1de">
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">GCSE Maths tutors</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">A-Level Maths tutors</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">About Maths tuition</button>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="portfolio-item clearfix">
-                                <div class="portfolio-image">
-                                    <div class="feature-box fbox-effect">
-                                        <div class="fbox-icon">
-                                            <i class="icon-beaker" style="background-color:#b91e7a"></i>
-                                            <h3><span class="purple">SCIENCES</span></h3>
-                                        </div>
-                                    </div>
-                                    <div class="portfolio-overlay" style="background-color:#b91e7a">
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Biology tutors</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Chemistry tutors</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Physics tutors</button>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="portfolio-item col-last">
-                                <div class="portfolio-image">
-                                    <div class="feature-box fbox-effect">
-                                        <div class="fbox-icon">
-                                            <i class="icon-comments" style="background-color:#85de4f"></i>
-                                            <h3><span class="green">LANGUAGE</span></h3>
-                                        </div>
-                                    </div>
+							<article class="portfolio-item clearfix">
+								<div class="portfolio-image">
+									<div class="feature-box fbox-effect">
+										<div class="fbox-icon">
+											<i class="icon-book" style="background-color:#ff982e"></i>
+											<h3><span class="orange">ENGLISH</span></h3>
+										</div>
+									</div>
+									<div class="portfolio-overlay" style="background-color:#ff982e">
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">GCS English tutors</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">A-Level English tutors</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">About English tuition</button>
+									</div>
+								</div>
+							</article>
+							<article class="portfolio-item clearfix">
+								<div class="portfolio-image">
+									<div class="feature-box fbox-effect">
+										<div class="fbox-icon">
+											<i class="icon-calculator" style="background-color:#4fa1de"></i>
+											<h3><span class="blue">MATHS</span></h3>
+										</div>
+									</div>
+									<div class="portfolio-overlay" style="background-color:#4fa1de">
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">GCSE Maths tutors</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">A-Level Maths tutors</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">About Maths tuition</button>
+									</div>
+								</div>
+							</article>
+							<article class="portfolio-item clearfix">
+								<div class="portfolio-image">
+									<div class="feature-box fbox-effect">
+										<div class="fbox-icon">
+											<i class="icon-beaker" style="background-color:#b91e7a"></i>
+											<h3><span class="purple">SCIENCES</span></h3>
+										</div>
+									</div>
+									<div class="portfolio-overlay" style="background-color:#b91e7a">
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Biology tutors</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Chemistry tutors</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Physics tutors</button>
+									</div>
+								</div>
+							</article>
+							<article class="portfolio-item col-last">
+								<div class="portfolio-image">
+									<div class="feature-box fbox-effect">
+										<div class="fbox-icon">
+											<i class="icon-comments" style="background-color:#85de4f"></i>
+											<h3><span class="green">LANGUAGE</span></h3>
+										</div>
+									</div>
 
-                                    <div class="portfolio-overlay" style="background-color:#85de4f">
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">German</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">French</button>
-                                        <button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Japanese</button>
-                                    </div>
-                                </div>
-                            </article>
+									<div class="portfolio-overlay" style="background-color:#85de4f">
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">German</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">French</button>
+										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='#'">Japanese</button>
+									</div>
+								</div>
+							</article>
 
-                        </div>
-                    </div>
-
-
-                    <div class="title-block">
-                        <h4>Other Subjects: <span>History, Geography, Computing</span></h4>
-                    </div>
+						</div>
+					</div>
 
 
-                </div>
-
-            </div>
-
-        </section>
+					<div class="title-block">
+						<h4>Other Subjects: <span>History, Geography, Computing</span></h4>
+					</div>
 
 
-        <!-- Footer
-        ============================================= -->
-        <footer id="footer">
-            <div id="copyrights">
-                <div class="container">
-                    2016 Copyrights &copy; Buzz a Tutor. All rights reserved.
-                </div>
-            </div>
-        </footer><!-- #footer end -->
-    </div><!-- #wrapper end -->
-    <!-- Footer Scripts
-        ============================================= -->
-    <script type="text/javascript" src="@Url.Content("~/assets/js/functions.js")"></script>
+				</div>
+
+			</div>
+
+		</section>
+
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer">
+			<div id="copyrights">
+				<div class="container">
+					2016 Copyrights &copy; Buzz a Tutor. All rights reserved.
+				</div>
+			</div>
+		</footer><!-- #footer end -->
+	</div><!-- #wrapper end -->
+	<!-- Footer Scripts
+		============================================= -->
+	<script type="text/javascript" src="@Url.Content("~/assets/js/functions.js")"></script>
 
 </body>
 </html>

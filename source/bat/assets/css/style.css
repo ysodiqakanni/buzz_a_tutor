@@ -10817,7 +10817,7 @@ body:not(.device-touch) .text-overlay {
 	padding: 8px 14px;
 	font-size: 15px;
 	line-height: 1.42857143;
-	color: #fff;
+	color: #444;
 	background-color: #ffffff;
 	background-image: none;
 	border: 2px solid #DDD;

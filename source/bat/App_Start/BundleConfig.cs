@@ -9,7 +9,10 @@ namespace bat
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/assets/css/main").Include(
-                "~/assets/css/batmain.css",
+                "~/assets/css/batmain.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/assets/css/mainyucky").Include(
                 "~/assets/css/bootstrap.css",
                 "~/assets/css/style.css",
                 "~/assets/css/dark.css",
@@ -17,11 +20,11 @@ namespace bat
                 "~/assets/css/animate.css",
                 "~/assets/css/magnific-popup.css",
                 "~/assets/css/responsive.css"
-
             ));
 
             bundles.Add(new StyleBundle("~/assets/css/landinglogin").Include(
-                "~/assets/css/login.css"
+                "~/assets/css/login.css",
+                "~/assets/css/batmain.css"
             ));
         }
     }
