@@ -100,6 +100,9 @@ namespace bat.logic.Models.Lessons
 
         public void CreateZoomMeeting()
         {
+            if (string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && string.IsNullOrEmpty(this.lesson.ZoomJoinUrl))
+                return;
+
             using (var conn = new dbEntities())
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);

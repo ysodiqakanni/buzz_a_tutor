@@ -28,7 +28,10 @@ namespace bat.Controllers
                     return View("View", model);
                 }
                 else
+                {
+                    model.CreateZoomMeeting();
                     return Redirect(model.lesson.ZoomJoinUrl);
+                }
             }
             catch (Exception ex)
             {
