@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using bat.logic.Models.Zoom;
+using Newtonsoft.Json;
 
 namespace bat.logic.Rules
 {
@@ -18,7 +20,7 @@ namespace bat.logic.Rules
             return "";
         }
 
-        public static string ListSessions()
+        public static MeetingList ListMeetings()
         {
             var rs = Shearnie.Net.Web.RESTJSON.PostSync("https://api.zoom.us/v1/meeting/list", new List<KeyValuePair<string, string>>()
             {
@@ -27,7 +29,7 @@ namespace bat.logic.Rules
                 new KeyValuePair<string, string>("data_type", "JSON"),
                 new KeyValuePair<string, string>("host_id", Constants.Zoom.HostId_SteveShearn),
             });
-            return "";
+            return JsonConvert.DeserializeObject<MeetingList>(rs);
         }
     }
 }

@@ -155,6 +155,8 @@
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\Profile\EditMember.cs" />
     <Compile Include="Models\System\Authentication.cs" />
+    <Compile Include="Models\Zoom\Meeting.cs" />
+    <Compile Include="Models\Zoom\MeetingList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\PasswordValidation.cs" />
     <Compile Include="Rules\ZoomApi.cs" />

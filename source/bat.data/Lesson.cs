@@ -28,6 +28,8 @@ namespace bat.data
         public string Description { get; set; }
         public int ClassSize { get; set; }
         public string TokBoxSessionId { get; set; }
+        public string ZoomStartUrl { get; set; }
+        public string ZoomJoinUrl { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

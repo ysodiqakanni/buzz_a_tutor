@@ -163,3 +163,14 @@ GO
 ALTER TABLE [dbo].[FamilyMember]  WITH CHECK ADD  CONSTRAINT [FK_FamilyMember_Parent] FOREIGN KEY([Parent_ID])
 REFERENCES [dbo].[Account] ([ID])
 
+
+
+
+GO
+ALTER TABLE dbo.Lesson ADD
+	ZoomStartUrl varchar(500) NULL
+
+GO
+ALTER TABLE dbo.Lesson ADD
+	ZoomJoinUrl varchar(500) NULL
+

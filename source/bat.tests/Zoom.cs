@@ -9,7 +9,7 @@ namespace bat.tests
         [TestMethod]
         public void ListSessions()
         {
-            var lessons = logic.Rules.ZoomApi.ListSessions();
+            var lessons = logic.Rules.ZoomApi.ListMeetings();
         }
     }
 }

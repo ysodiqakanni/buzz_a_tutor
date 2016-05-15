@@ -35,6 +35,8 @@
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="ClassSize" Type="int" Nullable="false" />
           <Property Name="TokBoxSessionId" Type="varchar" MaxLength="128" />
+          <Property Name="ZoomStartUrl" Type="varchar" MaxLength="500" />
+          <Property Name="ZoomJoinUrl" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="LessonAttachment">
           <Key>
@@ -148,7 +150,6 @@
         <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="dbModel.Account" />
           <EntitySet Name="FamilyMembers" EntityType="dbModel.FamilyMember" />
-          <EntitySet Name="Lessons" EntityType="dbModel.Lesson" />
           <EntitySet Name="LessonAttachments" EntityType="dbModel.LessonAttachment" />
           <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
           <AssociationSet Name="FK_FamilyMember_Account" Association="dbModel.FK_FamilyMember_Account">
@@ -159,6 +160,7 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="FamilyMember" EntitySet="FamilyMembers" />
           </AssociationSet>
+          <EntitySet Name="Lessons" EntityType="dbModel.Lesson" />
           <AssociationSet Name="FK_Lesson_Account" Association="dbModel.FK_Lesson_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Lesson" EntitySet="Lessons" />
@@ -171,7 +173,7 @@
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonParticipant" EntitySet="LessonParticipants" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
@@ -195,21 +197,6 @@
           <Property Name="Parent_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="dbModel.FK_FamilyMember_Account" FromRole="FamilyMember" ToRole="Account" />
           <NavigationProperty Name="Account1" Relationship="dbModel.FK_FamilyMember_Parent" FromRole="FamilyMember" ToRole="Account" />
-        </EntityType>
-        <EntityType Name="Lesson">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DurationMins" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ClassSize" Type="Int32" Nullable="false" />
-          <Property Name="TokBoxSessionId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
-          <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
-          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
         </EntityType>
         <EntityType Name="LessonAttachment">
           <Key>
@@ -255,6 +242,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DurationMins" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClassSize" Type="Int32" Nullable="false" />
+          <Property Name="TokBoxSessionId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ZoomStartUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ZoomJoinUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
+          <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
+          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
+        </EntityType>
         <Association Name="FK_Lesson_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="*" />
@@ -318,19 +322,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lessons">
-            <EntityTypeMapping TypeName="dbModel.Lesson">
-              <MappingFragment StoreEntitySet="Lesson">
-                <ScalarProperty Name="TokBoxSessionId" ColumnName="TokBoxSessionId" />
-                <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
-                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
-                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LessonAttachments">
             <EntityTypeMapping TypeName="dbModel.LessonAttachment">
               <MappingFragment StoreEntitySet="LessonAttachment">
@@ -347,6 +338,21 @@
               <MappingFragment StoreEntitySet="LessonParticipant">
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
                 <ScalarProperty Name="Lesson_ID" ColumnName="Lesson_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="dbModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="ZoomJoinUrl" ColumnName="ZoomJoinUrl" />
+                <ScalarProperty Name="ZoomStartUrl" ColumnName="ZoomStartUrl" />
+                <ScalarProperty Name="TokBoxSessionId" ColumnName="TokBoxSessionId" />
+                <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
