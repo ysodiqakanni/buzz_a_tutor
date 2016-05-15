@@ -168,9 +168,9 @@ REFERENCES [dbo].[Account] ([ID])
 
 GO
 ALTER TABLE dbo.Lesson ADD
-	ZoomStartUrl varchar(500) NULL
+	ZoomStartUrl varchar(max) NULL
 
 GO
 ALTER TABLE dbo.Lesson ADD
-	ZoomJoinUrl varchar(500) NULL
+	ZoomJoinUrl varchar(max) NULL
 

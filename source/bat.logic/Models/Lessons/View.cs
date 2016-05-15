@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using bat.logic.Rules;
 using OpenTokSDK;
 
 namespace bat.logic.Models.Lessons
@@ -27,7 +28,9 @@ namespace bat.logic.Models.Lessons
                 BookingDate = Shearnie.Net.OzTime.GetNowAEST(),
                 DurationMins = 15,
                 ClassSize = 0,
-                TokBoxSessionId = ""
+                TokBoxSessionId = "",
+                ZoomStartUrl = "",
+                ZoomJoinUrl = ""
             };
             this.attachments = new List<Attachment>();
             this.host = new Account();
@@ -61,6 +64,19 @@ namespace bat.logic.Models.Lessons
                     if (other != null)
                         this.others.Add(other);
                 }
+            }
+        }
+
+        public void CreateZoomMeeting()
+        {
+            using (var conn = new dbEntities())
+            {
+                this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
+                if (this.lesson == null) throw new Exception("Lesson does not exist.");
+
+                var zoomLesson = ZoomApi.CreateMeeting(this.lesson.Description);
+                this.lesson.ZoomStartUrl = zoomLesson.start_url;
+                this.lesson.ZoomJoinUrl = zoomLesson.join_url;
             }
         }
 

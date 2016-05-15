@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using OpenTokSDK;
 
 namespace bat.logic.Models.Lessons
 {
@@ -21,7 +20,9 @@ namespace bat.logic.Models.Lessons
                 BookingDate = Shearnie.Net.OzTime.GetNowAEST(),
                 DurationMins = 15,
                 ClassSize = 0,
-                TokBoxSessionId = ""
+                TokBoxSessionId = "",
+                ZoomStartUrl = "",
+                ZoomJoinUrl = ""
             };
         }
 

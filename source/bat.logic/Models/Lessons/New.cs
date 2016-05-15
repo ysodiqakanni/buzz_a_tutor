@@ -35,19 +35,25 @@ namespace bat.logic.Models.Lessons
 
             using (var conn = new dbEntities())
             {
-                var opentok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+                var description = (frm["Description"] ?? "").Trim();
+                if (string.IsNullOrEmpty(description)) throw new Exception("Description is required.");
+
+                // note, relayed can't be archived (saved)
+                // when saving or archiving video, must be routed not relayed
+                var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+                var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
 
                 this.lesson = new Lesson()
                 {
                     Account_ID = this.account.ID,
                     BookingDate = Convert.ToDateTime(bkdt, new CultureInfo("en-AU")),
                     DurationMins = int.Parse(frm["DurationMins"]),
-                    Description = (frm["Description"] ?? "").Trim(),
+                    Description = description,
                     ClassSize = int.Parse(frm["ClassSize"]),
 
-                    // note, relayed can't be archived (saved)
-                    // when saving or archiving video, must be routed not relayed
-                    TokBoxSessionId = opentok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL).Id
+                    TokBoxSessionId = session.Id,
+                    ZoomStartUrl = "",
+                    ZoomJoinUrl = ""
                 };
                 conn.Lessons.Add(this.lesson);
                 conn.SaveChanges();

@@ -35,8 +35,8 @@
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="ClassSize" Type="int" Nullable="false" />
           <Property Name="TokBoxSessionId" Type="varchar" MaxLength="128" />
-          <Property Name="ZoomStartUrl" Type="varchar" MaxLength="500" />
-          <Property Name="ZoomJoinUrl" Type="varchar" MaxLength="500" />
+          <Property Name="ZoomStartUrl" Type="varchar(max)" />
+          <Property Name="ZoomJoinUrl" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="LessonAttachment">
           <Key>
@@ -253,8 +253,8 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClassSize" Type="Int32" Nullable="false" />
           <Property Name="TokBoxSessionId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="ZoomStartUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ZoomJoinUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ZoomStartUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ZoomJoinUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
           <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
           <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
