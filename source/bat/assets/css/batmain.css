@@ -73,7 +73,7 @@
 }
 
 .left-border {
-    border-left: 1px solid #27AAE2;
+    border-left: 1px solid #C66921;
 }
 
 /* Headings */
@@ -124,6 +124,11 @@ h6 small {
 
 textarea {
     -moz-resize: none; -ms-resize: none; -o-resize: none; resize: none;
+}
+
+.form-control {
+    color: #111;
+    font-weight: 500;
 }
 
 .btn {
