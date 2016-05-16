@@ -7,30 +7,30 @@
 }
 @section scripts {
 }
-<h2>Lesson Details</h2>
-
 
 @{ Html.BeginForm("Join", "Lessons", FormMethod.Post); }
 
-<p>
-    Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-</p>
-<p>
-    Duration mins: @Model.lesson.DurationMins
-</p>
-<p>
-    Class size: @Model.lesson.ClassSize
-</p>
-<p>
-    Description: @Model.lesson.Description
-</p>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>@Model.lesson.Description</h2>
 
+        <p>
+            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+        </p>
+        <p>
+            Duration mins: @Model.lesson.DurationMins
+        </p>
+        <p>
+            Class size: @Model.lesson.ClassSize
+        </p>
 
-<div style="margin-top: 40px; overflow: auto;">
-    <input type="submit" value="Join" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
-    <a href="javascript:;" onclick="history.back();" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
-        Cancel
-    </a>
+        <div style="margin-top: 40px; overflow: auto;">
+            <input type="submit" value="Join" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
+            <a href="javascript:;" onclick="history.back();" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
+                Cancel
+            </a>
+        </div>
+    </div>
 </div>
 
 @{ Html.EndForm(); }

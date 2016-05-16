@@ -12,7 +12,7 @@
         });
     </script>*@
 }
-<h2>Lesson Details</h2>
+<h2>@Model.lesson.Description</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -25,10 +25,6 @@
         <p>
             Class size: @Model.lesson.ClassSize
         </p>
-        <p>
-            Description: @Model.lesson.Description
-        </p>
-
 
         <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-default">
             Join session
