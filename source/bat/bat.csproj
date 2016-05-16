@@ -338,6 +338,8 @@
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="assets\vendor\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="assets\vendor\bootstrap-select\bootstrap-select.min.js" />
     <Content Include="assets\vendor\bootstrap.min.css" />
     <Content Include="assets\vendor\font-awesome.min.css" />
     <Content Include="assets\vendor\respond.min.js" />

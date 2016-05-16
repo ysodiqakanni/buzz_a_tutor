@@ -17,9 +17,9 @@ namespace bat.data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Lesson()
         {
+            this.ChatRecords = new HashSet<ChatRecord>();
             this.LessonAttachments = new HashSet<LessonAttachment>();
             this.LessonParticipants = new HashSet<LessonParticipant>();
-            this.ChatRecords = new HashSet<ChatRecord>();
         }
     
         public int ID { get; set; }
@@ -31,13 +31,14 @@ namespace bat.data
         public string TokBoxSessionId { get; set; }
         public string ZoomStartUrl { get; set; }
         public string ZoomJoinUrl { get; set; }
+        public string Subject { get; set; }
     
         public virtual Account Account { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatRecord> ChatRecords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonAttachment> LessonAttachments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonParticipant> LessonParticipants { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatRecord> ChatRecords { get; set; }
     }
 }

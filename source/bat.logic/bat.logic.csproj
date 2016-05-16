@@ -127,6 +127,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Subjects.cs" />
     <Compile Include="Constants\TokBox.cs" />
     <Compile Include="Constants\Types.cs" />
     <Compile Include="Constants\Zoom.cs" />

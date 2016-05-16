@@ -10,14 +10,29 @@
         @if (Model.lessons.Any())
         {
             <h2>Here are your lessons</h2>
-            foreach (var lesson in Model.lessons)
-            {
-                <p>
-                    <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
-                        @lesson.Description
-                    </a>
-                </p>
-            }
+            <ul>
+                @foreach (var lesson in Model.lessons)
+                {
+                    <li>
+                        <p>
+                            @if (string.IsNullOrEmpty(lesson.Subject))
+                            {
+                                <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                                    @lesson.Description
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                                    @lesson.Subject
+                                    <br/>
+                                    @lesson.Description
+                                </a>
+                            }
+                        </p>
+                    </li>
+                }
+            </ul>
         }
         <p>
             <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Create a new lesson</a>

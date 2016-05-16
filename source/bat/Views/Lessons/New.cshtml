@@ -5,11 +5,13 @@
 
 @section head {
     <link rel="stylesheet" href="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.css")">
 }
 @section scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/en-au.js"></script>
     <script src="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+    <script src="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.js")"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -42,7 +44,38 @@
         </div>
     </div>
     <div class="col-md-6">
-                <div class="form-group">
+        <div class="form-group">
+            <label class="control-label required">Subject</label>
+            <select class="form-control selectpicker" name="Subject" required>
+                <option disabled selected>Select a Subject</option>
+                <optgroup label="Maths">
+                    @foreach (var s in bat.logic.Constants.Subjects.Maths)
+                    {
+                        <option value="Maths__@s">@s</option>
+                    }
+                </optgroup>
+                <optgroup label="English">
+                    @foreach (var s in bat.logic.Constants.Subjects.English)
+                    {
+                        <option value="English__@s">@s</option>
+                    }
+                </optgroup>
+                <optgroup label="Science">
+                    @foreach (var s in bat.logic.Constants.Subjects.Science)
+                    {
+                        <option value="Science__@s">@s</option>
+                    }
+                </optgroup>
+                <optgroup label="Languages">
+                    @foreach (var s in bat.logic.Constants.Subjects.Languages)
+                    {
+                        <option value="Languages__@s">@s</option>
+                    }
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label class="control-label required">Description</label>
             <textarea class="form-control" rows="5" placeholder="Description" name="Description" required>@Model.lesson.Description</textarea>
         </div>

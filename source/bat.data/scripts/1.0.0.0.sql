@@ -198,3 +198,8 @@ GO
 
 ALTER TABLE [dbo].[ChatRecord] CHECK CONSTRAINT [FK_ChatRecord_Lesson]
 GO
+
+
+GO
+ALTER TABLE dbo.Lesson ADD
+	Subject varchar(500) NULL
