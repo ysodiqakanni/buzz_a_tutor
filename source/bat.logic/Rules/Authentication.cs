@@ -10,7 +10,7 @@ using Shearnie.Net.Encryption;
 using bat.data;
 using bat.logic.Helpers;
 
-namespace bat.logic.Models.System
+namespace bat.logic.Rules
 {
     public class Authentication
     {

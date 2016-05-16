@@ -16,7 +16,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Records.Records();
@@ -38,7 +38,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Details(int id)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Records.Details();

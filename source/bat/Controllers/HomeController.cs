@@ -16,7 +16,7 @@ namespace bat.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return View("Landing", new bat.logic.ViewModels.Homepage.Landing());
 
             var model = new bat.logic.ViewModels.Homepage.Dashboard();
@@ -50,7 +50,7 @@ namespace bat.Controllers
         public ActionResult Index(
             string type, string firstname, string lastname, string email, string password)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user != null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Homepage.Landing();
@@ -59,7 +59,7 @@ namespace bat.Controllers
             {
                 model.Signup(type, firstname, lastname, email, password);
 
-                var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
+                var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(email, password));
                 return RedirectToRoute("home");
             }
@@ -74,7 +74,7 @@ namespace bat.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
 
             if (user != null)
                 return RedirectToRoute("home");
@@ -93,7 +93,7 @@ namespace bat.Controllers
 
             try
             {
-                var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
+                var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(txtUsername, txtPassword));
             }
             catch (Exception ex)
@@ -113,11 +113,11 @@ namespace bat.Controllers
             
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Load(user, id);
-                var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
+                var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(model.account);
             }
             catch (Exception ex)
@@ -135,7 +135,7 @@ namespace bat.Controllers
             ViewData.Clear();
             TempData.Clear();
             Session.Clear();
-            var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
+            var auth = new logic.Rules.Authentication(Request.GetOwinContext());
             auth.Logout();
 
             return RedirectToRoute("home");

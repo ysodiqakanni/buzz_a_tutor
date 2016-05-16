@@ -156,7 +156,7 @@
     <Compile Include="ViewModels\Profile\EditMember.cs" />
     <Compile Include="ViewModels\Records\Details.cs" />
     <Compile Include="ViewModels\Records\Records.cs" />
-    <Compile Include="Models\System\Authentication.cs" />
+    <Compile Include="Rules\Authentication.cs" />
     <Compile Include="Models\Zoom\Meeting.cs" />
     <Compile Include="Models\Zoom\MeetingList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

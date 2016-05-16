@@ -12,7 +12,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.Profile();
@@ -34,7 +34,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Edit()
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.Edit();
@@ -57,7 +57,7 @@ namespace bat.Controllers
         [HttpPost] 
          public ActionResult Edit(FormCollection frm)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.Edit();
@@ -79,7 +79,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult New()
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.New();
@@ -101,7 +101,7 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult New(FormCollection frm)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.New();
@@ -122,7 +122,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult EditMember(int id)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.EditMember();
@@ -145,7 +145,7 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult EditMember(FormCollection frm)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.EditMember();
@@ -166,7 +166,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult DeleteMember(int id)
         {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.ViewModels.Profile.EditMember();

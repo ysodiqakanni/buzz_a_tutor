@@ -16,7 +16,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
@@ -48,7 +48,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
@@ -71,7 +71,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
@@ -94,7 +94,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
@@ -118,7 +118,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
@@ -141,7 +141,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Delete(lessonid, studentid);
@@ -163,7 +163,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
