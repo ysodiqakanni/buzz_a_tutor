@@ -1,0 +1,37 @@
+﻿@model bat.logic.Models.Records.Details
+
+@{
+    ViewBag.Title = "Chat Record";
+}
+
+<h2>@Model.lesson.Description</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>User</p>
+        </th>
+        <th>
+            <p>Message</p>
+        </th>
+        <th>
+            <p>Date Time</p>
+        </th>
+    </tr>
+
+    @foreach (var item in Model.chatRecords)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chat_User)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Char_Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+        </tr>
+    }
+
+</table>

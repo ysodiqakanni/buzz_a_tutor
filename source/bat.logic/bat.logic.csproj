@@ -154,6 +154,8 @@
     <Compile Include="Models\Profile\New.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\Profile\EditMember.cs" />
+    <Compile Include="Models\Records\Details.cs" />
+    <Compile Include="Models\Records\Records.cs" />
     <Compile Include="Models\System\Authentication.cs" />
     <Compile Include="Models\Zoom\Meeting.cs" />
     <Compile Include="Models\Zoom\MeetingList.cs" />

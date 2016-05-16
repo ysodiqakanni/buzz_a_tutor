@@ -1,0 +1,25 @@
+﻿@model bat.logic.Models.Records.Records
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Lesson</p>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var lesson in Model.lessons) {
+    <tr>
+        <td>
+            <a href="@Url.RouteUrl("details", new { id = lesson.ID })">@Html.DisplayFor(modelItem => lesson.Description)</a>
+        </td>
+    </tr>
+}
+
+</table>
