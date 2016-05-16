@@ -22,7 +22,8 @@ namespace bat.logic.Rules
                 if (this.account == null) throw new Exception("Person does not exist.");
 
                 if (!conn.FamilyMembers.Any(f => f.Parent_ID == owner.ID && f.Account_ID == this.account.ID))
-                    throw new Exception("Person does not belong to this family.");
+                    if (!conn.FamilyMembers.Any(f => f.Parent_ID == this.account.ID && f.Account_ID == owner.ID))
+                        throw new Exception("Person does not belong to this family.");
             }
         }
     }

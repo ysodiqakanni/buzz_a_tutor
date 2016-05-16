@@ -55,10 +55,14 @@
                                     <li><a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountName(familyMember.Account_ID)</a></li>
                                 }
                                 <li role="separator" class="divider"></li>
+                                <li><a href="@Url.RouteUrl("profile")">Profile</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="@Url.RouteUrl("logout")"><i class="fa fa-power-off"></i> Log Out</a></li>
                             }
-                            <li><a href="@Url.RouteUrl("profile")">Profile</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="@Url.RouteUrl("logout")"><i class="fa fa-power-off"></i> Log Out</a></li>
+                            else if (Model.parent != null)
+                            {
+                                <li><a href="@Url.RouteUrl("swap", new {id = Model.parent.ID})">@Model.GetAccountName(Model.parent.ID)</a></li>
+                            }
                         </ul>
                     </li>
                 </ul>

@@ -14,6 +14,7 @@ namespace bat.logic.Models
         public Account account { get; set; }
         public Constants.Types.AccountTypes accountType => (Constants.Types.AccountTypes) this.account.AccountType_ID;
         public List<FamilyMember> familyMembers { get; set; }
+        public Account parent { get; set; }
 
         public Master()
         {
@@ -29,6 +30,14 @@ namespace bat.logic.Models
                 if (this.account == null) throw new InvalidRecordException();
 
                 this.familyMembers = conn.FamilyMembers.Where(i => i.Parent_ID == accountId).ToList();
+
+                // if not a parent, might be a family member
+                if (!this.familyMembers.Any())
+                {
+                    var fam = conn.FamilyMembers.FirstOrDefault(i => i.Account_ID == accountId);
+                    if (fam != null)
+                        this.parent = conn.Accounts.FirstOrDefault(a => a.ID == fam.Parent_ID);
+                }
             }
             this.initialised = true;
         }

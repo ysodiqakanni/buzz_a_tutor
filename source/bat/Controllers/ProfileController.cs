@@ -9,12 +9,11 @@ namespace bat.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: Profile
         [Authorize]
         public ActionResult Index()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.Profile();
 
@@ -36,7 +35,7 @@ namespace bat.Controllers
         public ActionResult Edit()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.Edit();
 
@@ -59,7 +58,7 @@ namespace bat.Controllers
          public ActionResult Edit(FormCollection frm)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.Edit();
             try
@@ -81,7 +80,7 @@ namespace bat.Controllers
         public ActionResult New()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.New();
 
@@ -103,7 +102,7 @@ namespace bat.Controllers
         public ActionResult New(FormCollection frm)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.New();
             try
@@ -124,7 +123,7 @@ namespace bat.Controllers
         public ActionResult EditMember(int id)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.EditMember();
 
@@ -147,7 +146,7 @@ namespace bat.Controllers
         public ActionResult EditMember(FormCollection frm)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.EditMember();
             try
@@ -168,7 +167,7 @@ namespace bat.Controllers
         public ActionResult DeleteMember(int id)
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
+            if (user == null) return RedirectToRoute("home");
 
             var model = new bat.logic.Models.Profile.EditMember();
 

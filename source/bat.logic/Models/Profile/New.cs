@@ -32,11 +32,11 @@ namespace bat.logic.Models.Profile
 
                 this.Account = new Account()
                 {
-                    AccountType_ID = 1,
+                    AccountType_ID = (int) Constants.Types.AccountTypes.Student,
                     Fname = (frm["Fname"]),
                     Lname = (frm["Lname"]),
                     Email = (frm["Email"]),
-                    Password = Helpers.PasswordStorage.CreateHash("VJ6ayJaWwtZ7S3m")
+                    Password = Helpers.PasswordStorage.CreateHash("")
                 };
                 conn.Accounts.Add(this.Account);
                 conn.SaveChanges();
