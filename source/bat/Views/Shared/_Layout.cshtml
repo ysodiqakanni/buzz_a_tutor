@@ -52,7 +52,7 @@
                             {
                                 foreach (var familyMember in Model.familyMembers)
                                 {
-                                    <li><a href="#">@Model.GetAccountName(familyMember.ID)</a></li>
+                                    <li><a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountName(familyMember.Account_ID)</a></li>
                                 }
                                 <li role="separator" class="divider"></li>
                             }

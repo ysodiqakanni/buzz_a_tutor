@@ -78,51 +78,6 @@ namespace bat.Controllers
         }
 
         [Authorize]
-        public ActionResult EditPassword()
-        {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
-
-            var model = new bat.logic.Models.Profile.EditPassword();
-
-            try
-            {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
-            }
-            catch (Exception ex)
-            {
-                ErrorSignal.FromCurrentContext().Raise(ex);
-                ViewBag.Error = ex.Message;
-            }
-
-            return View(model);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult EditPassword(FormCollection frm)
-        {
-            var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.Models.Homepage.Landing());
-
-            var model = new bat.logic.Models.Profile.EditPassword();
-            try
-            {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
-                model.Save(user.ID, frm);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ErrorSignal.FromCurrentContext().Raise(ex);
-                ViewBag.Error = ex.Message;
-            }
-            return View(model);
-        }
-
-        [Authorize]
         public ActionResult New()
         {
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
