@@ -19,6 +19,7 @@ namespace bat.data
         {
             this.LessonAttachments = new HashSet<LessonAttachment>();
             this.LessonParticipants = new HashSet<LessonParticipant>();
+            this.ChatRecords = new HashSet<ChatRecord>();
         }
     
         public int ID { get; set; }
@@ -36,5 +37,7 @@ namespace bat.data
         public virtual ICollection<LessonAttachment> LessonAttachments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonParticipant> LessonParticipants { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatRecord> ChatRecords { get; set; }
     }
 }

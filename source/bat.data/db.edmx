@@ -16,6 +16,16 @@
           <Property Name="Fname" Type="varchar" MaxLength="500" />
           <Property Name="Lname" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="ChatRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lesson_ID" Type="int" Nullable="false" />
+          <Property Name="Chat_User" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Char_Message" Type="varchar(max)" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="FamilyMember">
           <Key>
             <PropertyRef Name="ID" />
@@ -56,6 +66,18 @@
           <Property Name="Lesson_ID" Type="int" Nullable="false" />
           <Property Name="Account_ID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ChatRecord_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="ChatRecord" Type="Self.ChatRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatRecord">
+              <PropertyRef Name="Lesson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FamilyMember_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="FamilyMember" Type="Self.FamilyMember" Multiplicity="*" />
@@ -118,10 +140,15 @@
         </Association>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatRecord" EntityType="Self.ChatRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FamilyMember" EntityType="Self.FamilyMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonAttachment" EntityType="Self.LessonAttachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonParticipant" EntityType="Self.LessonParticipant" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChatRecord_Lesson" Association="Self.FK_ChatRecord_Lesson">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="ChatRecord" EntitySet="ChatRecord" />
+          </AssociationSet>
           <AssociationSet Name="FK_FamilyMember_Account" Association="Self.FK_FamilyMember_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="FamilyMember" EntitySet="FamilyMember" />
@@ -172,6 +199,11 @@
           <AssociationSet Name="FK_LessonParticipant_Lesson" Association="dbModel.FK_LessonParticipant_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonParticipant" EntitySet="LessonParticipants" />
+          </AssociationSet>
+          <EntitySet Name="ChatRecords" EntityType="dbModel.ChatRecord" />
+          <AssociationSet Name="FK_ChatRecord_Lesson" Association="dbModel.FK_ChatRecord_Lesson">
+            <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="ChatRecord" EntitySet="ChatRecords" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Account">
@@ -258,6 +290,7 @@
           <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
           <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
           <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
+          <NavigationProperty Name="ChatRecords" Relationship="dbModel.FK_ChatRecord_Lesson" FromRole="Lesson" ToRole="ChatRecord" />
         </EntityType>
         <Association Name="FK_Lesson_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
@@ -291,6 +324,29 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="LessonParticipant">
+              <PropertyRef Name="Lesson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ChatRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson_ID" Type="Int32" Nullable="false" />
+          <Property Name="Chat_User" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Char_Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Lesson" Relationship="dbModel.FK_ChatRecord_Lesson" FromRole="ChatRecord" ToRole="Lesson" />
+        </EntityType>
+        <Association Name="FK_ChatRecord_Lesson">
+          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
+          <End Type="dbModel.ChatRecord" Role="ChatRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatRecord">
               <PropertyRef Name="Lesson_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -353,6 +409,17 @@
                 <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
                 <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatRecords">
+            <EntityTypeMapping TypeName="dbModel.ChatRecord">
+              <MappingFragment StoreEntitySet="ChatRecord">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Char_Message" ColumnName="Char_Message" />
+                <ScalarProperty Name="Chat_User" ColumnName="Chat_User" />
+                <ScalarProperty Name="Lesson_ID" ColumnName="Lesson_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

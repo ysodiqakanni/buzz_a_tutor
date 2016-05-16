@@ -174,3 +174,27 @@ GO
 ALTER TABLE dbo.Lesson ADD
 	ZoomJoinUrl varchar(max) NULL
 
+GO
+CREATE TABLE [dbo].[ChatRecord](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Lesson_ID] [int] NOT NULL,
+	[Chat_User] [varchar](500) NOT NULL,
+	[Char_Message] [varchar](max) NOT NULL,
+	[DateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_Table_1] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[ChatRecord]  WITH CHECK ADD  CONSTRAINT [FK_ChatRecord_Lesson] FOREIGN KEY([Lesson_ID])
+REFERENCES [dbo].[Lesson] ([ID])
+GO
+
+ALTER TABLE [dbo].[ChatRecord] CHECK CONSTRAINT [FK_ChatRecord_Lesson]
+GO
