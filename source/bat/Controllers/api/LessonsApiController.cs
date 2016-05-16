@@ -18,7 +18,7 @@ namespace bat.Controllers.api
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.Models.Api.Lessons.Upload.UploadImage(Convert.ToInt32(formData["lessonid"]), user.ID, formData["title"], formData["data"]);
+            return bat.logic.ApiModels.Lessons.Upload.UploadImage(Convert.ToInt32(formData["lessonid"]), user.ID, formData["title"], formData["data"]);
         }
 
         [Authorize]
@@ -28,7 +28,7 @@ namespace bat.Controllers.api
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.Models.Api.Lessons.GetAttachment.GetImageStream(Convert.ToInt32(formData["attachmentid"]));
+            return bat.logic.ApiModels.Lessons.GetAttachment.GetImageStream(Convert.ToInt32(formData["attachmentid"]));
         }
     }
 }

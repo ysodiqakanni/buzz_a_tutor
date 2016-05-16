@@ -138,8 +138,8 @@
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Exceptions\InvalidRecordException.cs" />
     <Compile Include="Exceptions\SaveException.cs" />
-    <Compile Include="Models\Api\Lessons\GetAttachment.cs" />
-    <Compile Include="Models\Api\Lessons\Upload.cs" />
+    <Compile Include="ApiModels\Lessons\GetAttachment.cs" />
+    <Compile Include="ApiModels\Lessons\Upload.cs" />
     <Compile Include="ViewModels\Homepage\Dashboard.cs" />
     <Compile Include="ViewModels\Homepage\Landing.cs" />
     <Compile Include="Models\Lessons\Attachment.cs" />

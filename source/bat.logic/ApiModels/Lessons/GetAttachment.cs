@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bat.logic.Models.Api.Lessons
+namespace bat.logic.ApiModels.Lessons
 {
     public class GetAttachment
     {
