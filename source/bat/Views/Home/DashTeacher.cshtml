@@ -7,20 +7,23 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <h2>Here are your lessons:</h2>
-        @foreach (var lesson in Model.lessons)
+        @if (Model.lessons.Any())
         {
-            <p>
-                <a href="@Url.RouteUrl("lessons", new { id = lesson.ID })">
-                    @lesson.Description
-                </a>
-            </p>
+            <h2>Here are your lessons</h2>
+            foreach (var lesson in Model.lessons)
+            {
+                <p>
+                    <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                        @lesson.Description
+                    </a>
+                </p>
+            }
         }
+        <p>
+            <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Create a new lesson</a>
+        </p>
     </div>
     <div class="col-sm-6">
-        <p>
-            <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Add lesson</a>
-        </p>
     </div>
 </div>
 
