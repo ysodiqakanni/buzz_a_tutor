@@ -47,21 +47,35 @@
                     <a href="#" id="top-cart-trigger"><i class="icon-user"></i> &nbsp; @Model.account.Fname @Model.account.Lname <i class="icon-angle-down"></i></a>
                     <div class="top-cart-content">
                         <div class="top-cart-items">
-                            <div class="top-cart-item clearfix">
-                                <div class="top-cart-item-desc">
-                                    <a href="@Url.RouteUrl("profile")"><i class="icon-user"></i> Profile</a>
-                                </div>
-                            </div>
-                            @foreach (var familyMember in Model.familyMembers)
+                            @if (Model.familyMembers.Any())
                             {
-                                <a href="#">@Model.GetAccountName(familyMember.ID)</a>
-                            }
-                            @*<div role="separator" class="divider"></div>*@
-                            <div class="top-cart-item clearfix">
-                                <div class="top-cart-item-desc">
-                                    <a href="@Url.RouteUrl("logout")"><i class="icon-line2-login"></i> Logout</a>
+                                foreach (var familyMember in Model.familyMembers)
+                                {
+                                    <div class="top-cart-item clearfix">
+                                        <div class="top-cart-item-desc">
+                                            <a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountName(familyMember.Account_ID)</a>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="top-cart-item clearfix">
+                                    <div class="top-cart-item-desc">
+                                        <a href="@Url.RouteUrl("profile")"><i class="icon-user"></i> Profile</a>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="top-cart-item clearfix">
+                                    <div class="top-cart-item-desc">
+                                        <a href="@Url.RouteUrl("logout")"><i class="icon-line2-login"></i> Logout</a>
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.parent != null)
+                            {
+                                <div class="top-cart-item clearfix">
+                                    <div class="top-cart-item-desc">
+                                        <a href="@Url.RouteUrl("swap", new {id = Model.parent.ID})">@Model.GetAccountName(Model.parent.ID)</a>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div><!-- #login end -->
