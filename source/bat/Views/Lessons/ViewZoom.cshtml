@@ -1,0 +1,60 @@
+﻿@model bat.logic.Models.Lessons.View
+@{
+    ViewBag.Title = Model.lesson.Description;
+}
+
+@section head {
+}
+@section scripts {
+    @*<script>
+        $(document).ready(function () {
+            window.open('@Model.lesson.ZoomJoinUrl', '_blank');
+        });
+    </script>*@
+}
+<h2>Lesson Details</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+        </p>
+        <p>
+            Duration mins: @Model.lesson.DurationMins
+        </p>
+        <p>
+            Class size: @Model.lesson.ClassSize
+        </p>
+        <p>
+            Description: @Model.lesson.Description
+        </p>
+
+
+        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-default">
+            Join session
+        </a>        
+    </div>
+    <div class="col-md-3">
+        <p>
+            <strong>
+                Teacher
+            </strong>
+        </p>
+        <p>
+            @Model.host.Fname @Model.host.Lname
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p>
+            <strong>
+                Attendees
+            </strong>
+        </p>
+        @foreach (var student in Model.others)
+        {
+            <p>
+                @student.Fname @student.Lname
+            </p>
+        }
+    </div>
+</div>

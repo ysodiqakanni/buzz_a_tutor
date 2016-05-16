@@ -30,7 +30,7 @@ namespace bat.Controllers
                 else
                 {
                     model.CreateZoomMeeting();
-                    return Redirect(model.lesson.ZoomJoinUrl);
+                    return View("ViewZoom", model);
                 }
             }
             catch (Exception ex)
