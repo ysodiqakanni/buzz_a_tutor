@@ -34,7 +34,7 @@
 	<div class="container clearfix">
 		<div class="col_two_fifth">
 			<div class="name">Teacher<span>@Model.host.Fname</span></div>
-			<div id="video-wrap" style="width: 415px; height:233px;">
+			<div id="video-wrap" style="width: 415px; height: 233px;">
 				<div id="teacher" class="streamWindow">
 					<div id="streamBoxTeacher"></div>
 				</div>
@@ -43,10 +43,10 @@
 
 			<div id="shop" class="clearfix ">
 				<div id="oc-images" class="owl-carousel image-carousel">
-					@if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Student)
+					@if (Model.account.AccountType_ID == (int) bat.logic.Constants.Types.AccountTypes.Student)
 					{
 						<div class="oc-item">
-							<div id="self" class="streamWindow" style="width: 85.76px; height:111px">
+							<div id="self" class="streamWindow" style="width: 85.76px; height: 111px">
 								<div id="streamBoxSelf"></div>
 							</div>
 							<div class="name4">@Model.account.Fname</div>
@@ -56,11 +56,11 @@
 					{
 						<div id="otherBox-@other.ID" class="oc-item">
 							<div id="otherCon-@other.ID" class="streamBody">
-								<div id="other-@other.ID" class="streamWindow" style="width: 85.76px; height:111px">
+								<div id="other-@other.ID" class="streamWindow" style="width: 85.76px; height: 111px">
 									<div id="streamBoxOther-@other.ID"></div>
 								</div>
 							</div>
-							<div class="name4">@other.Fname</div>                                    
+							<div class="name4">@other.Fname</div>
 						</div>
 					}
 					@*<div class="oc-item">
@@ -74,29 +74,25 @@
 				</div>
 
 				<script type="text/javascript">
+					$(document).ready(function($) {
+						var ocImages = $("#oc-images");
 
-								jQuery(document).ready(function($) {
-
-									var ocImages = $("#oc-images");
-
-									ocImages.owlCarousel({
-										margin: 10,
-										nav: true,
-										navText: ['<i class="icon-angle-left"></i>','<i class="icon-angle-right"></i>'],
-										autoplay: false,
-										autoplayHoverPause: true,
-										dots: false,
-										navRewind: false,
-										responsive:{
-											0:{ items:4 },
-											600:{ items:3 },
-											1000:{ items:3 },
-											1200:{ items:4 }
-										}
-									});
-
-								});
-
+						ocImages.owlCarousel({
+							margin: 10,
+							nav: true,
+							navText: ['<i class="icon-angle-left"></i>', '<i class="icon-angle-right"></i>'],
+							autoplay: false,
+							autoplayHoverPause: true,
+							dots: false,
+							navRewind: false,
+							responsive: {
+								0: { items: 4 },
+								600: { items: 3 },
+								1000: { items: 3 },
+								1200: { items: 4 }
+							}
+						});
+					});
 				</script>
 			</div>
 			@Html.Partial("_PartialChatBox")
@@ -107,13 +103,29 @@
 				<div class="btn-toolbar" role="toolbar">
 					<div class="fright">
 						<div class="btn-group">
-							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Lession Detail <span class="caret"></span></button>
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Lesson Details <span class="caret"></span></button>
 							<ul class="dropdown-menu" role="menu">
-								<li>Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")</li>
+								@if (!string.IsNullOrEmpty(Model.lesson.Subject))
+								{
+									<li style="padding: 10px;">
+										@Model.lesson.Subject
+									</li>
+								}
+								<li style="padding: 10px;">
+									@Model.lesson.Description
+								</li>
 								<li class="divider"></li>
-								<li>Duration mins: @Model.lesson.DurationMins</li>
+								<li style="padding: 10px;">
+									Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+								</li>
 								<li class="divider"></li>
-								<li>Class size: @Model.lesson.ClassSize</li>
+								<li style="padding: 10px;">
+									Duration mins: @Model.lesson.DurationMins
+								</li>
+								<li class="divider"></li>
+								<li style="padding: 10px;">
+									Class size: @Model.lesson.ClassSize
+								</li>
 							</ul>
 							<button type="button" id="start" class="button button-3d button-small button-rounded button-red" onclick="startStream(sessionId, token)"><i class="icon-video"></i>Start Video</button>
 							<button type="button" id="stop" class="button button-3d button-small button-rounded  hidden" onclick="stopStream()"><i class="fa fa-stop"></i>Stop Video</button>
