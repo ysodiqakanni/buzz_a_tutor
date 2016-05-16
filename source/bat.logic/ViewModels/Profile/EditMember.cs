@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bat.data;
-using bat.logic.Constants;
-using bat.logic.Exceptions;
 using System.Web.Mvc;
-using System.Text.RegularExpressions;
-using bat.logic.Models;
 
-namespace bat.logic.Models.Profile
+namespace bat.logic.ViewModels.Profile
 {
     public class EditMember : Master
     {

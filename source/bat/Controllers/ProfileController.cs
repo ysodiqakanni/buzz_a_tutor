@@ -15,7 +15,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.Profile();
+            var model = new bat.logic.ViewModels.Profile.Profile();
 
             try
             {
@@ -37,7 +37,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.Edit();
+            var model = new bat.logic.ViewModels.Profile.Edit();
 
             try
             {
@@ -60,7 +60,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.Edit();
+            var model = new bat.logic.ViewModels.Profile.Edit();
             try
             {
                 model.Initialise(user.ID);
@@ -82,7 +82,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.New();
+            var model = new bat.logic.ViewModels.Profile.New();
 
             try
             {
@@ -104,7 +104,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.New();
+            var model = new bat.logic.ViewModels.Profile.New();
             try
             {
                 model.Initialise(user.ID);
@@ -125,7 +125,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.EditMember();
+            var model = new bat.logic.ViewModels.Profile.EditMember();
 
             try
             {
@@ -148,7 +148,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.EditMember();
+            var model = new bat.logic.ViewModels.Profile.EditMember();
             try
             {
                 model.Initialise(user.ID);
@@ -169,7 +169,7 @@ namespace bat.Controllers
             var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.Models.Profile.EditMember();
+            var model = new bat.logic.ViewModels.Profile.EditMember();
 
             try
             {

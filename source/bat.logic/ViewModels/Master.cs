@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using bat.data;
 using bat.logic.Exceptions;
 
-namespace bat.logic.Models
+namespace bat.logic.ViewModels
 {
     public class Master
     {

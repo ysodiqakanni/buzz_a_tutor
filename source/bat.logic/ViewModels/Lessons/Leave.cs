@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bat.logic.Models.Lessons
+namespace bat.logic.ViewModels.Lessons
 {
     public class Leave : Master
     {

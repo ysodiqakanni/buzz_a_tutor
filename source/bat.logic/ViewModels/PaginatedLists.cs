@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bat.logic.Models
+namespace bat.logic.ViewModels
 {
     public class PaginatedLists : Master
     {

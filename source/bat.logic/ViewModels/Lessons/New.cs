@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using OpenTokSDK;
 
-namespace bat.logic.Models.Lessons
+namespace bat.logic.ViewModels.Lessons
 {
     public class New : Master
     {

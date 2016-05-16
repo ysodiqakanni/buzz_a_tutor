@@ -7,7 +7,7 @@ using bat.data;
 using bat.logic.Constants;
 using bat.logic.Exceptions;
 
-namespace bat.logic.Models.Homepage
+namespace bat.logic.ViewModels.Homepage
 {
     public class Dashboard : Master
     {

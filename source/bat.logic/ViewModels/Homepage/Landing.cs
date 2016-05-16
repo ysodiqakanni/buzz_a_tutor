@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using bat.data;
 
-namespace bat.logic.Models.Homepage
+namespace bat.logic.ViewModels.Homepage
 {
     public class Landing
     {

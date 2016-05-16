@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using bat.logic.Models.Lessons;
 using bat.logic.Rules;
 using OpenTokSDK;
 
-namespace bat.logic.Models.Lessons
+namespace bat.logic.ViewModels.Lessons
 {
     public class View : Master, Partials.IPartialWhiteboard
     {

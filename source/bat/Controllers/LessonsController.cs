@@ -12,7 +12,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Index(int id)
         {
-            var model = new bat.logic.Models.Lessons.View();
+            var model = new bat.logic.ViewModels.Lessons.View();
 
             try
             {
@@ -44,7 +44,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult New()
         {
-            var model = new bat.logic.Models.Lessons.New();
+            var model = new bat.logic.ViewModels.Lessons.New();
 
             try
             {
@@ -67,7 +67,7 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult New(FormCollection frm)
         {
-            var model = new bat.logic.Models.Lessons.New();
+            var model = new bat.logic.ViewModels.Lessons.New();
 
             try
             {
@@ -90,7 +90,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Join(int id)
         {
-            var model = new bat.logic.Models.Lessons.Join();
+            var model = new bat.logic.ViewModels.Lessons.Join();
 
             try
             {
@@ -114,7 +114,7 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult Join(int id, FormCollection frm)
         {
-            var model = new bat.logic.Models.Lessons.Join();
+            var model = new bat.logic.ViewModels.Lessons.Join();
 
             try
             {
@@ -137,7 +137,7 @@ namespace bat.Controllers
         [Authorize]
         public ActionResult Leave(int lessonid, int studentid)
         {
-            var model = new bat.logic.Models.Lessons.Leave();
+            var model = new bat.logic.ViewModels.Lessons.Leave();
 
             try
             {
@@ -159,7 +159,7 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult Upload(int id, HttpPostedFileBase data, string title)
         {
-            var model = new bat.logic.Models.Lessons.View();
+            var model = new bat.logic.ViewModels.Lessons.View();
 
             try
             {

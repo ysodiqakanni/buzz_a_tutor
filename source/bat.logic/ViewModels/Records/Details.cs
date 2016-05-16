@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bat.data;
-using bat.logic.Constants;
-using bat.logic.Exceptions;
 
-namespace bat.logic.Models.Records
+namespace bat.logic.ViewModels.Records
 {
     public class Details : Master
     {

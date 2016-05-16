@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bat.logic.Models.Partials
+namespace bat.logic.ViewModels.Partials
 {
     public interface IPartialWhiteboard
     {
         bat.data.Lesson lesson { get; set; }
-        List<Lessons.Attachment> attachments { get; set; }
+        List<Models.Lessons.Attachment> attachments { get; set; }
     }
 }
