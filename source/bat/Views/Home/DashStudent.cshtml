@@ -11,16 +11,40 @@
         @foreach (var lesson in Model.lessons)
         {
             <p>
-                <a href="@Url.RouteUrl("lessons", new { id = lesson.ID })">
-                    @lesson.Description
-                </a>
+                @if (string.IsNullOrEmpty(lesson.Subject))
+                {
+                    <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                        @lesson.Description
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                        @lesson.Subject
+                        <br />
+                        @lesson.Description
+                    </a>
+                }
             </p>
         }
     </div>
     <div class="col-sm-6">
         <h2>Here are lessons you can join</h2>
-        @foreach (var lesson in Model.lessonsToJoin)
+        @{
+            var currentSubject = "";
+        }
+        @foreach (var lesson in Model.lessonsToJoin.OrderBy(l => l.Subject))
         {
+            if (lesson.Subject != currentSubject)
+            {
+                currentSubject = lesson.Subject;
+            }
+            if (!string.IsNullOrEmpty(currentSubject))
+            {
+                <h5 style="margin-top: 30px;">
+                    @currentSubject
+                </h5>
+            }
             <p>
                 <a href="@Url.RouteUrl("lessons/join", new { id = lesson.ID })">
                     @lesson.Description
