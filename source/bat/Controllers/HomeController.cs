@@ -106,22 +106,24 @@ namespace bat.Controllers
             return RedirectToRoute("home");
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Swap(int id)
         {
-            var model = new bat.logic.Rules.Swap();
+            var model = new logic.Rules.Swap();
             
             try
             {
-                model.User(id);
+                var user = new logic.Models.System.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Load(user, id);
                 var auth = new logic.Models.System.Authentication(Request.GetOwinContext());
-                auth.Login(auth.GetUser(model.account.Email, "VJ6ayJaWwtZ7S3m"));
+                auth.Login(model.account);
             }
             catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.LoginErrMsg = ex.Message;
-                return View();
             }
 
             return RedirectToRoute("home");

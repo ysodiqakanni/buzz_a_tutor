@@ -11,13 +11,18 @@ namespace bat.logic.Rules
     {
         public Account account { get; set; }
 
-        public void User(int id)
+        public void Load(Account parent, int swapToUserId)
         {
-            //Find user
             using (var conn = new dbEntities())
             {
-                this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
-                if (this.account == null) throw new Exception("Lesson does not exist.");
+                var owner = conn.Accounts.FirstOrDefault(a => a.ID == parent.ID);
+                if (owner == null) throw new Exception("Parent does not exist.");
+
+                this.account = conn.Accounts.FirstOrDefault(a => a.ID == swapToUserId);
+                if (this.account == null) throw new Exception("Person does not exist.");
+
+                if (!conn.FamilyMembers.Any(f => f.Parent_ID == owner.ID && f.Account_ID == this.account.ID))
+                    throw new Exception("Person does not belong to this family.");
             }
         }
     }
