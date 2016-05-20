@@ -35,4 +35,22 @@
             </p>
         }
     </div>
+    @if (Model.familyRecords.Any())
+    {
+        <div class="col-sm-6">
+            <h2>Family Members Records:</h2>
+            @foreach (var familyRecord in Model.familyRecords)
+            {
+                <h3>@Model.GetAccountName(familyRecord.familyMember.ID):</h3>
+                foreach (var lesson in familyRecord.lessons)
+                {
+                    <p>
+                        <a href="@Url.RouteUrl("details", new { id = lesson.ID })">
+                            @lesson.Description
+                        </a>
+                    </p>
+                }
+            }
+        </div>
+    }
 </div>
