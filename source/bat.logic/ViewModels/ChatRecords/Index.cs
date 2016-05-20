@@ -57,7 +57,7 @@ namespace bat.logic.ViewModels.ChatRecords
                     var lessons = new List<Lesson>();
 
                     var account = conn.Accounts.FirstOrDefault(a => a.ID == familyMember.Account_ID);
-                    if (this.account == null) throw new Exception("Account does not exist.");
+                    if (account == null) throw new Exception("Account does not exist.");
 
                     var childLessons = conn.Lessons
                         .Join(conn.LessonParticipants,
@@ -71,7 +71,7 @@ namespace bat.logic.ViewModels.ChatRecords
                         })
                         .Where(l => l.participant == familyMember.Account_ID);
 
-                    foreach (var l in parentLessons.ToList())
+                    foreach (var l in childLessons.ToList())
                     {
                         lessons.Add(l.l);
                     }
