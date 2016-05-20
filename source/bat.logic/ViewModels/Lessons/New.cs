@@ -18,7 +18,7 @@ namespace bat.logic.ViewModels.Lessons
         {
             this.lesson = new Lesson()
             {
-                BookingDate = Shearnie.Net.OzTime.GetNowAEST(),
+                BookingDate = DateTime.UtcNow,
                 DurationMins = 15,
                 ClassSize = 0
             };
@@ -50,7 +50,7 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson = new Lesson()
                 {
                     Account_ID = this.account.ID,
-                    BookingDate = Convert.ToDateTime(bkdt, new CultureInfo("en-AU")),
+                    BookingDate = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt, new CultureInfo("en-GB"))),
                     DurationMins = int.Parse(frm["DurationMins"]),
                     Description = description,
                     ClassSize = int.Parse(frm["ClassSize"]),

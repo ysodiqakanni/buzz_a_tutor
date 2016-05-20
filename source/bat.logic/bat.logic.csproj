@@ -140,6 +140,7 @@
     <Compile Include="Exceptions\SaveException.cs" />
     <Compile Include="ApiModels\Lessons\GetAttachment.cs" />
     <Compile Include="ApiModels\Lessons\Upload.cs" />
+    <Compile Include="Rules\Timezone.cs" />
     <Compile Include="ViewModels\Homepage\Dashboard.cs" />
     <Compile Include="ViewModels\Homepage\Landing.cs" />
     <Compile Include="Models\Lessons\Attachment.cs" />

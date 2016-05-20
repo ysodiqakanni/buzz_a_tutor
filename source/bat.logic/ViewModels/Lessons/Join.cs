@@ -17,7 +17,7 @@ namespace bat.logic.ViewModels.Lessons
         {
             this.lesson = new Lesson()
             {
-                BookingDate = Shearnie.Net.OzTime.GetNowAEST(),
+                BookingDate = DateTime.UtcNow,
                 DurationMins = 15,
                 ClassSize = 0,
                 TokBoxSessionId = "",
@@ -35,6 +35,9 @@ namespace bat.logic.ViewModels.Lessons
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
+
+                // timezone out for displaying
+                this.lesson.BookingDate = Rules.Timezone.ConvertFromUTC(this.lesson.BookingDate);
 
                 if (this.lesson.ClassSize <= 0) return true;
 
