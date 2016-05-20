@@ -19,7 +19,7 @@ namespace bat.Controllers
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.ViewModels.Records.Records();
+            var model = new bat.logic.ViewModels.ChatRecords.Index();
 
             try
             {
@@ -41,7 +41,7 @@ namespace bat.Controllers
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
 
-            var model = new bat.logic.ViewModels.Records.Details();
+            var model = new bat.logic.ViewModels.ChatRecords.Details();
 
             try
             {

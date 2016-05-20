@@ -1,25 +1,38 @@
-﻿@model bat.logic.ViewModels.Records.Records
+﻿@model bat.logic.ViewModels.ChatRecords.Index
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>Chat Records </h1>
 
-<table class="table">
-    <tr>
-        <th>
-            <p>Lesson</p>
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var lesson in Model.lessons) {
-    <tr>
-        <td>
-            <a href="@Url.RouteUrl("details", new { id = lesson.ID })">@Html.DisplayFor(modelItem => lesson.Description)</a>
-        </td>
-    </tr>
+<div class="row">
+@if (Model.teacherLessons.Any())
+{
+    <div class="col-sm-12">
+        <h2>Lessons you taught:</h2>
+        @foreach (var lesson in Model.teacherLessons)
+        {
+            <p>
+                <a href="@Url.RouteUrl("details", new { id = lesson.ID })">
+                    @lesson.Description
+                </a>
+            </p>
+        }
+    </div>
 }
+</div>
 
-</table>
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Your Class Records:</h2>
+        @foreach (var lesson in Model.lessons)
+        {
+            <p>
+                <a href="@Url.RouteUrl("details", new { id = lesson.ID })">
+                    @lesson.Description
+                </a>
+            </p>
+        }
+    </div>
+</div>

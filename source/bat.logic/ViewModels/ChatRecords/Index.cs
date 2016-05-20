@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using bat.data;
 
-namespace bat.logic.ViewModels.Records
+namespace bat.logic.ViewModels.ChatRecords
 {
-    public class Records : Master
+    public class Index : Master
     {
         public Lesson lesson { get; set; }
         public List<Lesson> lessons { get; set; }
+        public List<Lesson> teacherLessons { get; set; }
 
         public void Load(int id)
         {
@@ -19,6 +20,7 @@ namespace bat.logic.ViewModels.Records
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
+                this.lessons = new List<Lesson>();
 
                 var parentLessons = conn.Lessons
                     .Join(conn.LessonParticipants,
@@ -37,7 +39,7 @@ namespace bat.logic.ViewModels.Records
                     this.lessons.Add(l.l);
                 }
 
-                //this.lessons = conn.Lessons.Where(p => p.Account_ID == id).ToList();              
+                this.teacherLessons = conn.Lessons.Where(p => p.Account_ID == id).ToList();              
             }
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using bat.data;
 
-namespace bat.logic.ViewModels.Records
+namespace bat.logic.ViewModels.ChatRecords
 {
     public class Details : Master
     {
