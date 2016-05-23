@@ -164,6 +164,7 @@
     <Compile Include="Rules\PasswordValidation.cs" />
     <Compile Include="Rules\Swap.cs" />
     <Compile Include="Rules\ZoomApi.cs" />
+    <Compile Include="ViewModels\Homepage\SubjectList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bat.data\bat.data.csproj">

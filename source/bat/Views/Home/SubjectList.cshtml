@@ -1,0 +1,30 @@
+﻿@model bat.logic.ViewModels.Homepage.SubjectList
+
+@{
+    Layout = "";
+    ViewBag.Title = "Lessons by Subject";
+}
+
+<h2>Avaliable @Model.subject Lessons:</h2>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table border="1" style="width:100%">
+            <tr>
+                <td>Lesson Description</td>
+                <td>Teacher</td>
+                <td>Lesson Time</td>
+                <td>Availability</td>
+            </tr>
+            @foreach (var lesson in Model.lessons)
+            {
+                <tr>
+                    <td>@lesson.Description</td>
+                    <td>@Model.GetFullAccountName(@lesson.Account_ID)</td>
+                    <td>@lesson.BookingDate</td>
+                    <td>@lesson.ClassSize</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

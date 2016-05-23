@@ -15,6 +15,7 @@ namespace bat.logic.ViewModels
         public Constants.Types.AccountTypes accountType => (Constants.Types.AccountTypes) this.account.AccountType_ID;
         public List<FamilyMember> familyMembers { get; set; }
         public Account parent { get; set; }
+        public String name { get; set; }
 
         public Master()
         {
@@ -53,6 +54,17 @@ namespace bat.logic.ViewModels
             using (var conn = new dbEntities())
             {
                 return conn.Accounts.Select(a => new { a.ID, a.Fname }).FirstOrDefault(a => a.ID == accountId)?.Fname;
+            }
+        }
+
+        public string GetFullAccountName(int accountId)
+        {
+            using (var conn = new dbEntities())
+            {
+                var fName = conn.Accounts.Select(a => new { a.ID, a.Fname }).FirstOrDefault(a => a.ID == accountId)?.Fname;
+                var lName = conn.Accounts.Select(a => new { a.ID, a.Lname }).FirstOrDefault(a => a.ID == accountId)?.Lname;
+                string name = fName + " " + lName;
+                return name;
             }
         }
     }

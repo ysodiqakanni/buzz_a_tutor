@@ -382,6 +382,7 @@
     <Content Include="Views\ChatRecords\Details.cshtml" />
     <Content Include="Views\ChatRecords\Index.cshtml" />
     <Content Include="Views\Lessons\ViewZoom.cshtml" />
+    <Content Include="Views\Home\SubjectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

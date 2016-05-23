@@ -147,5 +147,23 @@ namespace bat.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult SubjectList(string subject)
+        {
+            var model = new bat.logic.ViewModels.Homepage.SubjectList();
+
+            try
+            {
+                model.Load(subject);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
     }
 }

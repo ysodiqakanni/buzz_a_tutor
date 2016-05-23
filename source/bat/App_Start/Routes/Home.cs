@@ -30,6 +30,12 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "subject",
+                url: "subject/{subject}",
+                defaults: new { controller = "Home", action = "SubjectList" }
+            );
+
+            routes.MapRoute(
                 name: "logout",
                 url: "logout",
                 defaults: new { controller = "Home", action = "Logout" }
