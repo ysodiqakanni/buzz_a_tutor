@@ -16,13 +16,13 @@
                 <td>Lesson Time</td>
                 <td>Availability</td>
             </tr>
-            @foreach (var lesson in Model.lessons)
+            @foreach (var lesson in Model.subjectLessons)
             {
                 <tr>
-                    <td>@lesson.Description</td>
-                    <td>@Model.GetFullAccountName(@lesson.Account_ID)</td>
-                    <td>@lesson.BookingDate</td>
-                    <td>@lesson.ClassSize</td>
+                    <td>@lesson.lessonInfo.Description</td>
+                    <td>@Model.GetFullAccountName(@lesson.lessonInfo.Account_ID)</td>
+                    <td>@lesson.lessonInfo.BookingDate</td>
+                    <td>@lesson.openSlots</td>
                 </tr>
             }
         </table>
