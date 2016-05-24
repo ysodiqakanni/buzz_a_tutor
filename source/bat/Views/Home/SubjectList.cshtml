@@ -13,16 +13,20 @@
             <tr>
                 <td>Lesson Description</td>
                 <td>Teacher</td>
-                <td>Lesson Time</td>
+                <td>Date</td>
+                <td>Time</td>
                 <td>Availability</td>
+                <td>Join Lesson</td>
             </tr>
             @foreach (var lesson in Model.subjectLessons)
             {
                 <tr>
                     <td>@lesson.lessonInfo.Description</td>
                     <td>@Model.GetFullAccountName(@lesson.lessonInfo.Account_ID)</td>
-                    <td>@lesson.lessonInfo.BookingDate</td>
+                    <td>@lesson.lessonInfo.BookingDate.ToShortDateString()</td>
+                    <td>@lesson.lessonInfo.BookingDate.ToShortTimeString()</td>
                     <td>@lesson.openSlots</td>
+                    <td><button>Join</button></td>
                 </tr>
             }
         </table>
