@@ -22,7 +22,9 @@ namespace bat.logic.ViewModels.Homepage
 
             using (var conn = new dbEntities())
             {
-                this.lessons = conn.Lessons.Where(l => l.Subject == subjectSpace).ToList();
+                this.lessons = conn.Lessons
+                                        .Where(l => l.Subject == subjectSpace && 
+                                              (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count)).ToList();
             }
         }
     }
