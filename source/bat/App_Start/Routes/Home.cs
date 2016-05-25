@@ -24,6 +24,11 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "register",
+                url: "register",
+                defaults: new { controller = "Home", action = "Register" }
+            );
+            routes.MapRoute(
                 name: "swap",
                 url: "swap/{id}",
                 defaults: new { controller = "Home", action = "Swap" }

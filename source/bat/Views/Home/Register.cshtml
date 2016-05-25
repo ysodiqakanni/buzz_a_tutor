@@ -1,0 +1,147 @@
+﻿@model bat.logic.ViewModels.Homepage.Register
+@{
+    Layout = null;
+    ViewBag.Title = "Register";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Buzz a Tutor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title</title>
+
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/assets/img/fav32x32.ico")" />
+    <script src="@Url.Content("~/assets/js/modernizr.custom.js")"></script>
+
+
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/dark.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/font-icons.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/animate.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/magnific-popup.css")" type="text/css" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
+
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/responsive.css")" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script type="text/javascript" src="@Url.Content("~/assets/js/jquery.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
+
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        <!-- Header
+        ============================================= -->
+        <header id="header" class="">
+
+            <div id="header-wrap">
+
+                <div class="container clearfix">
+
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                    <!-- Logo
+                    ============================================= -->
+                    <div id="logo">
+                        <a href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a T Logo"></a>
+                    </div><!-- #logo end -->
+                    <!-- Primary Navigation
+                    ============================================= -->
+                    <nav id="primary-menu">
+
+                        <ul>
+                            <li><a href="#"><div>Home</div></a></li>
+                            <li><a href="#"><div>About Us</div></a></li>
+                            <li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
+                        </ul>
+
+                    </nav><!-- #primary-menu end -->
+
+                </div>
+
+            </div>
+
+        </header><!-- #header end -->
+        <div class="row">
+
+            <div class="col-md-6 col-md-offset-3">
+                <div class="row">
+                    <form class="" id="template-contactform" name="template-contactform" action="" method="post">
+                        <div class="col_full form-group">
+                            <label for="template-contactform-service" style="color:#000">Your are a<small>*</small></label>
+                            <select id="template-contactform-service" name="type" class="sm-form-control">
+                                <option value="Student">Student</option>
+                                <option value="Teacher">Teacher</option>
+                            </select>
+                        </div>
+
+                        <div class="col_full form-group">
+                            <label for="template-contactform-names" style="color:#000">First name<small>*</small></label>
+                            <input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" required />
+                        </div>
+
+                        <div class="col_full col_last form-group">
+                            <label for="template-contactform-email" style="color:#000">Last Name <small>*</small></label>
+                            <input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" required />
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="col_full form-group">
+                            <label for="template-contactform-phone" style="color:#000">Email address</label>
+                            <input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" required />
+                        </div>
+
+                        <div class="col_full  col_last form-group">
+                            <label for="template-contactform-pass" style="color:#000">Password</label>
+                            <input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="col_full hidden">
+                            <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+                        </div>
+
+                        <div class="col-full">
+                            <p style="color: #000; text-align: center">@ViewBag.Error</p>
+                            <button button class="button button-3d button-purple nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!-- Contact Form
+        ============================================= -->
+            </div>
+        </div>
+
+        <!-- Footer
+        ============================================= -->
+        <footer id="footer">
+            <div id="copyrights">
+                <div class="container">
+                    @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+                </div>
+            </div>
+        </footer><!-- #footer end -->
+    </div><!-- #wrapper end -->
+    <!-- Footer Scripts
+        ============================================= -->
+    <script type="text/javascript" src="@Url.Content("~/assets/js/functions.js")"></script>
+</body>
+</html>

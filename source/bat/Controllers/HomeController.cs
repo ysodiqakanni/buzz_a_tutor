@@ -165,5 +165,48 @@ namespace bat.Controllers
 
             return View(model);
         }
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            var model = new bat.logic.ViewModels.Homepage.Register();
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Register(string type, string firstname, string lastname, string email, string password)
+        {
+            var model = new bat.logic.ViewModels.Homepage.Register();
+
+            try
+            {
+                model.Signup(type, firstname, lastname, email, password);
+
+                var auth = new logic.Rules.Authentication(Request.GetOwinContext());
+                auth.Login(auth.GetUser(email, password));
+                return RedirectToRoute("home");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View(model);
+            }
+        }
+
+        //[HttpPost]
+        //public ActionResult Join(int id)
+        //{
+        //Check if user is logged in
+        //If logged they join the lessons
+
+        //If not logged in - sent to log in
+        //If user logs in they join the lesson
+
+        //if not as register user - sent to register page
+        //If user registers they are able to join that lesson.
+        //}
     }
 }

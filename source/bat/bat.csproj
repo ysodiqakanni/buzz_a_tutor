@@ -383,6 +383,8 @@
     <Content Include="Views\ChatRecords\Index.cshtml" />
     <Content Include="Views\Lessons\ViewZoom.cshtml" />
     <Content Include="Views\Home\SubjectList.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Landing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -395,9 +397,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Landing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bat.data\bat.data.csproj">

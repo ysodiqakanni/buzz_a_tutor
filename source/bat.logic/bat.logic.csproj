@@ -144,6 +144,7 @@
     <Compile Include="ViewModels\Homepage\Dashboard.cs" />
     <Compile Include="ViewModels\Homepage\Landing.cs" />
     <Compile Include="Models\Lessons\Attachment.cs" />
+    <Compile Include="ViewModels\Homepage\Register.cs" />
     <Compile Include="ViewModels\Lessons\Join.cs" />
     <Compile Include="ViewModels\Lessons\Leave.cs" />
     <Compile Include="ViewModels\Lessons\View.cs" />
