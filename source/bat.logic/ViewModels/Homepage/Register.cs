@@ -43,7 +43,7 @@ namespace bat.logic.ViewModels.Homepage
                 conn.Accounts.Add(new Account()
                 {
                     AccountType_ID =
-                        type.Trim() == "student"
+                        type.Trim().ToLower() == "student"
                             ? (int)Constants.Types.AccountTypes.Student
                             : (int)Constants.Types.AccountTypes.Teacher,
                     Fname = this.firstName,
