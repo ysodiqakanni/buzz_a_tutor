@@ -72,20 +72,26 @@ namespace bat.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
 
+            //So that the user can be referred back to where they were when they click logon
+            if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
+                returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+
             if (user != null)
                 return RedirectToRoute("home");
-            else
-                return View();
+
+            else if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+                ViewBag.ReturnURL = returnUrl;
+            return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult login(string txtUsername, string txtPassword)
+        public ActionResult login(string txtUsername, string txtPassword, string returnUrl)
         {
             // not already logged in, so continue
             Session.Clear();
@@ -103,7 +109,21 @@ namespace bat.Controllers
                 return View();
             }
 
-            return RedirectToRoute("home");
+            //returnURL needs to be decoded
+            string decodedUrl = "";
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = Server.UrlDecode(returnUrl);
+
+            //Login logic...
+
+            if (Url.IsLocalUrl(decodedUrl))
+            {
+                return Redirect(decodedUrl);
+            }
+            else
+            {
+                return RedirectToRoute("home");
+            }            
         }
 
         [Authorize]
@@ -176,7 +196,7 @@ namespace bat.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Register(string type, string firstname, string lastname, string email, string password)
+        public ActionResult Register(string type, string firstname, string lastname, string email, string password, string returnUrl)
         {
             var model = new bat.logic.ViewModels.Homepage.Register();
 
@@ -186,13 +206,28 @@ namespace bat.Controllers
 
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(email, password));
-                return RedirectToRoute("home");
             }
             catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View(model);
+                return View();
+            }
+
+            //returnURL needs to be decoded
+            string decodedUrl = "";
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = Server.UrlDecode(returnUrl);
+
+            //Login logic...
+
+            if (Url.IsLocalUrl(decodedUrl))
+            {
+                return Redirect(decodedUrl);
+            }
+            else
+            {
+                return RedirectToRoute("home");
             }
         }
 

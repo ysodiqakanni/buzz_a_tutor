@@ -26,8 +26,8 @@
 	vertical-align: middle;
 }
 
-.form-signin {
-	max-width: 370px;
+.signin-window {
+	max-width: 800px;
 	min-height: 460px;
 	padding: 35px;
 	margin-left: auto;
