@@ -79,7 +79,6 @@ namespace bat.Controllers
             //So that the user can be referred back to where they were when they click logon
             if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
                 returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
-
             if (user != null)
                 return RedirectToRoute("home");
 
@@ -91,7 +90,7 @@ namespace bat.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult login(string txtUsername, string txtPassword, string returnUrl)
+        public ActionResult login(string txtUsername, string txtPassword,string returnUrl)
         {
             // not already logged in, so continue
             Session.Clear();
@@ -171,10 +170,14 @@ namespace bat.Controllers
         [AllowAnonymous]
         public ActionResult SubjectList(string subject)
         {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             var model = new bat.logic.ViewModels.Homepage.SubjectList();
 
             try
             {
+                if (user != null)
+                    model.Initialise(user.ID);
+
                 model.Load(subject);
             }
             catch (Exception ex)
@@ -230,18 +233,5 @@ namespace bat.Controllers
                 return RedirectToRoute("home");
             }
         }
-
-        //[HttpPost]
-        //public ActionResult Join(int id)
-        //{
-        //Check if user is logged in
-        //If logged they join the lessons
-
-        //If not logged in - sent to log in
-        //If user logs in they join the lesson
-
-        //if not as register user - sent to register page
-        //If user registers they are able to join that lesson.
-        //}
     }
 }

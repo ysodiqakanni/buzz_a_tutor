@@ -7,7 +7,7 @@ var demo;
             console.log(paramIn);
         };
         return Blah;
-    }());
+    })();
     demo.Blah = Blah;
 })(demo || (demo = {}));
 //# sourceMappingURL=demo.js.map

@@ -1,9 +1,5 @@
 ﻿@model bat.logic.ViewModels.Homepage.SubjectList
 
-@*@{
-    Layout = "";
-}*@
-
 @section head {
     <title>Lessons by Subject</title>
 }
@@ -18,18 +14,16 @@
                 <td>Teacher</td>
                 <td>Date</td>
                 <td>Time</td>
-                <td>Availability</td>
                 <td>Lesson Infomation</td>
             </tr>
-            @foreach (var lesson in Model.subjectLessons)
+            @foreach (var lesson in Model.lessons)
             {
                 <tr>
-                    <td>@lesson.lessonInfo.Description</td>
-                    <td>@Model.GetFullAccountName(@lesson.lessonInfo.Account_ID)</td>
-                    <td>@lesson.lessonInfo.BookingDate.ToShortDateString()</td>
-                    <td>@lesson.lessonInfo.BookingDate.ToShortTimeString()</td>
-                    <td>@lesson.openSlots</td>
-                    <td><button  onclick="window.location.href='@Url.RouteUrl("lessons/join", new { id = @lesson.lessonInfo.ID })'">Learn More</button></td>
+                    <td>@lesson.Description</td>
+                    <td>@Model.GetFullAccountName(@lesson.Account_ID)</td>
+                    <td>@lesson.BookingDate.ToShortDateString()</td>
+                    <td>@lesson.BookingDate.ToShortTimeString()</td>
+                    <td><button  onclick="window.location.href='@Url.RouteUrl("lessons/join", new { subject = @lesson.Subject, id = @lesson.ID })'">Learn More</button></td>
                 </tr>
             }
         </table>

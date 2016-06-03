@@ -12,6 +12,7 @@ namespace bat.logic.ViewModels.Lessons
     public class Join : Master
     {
         public Lesson lesson { get; set; }
+        public String Subject { get; set; }
 
         public Join()
         {
@@ -29,8 +30,10 @@ namespace bat.logic.ViewModels.Lessons
         public bool IsTeacher =>
             this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
 
-        public bool Load(int id)
+        public bool Load(string subject, int id)
         {
+            this.Subject = subject;
+
             using (var conn = new dbEntities())
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
