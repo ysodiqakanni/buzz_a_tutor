@@ -143,6 +143,30 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
+                model.Initialise(user.ID);
+                if (!model.Load(lessonid))
+                    return RedirectToAction("Index", "Lessons", new { id = lessonid });
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+            return View(model);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Leave(int lessonid, int studentid, FormCollection frm)
+        {
+            var model = new bat.logic.ViewModels.Lessons.Leave();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
                 model.Delete(lessonid, studentid);
                 return RedirectToRoute("home");
             }
@@ -151,7 +175,7 @@ namespace bat.Controllers
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
-            return View(model);
+            return RedirectToRoute("home");
         }
 
         [Authorize]

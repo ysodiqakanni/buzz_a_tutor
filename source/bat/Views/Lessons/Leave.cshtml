@@ -1,10 +1,29 @@
-﻿@{
+﻿@model bat.logic.ViewModels.Lessons.Leave
+@{
     ViewBag.Title = "Leave Lesson";
 }
-
-<h3>Leave Lesson</h3>
 
 @if (ViewBag.Error != null)
 {
     <p style="color: red; font-weight: bold">Error: @ViewBag.Error</p>
 }
+@{ Html.BeginForm("Leave", "Lessons", FormMethod.Post); }
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>@Model.lesson.Description</h2>
+
+        <p>
+            Are you sure you wish to leave?
+        </p>
+
+        <div style="margin-top: 40px; overflow: auto;">
+            <input type="submit" value="Leave" class="btn btn-lg btn-danger pull-right" style="width: 110px;" />
+            <a href="@Url.RouteUrl("lessons", new { id = Model.lesson.ID })" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
+                Cancel
+            </a>
+        </div>
+    </div>
+</div>
+
+@{ Html.EndForm(); }

@@ -126,6 +126,12 @@
 								<li style="padding: 10px;">
 									Class size: @Model.lesson.ClassSize
 								</li>
+								<li class="divider"></li>
+								<li style="padding: 10px;">
+								    <a href="@Url.RouteUrl("lessons/leave", new {lessonid = Model.lesson.ID, studentid = Model.account.ID})" class="btn btn-primary">
+								        Leave class
+								    </a>
+								</li>
 							</ul>
 							<button type="button" id="start" class="button button-3d button-small button-rounded button-red" onclick="startStream(sessionId, token)"><i class="icon-video"></i>Start Video</button>
 							<button type="button" id="stop" class="button button-3d button-small button-rounded  hidden" onclick="stopStream()"><i class="fa fa-stop"></i>Stop Video</button>
