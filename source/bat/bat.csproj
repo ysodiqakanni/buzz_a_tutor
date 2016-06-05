@@ -423,7 +423,7 @@
     <Content Include="Views\Lessons\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Lessons\View.cshtml" />
+    <Content Include="Views\Lessons\ViewTokBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Lessons\Join.cshtml" />

@@ -25,7 +25,7 @@ namespace bat.Controllers
                 if (model.WebRTCAvailable)
                 {
                     model.GenerateTokBoxToken();
-                    return View("View", model);
+                    return View("ViewTokBox", model);
                 }
                 else
                 {
