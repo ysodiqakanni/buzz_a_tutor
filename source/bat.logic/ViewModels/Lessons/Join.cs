@@ -30,17 +30,20 @@ namespace bat.logic.ViewModels.Lessons
         public bool IsTeacher =>
             this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
 
-        public bool Load(string subject, int id)
+        public bool Load(int id)
         {
-            this.Subject = subject;
-
             using (var conn = new dbEntities())
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
 
+                this.Subject = this.lesson.Subject;
+
                 // timezone out for displaying
                 this.lesson.BookingDate = Rules.Timezone.ConvertFromUTC(this.lesson.BookingDate);
+
+                if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
+                    return false;
 
                 if (this.lesson.ClassSize <= 0) return true;
 
@@ -48,10 +51,13 @@ namespace bat.logic.ViewModels.Lessons
             }
         }
 
-        public void Save()
+        public void Save(int id)
         {
             using (var conn = new dbEntities())
             {
+                this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
+                if (this.lesson == null) throw new Exception("Lesson does not exist.");
+
                 if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
                     return;
 

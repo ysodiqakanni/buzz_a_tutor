@@ -57,7 +57,10 @@ namespace bat.Controllers
 
             try
             {
-                model.Signup(type, firstname, lastname, email, password);
+                ViewBag.firstName = firstname;
+                ViewBag.lastName = lastname;
+                ViewBag.email = email;
+                model.Signup(Convert.ToInt32(type), firstname, lastname, email, password);
 
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(email, password));
@@ -72,7 +75,18 @@ namespace bat.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+
+            if (user != null)
+                return RedirectToRoute("home");
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult LoginSignup(string returnUrl)
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
 
@@ -178,7 +192,7 @@ namespace bat.Controllers
                 if (user != null)
                     model.Initialise(user.ID);
 
-                model.Load(subject);
+                model.Load(subject, user?.ID);
             }
             catch (Exception ex)
             {
@@ -190,14 +204,6 @@ namespace bat.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register()
-        {
-            var model = new bat.logic.ViewModels.Homepage.Register();
-
-            return View();
-        }
-
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult Register(string type, string firstname, string lastname, string email, string password, string returnUrl)
         {
@@ -205,7 +211,10 @@ namespace bat.Controllers
 
             try
             {
-                model.Signup(type, firstname, lastname, email, password);
+                ViewBag.firstName = firstname;
+                ViewBag.lastName = lastname;
+                ViewBag.email = email;
+                model.Signup(Convert.ToInt32(type), firstname, lastname, email, password);
 
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(email, password));
@@ -214,7 +223,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View();
+                return View("LoginSignup");
             }
 
             //returnURL needs to be decoded

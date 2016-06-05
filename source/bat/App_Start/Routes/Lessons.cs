@@ -19,7 +19,7 @@ namespace bat.Routes
 
             routes.MapRoute(
                 name: "lessons/join",
-                url: "lessons/join/{subject}/{id}",
+                url: "lessons/join/{id}",
                 defaults: new { controller = "Lessons", action = "Join" }
             );
 

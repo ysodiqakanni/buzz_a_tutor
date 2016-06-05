@@ -30,69 +30,38 @@
                     </a>
                 </div>
                 <hr />
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h3>Register:</h3>
-                            @using (Html.BeginRouteForm("register", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken();
-                                <div class="form-group">
-                                    <label for="role" style="color:#000">Your are a<small>*</small></label>
-                                    <select id="role" name="type" class="sm-form-control">
-                                        <option value="Student">Student</option>
-                                        <option value="Teacher">Teacher</option>
-                                    </select>
-                                    <br />
-                                    <input type="text" name="firstname" value="" placeholder="First name" class="form-control required" required />
-                                    <br />
-                                    <input type="text" name="lastName" value="" placeholder="Last Name"  class="required form-control" required />
-                                    <br />
-                                    <input type="email" name="email" value="" placeholder="Email address" class="form-control" required />
-                                    <br />
-                                    <input type="password" name="password" value="" placeholder="Password" class="form-control" required />
-                                    <br />
-                                    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-                                    <p style="color: #000; text-align: center">@ViewBag.Error</p>
-                                    <br />
-                                    <button button class="btn btn-primary pull-right" type="submit" id="submit" name="submit" value="submit">Sign up</button>
-                                </div>
-                            }
+                <h3>Log In:</h3>
+                @{
+                    var loginatts = new
+                    {
+                        id = "frmLogin",
+                        @class = "form-signin",
+                        novalidate = "novalidate",
+                        role = "form"
+                    };
+                }
+                @using (Html.BeginRouteForm("login", FormMethod.Post, loginatts))
+                {
+                    @Html.AntiForgeryToken();
+
+                    <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
+                        <input type="text" class="form-control" placeholder="Username" name="txtUsername" value="@ViewBag.email" required autofocus>
+                        <br />
+                        <input type="password" class="form-control" placeholder="Password" name="txtPassword" required>
+                        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
                     </div>
-                    <div class="col-sm-6 left-border">
-                        <h3>Log In:</h3>
-                        @{
-                            var loginatts = new
-                            {
-                                id = "frmLogin",
-                                @class = "form-signin",
-                                novalidate = "novalidate",
-                                role = "form"
-                            };
-                        }
-                        @using (Html.BeginRouteForm("login", FormMethod.Post, loginatts))
-                        {
-                            @Html.AntiForgeryToken();
 
-                            <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
-                                <input type="text" class="form-control" placeholder="Username" name="txtUsername" value="@ViewBag.email" required autofocus>
-                                <br />
-                                <input type="password" class="form-control" placeholder="Password" name="txtPassword" required>
-                                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-                            </div>
+                        <div style="overflow: auto; margin-top: 40px;">
+                            <button type="submit" class="btn btn-primary pull-right">
+                                Log In
+                            </button>
+                        </div>
 
-                            <div style="overflow: auto; margin-top: 40px;">
-                                <button type="submit" class="btn btn-primary pull-right">
-                                    Log In
-                                </button>
-                            </div>
-
-                            if (ViewBag.LoginErrMsg != null)
-                            {
-                                <h4>@ViewBag.LoginErrMsg</h4>
-                            }
-                        }
-                    </div>
-                </div>
+                    if (ViewBag.LoginErrMsg != null)
+                    {
+                        <h4>@ViewBag.LoginErrMsg</h4>
+                    }
+                }
             </div>
 
             <footer class="footer">

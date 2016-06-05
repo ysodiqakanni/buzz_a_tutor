@@ -101,16 +101,14 @@
 						<div class="dotslinebottom"></div>
 					</div>
 
-					<div id="contact-form-result" data-notify-type="success" data-notify-msg="<i class=icon-ok-sign></i> Message Sent Successfully!"></div>
-
 					<!-- Contact Form
 					============================================= -->
 					<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">                      
 						<div class="col_two_fifth form-group">
 							<label for="template-contactform-service">Your are a<small>*</small></label>
 							<select id="template-contactform-service" name="type" class="sm-form-control">
-								<option value="Student">Student</option>
-								<option value="Teacher">Teacher</option>
+								<option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
+								<option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
 							</select>
 						</div>
 
@@ -149,24 +147,7 @@
 						</div>
 
 					</form>
-
-					@*<script type="text/javascript">
-							$("#template-contactform").validate({
-								submitHandler: function(form) {
-									$('.form-process').fadeIn();
-									$(form).ajaxSubmit({
-										target: '#contact-form-result',
-										success: function() {
-											$('.form-process').fadeOut();
-											$('#template-contactform').find('.sm-form-control').val('');
-											$('#contact-form-result').attr('data-notify-msg', $('#contact-form-result').html()).html('');
-											SEMICOLON.widget.notifications($('#contact-form-result'));
-										}
-									});
-								}
-							});
-					</script>*@
-
+				
 				</div><!-- Contact Form Overlay End -->
 
 			</div>

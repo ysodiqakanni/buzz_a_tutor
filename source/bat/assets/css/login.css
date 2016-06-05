@@ -27,6 +27,20 @@
 }
 
 .signin-window {
+	max-width: 400px;
+	min-height: 460px;
+	padding: 35px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.90);
+	border: 1px solid #27AAE2;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.signup-window {
 	max-width: 800px;
 	min-height: 460px;
 	padding: 35px;
@@ -118,7 +132,7 @@ a {
 }
 
 .login-img {
-    text-align:center;
+	text-align:center;
 }
 
 

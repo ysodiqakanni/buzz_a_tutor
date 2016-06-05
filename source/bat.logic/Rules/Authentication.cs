@@ -31,7 +31,7 @@ namespace bat.logic.Rules
                 {
                     AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                     //AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
-                    LoginPath = new PathString("/login"),
+                    LoginPath = new PathString("/loginsignup"),
                     //CookieDomain = ".myapp.com",
                     CookieName = AUTH_NAME,
                     CookieHttpOnly = true,

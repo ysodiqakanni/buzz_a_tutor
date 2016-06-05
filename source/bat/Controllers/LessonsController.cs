@@ -88,7 +88,7 @@ namespace bat.Controllers
         }
 
         [Authorize]
-        public ActionResult Join(int id, string subject)
+        public ActionResult Join(int id)
         {
             var model = new bat.logic.ViewModels.Lessons.Join();
 
@@ -98,8 +98,8 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                if (!model.Load(subject, id))
-                    return RedirectToRoute("home");
+                if (!model.Load(id))
+                    return RedirectToAction("Index", "Lessons", new { id = id });
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                model.Save();
+                model.Save(id);
             }
             catch (Exception ex)
             {

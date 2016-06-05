@@ -4,13 +4,13 @@
     <title>Lessons by Subject</title>
 }
 
-<h2>Avaliable @Model.subject Lessons:</h2>
+<h2>@Model.subject Lessons:</h2>
 
 <div class="row">
     <div class="col-sm-12">
-        <table border="1" style="width:100%">
+        <table class="table" style="width:100%">
             <tr>
-                <td>Lesson Description</td>
+                <td>Description</td>
                 <td>Teacher</td>
                 <td>Date</td>
                 <td>Time</td>
@@ -23,7 +23,7 @@
                     <td>@Model.GetFullAccountName(@lesson.Account_ID)</td>
                     <td>@lesson.BookingDate.ToShortDateString()</td>
                     <td>@lesson.BookingDate.ToShortTimeString()</td>
-                    <td><button  onclick="window.location.href='@Url.RouteUrl("lessons/join", new { subject = @lesson.Subject, id = @lesson.ID })'">Learn More</button></td>
+                    <td><a href="@Url.RouteUrl("lessons/join", new { id = lesson.ID })" class="btn btn-default">Learn More</a></td>
                 </tr>
             }
         </table>
