@@ -37,7 +37,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("View", model); // TODO show error page
+                return View("ViewTokBox", model); // TODO show error page
             }
         }
 
