@@ -29,6 +29,12 @@ namespace bat.Controllers
                 }
                 else
                 {
+                    if (!model.CurrentlyAZoomUser)
+                    {
+                        model.CreateZoomUser();
+                        return View("NewZoomUserAccount", model);
+                    }
+
                     model.CreateZoomMeeting();
                     return View("ViewZoom", model);
                 }
@@ -37,7 +43,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("ViewTokBox", model); // TODO show error page
+                return View("Error", model);
             }
         }
 

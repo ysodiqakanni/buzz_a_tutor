@@ -28,6 +28,7 @@ namespace bat.data
         public int AccountType_ID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
+        public string ZoomUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }

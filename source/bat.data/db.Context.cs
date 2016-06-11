@@ -25,11 +25,11 @@ namespace bat.data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<FamilyMember> FamilyMembers { get; set; }
         public virtual DbSet<LessonAttachment> LessonAttachments { get; set; }
         public virtual DbSet<LessonParticipant> LessonParticipants { get; set; }
         public virtual DbSet<ChatRecord> ChatRecords { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
     }
 }

@@ -385,6 +385,8 @@
     <Content Include="Views\Home\SubjectList.cshtml" />
     <Content Include="Views\Home\Landing.cshtml" />
     <Content Include="Views\Home\LoginSignup.cshtml" />
+    <Content Include="Views\Lessons\NewZoomUserAccount.cshtml" />
+    <Content Include="Views\Lessons\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

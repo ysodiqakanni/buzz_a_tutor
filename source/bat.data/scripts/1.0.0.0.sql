@@ -203,3 +203,8 @@ GO
 GO
 ALTER TABLE dbo.Lesson ADD
 	Subject varchar(500) NULL
+
+GO
+ALTER TABLE dbo.Account ADD
+	ZoomUserId varchar(50) NULL
+

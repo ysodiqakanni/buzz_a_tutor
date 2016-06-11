@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using bat.logic.Constants;
 using bat.logic.Models.Lessons;
 using bat.logic.Rules;
 using OpenTokSDK;
@@ -102,8 +103,47 @@ namespace bat.logic.ViewModels.Lessons
             }
         }
 
+        public bool CurrentlyAZoomUser
+        {
+            get
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(this.account.ZoomUserId)) return false;
+
+                    // will error if not yet activated
+                    var user = ZoomApi.GetUser(this.account.ZoomUserId);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+        public void CreateZoomUser()
+        {
+            // already registered
+            if (!string.IsNullOrEmpty(this.account.ZoomUserId))
+                return;
+
+            using (var conn = new dbEntities())
+            {
+                this.account = conn.Accounts.FirstOrDefault(a => a.ID == this.account.ID);
+                if (this.account == null) throw new Exception("Invalid user account.");
+
+                var user = ZoomApi.CreateUser(this.account.Fname, this.account.Lname, this.account.Email, Zoom.UserTypes.Basic);
+                this.account.ZoomUserId = user.id;
+
+                conn.SaveChanges();
+            }
+        }
+
         public void CreateZoomMeeting()
         {
+            if (string.IsNullOrEmpty(this.host.ZoomUserId))
+                throw new Exception("The lesson host requires a Zoom account");
+
             if (!string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && !string.IsNullOrEmpty(this.lesson.ZoomJoinUrl))
                 return;
 
@@ -112,7 +152,7 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
 
-                var zoomLesson = ZoomApi.CreateMeeting(this.lesson.Description);
+                var zoomLesson = ZoomApi.CreateMeeting(this.host.ZoomUserId, this.lesson.Description);
                 this.lesson.ZoomStartUrl = zoomLesson.start_url;
                 this.lesson.ZoomJoinUrl = zoomLesson.join_url;
 
