@@ -6,7 +6,14 @@
     <title>Lessons by Subject</title>
 }
 
-<h2>@Model.subject Lessons:</h2>
+<p>
+    <h2 class="pull-left" style="margin-bottom: 40px;">
+        @Model.subject Lessons:
+    </h2>
+    <a href="@Url.RouteUrl("subjects")" class="btn btn-lg btn-primary pull-right" style="margin-top: 20px;">
+        More Subjects
+    </a>
+</p>
 
 <div class="row">
     <div class="col-sm-12">

@@ -1,0 +1,18 @@
+﻿@section head {
+    <title>Subjects</title>
+}
+
+@foreach (var dpt in bat.logic.Constants.Subjects.Departments)
+{
+    <p>
+        <strong>@dpt.Name</strong>
+    </p>
+    <ul>
+        @foreach (var s in dpt.Subjects)
+        {
+            <li>
+                <a href="@Url.RouteUrl("list-lessons", new {subject = @s})">@s</a>
+            </li>
+        }
+    </ul>
+}

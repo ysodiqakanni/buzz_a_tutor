@@ -382,7 +382,7 @@
     <Content Include="Views\ChatRecords\Details.cshtml" />
     <Content Include="Views\ChatRecords\Index.cshtml" />
     <Content Include="Views\Lessons\ViewZoom.cshtml" />
-    <Content Include="Views\Home\SubjectList.cshtml" />
+    <Content Include="Views\Home\ListLessons.cshtml" />
     <Content Include="Views\Home\Landing.cshtml" />
     <Content Include="Views\Home\LoginSignup.cshtml" />
     <Content Include="Views\Lessons\NewZoomUserAccount.cshtml" />
@@ -391,6 +391,7 @@
     <Content Include="Views\Home\Privacy.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\_LayoutContentOnly.cshtml" />
+    <Content Include="Views\Home\SelectSubject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

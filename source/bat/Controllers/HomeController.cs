@@ -182,7 +182,7 @@ namespace bat.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SubjectList(string subject)
+        public ActionResult ListLessons(string subject)
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             var model = new bat.logic.ViewModels.Homepage.SubjectList();
@@ -193,6 +193,26 @@ namespace bat.Controllers
                     model.Initialise(user.ID);
 
                 model.Load(subject, user?.ID);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult SelectSubject()
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var model = new bat.logic.ViewModels.Master();
+
+            try
+            {
+                if (user != null)
+                    model.Initialise(user.ID);
             }
             catch (Exception ex)
             {
