@@ -23,11 +23,12 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 model.Load(id);
 
-                if (model.WebRTCAvailable)
-                {
-                    model.GenerateTokBoxToken();
-                    return View("ViewTokBox", model);
-                }
+                // TokBox option, disable for now to try Zoom only
+                //if (model.WebRTCAvailable)
+                //{
+                //    model.GenerateTokBoxToken();
+                //    return View("ViewTokBox", model);
+                //}
 
                 if (!model.CurrentlyAZoomUser)
                 {
