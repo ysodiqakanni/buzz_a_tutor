@@ -241,7 +241,14 @@
 
 
 					<div class="title-block">
-						<h4>Other Subjects: <span>History, Geography, Computing</span></h4>
+						<h4>
+							Other Subjects:
+							<span>
+								<a href="@Url.RouteUrl("subject", new {subject = "History"})">History</a>,
+								<a href="@Url.RouteUrl("subject", new {subject = "Geography"})">Geography</a>,
+								<a href="@Url.RouteUrl("subject", new {subject = "Computing"})">Computing</a>
+							</span>
+						</h4>
 					</div>
 
 

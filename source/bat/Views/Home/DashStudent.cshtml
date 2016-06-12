@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <h2>Here are your lessons</h2>
+        <h4>Here are your lessons</h4>
         @foreach (var lesson in Model.lessons)
         {
             <p>
@@ -19,9 +19,11 @@
                 }
                 else
                 {
-                    <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                    <strong>
                         @lesson.Subject
-                        <br />
+                    </strong>
+                    <br />
+                    <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
                         @lesson.Description
                     </a>
                 }
@@ -29,37 +31,23 @@
         }
     </div>
     <div class="col-sm-6">
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <b>Search for lessons</b>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><h4>Maths</h4></li>
-                @foreach (var s in bat.logic.Constants.Subjects.Maths)
+        <h4>
+            Browse for more lessons
+        </h4>
+
+        @foreach (var dpt in bat.logic.Constants.Subjects.Departments)
+        {
+            <p>
+                <strong>@dpt.Name</strong>
+            </p>
+            <ul>
+                @foreach (var s in dpt.Subjects)
                 {
-                   <li><a href="@Url.RouteUrl("subject", new { subject = @s })">@s</a></li>
+                    <li>
+                        <a href="@Url.RouteUrl("subject", new {subject = @s})">@s</a>
+                    </li>
                 }
-                <li role="separator" class="divider"></li>
-                <li><h4>English</h4></li>
-                @foreach (var s in bat.logic.Constants.Subjects.English)
-                {
-                    <li><a href="@Url.RouteUrl("subject", new { subject = @s })">@s</a></li>
-                }
-                <li role="separator" class="divider"></li>
-                <li><h4>Sciences</h4></li>
-                @foreach (var s in bat.logic.Constants.Subjects.Science)
-                {
-                    <li><a href="@Url.RouteUrl("subject", new { subject = @s })">@s</a></li>
-                }
-                <li role="separator" class="divider"></li>
-                <li><h4>Languages</h4></li>
-                @foreach (var s in bat.logic.Constants.Subjects.Languages)
-                {
-                    <li><a href="@Url.RouteUrl("subject", new { subject = @s })">@s</a></li>
-                }
-                <li role="separator" class="divider"></li>
             </ul>
-        </div>
+        }
     </div>
 </div>

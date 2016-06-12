@@ -140,6 +140,7 @@
     <Compile Include="Exceptions\SaveException.cs" />
     <Compile Include="ApiModels\Lessons\GetAttachment.cs" />
     <Compile Include="ApiModels\Lessons\Upload.cs" />
+    <Compile Include="Models\Subjects\Department.cs" />
     <Compile Include="Models\Zoom\GetUser.cs" />
     <Compile Include="Models\Zoom\Error.cs" />
     <Compile Include="Models\Zoom\CreateUser.cs" />

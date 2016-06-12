@@ -48,30 +48,15 @@
             <label class="control-label required">Subject</label>
             <select class="form-control selectpicker" name="Subject" required>
                 <option disabled selected>Select a Subject</option>
-                <optgroup label="Maths">
-                    @foreach (var s in bat.logic.Constants.Subjects.Maths)
-                    {
-                        <option value="Maths__@s">@s</option>
-                    }
-                </optgroup>
-                <optgroup label="English">
-                    @foreach (var s in bat.logic.Constants.Subjects.English)
-                    {
-                        <option value="English__@s">@s</option>
-                    }
-                </optgroup>
-                <optgroup label="Science">
-                    @foreach (var s in bat.logic.Constants.Subjects.Science)
-                    {
-                        <option value="Science__@s">@s</option>
-                    }
-                </optgroup>
-                <optgroup label="Languages">
-                    @foreach (var s in bat.logic.Constants.Subjects.Languages)
-                    {
-                        <option value="Languages__@s">@s</option>
-                    }
-                </optgroup>
+                @foreach (var dpt in bat.logic.Constants.Subjects.Departments)
+                {
+                    <optgroup label="@dpt.Name">
+                        @foreach (var s in dpt.Subjects)
+                        {
+                            <option value="@s">@s</option>
+                        }
+                    </optgroup>
+                }
             </select>
         </div>
 

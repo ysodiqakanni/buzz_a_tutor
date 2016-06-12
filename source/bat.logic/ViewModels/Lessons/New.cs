@@ -43,10 +43,6 @@ namespace bat.logic.ViewModels.Lessons
                 var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
                 var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
 
-                var subject = (frm["Subject"] ?? "").Trim();
-                var idx = subject.IndexOf("__");
-                if (idx > -1) subject = subject.Substring(idx + 2);
-
                 this.lesson = new Lesson()
                 {
                     Account_ID = this.account.ID,
@@ -54,7 +50,7 @@ namespace bat.logic.ViewModels.Lessons
                     DurationMins = int.Parse(frm["DurationMins"]),
                     Description = description,
                     ClassSize = int.Parse(frm["ClassSize"]),
-                    Subject = subject,
+                    Subject = (frm["Subject"] ?? "").Trim(),
 
                     TokBoxSessionId = session.Id,
                     ZoomStartUrl = "",

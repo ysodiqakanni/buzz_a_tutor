@@ -23,9 +23,11 @@
                             }
                             else
                             {
-                                <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
+                                <strong>
                                     @lesson.Subject
-                                    <br/>
+                                </strong>
+                                <br />
+                                <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
                                     @lesson.Description
                                 </a>
                             }

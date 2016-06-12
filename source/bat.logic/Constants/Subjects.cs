@@ -3,35 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using bat.logic.Models.Subjects;
 
 namespace bat.logic.Constants
 {
     public class Subjects
     {
-        public static List<string> Maths => new List<string>()
+        public static Department Maths => new Department()
         {
-            "GCSE Maths",
-            "A Level Maths"
+            Name = "Maths",
+            Subjects = new List<string>()
+            {
+                "GCSE Maths",
+                "A Level Maths"
+            }
         };
 
-        public static List<string> English => new List<string>()
+        public static Department English => new Department()
         {
-            "GCSE English",
-            "A Level English"
+            Name = "English",
+            Subjects = new List<string>()
+            {
+                "GCSE English",
+                "A Level English"
+            }
         };
 
-        public static List<string> Science => new List<string>()
+        public static Department Science => new Department()
         {
-            "Biology" ,
-            "Chemistry",
-            "Physics"
+            Name = "Science",
+            Subjects = new List<string>()
+            {
+                "Biology",
+                "Chemistry",
+                "Physics"
+            }
         };
 
-        public static List<string> Languages => new List<string>()
+        public static Department Languages => new Department()
         {
-            "German" ,
-            "French",
-            "Japanese"
+            Name = "Languages",
+            Subjects = new List<string>()
+            {
+                "German",
+                "French",
+                "Japanese"
+            }
+        };
+
+        public static Department Other => new Department()
+        {
+            Name = "Other",
+            Subjects = new List<string>()
+            {
+                "History",
+                "Geography",
+                "Computing"
+            }
+        };
+
+        public static List<Department> Departments => new List<Department>()
+        {
+            Maths, English, Science, Languages, Other
         };
     }
 }
