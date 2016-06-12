@@ -1,5 +1,7 @@
 ﻿@model bat.logic.ViewModels.Homepage.SubjectList
-
+@{
+    var nextCaption = Model.account.ID > 0 ? "Learn More" : "Register now";
+}
 @section head {
     <title>Lessons by Subject</title>
 }
@@ -31,7 +33,7 @@
                     <td>@Model.GetFullAccountName(@lesson.Account_ID)</td>
                     <td>@lesson.BookingDate.ToShortDateString()</td>
                     <td>@lesson.BookingDate.ToShortTimeString()</td>
-                    <td><a href="@Url.RouteUrl("lessons/join", new { id = lesson.ID })" class="btn btn-default">Learn More</a></td>
+                    <td><a href="@Url.RouteUrl("lessons/join", new { id = lesson.ID })" class="btn btn-default">@nextCaption</a></td>
                 </tr>
             }
         </table>
