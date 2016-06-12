@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using bat.logic.Constants;
 
 namespace bat.Controllers
 {
@@ -27,17 +28,28 @@ namespace bat.Controllers
                     model.GenerateTokBoxToken();
                     return View("ViewTokBox", model);
                 }
-                else
-                {
-                    if (!model.CurrentlyAZoomUser)
-                    {
-                        model.CreateZoomUser();
-                        return View("NewZoomUserAccount", model);
-                    }
 
-                    model.CreateZoomMeeting();
-                    return View("ViewZoom", model);
+                if (!model.CurrentlyAZoomUser)
+                {
+                    model.CreateZoomUser();
+                    return View("NewZoomUserAccount", model);
                 }
+
+                switch (model.accountType)
+                {
+                    case Types.AccountTypes.Student:
+                        if (!model.LessonReady)
+                            return View("ZoomLessonHostNotReady", model);
+                        break;
+
+                    case Types.AccountTypes.Teacher:
+                        model.CreateZoomMeeting();
+                        break;
+                }
+
+
+                model.CreateZoomMeeting();
+                return View("ViewZoom", model);
             }
             catch (Exception ex)
             {

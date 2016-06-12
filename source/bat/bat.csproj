@@ -387,6 +387,7 @@
     <Content Include="Views\Home\LoginSignup.cshtml" />
     <Content Include="Views\Lessons\NewZoomUserAccount.cshtml" />
     <Content Include="Views\Lessons\Error.cshtml" />
+    <Content Include="Views\Lessons\ZoomLessonHostNotReady.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

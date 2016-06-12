@@ -139,6 +139,9 @@ namespace bat.logic.ViewModels.Lessons
             }
         }
 
+        public bool LessonReady
+            => !string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && !string.IsNullOrEmpty(this.lesson.ZoomJoinUrl);
+
         public void CreateZoomMeeting()
         {
             if (string.IsNullOrEmpty(this.host.ZoomUserId))
