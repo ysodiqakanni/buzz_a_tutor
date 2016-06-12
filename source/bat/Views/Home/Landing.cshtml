@@ -15,8 +15,6 @@
 	<link rel="shortcut icon" type="image/png" href="@Url.Content("~/assets/img/fav32x32.ico")" />
 	<script src="@Url.Content("~/assets/js/modernizr.custom.js")"></script>
 
-	<!-- Stylesheets
-	============================================= -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" type="text/css" />
@@ -30,132 +28,93 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<script type="text/javascript" src="@Url.Content("~/assets/js/jquery.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
-
 </head>
 
-
 <body class="stretched">
-
-	<!-- Document Wrapper
-	============================================= -->
 	<div id="wrapper" class="clearfix">
-
-			<!-- Header
-			============================================= -->
-			<header id="header" class="">
-
-				<div id="header-wrap">
-
-					<div class="container clearfix">
-
-						<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-
-						<!-- Logo
-						============================================= -->
-						<div id="logo">
-							<a href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a T Logo"></a>
-						</div><!-- #logo end -->
-						<!-- Primary Navigation
-						============================================= -->
-						<nav id="primary-menu">
-
-							<ul>
-								@*<li><a href="#"><div>Home</div></a></li>
+		<header id="header" class="">
+			<div id="header-wrap">
+				<div class="container clearfix">
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+					<div id="logo">
+						<a href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a T Logo"></a>
+					</div>
+					<nav id="primary-menu">
+						<ul>
+							@*<li><a href="#"><div>Home</div></a></li>
 								<li><a href="#"><div>About Us</div></a></li>*@
-								<li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
-							</ul>
-
-						</nav><!-- #primary-menu end -->
-
-					</div>
-
+							<li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
+						</ul>
+					</nav>
 				</div>
-
-			</header><!-- #header end -->
-			<!-- Contact Form & Map Overlay Section
-			============================================= -->
-			<div id="slider-overlay">
-				<div class="fslider">
-					<div class="flexslider">
-						<div class="slider-wrap">
-							<div class="slide"><img src="@Url.Content("~/assets/img/slider/1.jpg")" alt="Slider 1"></div>
-							<div class="slide"><img src="@Url.Content("~/assets/img/slider/2.jpg")" alt="Slider 2"></div>
-							<div class="slide"><img src="@Url.Content("~/assets/img/slider/3.jpg")" alt="Slider 3"></div>
-						</div>
+			</div>
+		</header>
+		<div id="slider-overlay">
+			<div class="fslider">
+				<div class="flexslider">
+					<div class="slider-wrap">
+						<div class="slide"><img src="@Url.Content("~/assets/img/slider/1.jpg")" alt="Slider 1"></div>
+						<div class="slide"><img src="@Url.Content("~/assets/img/slider/2.jpg")" alt="Slider 2"></div>
+						<div class="slide"><img src="@Url.Content("~/assets/img/slider/3.jpg")" alt="Slider 3"></div>
 					</div>
 				</div>
 			</div>
-
-
-
-			<div id="form-overlay">
-				<!-- Contact Form Overlay
-				============================================= -->
-				<div id="contact-form-overlay" class="clearfix">
-
-					<div class="fancy-title">
-						<h7>Learn right now</h7>
-						<div class="clear"></div>
-						<div class="dotslinetop"></div>
-						<h8>Get quality instruction at any time, at any place</h8>
-						<div class="dotslinebottom"></div>
+		</div>
+		<div id="form-overlay">
+			<div id="contact-form-overlay" class="clearfix">
+				<div class="fancy-title">
+					<h7>Learn right now</h7>
+					<div class="clear"></div>
+					<div class="dotslinetop"></div>
+					<h8>Get quality instruction at any time, at any place</h8>
+					<div class="dotslinebottom"></div>
+				</div>
+				<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
+					<div class="col_two_fifth form-group">
+						<label for="template-contactform-service">Your are a<small>*</small></label>
+						<select id="template-contactform-service" name="type" class="sm-form-control">
+							<option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
+							<option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
+						</select>
 					</div>
 
-					<!-- Contact Form
-					============================================= -->
-					<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">                      
-						<div class="col_two_fifth form-group">
-							<label for="template-contactform-service">Your are a<small>*</small></label>
-							<select id="template-contactform-service" name="type" class="sm-form-control">
-								<option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
-								<option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
-							</select>
-						</div>
+					<div class="col_one_fourth form-group">
+						<label for="template-contactform-name">First name<small>*</small></label>
+						<input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" required />
+					</div>
 
-						<div class="col_one_fourth form-group">
-							<label for="template-contactform-name">First name<small>*</small></label>
-							<input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" required />
-						</div>
+					<div class="col_one_fourth col_last form-group">
+						<label for="template-contactform-email">Last Name <small>*</small></label>
+						<input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" required />
+					</div>
 
-						<div class="col_one_fourth col_last form-group">
-							<label for="template-contactform-email">Last Name <small>*</small></label>
-							<input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" required />
-						</div>
+					<div class="clear"></div>
 
-						<div class="clear"></div>
+					<div class="col_two_third form-group">
+						<label for="template-contactform-phone">Email address</label>
+						<input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" required />
+					</div>
 
-						<div class="col_two_third form-group">
-							<label for="template-contactform-phone">Email address</label>
-							<input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" required />
-						</div>
+					<div class="col_one_fourth  col_last form-group">
+						<label for="template-contactform-pass">Password</label>
+						<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
+					</div>
 
-						<div class="col_one_fourth  col_last form-group">
-							<label for="template-contactform-pass">Password</label>
-							<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
-						</div>
-
-						<div class="clear"></div>
+					<div class="clear"></div>
 
 
-						<div class="col_full hidden">
-							<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
-						</div>
+					<div class="col_full hidden">
+						<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+					</div>
 
-						<div class="col-full">
-							<p style="color: #000; text-align: center">@ViewBag.Error</p>
-							<button button class="button button-3d button-purple nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
-						</div>
+					<div class="col-full">
+						<p style="color: #000; text-align: center">@ViewBag.Error</p>
+						<button button class="button button-3d button-purple nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
+					</div>
 
-					</form>
-				
-				</div><!-- Contact Form Overlay End -->
-
+				</form>
 			</div>
-
-
-
-
-
+		</div>
 
 		<section id="content">
 			<div class="content-wrap">
@@ -165,15 +124,8 @@
 						<div class="clear"></div>
 						<p>Quisque eu lectus at sem imperdiet aliqua and pendisse a hendsumellus nec turpis sed tellus.</p>
 					</div>
-
-
-
 					<div class="rows_container clearfix">
-						<!-- Portfolio Items
-						============================================= -->
 						<div id="portfolio" class="clearfix">
-
-
 							<article class="portfolio-item clearfix">
 								<div class="portfolio-image">
 									<div class="feature-box fbox-effect">
@@ -235,11 +187,8 @@
 									</div>
 								</div>
 							</article>
-
 						</div>
 					</div>
-
-
 					<div class="title-block">
 						<h4>
 							Other Subjects:
@@ -250,28 +199,18 @@
 							</span>
 						</h4>
 					</div>
-
-
 				</div>
-
 			</div>
-
 		</section>
 
-
-		<!-- Footer
-		============================================= -->
 		<footer id="footer">
 			<div id="copyrights">
 				<div class="container">
 					@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
 				</div>
 			</div>
-		</footer><!-- #footer end -->
-	</div><!-- #wrapper end -->
-	<!-- Footer Scripts
-		============================================= -->
+		</footer>
+	</div>
 	<script type="text/javascript" src="@Url.Content("~/assets/js/functions.js")"></script>
-
 </body>
 </html>
