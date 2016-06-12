@@ -242,5 +242,17 @@ namespace bat.Controllers
                 return RedirectToRoute("home");
             }
         }
+
+        [AllowAnonymous]
+        public ActionResult Terms()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Privacy()
+        {
+            return View();
+        }
     }
 }

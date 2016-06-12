@@ -1609,12 +1609,12 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 }
 .bg_gray .team_block .face {
 	background: #f9fafc;
-    border-color: #f9fafc;
+	border-color: #f9fafc;
 }
 .team_block .face {
 	background: #fff;
-    border: 1px solid #f1eff0;
-    padding: 20px;
+	border: 1px solid #f1eff0;
+	padding: 20px;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -1626,10 +1626,10 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 }
 .team_block .face.back {
 	background: #1ccdca;
-    color: white;
-    display: block;
-    padding: 15px 20px 15px 20px;
-    border: 1px solid #1ccdca;
+	color: white;
+	display: block;
+	padding: 15px 20px 15px 20px;
+	border: 1px solid #1ccdca;
 	overflow: hidden;
 	transform: rotateY(180deg);
 	-webkit-transform: rotateY(180deg);
@@ -1642,15 +1642,15 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 	-o-box-sizing: border-box;
 }
 .team_block .team_img {
-    background: #fff;
-    border: 5px solid #f3efef;
-    display: block;
-    overflow: hidden;
-    max-width: 190px;
-    margin: 8px auto 0;
+	background: #fff;
+	border: 5px solid #f3efef;
+	display: block;
+	overflow: hidden;
+	max-width: 190px;
+	margin: 8px auto 0;
 }
 .team_block .team_img img {
-    padding: 5px;
+	padding: 5px;
 }
 .team_block .front .person_name {
 	color: #324545;
@@ -1659,45 +1659,45 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 }
 .team_block .person_name, .team_block2 .person_name {
 	display: block;
-    font-size: 18px;
-    text-transform: uppercase;	
+	font-size: 18px;
+	text-transform: uppercase;	
 }
 .team_block .back .person_jop{
 	margin: 5px 0 13px;
-    font-weight: bold;
+	font-weight: bold;
 }
 .team_block .front .person_jop {
 	color: #bab9b9;
 }
 .team_block .person_jop {  
-    display: block;
-    font-size: 13px;
-    text-transform: capitalize;
+	display: block;
+	font-size: 13px;
+	text-transform: capitalize;
 }
 .team_block .person_desc {  
 	display: block;
-    font-size: 14px;
-    line-height: 23px;
-    margin-bottom: 15px;
-    max-height: 115px;
-    overflow: hidden;
-    position: relative;
+	font-size: 14px;
+	line-height: 23px;
+	margin-bottom: 15px;
+	max-height: 115px;
+	overflow: hidden;
+	position: relative;
 }
 .team_block .person_desc::after {
-    bottom: 0;
-    content: "...";
-    display: inline-block;
-    height: 23px;
-    margin-left: 3px;
-    position: relative;
-    right: 3px;
+	bottom: 0;
+	content: "...";
+	display: inline-block;
+	height: 23px;
+	margin-left: 3px;
+	position: relative;
+	right: 3px;
 }
 .team_block .back .social_media a {
 	color: #fff;
 	border-color: rgba(255,255,255,.5);
 	background: none;
 	border-width: 2px;
-    line-height: 35px;
+	line-height: 35px;
 }
 .team_block .back .social_media a:hover {
 	color: #1CCDCA;
@@ -1708,12 +1708,12 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 	background: #fff;
 	border: 1px solid #ddd;
 	color: #777;
-    display: inline-block;  
-    width: 37px;
-    height: 37px;   
-    text-align: center;
-    line-height: 37px;
-    margin: 0 10px 7px 0;
+	display: inline-block;  
+	width: 37px;
+	height: 37px;   
+	text-align: center;
+	line-height: 37px;
+	margin: 0 10px 7px 0;
 	font-size: 14px;
 }
 .social_media a:hover {
@@ -1724,52 +1724,52 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 	color: #fff;
 }
 .arrow_btn {
-    font-size: 13px;
-    color: #444;
-    margin-top: 10px;
-    display: inline-block;
+	font-size: 13px;
+	color: #444;
+	margin-top: 10px;
+	display: inline-block;
 }
 .arrow_btn i {
-    margin-right: 8px;
+	margin-right: 8px;
 }
 .team_block_lightbox {
-    display: block;
-    overflow: hidden;
+	display: block;
+	overflow: hidden;
 }
 /*------ Team 2 ------*/
 .team_block2 {
-    margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 .team_block2 .member_img {
 	background: #fff;
-    border: 1px solid #dadbdb;
+	border: 1px solid #dadbdb;
 	padding: 5px;
 	overflow: hidden;
 	position: relative;
-    display: block;
-    float: right;
-    width: 30%;
+	display: block;
+	float: right;
+	width: 30%;
 }
 .team_block2 .member_img:before {
-    background: #1CCDCA;
+	background: #1CCDCA;
 	border: 5px solid rgba(0, 0, 0, 0.3);
 	content: "";
-    top: 0px;
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    width: 100%;
+	top: 0px;
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	width: 100%;
 	text-align: center;
 	opacity: 0;
 }
 .team_block2 .member_img:after {
-    content: "\e112";
-    display: block;
-    height: 40px;
+	content: "\e112";
+	display: block;
+	height: 40px;
 	line-height: 40px;
-    position: absolute;
-    width: 40px;
+	position: absolute;
+	width: 40px;
 	font-family: "idealtheme";
 	color: #fff;
 	font-size: 24px;
@@ -1792,38 +1792,38 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 	border-color: rgba(0,0,0,0);
 }
 .team_block2 .team_detail {
-    float: right;
-    padding-right: 20px;
-    width: 70%;
+	float: right;
+	padding-right: 20px;
+	width: 70%;
 }
 .team_block2 .person_name {
-    color: #324545;
+	color: #324545;
 	font-size: 18px;
 }
 .team_block2 a:hover .person_name {
-    color: #1CCDCA;
+	color: #1CCDCA;
 }
 .team_block2 .person_jop {
-    color: #aaa;
-    display: block;
-    font-size: 14px;
-    margin: 3px 0 10px;
+	color: #aaa;
+	display: block;
+	font-size: 14px;
+	margin: 3px 0 10px;
 }
 .team_block2 .person_desc {
-    display: block;
+	display: block;
 	line-height: 25px;
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 	color: #999;
 }
 .team_block2 .social_media a {
-    font-size: 12px;
-    height: 35px;
-    line-height: 35px;
-    margin: 0 8px 7px 0;
-    width: 35px;
+	font-size: 12px;
+	height: 35px;
+	line-height: 35px;
+	margin: 0 8px 7px 0;
+	width: 35px;
 }
 .team_block2 .social_media a:last-child {
-    margin-right: 0;
+	margin-right: 0;
 }
 .team_block2 #share_on_socials a{
 	margin: 0 9px 6px 0;
@@ -1847,35 +1847,35 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 }
 /*------ Team 3 ------*/
 .team-col {
-    background: #1ccdca;
+	background: #1ccdca;
 	width: 50%;
 	color: #fff;
 	float: left;
 	position: relative;
 }
 .team-col-1 {
-    width: 50%;
+	width: 50%;
 	float: left;
 	position: relative;
 }
 .team-col-2 {
-    width: 50%;
+	width: 50%;
 	float: left;
 	position: relative;
 }
 .team-col-1 .member_img2 > span{
 	display: block;
-    position: relative;
+	position: relative;
 }
 .team-col-1 .member_img2 > span:after {
-    box-shadow: 0 0 75px rgba(0, 0, 0, 0.5) inset;
-    content: "";
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
+	box-shadow: 0 0 75px rgba(0, 0, 0, 0.5) inset;
+	content: "";
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 .team-col .team-col-2 .arrow{
 	position: absolute;
@@ -1894,65 +1894,65 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 }
 .team-col .team-col-2 .arrow{
 	left: auto;
-    right: -7px;
+	right: -7px;
 }
 .team_block3 .person_name{
 	display: block;
-    font-size: 20px;
-    text-transform: uppercase;
+	font-size: 20px;
+	text-transform: uppercase;
 	color: #fff;
 }
 .team_block3 .person_jop{
 	display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 5px 0 10px;
-    text-transform: capitalize;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px 0 10px;
+	text-transform: capitalize;
 }
 .team_block3 .person_desc {
-    display: block;
-    margin-bottom: 20px;
+	display: block;
+	margin-bottom: 20px;
 	line-height: 23px;
 	color: rgba(255,255,255,.8);
 }
 .team_block3 .team-col-2-con {
-    position: absolute;
+	position: absolute;
 	padding: 20px 25px 20px;
 }
 .team_block3 .social_media a{
 	background: none;
-    border: none;
-    color: #fff;
-    margin-right: 25px;
-    width: auto;
+	border: none;
+	color: #fff;
+	margin-right: 25px;
+	width: auto;
 }
 .team_block3 .social_media a:hover{
 	opacity: 0.7;
 }
 .member_img2 {
-    display: block;
-    position: relative;
+	display: block;
+	position: relative;
 }
 .member_img2:before {
-    background: rgba(28,205,202, 0.8);
+	background: rgba(28,205,202, 0.8);
 	content: "";
-    top: 0px;
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    width: 100%;
+	top: 0px;
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	width: 100%;
 	text-align: center;
 	opacity:0;
 	z-index: 1;
 }
 .member_img2:after {
-    content: "\e112";
-    display: block;
-    height: 40px;
+	content: "\e112";
+	display: block;
+	height: 40px;
 	line-height: 40px;
-    position: absolute;
-    width: 40px;
+	position: absolute;
+	width: 40px;
 	font-family: "idealtheme";
 	color: #fff;
 	font-size: 24px;
@@ -1975,16 +1975,16 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 	transform: translateX(-50%) translateY(-50%) scale(1);
 }
 .team-col.team_col_on_right .team-col-1{
-    float: right;
+	float: right;
 }
 .team-col:nth-child(2n+1) {
-    clear: both;
+	clear: both;
 }
 .team-col-2-con > a {
-    display: inline-block;
+	display: inline-block;
 }
 .team-col-2-con > a:hover {
-    opacity: 0.7;
+	opacity: 0.7;
 }
 
 /* ----------------------------------------------------------------
@@ -11845,7 +11845,7 @@ button.toast-close-button {
   text-align: center;
   vertical-align: middle;
   -ms-touch-action: manipulation;
-      touch-action: manipulation;
+	  touch-action: manipulation;
   cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
@@ -12255,8 +12255,11 @@ fieldset[disabled] .btn {
 
 #footer {
 	padding:15px 0;
+	height: 60px;
 	position: relative;
-background-color: #EEE;}
+	background-color: #555;
+	color: #eee;
+}
 
 #footer .footer-widgets-wrap {
 	position: relative;
@@ -12280,7 +12283,6 @@ background-color: #EEE;}
 	padding: 0px 0;
 	background-color: #;
 	font-size: 12px;
-	text-align:center;
 	line-height: 1.8;
 }
 
@@ -13029,23 +13031,23 @@ body:not(.no-transition) #wrapper,
 
 /********************************
 
-    Custom Styles.
+	Custom Styles.
 
 ********************************/
 
 /* Lesson Stream */
 #video-wrap {
-    width: 415px; 
-    height:233px;
+	width: 415px; 
+	height:233px;
 }
 
 /* Chat Box */
 .chatBody {
-    height: 185px;
-    overflow: scroll;
+	height: 185px;
+	overflow: scroll;
 }
 
 #discussion {
-    color: black;
-    list-style-type: none;
+	color: black;
+	list-style-type: none;
 }

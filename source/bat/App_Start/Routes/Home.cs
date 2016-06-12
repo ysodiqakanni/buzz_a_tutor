@@ -46,6 +46,18 @@ namespace bat.Routes
                 url: "logout",
                 defaults: new { controller = "Home", action = "Logout" }
             );
+
+            routes.MapRoute(
+                name: "terms",
+                url: "terms",
+                defaults: new { controller = "Home", action = "Terms" }
+            );
+
+            routes.MapRoute(
+                name: "privacy",
+                url: "privacy",
+                defaults: new { controller = "Home", action = "Privacy" }
+            );
         }
     }
 }
