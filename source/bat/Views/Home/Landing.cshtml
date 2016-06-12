@@ -206,7 +206,19 @@
 		<footer id="footer">
 			<div id="copyrights">
 				<div class="container">
-					@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+					<p class="pull-left">
+						@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+					</p>
+					<p class="pull-right" style="margin-left: 40px;">
+						<a href="@Url.RouteUrl("terms")">
+							Terms and Conditions
+						</a>
+					</p>
+					<p class="pull-right">
+						<a href="@Url.RouteUrl("privacy")">
+							Privacy Policy
+						</a>
+					</p>
 				</div>
 			</div>
 		</footer>

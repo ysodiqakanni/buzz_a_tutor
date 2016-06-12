@@ -37,10 +37,9 @@
                             {
                                 @Html.AntiForgeryToken();
                                 <div class="form-group">
-                                    <label for="role" style="color: #000">Your are a<small>*</small></label>
                                     <select id="role" name="type" class="form-control">
-                                        <option value="@((int) bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
-                                        <option value="@((int) bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
+                                        <option value="@((int) bat.logic.Constants.Types.AccountTypes.Student)">I am a student</option>
+                                        <option value="@((int) bat.logic.Constants.Types.AccountTypes.Teacher)">I am a teacher</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
