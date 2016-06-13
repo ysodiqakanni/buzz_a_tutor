@@ -54,6 +54,12 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "about",
+                url: "about",
+                defaults: new { controller = "Home", action = "About" }
+            );
+
+            routes.MapRoute(
                 name: "terms",
                 url: "terms",
                 defaults: new { controller = "Home", action = "Terms" }

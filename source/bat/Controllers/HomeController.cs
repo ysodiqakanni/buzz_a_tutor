@@ -264,6 +264,12 @@ namespace bat.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         public ActionResult Terms()
         {
             return View();

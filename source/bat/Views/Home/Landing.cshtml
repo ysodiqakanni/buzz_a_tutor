@@ -41,8 +41,8 @@
 					</div>
 					<nav id="primary-menu">
 						<ul>
-							@*<li><a href="#"><div>Home</div></a></li>
-								<li><a href="#"><div>About Us</div></a></li>*@
+							@*<li><a href="@Url.RouteUrl("home")"><div>Home</div></a></li>*@
+							<li><a href="@Url.RouteUrl("about")"><div>About Us</div></a></li>
 							<li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
 						</ul>
 					</nav>
@@ -214,9 +214,14 @@
 							Terms and Conditions
 						</a>
 					</p>
-					<p class="pull-right">
+					<p class="pull-right" style="margin-left: 40px;">
 						<a href="@Url.RouteUrl("privacy")">
 							Privacy Policy
+						</a>
+					</p>
+					<p class="pull-right">
+						<a href="@Url.RouteUrl("about")">
+							About
 						</a>
 					</p>
 				</div>

@@ -392,6 +392,7 @@
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\_LayoutContentOnly.cshtml" />
     <Content Include="Views\Home\SelectSubject.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
