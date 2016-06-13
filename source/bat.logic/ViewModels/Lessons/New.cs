@@ -38,10 +38,13 @@ namespace bat.logic.ViewModels.Lessons
                 var description = (frm["Description"] ?? "").Trim();
                 if (string.IsNullOrEmpty(description)) throw new Exception("Description is required.");
 
-                // note, relayed can't be archived (saved)
-                // when saving or archiving video, must be routed not relayed
-                var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
-                var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
+                // TokBox disabled for now
+                //// note, relayed can't be archived (saved)
+                //// when saving or archiving video, must be routed not relayed
+                //var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+                //var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
+                //var tokSessionId = session.Id;
+                string tokSessionId = null;
 
                 this.lesson = new Lesson()
                 {
@@ -52,7 +55,7 @@ namespace bat.logic.ViewModels.Lessons
                     ClassSize = int.Parse(frm["ClassSize"]),
                     Subject = (frm["Subject"] ?? "").Trim(),
 
-                    TokBoxSessionId = session.Id,
+                    TokBoxSessionId = tokSessionId,
                     ZoomStartUrl = "",
                     ZoomJoinUrl = ""
                 };

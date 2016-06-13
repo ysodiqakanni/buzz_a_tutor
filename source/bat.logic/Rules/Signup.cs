@@ -36,15 +36,18 @@ namespace bat.logic.Rules
                 if (conn.Accounts.Any(a => a.Email == email))
                     throw new Exception("Email already registered.");
 
-                conn.Accounts.Add(new Account()
+                var account = new Account()
                 {
                     AccountType_ID = type,
                     Fname = firstName,
                     Lname = lastName,
                     Email = email,
                     Password = Helpers.PasswordStorage.CreateHash(password)
-                });
+                };
+                conn.Accounts.Add(account);
                 conn.SaveChanges();
+
+                Rules.ZoomApi.CreateZoomUserAccount(account.ID);
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using bat.logic.Constants;
 using bat.logic.Models.Zoom;
 using Newtonsoft.Json;
+using bat.data;
 
 namespace bat.logic.Rules
 {
@@ -92,6 +93,26 @@ namespace bat.logic.Rules
             });
             CheckError(rs);
             return JsonConvert.DeserializeObject<Meeting>(rs);
+        }
+
+        public static Account CreateZoomUserAccount(int accountId)
+        {
+            using (var conn = new dbEntities())
+            {
+                var account = conn.Accounts.FirstOrDefault(a => a.ID == accountId);
+                if (account == null) throw new Exception("Invalid user account.");
+
+                // already registered
+                if (!string.IsNullOrEmpty(account.ZoomUserId))
+                    return account;
+
+                var user = CreateUser(account.Fname, account.Lname, account.Email, Zoom.UserTypes.Basic);
+                account.ZoomUserId = user.id;
+
+                conn.SaveChanges();
+
+                return account;
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ namespace bat.Controllers
 
                 if (!model.CurrentlyAZoomUser)
                 {
-                    model.CreateZoomUser();
+                    model.CheckZoomUser();
                     return View("NewZoomUserAccount", model);
                 }
 

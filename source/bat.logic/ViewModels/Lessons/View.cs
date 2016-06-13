@@ -121,22 +121,11 @@ namespace bat.logic.ViewModels.Lessons
                 }
             }
         }
-        public void CreateZoomUser()
+
+        public void CheckZoomUser()
         {
-            // already registered
-            if (!string.IsNullOrEmpty(this.account.ZoomUserId))
-                return;
-
-            using (var conn = new dbEntities())
-            {
-                this.account = conn.Accounts.FirstOrDefault(a => a.ID == this.account.ID);
-                if (this.account == null) throw new Exception("Invalid user account.");
-
-                var user = ZoomApi.CreateUser(this.account.Fname, this.account.Lname, this.account.Email, Zoom.UserTypes.Basic);
-                this.account.ZoomUserId = user.id;
-
-                conn.SaveChanges();
-            }
+            if (string.IsNullOrEmpty(account.ZoomUserId))
+                this.account = Rules.ZoomApi.CreateZoomUserAccount(this.account.ID);
         }
 
         public bool LessonReady
