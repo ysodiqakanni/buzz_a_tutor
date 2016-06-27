@@ -26,6 +26,8 @@ namespace bat.logic.ApiModels.DashBoard
         {
             var json = new JavaScriptSerializer();
 
+            date = Rules.Timezone.ConvertToUTC(date);
+
             var calEvents = new List<calEvent>();
             var tomorrow = date.AddDays(1);
             using (var conn = new dbEntities())
