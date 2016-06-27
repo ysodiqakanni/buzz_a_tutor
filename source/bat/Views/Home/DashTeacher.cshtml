@@ -2,46 +2,28 @@
 @{
     ViewBag.Title = "Teacher";
 }
+@section head {
+    <link rel='stylesheet' href='@Url.Content("~/assets/css/fullcalendar.min.css")' />
+    <script src='@Url.Content("~/assets/js/jquery.js")'></script>
+    <script src='@Url.Content("~/assets/js/moment.min.js")'></script>
+    <script src='@Url.Content("~/assets/js/fullcalendar.min.js")'></script>
+    <script src='@Url.Content("~/assets/js/calendar.js")'></script>
+}
 
-<h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
+<h2>Welcome, @Model.account.Fname @Model.account.Lname</h2> <p><a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Create a new lesson</a></p>
 
 <div class="row">
     <div class="col-sm-6">
-        @if (Model.lessons.Any())
-        {
-            <h2>Here are your lessons</h2>
-            <ul>
-                @foreach (var lesson in Model.lessons)
-                {
-                    <li>
-                        <p>
-                            @if (string.IsNullOrEmpty(lesson.Subject))
-                            {
-                                <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
-                                    @lesson.Description
-                                </a>
-                            }
-                            else
-                            {
-                                <strong>
-                                    @lesson.Subject
-                                </strong>
-                                <br />
-                                <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
-                                    @lesson.Description
-                                </a>
-                            }
-                        </p>
-                    </li>
-                }
-            </ul>
-        }
-        <p>
-            <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Create a new lesson</a>
-        </p>
+        <input id="userID" type="hidden" value="@Model.account.ID" />
+        <input id="getEventsPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getevents", new { controller = "DashBoardApi", action = "Getevents" })" />
+        <input id="getDayPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getday", new { controller = "DashBoardApi", action = "Getday" })" />
+        <input id="getLessonPath" type="hidden" value="@Url.Action("Index", "Lessons")" />
+        <div id='calendar'></div>
     </div>
     <div class="col-sm-6">
+        <div id='agendaDay'></div>
     </div>
 </div>
+
 
 

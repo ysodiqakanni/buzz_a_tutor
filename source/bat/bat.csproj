@@ -206,6 +206,7 @@
     <Content Include="assets\css\animate.css" />
     <Content Include="assets\css\batstickyfoot.css" />
     <Content Include="assets\css\batmain.css" />
+    <Compile Include="Controllers\api\DashBoardApiController.cs" />
     <Compile Include="Controllers\api\LessonsApiController.cs" />
     <Compile Include="Controllers\ChatRecordsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -231,6 +232,7 @@
     <Content Include="assets\css\fonts\lined-icons.svg" />
     <Content Include="assets\css\fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="assets\css\fonts\Simple-Line-Icons.svg" />
+    <Content Include="assets\css\fullcalendar.min.css" />
     <Content Include="assets\css\lessonStyle.css" />
     <Content Include="assets\css\login.css" />
     <Content Include="assets\css\magnific-popup.css" />
@@ -314,10 +316,12 @@
     <Content Include="assets\img\slider\3.jpg" />
     <Content Include="assets\img\vertical_line.png" />
     <Content Include="assets\js\blackboard.js" />
+    <Content Include="assets\js\calendar.js" />
     <Content Include="assets\js\canvas.slider.fade.js" />
     <Content Include="assets\js\chatRoom.js" />
     <Content Include="assets\js\demo.js" />
     <Content Include="assets\js\events-data.js" />
+    <Content Include="assets\js\fullcalendar.min.js" />
     <Content Include="assets\js\functions.js" />
     <Content Include="assets\js\hubs.js" />
     <Content Include="assets\js\jquery.calendario.js" />
@@ -330,6 +334,7 @@
     <Content Include="assets\js\jquery.signalR-2.2.0.min.js" />
     <Content Include="assets\js\jquery.vmap.js" />
     <Content Include="assets\js\modernizr.custom.js" />
+    <Content Include="assets\js\moment.min.js" />
     <Content Include="assets\js\plugins.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />

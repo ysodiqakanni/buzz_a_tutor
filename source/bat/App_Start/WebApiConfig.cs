@@ -28,6 +28,18 @@ namespace bat
                 routeTemplate: "api/lessons/getattachment",
                 defaults: new { controller = "LessonsApi", action = "Getattachment" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "api/dashboard/getevents",
+                routeTemplate: "api/dashboard/getevents",
+                defaults: new { controller = "DashBoardApi", action = "Getevents" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "api/dashboard/getday",
+                routeTemplate: "api/dashboard/getday",
+                defaults: new { controller = "DashBoardApi", action = "Getday" }
+            );
         }
     }
 }

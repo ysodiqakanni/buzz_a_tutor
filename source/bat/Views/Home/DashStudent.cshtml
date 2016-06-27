@@ -1,8 +1,14 @@
 ﻿@model bat.logic.ViewModels.Homepage.Dashboard
 @{
     ViewBag.Title = "Student";
-    var currentSubject = "";
-    var currentSubjectChanged = false;
+}
+
+@section head {
+    <link rel='stylesheet' href='@Url.Content("~/assets/css/fullcalendar.min.css")' />
+    <script src='@Url.Content("~/assets/js/jquery.js")'></script>
+    <script src='@Url.Content("~/assets/js/moment.min.js")'></script>
+    <script src='@Url.Content("~/assets/js/fullcalendar.min.js")'></script>
+    <script src='@Url.Content("~/assets/js/calendar.js")'></script>
 }
 
 <div style="overflow: auto;">
@@ -13,28 +19,18 @@
         Find more Lessons
     </a>
 </div>
-
 <h4 style="margin-bottom: 20px;">
     Here are your lessons
 </h4>
-@foreach (var lesson in Model.lessons)
-{
-    currentSubjectChanged = false;
-    if (currentSubject != lesson.Subject)
-    {
-        currentSubject = lesson.Subject;
-        currentSubjectChanged = true;
-    }
-    <p>
-        @if (currentSubjectChanged && !string.IsNullOrEmpty(currentSubject))
-                {
-            <strong>
-                @currentSubject
-            </strong>
-                    <br />
-        }
-        <a href="@Url.RouteUrl("lessons", new {id = lesson.ID})">
-            @lesson.Description
-        </a>
-    </p>
-}
+<div class="row">
+    <div class="col-sm-6">
+        <input id="userID" type="hidden" value="@Model.account.ID" />
+        <input id="getEventsPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getevents", new { controller = "DashBoardApi", action = "Getevents" })" />
+        <input id="getDayPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getday", new { controller = "DashBoardApi", action = "Getday" })" />
+        <input id="getLessonPath" type="hidden" value="@Url.Action("Index", "Lessons")" />
+        <div id='calendar'></div>
+    </div>
+    <div class="col-sm-6">
+        <div id='agendaDay'></div>
+    </div>
+</div>
