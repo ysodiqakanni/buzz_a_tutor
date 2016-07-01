@@ -334,6 +334,7 @@
     <Content Include="assets\js\jquery.signalR-2.2.0.min.js" />
     <Content Include="assets\js\jquery.vmap.js" />
     <Content Include="assets\js\modernizr.custom.js" />
+    <Content Include="assets\js\moment-timezone.js" />
     <Content Include="assets\js\moment.min.js" />
     <Content Include="assets\js\plugins.js" />
     <Content Include="assets\js\videoStreaming.js" />

@@ -47,7 +47,7 @@ namespace bat.logic.ApiModels.DashBoard
                             calEvents.Add(new calEvent
                             {
                                 title = l.Subject,
-                                start = l.BookingDate.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = "#3a87ad"
 
                             });
@@ -66,7 +66,7 @@ namespace bat.logic.ApiModels.DashBoard
                             calEvents.Add(new calEvent
                             {
                                 title = l.Subject,
-                                start = l.BookingDate.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = "#EA8B23"
 
                             });
