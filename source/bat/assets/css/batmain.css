@@ -154,3 +154,7 @@ textarea {
 a {
     color: #C66921;
 }
+
+.fc-content {
+    cursor: pointer;
+}
