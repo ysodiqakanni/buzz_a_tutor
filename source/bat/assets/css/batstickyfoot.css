@@ -28,3 +28,12 @@ body {
 	padding-left: 15px;
 }
 
+
+.footer-link a {
+	text-decoration: none !important;
+	color: #F8C311;
+}
+
+.footer-link a:hover {
+	color: #ff982e;
+}
