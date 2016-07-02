@@ -11269,7 +11269,10 @@ label.error { display: none !important; z-index: 100;}
 	text-align:center;
 	font-weight:normal;
 }
-.slogan-title p{color:#999; font-size:14px;font-weight:normal;
+.slogan-title p{
+	color: #999; 
+	font-size: 18px;
+	font-weight:normal;
 }
 .slogan{
 	color:#ff982e;
@@ -12324,6 +12327,15 @@ fieldset[disabled] .btn {
 .footer-logo {
 	display: block;
 	margin-bottom: 30px;
+}
+
+.footer-link a {
+	text-decoration: none !important;
+	color: #ffda9e;
+}
+
+.footer-link a:hover {
+	color: #ff982e;
 }
 
 

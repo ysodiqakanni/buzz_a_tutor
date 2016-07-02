@@ -62,13 +62,13 @@
 		</div>
 		<div id="form-overlay">
 			<div id="contact-form-overlay" class="clearfix">
-				<div class="fancy-title">
+				@*<div class="fancy-title">
 					<h7>Learn right now</h7>
 					<div class="clear"></div>
 					<div class="dotslinetop"></div>
 					<h8>Get quality instruction at any time, at any place</h8>
 					<div class="dotslinebottom"></div>
-				</div>
+				</div>*@
 				<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
 					<div class="col_two_fifth form-group">
 						<label for="template-contactform-service">Your are a<small>*</small></label>
@@ -120,9 +120,19 @@
 			<div class="content-wrap">
 				<div class="container clearfix ">
 					<div class="slogan-title title-center nobottomborder">
-						<div class="slogan">The future is waiting for you</div>
-						<div class="clear"></div>
-						<p>Quisque eu lectus at sem imperdiet aliqua and pendisse a hendsumellus nec turpis sed tellus.</p>
+						@*<div class="slogan">The future is waiting for you</div>
+						<div class="clear"></div>*@
+						<p>
+							Buzzatutor is a team of experienced, professional and committed teachers, available online,
+							whenever you need that extra help to get on top with your subject.
+						</p>
+						<p>
+							Buzzatutor's user friendly interface will allow your tutor to mark and correct your work in real time.
+						</p>
+						<p>
+							Whether you choose a one to one lesson or prefer to study with your friends, each individual user is able to
+							interact with the group from the comfort of their own home.
+						</p>
 					</div>
 					<div class="rows_container clearfix">
 						<div id="portfolio" class="clearfix">
@@ -176,7 +186,7 @@
 									<div class="feature-box fbox-effect">
 										<div class="fbox-icon">
 											<i class="icon-comments" style="background-color:#85de4f"></i>
-											<h3><span class="green">LANGUAGE</span></h3>
+											<h3><span class="green">LANGUAGES</span></h3>
 										</div>
 									</div>
 
@@ -209,17 +219,17 @@
 					<p class="pull-left">
 						@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
 					</p>
-					<p class="pull-right" style="margin-left: 40px;">
+					<p class="footer-link pull-right" style="margin-left: 40px;">
 						<a href="@Url.RouteUrl("terms")">
 							Terms and Conditions
 						</a>
 					</p>
-					<p class="pull-right" style="margin-left: 40px;">
+					<p class="footer-link pull-right" style="margin-left: 40px;">
 						<a href="@Url.RouteUrl("privacy")">
 							Privacy Policy
 						</a>
 					</p>
-					<p class="pull-right">
+					<p class="footer-link pull-right">
 						<a href="@Url.RouteUrl("about")">
 							About
 						</a>
