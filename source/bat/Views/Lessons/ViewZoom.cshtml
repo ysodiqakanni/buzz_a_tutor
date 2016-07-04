@@ -4,6 +4,14 @@
 }
 
 @section head {
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/blackboard.css")" />
+
+<script>
+	lessonId = "@Model.lesson.ID";
+	id = @Model.account.ID;
+	username = "@Model.account.Fname" + " " + "@Model.account.Lname";
+</script>
 }
 @section scripts {
     @*<script>
@@ -55,5 +63,11 @@
                 @student.Fname @student.Lname
             </p>
         }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        @Html.Partial("_PartialWhiteboard", Model)
     </div>
 </div>

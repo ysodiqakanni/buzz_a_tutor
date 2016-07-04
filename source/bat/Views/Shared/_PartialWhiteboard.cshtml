@@ -1,76 +1,82 @@
 ﻿@model bat.logic.ViewModels.Partials.IPartialWhiteboard
 
-<script>
-    $(function () {
-        $("ul.dropdown-menu").on("click", "[data-keepOpenOnClick]", function (e) {
-            e.stopPropagation();
+<div class="board-container">
+
+    <script>
+        $(function () {
+            $("ul.dropdown-menu").on("click", "[data-keepOpenOnClick]", function (e) {
+                e.stopPropagation();
+            });
         });
-    });
-</script>
+    </script>
 
-
-<div id="board-wrap">
-    <div id="board-top">
-        <div class="fleft">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Attachment <span class="caret"></span></button>
-                <ul class="dropdown-menu" role="menu">
-                    <li>Upload:</li>
-                    @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    <div id="board-wrap">
+        <div id="board-top">
+            <div class="fleft">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Attachment <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>Upload:</li>
+                        @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
-                        <li>
-                            <label data-keepOpenOnClick for="data">File:</label>
-                            <input data-keepOpenOnClick type="file" name="data" id="data" />
+                            <li>
+                                <label data-keepOpenOnClick for="data">File:</label>
+                                <input data-keepOpenOnClick type="file" name="data" id="data" />
+                            </li>
+                            <li>
+                                <label data-keepOpenOnClick for="title">Title:</label>
+                                <input data-keepOpenOnClick type="text" name="title" id="title" />
+                                <input data-keepOpenOnClick type="submit" />
+                            </li>
+                        }
+                        <li class="divider"></li>
+                        <li>Save the board:</li>
+                        <li id="imgSaveSuccess" class="hidden">
+                            <i class="fa fa-check"></i>
+                        </li>
+                        <li id="imgSaveFail" class="hidden">
+                            <i class="fa fa-exclamation-triangle"></i>
                         </li>
                         <li>
-                            <label data-keepOpenOnClick for="title">Title:</label>
-                            <input data-keepOpenOnClick type="text" name="title" id="title" />
-                            <input data-keepOpenOnClick type="submit" />
+                            <form>
+                                <label data-keepOpenOnClick for="saveTitle">Title:</label>
+                                <input data-keepOpenOnClick type="text" id="saveTitle" name="saveTitle">
+                                <input data-keepOpenOnClick type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
+                            </form>
                         </li>
-                    }
-                    <li class="divider"></li>
-                    <li>Save the board:</li>
-                    <li id="imgSaveSuccess" class="hidden">
-                        <i class="fa fa-check"></i>
-                    </li>
-                    <li id="imgSaveFail" class="hidden">
-                        <i class="fa fa-exclamation-triangle"></i>
-                    </li>
-                    <li>
-                        <form>
-                            <label data-keepOpenOnClick for="saveTitle">Title:</label>
-                            <input data-keepOpenOnClick type="text" id="saveTitle" name="saveTitle">
-                            <input data-keepOpenOnClick type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
-                        </form>
-                    </li>
-                    <li class="divider"></li>
-                    <li>Load an image:</li>
-                    @foreach (var attachment in Model.attachments)
-                    {
-                        <li>
-                            <button onclick="loadImg('@attachment.ID')">
-                                @attachment.Title
-                            </button>
-                        </li>
-                    }
-                </ul>
+                        <li class="divider"></li>
+                        <li>Load an image:</li>
+                        @foreach (var attachment in Model.attachments)
+                        {
+                            <li>
+                                <button onclick="loadImg('@attachment.ID')">
+                                    @attachment.Title
+                                </button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="fright">
+                <div class="bb-slider-div">
+                    <label for="lWSlider">Line Width:</label>
+                    <input type="range" id="lWSlider" onchange="changeLW(lWSlider.value)" value="3" min="1" max="5" />
+                </div>
+                <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
+                <button onclick="defaultBoard()" type="button" class="btn btn-primary">New</button>
+                <button onclick="clearBoard()" type="button" class="btn btn-primary">Clear</button>
             </div>
         </div>
-
-        <div class="fright">
-            <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
-            <button onclick="defaultBoard()" type="button" class="btn btn-primary">New</button>
-            <button onclick="clearBoard()" type="button" class="btn btn-primary">Clear</button>
+        <div id="board-inner">
+            <div id="blackBoard">
+                <canvas id="canvas" style="align-content:center"></canvas>
+            </div>
         </div>
-    </div>
-    <div id="board-inner">
-        <div id="blackBoard">
-            <canvas id="canvas" style="align-content:center"></canvas>
-        </div>
-    </div>
-</div><!-- /board-wrap-->
+    </div><!-- /board-wrap-->
+    <div class="shadow2"><img style="width:100%" src="@Url.Content("~/assets/img/shadow.png")"></div>
+</div>
 
-<div class="shadow2"><img src="@Url.Content("~/assets/img/shadow.png")"></div>
 @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
 @Scripts.Render("~/signalr/hubs")
 @Scripts.Render("~/assets/js/blackboard.js")

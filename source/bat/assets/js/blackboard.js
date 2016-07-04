@@ -9,8 +9,11 @@ var blackboardHub = $.connection.blackboardHub,
     //updateRate = 10 / messageFrequency,
     clientModel =
     serverModel = {
-        x: 0,
-        y: 0,
+        oX: 0,
+        oY: 0,
+        nX: 0,
+        nY: 0,
+        lineWidth: '3',
         color: '#000',
         group: lessonId,
     },
@@ -50,12 +53,13 @@ function remap(value, actualMin, actualMax, newMin, newMax) {
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
     painting = false,
-    lastX = 0,
-    lastY = 0,
-    lineThickness = 1;
+    lX = 0,
+    lY = 0,
+    lineThickness = 3;
 
 var blackboardWidth = $('#blackBoard').width();
 var blackboardHeight = $('#blackBoard').height();
+var rect = canvas.getBoundingClientRect();
 
 canvas.width = blackboardWidth;
 canvas.height = blackboardHeight;
@@ -84,9 +88,14 @@ function clearBoard() {
 clearBoard();
 canvas.onmousedown = function (e) {
     painting = true;
-    ctx.fillStyle = clientModel.color;
-    lastX = e.pageX - this.offsetLeft;
-    lastY = e.pageY - this.offsetTop;
+    lX = e.offsetX; //e.pageX - rect.left - window.scrollX;
+    lY = e.offsetY //e.pageY - rect.top - window.scrollY;
+    paint(lX, lY, lX - 1, lY - 1, clientModel.lineWidth, clientModel.color);
+    clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
+    clientModel.oY = remap(lY, 0, blackboardHeight, 0, 600);
+    clientModel.nX = remap(lX - 1, 0, blackboardWidth, 0, 600);
+    clientModel.nY = remap(lY - 1, 0, blackboardHeight, 0, 600);
+    blackboardHub.server.updateModel(clientModel)
 };
 
 canvas.onmouseup = function (e) {
@@ -95,102 +104,39 @@ canvas.onmouseup = function (e) {
 
 canvas.onmousemove = function (e) {
     if (painting) {
-        var rect = canvas.getBoundingClientRect();
-        var cursorX = e.pageX - rect.left;
-        var cursorY = e.pageY - rect.top;
-        paint(cursorX, cursorY);
+        var x = e.offsetX // e.pageX - rect.left - window.scrollX;
+        var y = e.offsetY //e.pageY - rect.top - window.scrollY;
 
-        //debugging
-        //console.log("cursorX: " + cursorX + ". CursorY: " + cursorY)
+        paint(lX, lY, x, y, clientModel.lineWidth, clientModel.color);
+        clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
+        clientModel.oY = remap(lY, 0, blackboardHeight, 0, 600);
+        clientModel.nX = remap(x, 0, blackboardWidth, 0, 600);
+        clientModel.nY = remap(y, 0, blackboardHeight, 0, 600);
+        blackboardHub.server.updateModel(clientModel)
 
-        // Sends Chalks x y and color to server.
-        var adjustedWidth = remap(cursorX, 0, blackboardWidth, 0, 600);
-        var adjustedHeight = remap(cursorY, 0, blackboardHeight, 0, 600);
-
-        clientModel.x = adjustedWidth;
-        clientModel.y = adjustedHeight;
-        blackboardHub.server.updateModel(clientModel);
-
+        lX = x;
+        lY = y;
     }
 }
 
-function paint(x,y) {
-    var mouseX = x;
-    var mouseY = y;
-
-    //debugging
-    //console.log("Paint - X: " + mouseX + ", Y: " + mouseY)
-
-    // find all points between        
-    var x1 = mouseX,
-        x2 = lastX,
-        y1 = mouseY,
-        y2 = lastY;
-
-    ctx.fillRect(x, y, 4, 4);
-
-    //var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
-    //if (steep) {
-    //    var x = x1;
-    //    x1 = y1;
-    //    y1 = x;
-
-    //    var y = y2;
-    //    y2 = x2;
-    //    x2 = y;
-    //}
-    //if (x1 > x2) {
-    //    var x = x1;
-    //    x1 = x2;
-    //    x2 = x;
-
-    //    var y = y1;
-    //    y1 = y2;
-    //    y2 = y;
-    //}
-
-    //var dx = x2 - x1,
-    //    dy = Math.abs(y2 - y1),
-    //    error = 0,
-    //    de = dy / dx,
-    //    yStep = -1,
-    //    y = y1;
-
-    //if (y1 < y2) {
-    //    yStep = 1;
-    //}
-
-    //lineThickness = 5 - Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) / 10;
-    //if (lineThickness < 1) {
-    //    lineThickness = 1;
-    //}
-
-    //for (var x = x1; x < x2; x++) {
-    //    if (steep) {
-    //        ctx.fillRect(y, x, lineThickness, lineThickness);
-    //    } else {
-    //        ctx.fillRect(x, y, lineThickness, lineThickness);
-    //    }
-
-    //    error += de;
-    //    if (error >= 0.5) {
-    //        y += yStep;
-    //        error -= 1.0;
-    //    }
-    //}
-
-    lastX = mouseX;
-    lastY = mouseY;
+function paint(oX, oY, nX, nY, lW, sS) {
+    ctx.beginPath();
+    ctx.moveTo(oX, oY);
+    ctx.lineWidth = lW;
+    ctx.strokeStyle = sS;
+    ctx.lineTo(nX, nY);
+    ctx.stroke();
 }
 
 
 // Server's Print function
 function print() {
-    ctx.fillStyle = serverModel.color;
+    var oX = remap(serverModel.oX, 0, 600, 0, blackboardWidth);
+    var oY = remap(serverModel.oY, 0, 600, 0, blackboardHeight);
+    var nX = remap(serverModel.nX, 0, 600, 0, blackboardWidth);
+    var nY = remap(serverModel.nY, 0, 600, 0, blackboardHeight);
 
-    var adjustWidth = remap(serverModel.x, 0, 600, 0, blackboardWidth);
-    var adjustHeight = remap(serverModel.y, 0, 600, 0, blackboardHeight);
-    ctx.fillRect(adjustWidth, adjustHeight, 4, 4);
+    paint(oX, oY, nX, nY, serverModel.lineWidth, serverModel.color);
 }
 // end of Canvas function
 
@@ -200,6 +146,13 @@ function changeColor(color) {
 }
 // end of change chalk color
 
+// Change Line Width
+function changeLW(lW) {
+    clientModel.lineWidth = lW;
+}
+// end of change Line Width
+
+// Save image function
 function saveImg(lessonId) {
     var img2SaveRaw = canvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
@@ -236,7 +189,9 @@ function saveImg(lessonId) {
         })
     }
 }
+// End of Save image function
 
+// Load image function
 function loadImg(id) {
     useImg = true;
 
@@ -260,17 +215,12 @@ function loadImg(id) {
         }
     })
 }
+// End of Save image function
 
+// Default Board (blank) function
 function defaultBoard() {
     useImg = false;
     data = '';
     clearBoard();
 }
-
-function getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
-}
+// End of Default Board
