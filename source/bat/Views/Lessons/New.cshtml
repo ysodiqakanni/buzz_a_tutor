@@ -29,18 +29,18 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label class="control-label">Date of lesson</label>
-            <input type='text' class="form-control" name="BookingDate" id="BookingDate" value="@Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")" />
+            <label class="control-label required">Date of lesson</label>
+            <input type='text' class="form-control" name="BookingDate" id="BookingDate" value="@Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")" required />
         </div>
 
         <div class="form-group">
-            <label class="control-label">Duration in mins</label>
-            <input type='number' step="15" class="form-control" name="DurationMins" id="DurationMins" value="@Model.lesson.DurationMins" />
+            <label class="control-label required">Duration in mins</label>
+            <input type='number' step="15" class="form-control" name="DurationMins" id="DurationMins" value="@Model.lesson.DurationMins" required />
         </div>
 
         <div class="form-group">
-            <label class="control-label">Class size (zero (0) for no limit)</label>
-            <input type='number' min="0" max="1000" step="1" class="form-control" name="ClassSize" id="ClassSize" value="@Model.lesson.ClassSize" />
+            <label class="control-label required">Class size (zero (0) for no limit)</label>
+            <input type='number' min="0" max="1000" step="1" class="form-control" name="ClassSize" id="ClassSize" value="@Model.lesson.ClassSize" required />
         </div>
     </div>
     <div class="col-md-6">
