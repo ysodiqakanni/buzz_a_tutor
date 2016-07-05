@@ -47,7 +47,7 @@
         <div class="form-group">
             <label class="control-label required">Subject</label>
             <select class="form-control selectpicker" name="Subject" required>
-                <option disabled selected>Select a Subject</option>
+                <option value="" disabled selected>Select a Subject</option>
                 @foreach (var dpt in bat.logic.Constants.Subjects.Departments)
                 {
                     <optgroup label="@dpt.Name">
