@@ -49,6 +49,7 @@
           <Property Name="ZoomStartUrl" Type="varchar(max)" />
           <Property Name="ZoomJoinUrl" Type="varchar(max)" />
           <Property Name="Subject" Type="varchar" MaxLength="500" />
+          <Property Name="DetailedDescription" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="LessonAttachment">
           <Key>
@@ -181,7 +182,20 @@
           <EntitySet Name="LessonAttachments" EntityType="dbModel.LessonAttachment" />
           <EntitySet Name="LessonParticipants" EntityType="dbModel.LessonParticipant" />
           <EntitySet Name="ChatRecords" EntityType="dbModel.ChatRecord" />
+          <EntitySet Name="Accounts" EntityType="dbModel.Account" />
+          <AssociationSet Name="FK_FamilyMember_Account" Association="dbModel.FK_FamilyMember_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="FamilyMember" EntitySet="FamilyMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyMember_Parent" Association="dbModel.FK_FamilyMember_Parent">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="FamilyMember" EntitySet="FamilyMembers" />
+          </AssociationSet>
           <EntitySet Name="Lessons" EntityType="dbModel.Lesson" />
+          <AssociationSet Name="FK_Lesson_Account" Association="dbModel.FK_Lesson_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
           <AssociationSet Name="FK_ChatRecord_Lesson" Association="dbModel.FK_ChatRecord_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="ChatRecord" EntitySet="ChatRecords" />
@@ -193,19 +207,6 @@
           <AssociationSet Name="FK_LessonParticipant_Lesson" Association="dbModel.FK_LessonParticipant_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonParticipant" EntitySet="LessonParticipants" />
-          </AssociationSet>
-          <EntitySet Name="Accounts" EntityType="dbModel.Account" />
-          <AssociationSet Name="FK_FamilyMember_Account" Association="dbModel.FK_FamilyMember_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="FamilyMember" EntitySet="FamilyMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FamilyMember_Parent" Association="dbModel.FK_FamilyMember_Parent">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="FamilyMember" EntitySet="FamilyMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Account" Association="dbModel.FK_Lesson_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Lesson" EntitySet="Lessons" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="FamilyMember">
@@ -249,61 +250,6 @@
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Lesson" Relationship="dbModel.FK_ChatRecord_Lesson" FromRole="ChatRecord" ToRole="Lesson" />
         </EntityType>
-        <EntityType Name="Lesson">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DurationMins" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ClassSize" Type="Int32" Nullable="false" />
-          <Property Name="TokBoxSessionId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="ZoomStartUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ZoomJoinUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Subject" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ChatRecords" Relationship="dbModel.FK_ChatRecord_Lesson" FromRole="Lesson" ToRole="ChatRecord" />
-          <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
-          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
-          <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
-        </EntityType>
-        <Association Name="FK_ChatRecord_Lesson">
-          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
-          <End Type="dbModel.ChatRecord" Role="ChatRecord" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lesson">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ChatRecord">
-              <PropertyRef Name="Lesson_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LessonAttachment_Lesson">
-          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
-          <End Type="dbModel.LessonAttachment" Role="LessonAttachment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lesson">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="LessonAttachment">
-              <PropertyRef Name="Lesson_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LessonParticipant_Lesson">
-          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
-          <End Type="dbModel.LessonParticipant" Role="LessonParticipant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lesson">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="LessonParticipant">
-              <PropertyRef Name="Lesson_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
@@ -343,6 +289,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DurationMins" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClassSize" Type="Int32" Nullable="false" />
+          <Property Name="TokBoxSessionId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ZoomStartUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ZoomJoinUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Subject" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DetailedDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
+          <NavigationProperty Name="ChatRecords" Relationship="dbModel.FK_ChatRecord_Lesson" FromRole="Lesson" ToRole="ChatRecord" />
+          <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
+          <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
+        </EntityType>
         <Association Name="FK_Lesson_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="*" />
@@ -352,6 +318,42 @@
             </Principal>
             <Dependent Role="Lesson">
               <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRecord_Lesson">
+          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
+          <End Type="dbModel.ChatRecord" Role="ChatRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ChatRecord">
+              <PropertyRef Name="Lesson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonAttachment_Lesson">
+          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
+          <End Type="dbModel.LessonAttachment" Role="LessonAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessonAttachment">
+              <PropertyRef Name="Lesson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonParticipant_Lesson">
+          <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
+          <End Type="dbModel.LessonParticipant" Role="LessonParticipant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LessonParticipant">
+              <PropertyRef Name="Lesson_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -401,22 +403,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lessons">
-            <EntityTypeMapping TypeName="dbModel.Lesson">
-              <MappingFragment StoreEntitySet="Lesson">
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="ZoomJoinUrl" ColumnName="ZoomJoinUrl" />
-                <ScalarProperty Name="ZoomStartUrl" ColumnName="ZoomStartUrl" />
-                <ScalarProperty Name="TokBoxSessionId" ColumnName="TokBoxSessionId" />
-                <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
-                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
-                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="dbModel.Account">
               <MappingFragment StoreEntitySet="Account">
@@ -426,6 +412,23 @@
                 <ScalarProperty Name="AccountType_ID" ColumnName="AccountType_ID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="dbModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="DetailedDescription" ColumnName="DetailedDescription" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ZoomJoinUrl" ColumnName="ZoomJoinUrl" />
+                <ScalarProperty Name="ZoomStartUrl" ColumnName="ZoomStartUrl" />
+                <ScalarProperty Name="TokBoxSessionId" ColumnName="TokBoxSessionId" />
+                <ScalarProperty Name="ClassSize" ColumnName="ClassSize" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

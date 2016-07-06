@@ -11,9 +11,20 @@
     <script src='@Url.Content("~/assets/js/calendar.js")'></script>
 }
 
-<h2>Welcome, @Model.account.Fname @Model.account.Lname</h2> <p><a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">Create a new lesson</a></p>
-
 <div class="row">
+    <div class="col-md-6">
+        <h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
+    </div>
+    <div class="col-md-6">
+        <p class="pull-right" style="margin-top: 20px;">
+            <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">
+                Create a new lesson
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 60px;">
     <div class="col-sm-6">
         <input id="userID" type="hidden" value="@Model.account.ID" />
         <input id="getEventsPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getevents", new { controller = "DashBoardApi", action = "Getevents" })" />

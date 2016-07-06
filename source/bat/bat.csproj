@@ -348,6 +348,7 @@
     <Content Include="assets\vendor\bootstrap-select\bootstrap-select.min.js" />
     <Content Include="assets\vendor\bootstrap.min.css" />
     <Content Include="assets\vendor\font-awesome.min.css" />
+    <Content Include="assets\vendor\jquery.tinymce.min.js" />
     <Content Include="assets\vendor\respond.min.js" />
     <Content Include="assets\vendor\retina.js" />
     <Content Include="Global.asax" />
@@ -399,6 +400,7 @@
     <Content Include="Views\Shared\_LayoutContentOnly.cshtml" />
     <Content Include="Views\Home\SelectSubject.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Lessons\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

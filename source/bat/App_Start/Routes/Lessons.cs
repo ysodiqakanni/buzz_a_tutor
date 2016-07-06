@@ -40,6 +40,12 @@ namespace bat.Routes
                 url: "lessons/{id}",
                 defaults: new { controller = "Lessons", action = "Index" }
             );
+
+            routes.MapRoute(
+                name: "lessons/edit",
+                url: "lessons/edit/{id}",
+                defaults: new { controller = "Lessons", action = "Edit" }
+            );
         }
     }
 }

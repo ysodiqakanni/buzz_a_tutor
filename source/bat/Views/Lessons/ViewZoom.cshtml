@@ -4,50 +4,55 @@
 }
 
 @section head {
-<link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
-<link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/blackboard.css")" />
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/blackboard.css")" />
 
-<script>
-	lessonId = "@Model.lesson.ID";
-	id = @Model.account.ID;
-	username = "@Model.account.Fname" + " " + "@Model.account.Lname";
-</script>
+    <script>
+        lessonId = "@Model.lesson.ID";
+        id = @Model.account.ID;
+        username = "@Model.account.Fname" + " " + "@Model.account.Lname";
+    </script>
 }
 @section scripts {
     @*<script>
-        $(document).ready(function () {
-            window.open('@Model.lesson.ZoomJoinUrl', '_blank');
-        });
-    </script>*@
+            $(document).ready(function () {
+                window.open('@Model.lesson.ZoomJoinUrl', '_blank');
+            });
+        </script>*@
 }
-<h2>@Model.lesson.Description</h2>
+
+<div style="overflow: auto;">
+    <h2 class="pull-left" style="margin-bottom: 40px;">
+        @Model.lesson.Description
+    </h2>
+    @if (Model.IsTeacher)
+    {
+        <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" c class="btn btn-lg btn-default pull-right">Edit lesson details</a>
+    }
+</div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <p>
-            Subject: @Model.lesson.Subject
+            <strong>
+                @Model.lesson.Subject
+            </strong>
         </p>
         <p>
             Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
         </p>
         <p>
             Duration mins: @Model.lesson.DurationMins
-        </p>
-        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             Class size: @Model.lesson.ClassSize
         </p>
-
-        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-default">
-            Join session
-        </a>
     </div>
     <div class="col-md-3">
         <p>
             <strong>
                 Teacher
             </strong>
-        </p>
-        <p>
+            <br />
             @Model.host.Fname @Model.host.Lname
         </p>
     </div>
@@ -56,18 +61,26 @@
             <strong>
                 Attendees
             </strong>
+            @foreach (var student in Model.others)
+            {
+                <br/>
+                @student.Fname
+                @student.Lname
+            }
         </p>
-        @foreach (var student in Model.others)
-        {
-            <p>
-                @student.Fname @student.Lname
-            </p>
-        }
+    </div>
+    <div class="col-md-2">
+        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
+            Join session
+        </a>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
+<div class="row" style="height: 40px;">
+    <div class="col-md-6">
         @Html.Partial("_PartialWhiteboard", Model)
+    </div>
+    <div class="col-md-6">
+        @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
     </div>
 </div>

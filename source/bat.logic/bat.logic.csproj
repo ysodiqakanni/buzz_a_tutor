@@ -155,6 +155,7 @@
     <Compile Include="ViewModels\Homepage\Register.cs" />
     <Compile Include="ViewModels\Lessons\Join.cs" />
     <Compile Include="ViewModels\Lessons\Leave.cs" />
+    <Compile Include="ViewModels\Lessons\Edit.cs" />
     <Compile Include="ViewModels\Lessons\View.cs" />
     <Compile Include="ViewModels\Lessons\New.cs" />
     <Compile Include="ViewModels\Master.cs" />

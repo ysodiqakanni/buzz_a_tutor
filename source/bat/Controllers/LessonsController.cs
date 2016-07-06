@@ -56,7 +56,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("Error", model);
+                return View("Error");
             }
         }
 
@@ -83,6 +83,7 @@ namespace bat.Controllers
         }
 
         [Authorize]
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult New(FormCollection frm)
         {
@@ -218,6 +219,56 @@ namespace bat.Controllers
             }
 
             return RedirectToAction("Index", new { id = id });
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var model = new logic.ViewModels.Lessons.Edit();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Load(id);
+                
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection frm)
+        {
+            var model = new logic.ViewModels.Lessons.Edit();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Save(id, frm);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+
+            return RedirectToAction("Index", new { id = model.lesson.ID });
         }
     }
 }

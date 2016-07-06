@@ -11,7 +11,7 @@
 @{ Html.BeginForm("Join", "Lessons", FormMethod.Post); }
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-3">
         <h2>@Model.lesson.Description</h2>
 
         <p>
@@ -28,11 +28,14 @@
         </p>
 
         <div style="margin-top: 40px; overflow: auto;">
-            <input type="submit" value="Join" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
-            <a href="@Url.RouteUrl("list-lessons", new { subject = Model.Subject })" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
+            <a href="@Url.RouteUrl("list-lessons", new {subject = Model.Subject})" class="btn btn-lg btn-default" style="width: 110px; margin-right: 20px;">
                 Cancel
             </a>
+            <input type="submit" value="Join" class="btn btn-lg btn-success" style="width: 110px;"/>
         </div>
+    </div>
+    <div class="col-md-8 col-md-offset-1">
+        @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
     </div>
 </div>
 

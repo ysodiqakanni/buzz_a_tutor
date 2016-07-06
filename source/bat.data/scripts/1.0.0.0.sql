@@ -208,3 +208,7 @@ GO
 ALTER TABLE dbo.Account ADD
 	ZoomUserId varchar(50) NULL
 
+	
+GO
+ALTER TABLE dbo.Lesson ADD
+	DetailedDescription varchar(max) NULL

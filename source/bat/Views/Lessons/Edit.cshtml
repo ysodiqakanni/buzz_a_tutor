@@ -1,6 +1,6 @@
-﻿@model bat.logic.ViewModels.Lessons.New
+﻿@model bat.logic.ViewModels.Lessons.Edit
 @{
-    ViewBag.Title = "New Lesson";
+    ViewBag.Title = "Edit Lesson";
 }
 
 @section head {
@@ -27,28 +27,36 @@
         });
     </script>
 }
-<h2>New Lesson</h2>
+<h2>Change Lesson Details</h2>
 
 
-@{ Html.BeginForm("New", "Lessons", FormMethod.Post); }
+@{ Html.BeginForm("Edit", "Lessons", FormMethod.Post); }
 
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-            <label class="control-label required">Date of lesson</label>
-            <input type='text' class="form-control" name="BookingDate" id="BookingDate" value="@Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")" required/>
+            <label class="control-label">Date of lesson</label>
+            <p>
+                <strong>
+                    @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+                </strong>
+            </p>
         </div>
 
         <div class="form-group">
             <label class="control-label required">Subject</label>
             <select class="form-control selectpicker" name="Subject" required>
-                <option value="" disabled selected>Select a Subject</option>
                 @foreach (var dpt in bat.logic.Constants.Subjects.Departments)
                 {
                     <optgroup label="@dpt.Name">
                         @foreach (var s in dpt.Subjects)
                         {
-                            <option value="@s">@s</option>
+                            var selected = "";
+                            if (Model.lesson.Subject.Equals(s, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                selected = "selected";
+                            }
+                            <option value="@s" @selected>@s</option>
                         }
                     </optgroup>
                 }

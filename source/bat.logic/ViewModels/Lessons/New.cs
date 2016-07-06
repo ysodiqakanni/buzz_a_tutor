@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using OpenTokSDK;
 
@@ -38,6 +39,9 @@ namespace bat.logic.ViewModels.Lessons
                 var description = (frm["Description"] ?? "").Trim();
                 if (string.IsNullOrEmpty(description)) throw new Exception("Description is required.");
 
+                var detailedDescription = (frm["DetailedDescription"] ?? "").Trim();
+                detailedDescription = HttpUtility.UrlEncode(detailedDescription);
+
                 // TokBox disabled for now
                 //// note, relayed can't be archived (saved)
                 //// when saving or archiving video, must be routed not relayed
@@ -52,6 +56,7 @@ namespace bat.logic.ViewModels.Lessons
                     BookingDate = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt, new CultureInfo("en-GB"))),
                     DurationMins = int.Parse(frm["DurationMins"]),
                     Description = description,
+                    DetailedDescription = detailedDescription,
                     ClassSize = int.Parse(frm["ClassSize"]),
                     Subject = (frm["Subject"] ?? "").Trim(),
 

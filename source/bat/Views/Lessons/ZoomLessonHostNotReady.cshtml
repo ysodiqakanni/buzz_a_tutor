@@ -19,5 +19,12 @@
     Contact the host and join this lesson again.
 </p>
 <p style="margin-top: 40px;">
-    <a href="@Url.Action("Index", new { id = Model.lesson.ID })" class="btn btn-default">Join Lesson</a>
+    <a href="@Url.Action("Index", new {id = Model.lesson.ID})" class="btn btn-primary">Join Lesson</a>
+
+    &nbsp;
+
+    @if (Model.IsTeacher)
+    {
+        <a href="@Url.Action("Edit", new { id = Model.lesson.ID })" class="btn btn-default">Edit lesson details</a>
+    }
 </p>
