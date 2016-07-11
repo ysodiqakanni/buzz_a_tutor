@@ -106,7 +106,6 @@ canvas.onmousemove = function (e) {
     if (painting) {
         var x = e.offsetX // e.pageX - rect.left - window.scrollX;
         var y = e.offsetY //e.pageY - rect.top - window.scrollY;
-
         paint(lX, lY, x, y, clientModel.lineWidth, clientModel.color);
         clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
         clientModel.oY = remap(lY, 0, blackboardHeight, 0, 600);

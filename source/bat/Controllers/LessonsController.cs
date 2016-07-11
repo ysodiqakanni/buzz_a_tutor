@@ -248,7 +248,7 @@ namespace bat.Controllers
         [Authorize]
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection frm)
+        public ActionResult Edit(int id, FormCollection frm, HttpPostedFileBase ClassResource)
         {
             var model = new logic.ViewModels.Lessons.Edit();
 
@@ -259,7 +259,7 @@ namespace bat.Controllers
 
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Save(id, frm);
+                model.Save(id, frm, ClassResource);
             }
             catch (Exception ex)
             {

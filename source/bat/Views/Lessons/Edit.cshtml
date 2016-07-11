@@ -30,7 +30,7 @@
 <h2>Change Lesson Details</h2>
 
 
-@{ Html.BeginForm("Edit", "Lessons", FormMethod.Post); }
+@{ Html.BeginForm("Edit", "Lessons", FormMethod.Post, new { enctype = "multipart/form-data" }); }
 
 <div class="row">
     <div class="col-md-3">
@@ -76,6 +76,10 @@
         <div class="form-group">
             <label class="control-label required">Class size (zero (0) for no limit)</label>
             <input type='number' min="0" max="1000" step="1" class="form-control" name="ClassSize" id="ClassSize" value="@Model.lesson.ClassSize" required />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Class resource</label>
+            <input type='file' class="form-control" name="ClassResource" id="ClassResource" />
         </div>
     </div>
     <div class="col-md-9">

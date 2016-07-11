@@ -31,5 +31,6 @@ namespace bat.data
         public virtual DbSet<ChatRecord> ChatRecords { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<LessonResource> LessonResources { get; set; }
     }
 }

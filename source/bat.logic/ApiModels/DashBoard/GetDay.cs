@@ -53,7 +53,7 @@ namespace bat.logic.ApiModels.DashBoard
                                 title = String.Concat(l.Account.Fname, " ", l.Account.Lname, " - ", l.Description),
                                 start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 end = l.BookingDate.AddMinutes(duration).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
-                                color = "#3a87ad"
+                                color = Constants.Colors.STUDENT
                             });
 
                         }
@@ -76,7 +76,7 @@ namespace bat.logic.ApiModels.DashBoard
                                 title = String.Concat(l.Account.Fname, " ", l.Account.Lname, " - ", l.Description),
                                 start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 end = l.BookingDate.AddMinutes(duration).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
-                                color = "#EA8B23"
+                                color = Constants.Colors.TEACHER
                             });
 
                         }

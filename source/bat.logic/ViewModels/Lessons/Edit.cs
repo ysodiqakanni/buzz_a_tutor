@@ -23,6 +23,8 @@ namespace bat.logic.ViewModels.Lessons
 
         public Lesson lesson { get; set; }
 
+        public LessonResource lessonResource { get; set; }
+
         public Edit()
         {
             this.lesson = new Lesson()
@@ -35,6 +37,8 @@ namespace bat.logic.ViewModels.Lessons
                 ZoomJoinUrl = ""
             };
             this.host = new Account();
+
+            this.lessonResource = new LessonResource();
 
         }
 
@@ -55,7 +59,7 @@ namespace bat.logic.ViewModels.Lessons
         public bool IsTeacher =>
             this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
 
-        public void Save(int lessonId, FormCollection frm)
+        public void Save(int lessonId, FormCollection frm, HttpPostedFileBase classResource)
         {
             using (var conn = new dbEntities())
             {
@@ -73,7 +77,16 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson.DetailedDescription = detailedDescription;
                 this.lesson.ClassSize = int.Parse(frm["ClassSize"]);
                 this.lesson.Subject = (frm["Subject"] ?? "").Trim();
-
+                if (classResource != null)
+                {
+                    this.lessonResource = new LessonResource()
+                    {
+                        Lession_ID = lessonId,
+                        Original_Name = classResource.FileName,
+                        Item_Storage_Name = logic.Helpers.AzureStorage.UploadFile.Upload(classResource)
+                    };
+                    conn.LessonResources.Add(this.lessonResource);
+                }
                 conn.SaveChanges();
             }
         }
