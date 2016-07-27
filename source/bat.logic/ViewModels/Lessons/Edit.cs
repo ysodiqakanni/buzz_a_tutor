@@ -25,6 +25,8 @@ namespace bat.logic.ViewModels.Lessons
 
         public LessonResource lessonResource { get; set; }
 
+        public List<LessonResource> lessonResources { get; set; }
+
         public Edit()
         {
             this.lesson = new Lesson()
@@ -51,7 +53,10 @@ namespace bat.logic.ViewModels.Lessons
                 
                 // timezone out for displaying
                 this.lesson.BookingDate = Rules.Timezone.ConvertFromUTC(this.lesson.BookingDate);
-                
+
+                this.lessonResources = conn.LessonResources.Where(r => r.Lession_ID == id)
+                                        .ToList();
+
                 this.host = this.lesson.Account;
             }
         }
@@ -59,7 +64,7 @@ namespace bat.logic.ViewModels.Lessons
         public bool IsTeacher =>
             this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
 
-        public void Save(int lessonId, FormCollection frm, HttpPostedFileBase classResource)
+        public void Save(int lessonId, FormCollection frm)
         {
             using (var conn = new dbEntities())
             {
@@ -77,18 +82,76 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson.DetailedDescription = detailedDescription;
                 this.lesson.ClassSize = int.Parse(frm["ClassSize"]);
                 this.lesson.Subject = (frm["Subject"] ?? "").Trim();
-                if (classResource != null)
+                conn.SaveChanges();
+            }
+        }
+
+        public static string UploadResource(int lessonId, HttpPostedFileBase classResource)
+        {
+            try
+            {
+                using (var conn = new dbEntities())
                 {
-                    this.lessonResource = new LessonResource()
+                    var lesson = conn.Lessons.FirstOrDefault(l => l.ID == lessonId);
+                    if (lesson == null) throw new Exception("Lesson does not exist.");
+
+                    var lessonResource = new LessonResource()
                     {
                         Lession_ID = lessonId,
                         Original_Name = classResource.FileName,
-                        Item_Storage_Name = logic.Helpers.AzureStorage.UploadFile.Upload(classResource)
+                        Item_Storage_Name = logic.Helpers.AzureStorage.ClassResources.Upload(classResource)
                     };
-                    conn.LessonResources.Add(this.lessonResource);
+                    conn.LessonResources.Add(lessonResource);
+
+                    conn.SaveChanges();
                 }
+                return classResource.FileName;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public static MemoryStream DownloadLessonResource(int resourseID)
+        {
+            try
+            {
+                using (var conn = new dbEntities())
+                {
+                    LessonResource resource = new LessonResource();
+                    resource = conn.LessonResources.FirstOrDefault(r => r.ID == resourseID);
+                    if (resource == null)
+                        throw new Exception("Lesson resource not found.");
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        bat.logic.Helpers.AzureStorage.AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, resource.Item_Storage_Name).DownloadToStream(memoryStream);
+                        return memoryStream;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var ignore = ex;
+            }
+            return null;
+        }
+
+        public static string DeleteResource(int resourceID)
+        {
+            using (var conn = new dbEntities())
+            {
+                LessonResource resource = new LessonResource();
+
+                resource = conn.LessonResources.FirstOrDefault(a => a.ID == resourceID);
+                if (resource == null) throw new Exception("The resource does not exist.");
+
+                bat.logic.Helpers.AzureStorage.AzureBlobStorage.Delete(bat.logic.Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, resource.Item_Storage_Name);
+                conn.LessonResources.Remove(conn.LessonResources.FirstOrDefault(i => i.ID == resourceID));
                 conn.SaveChanges();
             }
+            return null;
         }
     }
 }

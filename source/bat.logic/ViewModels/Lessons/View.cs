@@ -22,6 +22,7 @@ namespace bat.logic.ViewModels.Lessons
 
         public Lesson lesson { get; set; }
         public List<Attachment> attachments { get; set; }
+        public List<LessonResource> lessonResources { get; set; }
 
         public View()
         {
@@ -92,6 +93,9 @@ namespace bat.logic.ViewModels.Lessons
                         Title = attachment.Title
                     });
                 }
+
+                this.lessonResources = conn.LessonResources.Where(r => r.Lession_ID == id)
+                        .ToList();
 
                 this.host = this.lesson.Account;
                 foreach (var participant in this.lesson.LessonParticipants.ToList())

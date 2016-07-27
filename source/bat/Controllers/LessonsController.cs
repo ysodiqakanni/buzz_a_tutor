@@ -248,7 +248,7 @@ namespace bat.Controllers
         [Authorize]
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection frm, HttpPostedFileBase ClassResource)
+        public ActionResult Edit(int id, FormCollection frm)
         {
             var model = new logic.ViewModels.Lessons.Edit();
 
@@ -259,7 +259,7 @@ namespace bat.Controllers
 
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Save(id, frm, ClassResource);
+                model.Save(id, frm);
             }
             catch (Exception ex)
             {
@@ -269,6 +269,26 @@ namespace bat.Controllers
             }
 
             return RedirectToAction("Index", new { id = model.lesson.ID });
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult UploadResource(int id, HttpPostedFileBase ClassResource)
+        {
+            logic.ViewModels.Lessons.Edit.UploadResource(id, ClassResource);
+            return RedirectToAction("Edit", new { id = id });
+        }
+
+        public ActionResult DownloadResource(int id, string name)
+        {
+            return File(logic.ViewModels.Lessons.Edit.DownloadLessonResource(id).ToArray(), "application", name);
+        }
+
+        public ActionResult DeleteResource(int id, int resourceId)
+        {
+            logic.ViewModels.Lessons.Edit.DeleteResource(resourceId);
+            return RedirectToAction("Edit", new { id = id });
         }
     }
 }

@@ -81,6 +81,25 @@
         @Html.Partial("_PartialWhiteboard", Model)
     </div>
     <div class="col-md-6">
-        @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
+        <div>
+            @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
+        </div>
+        <div>
+            <table class="table">
+                <tr>
+                    <th>
+                        Lesson Resources
+                    </th>
+                </tr>
+                @foreach (var resource in Model.lessonResources)
+            {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
 </div>

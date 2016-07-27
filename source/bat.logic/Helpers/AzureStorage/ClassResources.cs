@@ -1,6 +1,7 @@
 ﻿using bat.logic.Helpers.AzureStorage;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,18 +9,8 @@ using System.Web;
 
 namespace bat.logic.Helpers.AzureStorage
 {
-    class UploadFile
+    public class ClassResources
     {
-        /// <summary>
-        /// Uploads the specified file.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception">
-        /// Images can't exceed 2.5MB in size.
-        /// or
-        /// Invalid file extension.
-        /// </exception>
         public static string Upload(HttpPostedFileBase file)
         {
             if (file == null) return null;
