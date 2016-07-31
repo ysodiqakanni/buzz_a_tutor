@@ -103,7 +103,6 @@
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
     <Content Include="scripts\1.0.0.0.sql" />
-    <Content Include="scripts\users.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
