@@ -58,6 +58,7 @@ namespace bat.logic.ViewModels.Lessons
                                         .ToList();
 
                 this.host = this.lesson.Account;
+                this.lesson.Subject = this.lesson.Subject ?? "";
             }
         }
 
