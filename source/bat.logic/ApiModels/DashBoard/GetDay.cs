@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using bat.logic.Rules;
 
 namespace bat.logic.ApiModels.DashBoard
 {
@@ -22,14 +24,14 @@ namespace bat.logic.ApiModels.DashBoard
         }
         public List<calEvent> CalEvents { get; set; }
 
-        public static string GDay(int userID, DateTime date)
+        public static string GDay(int userID, string date)
         {
             var json = new JavaScriptSerializer();
 
-            date = Rules.Timezone.ConvertToUTC(date);
+            var dateVal = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(date));
 
             var calEvents = new List<calEvent>();
-            var tomorrow = date.AddDays(1);
+            var tomorrow = dateVal.AddDays(1);
             using (var conn = new dbEntities())
             {
                 var user = conn.Accounts.FirstOrDefault(a => a.ID == userID);
@@ -41,7 +43,7 @@ namespace bat.logic.ApiModels.DashBoard
                     case 1: // Student
                         var lessons = conn.LessonParticipants.Where(p => p.Account_ID == userID)
                                         .Select(p => p.Lesson)
-                                        .Where(l => l.BookingDate > date && l.BookingDate < tomorrow)
+                                        .Where(l => l.BookingDate >= dateVal && l.BookingDate < tomorrow)
                                         .ToList();
                         foreach (var l in lessons)
                         {
@@ -51,8 +53,8 @@ namespace bat.logic.ApiModels.DashBoard
                             {
                                 id = Convert.ToString(l.ID),
                                 title = String.Concat(l.Account.Fname, " ", l.Account.Lname, " - ", l.Description),
-                                start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
-                                end = l.BookingDate.AddMinutes(duration).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                end = Timezone.ConvertFromUTC(l.BookingDate).AddMinutes(duration).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = Constants.Colors.STUDENT
                             });
 
@@ -63,7 +65,7 @@ namespace bat.logic.ApiModels.DashBoard
 
                     case 2: // Teacher
                         var ownLessons = conn.Lessons.Where(p => p.Account_ID == userID)
-                            .Where(l => l.BookingDate > date && l.BookingDate < tomorrow)
+                            .Where(l => l.BookingDate >= dateVal && l.BookingDate < tomorrow)
                             .ToList();
 
                         foreach (var l in ownLessons)
@@ -74,8 +76,8 @@ namespace bat.logic.ApiModels.DashBoard
                             {
                                 id = Convert.ToString(l.ID),
                                 title = String.Concat(l.Account.Fname, " ", l.Account.Lname, " - ", l.Description),
-                                start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
-                                end = l.BookingDate.AddMinutes(duration).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                end = Timezone.ConvertFromUTC(l.BookingDate).AddMinutes(duration).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = Constants.Colors.TEACHER
                             });
 

@@ -53,7 +53,7 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson = new Lesson()
                 {
                     Account_ID = this.account.ID,
-                    BookingDate = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt, new CultureInfo("en-GB"))),
+                    BookingDate = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt)),
                     DurationMins = int.Parse(frm["DurationMins"]),
                     Description = description,
                     DetailedDescription = detailedDescription,

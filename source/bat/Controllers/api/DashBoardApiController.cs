@@ -28,7 +28,7 @@ namespace bat.Controllers.api
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.ApiModels.DashBoard.GetDay.GDay(Convert.ToInt32(formData["userid"]), Convert.ToDateTime(formData["date"]));
+            return bat.logic.ApiModels.DashBoard.GetDay.GDay(Convert.ToInt32(formData["userid"]), formData["date"]);
         }
     }
 }

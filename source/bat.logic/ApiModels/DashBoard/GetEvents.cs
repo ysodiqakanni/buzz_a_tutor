@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using bat.logic.Rules;
 
 namespace bat.logic.ApiModels.DashBoard
 {
@@ -47,7 +48,7 @@ namespace bat.logic.ApiModels.DashBoard
                             calEvents.Add(new calEvent
                             {
                                 title = l.Subject,
-                                start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = "#3a87ad"
 
                             });
@@ -66,7 +67,7 @@ namespace bat.logic.ApiModels.DashBoard
                             calEvents.Add(new calEvent
                             {
                                 title = l.Subject,
-                                start = l.BookingDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = "#EA8B23"
 
                             });

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,38 +24,14 @@ namespace bat.logic.Rules
 
         public static DateTime ConvertToUTC(DateTime date)
         {
-            switch (date.Kind)
-            {
-                case DateTimeKind.Local:
-                    return date.ToUniversalTime();
-
-                case DateTimeKind.Utc:
-                    return date;
-
-                case DateTimeKind.Unspecified:
-                    break;
-            }
-
-            return TimeZoneInfo.ConvertTimeToUtc(date, tzidGB);
+            return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
+                Convert.ToDateTime(date.ToString("dd MMM yyyy hh:mm:ss tt")), "GMT Standard Time", "UTC");
         }
 
         public static DateTime? ConvertToUTC(DateTime? date) => date.HasValue ? ConvertToUTC(date.Value) : (DateTime?)null;
 
         public static DateTime ConvertFromUTC(DateTime date)
         {
-            switch (date.Kind)
-            {
-                case DateTimeKind.Local:
-                    date = date.ToUniversalTime();
-                    break;
-
-                case DateTimeKind.Utc:
-                    break;
-
-                case DateTimeKind.Unspecified:
-                    break;
-            }
-
             return TimeZoneInfo.ConvertTimeFromUtc(date, tzidGB);
         }
 
