@@ -63,9 +63,10 @@
             </strong>
             @foreach (var student in Model.others)
             {
-                <br/>
-                @student.Fname
-                @student.Lname
+                <text>
+                    <br />
+                    @student.Fname @student.Lname
+                </text>
             }
         </p>
     </div>
