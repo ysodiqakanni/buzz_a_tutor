@@ -18,233 +18,236 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" type="text/css" />
-	<link rel="stylesheet" href="@Url.Content("~/assets/css/dark.css")" type="text/css" />
+	@*<link rel="stylesheet" href="@Url.Content("~/assets/css/dark.css")" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/font-icons.css")" type="text/css" />
-	<link rel="stylesheet" href="@Url.Content("~/assets/css/animate.css")" type="text/css" />
-	<link rel="stylesheet" href="@Url.Content("~/assets/css/magnific-popup.css")" type="text/css" />
+	<link rel="stylesheet" href="@Url.Content("~/assets/css/animate.css")" type="text/css" />*@
+    <link rel="stylesheet" href="@Url.Content("~/assets/vendor/font-awesome.min.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/creative.css")" type="text/css" />
 	<link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
 
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/responsive.css")" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	<script type="text/javascript" src="@Url.Content("~/assets/js/jquery.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Plugin CSS -->
+    <link href="@Url.Content("~/assets/vendor/magnific-popup/magnific-popup.css")" rel="stylesheet">
+
+	@*<script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/js/creative.min.js")"></script>*@
 </head>
+<body id="page-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" style="height: 60px; margin-top: -12px;" /></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about"><div>About Us</div></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#sign-up">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="@Url.RouteUrl("login")">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Get quality instruction at any time, at any place</h1>
+                <hr>
+                <p>Buzzatutor is a team of experienced, professional and committed teachers, available online, whenever you need that extra help to get on top with your subject.</p>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+            </div>
+        </div>
+    </header>
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">The future is waiting for you!</h2>
+                    <hr class="light">
+                    <p class="text-faded">
+                        Buzzatutor is a team of experienced, professional and committed teachers, available online,
+                        whenever you need that extra help to get on top with your subject.
+                    </p>
+                    <p class="text-faded">
+                        Buzzatutor's user friendly interface will allow your tutor to mark and correct your work in real time.
+                    </p>
+                    <p class="text-faded">
+                        Whether you choose a one to one lesson or prefer to study with your friends, each individual user is able to
+                        interact with the group from the comfort of their own home.
+                    </p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Some of our lessons.</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+                        <h3>English</h3>
+                        <p><a href="@Url.RouteUrl("list-lessons", new { subject = "GCSE_English" })">GCSE English</a></p>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "A_Level_English"})">A-Level</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-calculator text-primary sr-icons"></i>
+                        <h3>Maths</h3>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "GCSE_Maths"})">GCSE Maths</a></p>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "A_Level_Maths"})">A-Level Maths</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-rocket text-primary sr-icons"></i>
+                        <h3>Sciences</h3>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "Biology"})">Biology</a></p>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "Chemistry"})">Chemistry</a></p>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "Physics"})">Physics</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-map text-primary sr-icons"></i>
+                        <h3>Languages</h3>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "German"})">German</a></p>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "French"})">French</a></p>
+                        <p><a href="@Url.RouteUrl("list-lessons", new {subject = "Japanese"})">Japanese</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter popup-gallery">
+                <div class="col-lg-4 col-sm-6">
+                    <img src="@Url.Content("~/assets/img/slider/1.jpg")" class="img-responsive" alt="">
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <img src="@Url.Content("~/assets/img/slider/2.jpg")" class="img-responsive" alt="">
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <img src="@Url.Content("~/assets/img/slider/4.jpg")" class="img-responsive" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside class="bg-dark">
+        <div class="container text-center" id="sign-up">
+            <div class="call-to-action">
+                <h2 style="color: #FFF">Sign Up Now!</h2>
+                <form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
+                    <div class="col-md-6 form-group">
+                        <label for="template-contactform-service">Your are a<small>*</small></label>
+                        <select id="template-contactform-service" name="type" class="sm-form-control">
+                            <option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
+                            <option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
+                        </select>
+                    </div>
 
-<body class="stretched">
-	<div id="wrapper" class="clearfix">
-		<header id="header" class="">
-			<div id="header-wrap">
-				<div class="container clearfix">
-					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-					<div id="logo">
-						<a href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a T Logo"></a>
-					</div>
-					<nav id="primary-menu">
-						<ul>
-							@*<li><a href="@Url.RouteUrl("home")"><div>Home</div></a></li>*@
-							<li><a href="@Url.RouteUrl("about")"><div>About Us</div></a></li>
-							<li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</header>
-		<div id="slider-overlay">
-			<div class="fslider">
-				<div class="flexslider">
-					<div class="slider-wrap">
-						<div class="slide"><img src="@Url.Content("~/assets/img/slider/1.jpg")" alt="Slider 1"></div>
-						<div class="slide"><img src="@Url.Content("~/assets/img/slider/2.jpg")" alt="Slider 2"></div>
-						<div class="slide"><img src="@Url.Content("~/assets/img/slider/3.jpg")" alt="Slider 3"></div>
-						<div class="slide"><img src="@Url.Content("~/assets/img/slider/4.jpg")" alt="Slider 4"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="form-overlay">
-			<div id="contact-form-overlay" class="clearfix">
-				<div class="fancy-title">
-					<h8>Register now</h8>
-					<div class="clear"></div>
-					<div class="dotslinetop"></div>
-					@*<h8>Get quality instruction at any time, at any place</h8>
-					<div class="dotslinebottom"></div>*@
-				</div>
-				<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
-					<div class="col_two_fifth form-group">
-						<label for="template-contactform-service">Your are a<small>*</small></label>
-						<select id="template-contactform-service" name="type" class="sm-form-control">
-							<option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
-							<option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
-						</select>
-					</div>
+                    <div class="col-md-3 form-group">
+                        <label for="template-contactform-firstname">First name<small>*</small></label>
+                        <input type="text" id="template-contactform-firstname" name="firstname" value="" class="sm-form-control required" required />
+                    </div>
 
-					<div class="col_one_fourth form-group">
-						<label for="template-contactform-name">First name<small>*</small></label>
-						<input type="text" id="template-contactform-name" name="firstname" value="" class="sm-form-control required" required />
-					</div>
+                    <div class="col-md-3 col_last form-group">
+                        <label for="template-contactform-lastname">Last Name <small>*</small></label>
+                        <input type="text" id="template-contactform-lastname" name="lastname" value="" class="required sm-form-control" required />
+                    </div>
 
-					<div class="col_one_fourth col_last form-group">
-						<label for="template-contactform-email">Last Name <small>*</small></label>
-						<input type="text" id="template-contactform-email" name="lastname" value="" class="required sm-form-control" required />
-					</div>
+                    <div class="clear"></div>
 
-					<div class="clear"></div>
+                    <div class="col-md-8 form-group">
+                        <label for="template-contactform-email">Email address</label>
+                        <input type="email" id="template-contactform-email" name="email" value="" class="email required sm-form-control" required />
+                    </div>
 
-					<div class="col_two_third form-group">
-						<label for="template-contactform-phone">Email address</label>
-						<input type="email" id="template-contactform-phone" name="email" value="" class="email sm-form-control" required />
-					</div>
+                    <div class="col-md-4  col_last form-group">
+                        <label for="template-contactform-pass">Password</label>
+                        <input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
+                    </div>
 
-					<div class="col_one_fourth  col_last form-group">
-						<label for="template-contactform-pass">Password</label>
-						<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
-					</div>
-
-					<div class="clear"></div>
+                    <div class="clear"></div>
 
 
-					<div class="col_full hidden">
-						<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
-					</div>
+                    <div class="col_full hidden">
+                        <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+                    </div>
 
-					<div class="col-full">
-						<p style="color: #000; text-align: center">@ViewBag.Error</p>
-						<button button class="button button-3d button-purple nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
-					</div>
+                    <div class="col-full">
+                        <p style="color: #ff0000; text-align: center">@ViewBag.Error</p>
+                        <button button class="btn btn-default btn-xl sr-button" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </aside>
 
-				</form>
-			</div>
-		</div>
+    <footer id="footer">
+        <div id="copyrights">
+            <div class="container">
+                <p class="pull-left">
+                    @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+                </p>
+                <p class="footer-link pull-right" style="margin-left: 40px;">
+                    <a href="@Url.RouteUrl("terms")">
+                        Terms and Conditions
+                    </a>
+                </p>
+                <p class="footer-link pull-right" style="margin-left: 40px;">
+                    <a href="@Url.RouteUrl("privacy")">
+                        Privacy Policy
+                    </a>
+                </p>
+                <p class="footer-link pull-right">
+                    <a href="@Url.RouteUrl("about")">
+                        About
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-		<section id="content">
-			<div class="content-wrap">
-				<div class="container clearfix ">
-					<div class="slogan-title title-center nobottomborder">
-						@*<div class="slogan">The future is waiting for you</div>
-						<div class="clear"></div>*@
-						<p>
-							Buzzatutor is a team of experienced, professional and committed teachers, available online,
-							whenever you need that extra help to get on top with your subject.
-						</p>
-						<p>
-							Buzzatutor's user friendly interface will allow your tutor to mark and correct your work in real time.
-						</p>
-						<p>
-							Whether you choose a one to one lesson or prefer to study with your friends, each individual user is able to
-							interact with the group from the comfort of their own home.
-						</p>
-					</div>
-					<div class="rows_container clearfix">
-						<div id="portfolio" class="clearfix">
-							<article class="portfolio-item clearfix">
-								<div class="portfolio-image">
-									<div class="feature-box fbox-effect">
-										<div class="fbox-icon">
-											<i class="icon-world" style="background-color: #ff982e"></i>
-											<h3><span class="orange">ENGLISH</span></h3>
-										</div>
-									</div>
-									<div class="portfolio-overlay" style="background-color: #ff982e">
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "GCSE_English"})'">GCSE English</button>
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "A_Level_English"})'">A-Level</button>
-									</div>
-								</div>
-							</article>
-							<article class="portfolio-item clearfix">
-								<div class="portfolio-image">
-									<div class="feature-box fbox-effect">
-										<div class="fbox-icon">
-											<i class="icon-calculator" style="background-color: #4fa1de"></i>
-											<h3><span class="blue">MATHS</span></h3>
-										</div>
-									</div>
-									<div class="portfolio-overlay" style="background-color: #4fa1de">
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "GCSE_Maths"})'">GCSE Maths</button>
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "A_Level_Maths"})'">A-Level Maths</button>
-									</div>
-								</div>
-							</article>
-							<article class="portfolio-item clearfix">
-								<div class="portfolio-image">
-									<div class="feature-box fbox-effect">
-										<div class="fbox-icon">
-											<i class="icon-beaker" style="background-color: #b91e7a"></i>
-											<h3><span class="purple">SCIENCES</span></h3>
-										</div>
-									</div>
-									<div class="portfolio-overlay" style="background-color: #b91e7a">
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "Biology"})'">Biology</button>
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "Chemistry"})'">Chemistry</button>
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "Physics"})'">Physics</button>
-									</div>
-								</div>
-							</article>
-							<article class="portfolio-item col-last">
-								<div class="portfolio-image">
-									<div class="feature-box fbox-effect">
-										<div class="fbox-icon">
-											<i class="icon-comments" style="background-color: #85de4f"></i>
-											<h3><span class="green">LANGUAGES</span></h3>
-										</div>
-									</div>
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-									<div class="portfolio-overlay" style="background-color: #85de4f">
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "German"})'">German</button>
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "French"})'">French</button>
-										<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "Japanese"})'">Japanese</button>
-									</div>
-								</div>
-							</article>
-						</div>
-					</div>
-
-					<div class="rows_container clearfix">
-						<article class="portfolio-item clearfix">
-							<div class="portfolio-image">
-								<div class="feature-box fbox-effect">
-									<div class="fbox-icon">
-										<i class="icon-book" style="background-color:#8fbc8f"></i>
-										<h3><span class="orange">OTHER</span></h3>
-									</div>
-								</div>
-								<div class="portfolio-overlay" style="background-color:#8fbc8f">
-									<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='@Url.RouteUrl("list-lessons", new { subject = "History"})'">History</button>
-									<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='@Url.RouteUrl("list-lessons", new { subject = "Geography"})'">Geography</button>
-									<button type="button" class="btn btn-default btn-lg" onclick="window.location.href = '@Url.RouteUrl("list-lessons", new {subject = "Computing"})'">Computing</button>
-								</div>
-							</div>
-						</article>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<footer id="footer">
-			<div id="copyrights">
-				<div class="container">
-					<p class="pull-left">
-						@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
-					</p>
-					<p class="footer-link pull-right" style="margin-left: 40px;">
-						<a href="@Url.RouteUrl("terms")">
-							Terms and Conditions
-						</a>
-					</p>
-					<p class="footer-link pull-right" style="margin-left: 40px;">
-						<a href="@Url.RouteUrl("privacy")">
-							Privacy Policy
-						</a>
-					</p>
-					<p class="footer-link pull-right">
-						<a href="@Url.RouteUrl("about")">
-							About
-						</a>
-					</p>
-				</div>
-			</div>
-		</footer>
-	</div>
-	<script type="text/javascript" src="@Url.Content("~/assets/js/functions.js")"></script>
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/vendor/scrollreveal/scrollreveal.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/vendor/magnific-popup/jquery.magnific-popup.min.js")"></script>
+    <!-- Theme JavaScript -->
+    <script type="text/javascript" src="@Url.Content("~/assets/js/creative.min.js")"></script>
 </body>
 </html>

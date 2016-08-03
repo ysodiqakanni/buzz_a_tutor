@@ -15,7 +15,7 @@ namespace bat.logic.Rules
                 throw new Exception("Invalid account type.");
 
             firstName = firstName.Trim();
-            lastName = firstName.Trim();
+            lastName = lastName.Trim();
             email = email.Trim();
             password = password.Trim();
 
