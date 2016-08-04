@@ -35,7 +35,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.RouteUrl("home")">
+                <a class="navbar-brand" href="@Url.RouteUrl("landing")">
                     <img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" style="height: 60px; margin-top: -12px;" />
                 </a>
             </div>
@@ -44,7 +44,6 @@
 
                 @RenderSection("nav", required: false)
                 <ul class="nav navbar-nav pull-right">
-                    @*<li><a href="@Url.RouteUrl("home")"><div>Home</div></a></li>*@
                     <li><a href="@Url.RouteUrl("about")"><div>About Us</div></a></li>
                     <li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
                 </ul>

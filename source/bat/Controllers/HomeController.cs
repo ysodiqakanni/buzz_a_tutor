@@ -14,6 +14,12 @@ namespace bat.Controllers
     public class HomeController : Controller
     {
         [AllowAnonymous]
+        public ActionResult Landing()
+        {
+            return View(new bat.logic.ViewModels.Homepage.Landing());
+        }
+
+        [Authorize]
         public ActionResult Index()
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
