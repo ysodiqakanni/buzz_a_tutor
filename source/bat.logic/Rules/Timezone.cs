@@ -22,13 +22,13 @@ namespace bat.logic.Rules
                 Convert.ToDateTime(date.ToString("dd MMM yyyy hh:mm:ss tt")), GMT, "UTC");
         }
 
-        public static DateTime? ConvertToUTC(DateTime? date) => date.HasValue ? ConvertToUTC(date.Value) : (DateTime?)null;
-
         public static DateTime ConvertFromUTC(DateTime date)
         {
-            return TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.FindSystemTimeZoneById(GMT));
+            return TimeZoneInfo.ConvertTimeFromUtc(
+                Convert.ToDateTime(date.ToString("dd MMM yyyy hh:mm:ss tt")), TimeZoneInfo.FindSystemTimeZoneById(GMT));
         }
 
+        public static DateTime? ConvertToUTC(DateTime? date) => date.HasValue ? ConvertToUTC(date.Value) : (DateTime?)null;
         public static DateTime? ConvertFromUTC(DateTime? date) => date.HasValue ? ConvertFromUTC(date.Value) : (DateTime?)null;
     }
 }
