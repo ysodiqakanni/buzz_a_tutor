@@ -412,6 +412,7 @@
     <Content Include="assets\fonts\fontawesome-webfont.woff" />
     <Content Include="assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="ApplicationInsights.config" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -452,6 +453,7 @@
     <Content Include="Views\Home\SelectSubject.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Lessons\Edit.cshtml" />
+    <Content Include="Views\Shared\_PartialAzureApplicationInsights.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
