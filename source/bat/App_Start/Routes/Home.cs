@@ -12,8 +12,14 @@ namespace bat.Routes
         public Home(RouteCollection routes)
         {
             routes.MapRoute(
-                name: "home",
+                name: "landing",
                 url: "",
+                defaults: new { controller = "Home", action = "Landing" }
+            );
+
+            routes.MapRoute(
+                name: "home",
+                url: "home",
                 defaults: new { controller = "Home", action = "Index" }
             );
 

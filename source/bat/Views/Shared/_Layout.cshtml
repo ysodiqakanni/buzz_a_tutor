@@ -36,12 +36,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.RouteUrl("home")">
+                <a class="navbar-brand" href="@Url.RouteUrl("landing")">
                     <img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" style="height: 60px; margin-top: -12px;" />
                 </a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="@Url.RouteUrl("home")"><div>Home</div></a></li>
+                    <li><a href="@Url.RouteUrl("subjects")"><div>Lessons</div></a></li>
+                </ul>
 
                 @RenderSection("nav", required: false)
                 <ul class="nav navbar-nav pull-right">
