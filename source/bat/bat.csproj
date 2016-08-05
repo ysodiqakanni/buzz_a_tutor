@@ -253,6 +253,7 @@
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\chatStyle.css" />
     <Content Include="assets\css\colors.css" />
+    <Content Include="assets\css\creative-mod.css" />
     <Content Include="assets\css\creative.css" />
     <Content Include="assets\css\creative.min.css" />
     <Content Include="assets\css\dark.css" />
@@ -343,10 +344,10 @@
     <Content Include="assets\img\preloader-dark.gif" />
     <Content Include="assets\img\preloader.gif" />
     <Content Include="assets\img\shadow.png" />
-    <Content Include="assets\img\slider\1.jpg" />
-    <Content Include="assets\img\slider\2.jpg" />
-    <Content Include="assets\img\slider\3.jpg" />
-    <Content Include="assets\img\slider\4.jpg" />
+    <Content Include="assets\img\landing\1.jpg" />
+    <Content Include="assets\img\landing\2.jpg" />
+    <Content Include="assets\img\landing\3.jpg" />
+    <Content Include="assets\img\landing\4.jpg" />
     <Content Include="assets\img\vertical_line.png" />
     <Content Include="assets\js\blackboard.js" />
     <Content Include="assets\js\calendar.js" />

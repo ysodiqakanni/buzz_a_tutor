@@ -1,0 +1,214 @@
+﻿footer {
+    font-family: 'Lato', sans-serif;
+}
+
+.header-content-inner h1 {
+    text-transform: none;
+}
+
+#header-info {
+    color: #fff;
+    font-weight: 800;
+    font-size: 22px;
+}
+
+header {
+    background: linear-gradient(#222, rgba(0, 0, 0, 0.5)), url('../img/landing/1.jpg') no-repeat center #eee;
+    background-size:cover;
+}
+
+#lessons {
+    background-image: url('../img/landing/3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;  
+    padding-top: 125px;
+    padding-bottom: 150px;
+}
+
+#tutors{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#sign-up {
+    background-image: url('../img/landing/2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#homeHeading {
+    color: #FFF;
+    text-transform:none;
+}
+
+.navbar-brand {
+    padding: 0px;
+    padding-left: 15px;
+}
+
+.navbar-brand img {
+    height: 100%;
+}
+
+#about{
+    background-color: #fff;
+}
+
+.text-black {
+    color: #000;
+}
+
+.white-shadow{
+    text-shadow: 1px 1px 2px #000;
+    color: #fff;
+}
+
+.orange {
+    color: #FF8200;
+}
+
+.gray {
+    color: #444;
+}
+
+.green{
+    color: #89c963;
+}
+
+.purple{
+    color: #be2f84;
+}
+
+#mainNav{
+    background-color: #fff;
+}
+
+.fa-newspaper-o:hover,
+.fa-calculator:hover,
+.fa-rocket:hover,
+.fa-globe:hover{
+    color: #FF8200;
+}
+
+/********************************
+
+    To use Theme Color
+
+********************************/
+
+
+hr {
+  border-color: #FF8200;
+}
+
+a {
+  color: #FF8200;
+}
+
+.bg-primary {
+  background-color: #FF8200;
+}
+
+.navbar-default .navbar-header .navbar-brand {
+  color: #FF8200;
+}
+.navbar-default .navbar-header .navbar-brand:hover,
+.navbar-default .navbar-header .navbar-brand:focus {
+  color: #EB8012;
+}
+
+.navbar-default .nav > li > a:hover,
+.navbar-default .nav > li > a:focus:hover {
+  color: #FF8200;
+}
+.navbar-default .nav > li.active > a,
+.navbar-default .nav > li.active > a:focus {
+  color: #FF8200 !important;
+  background-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .navbar-default.affix .navbar-header .navbar-brand {
+    color: #FF8200;
+  }
+  .navbar-default.affix .navbar-header .navbar-brand:hover,
+  .navbar-default.affix .navbar-header .navbar-brand:focus {
+    color: #EB8012;
+  }
+  .navbar-default.affix .nav > li > a:hover,
+  .navbar-default.affix .nav > li > a:focus:hover {
+    color: #FF8200;
+  }
+
+  .navbar-default .nav > li > a, .navbar-default .nav > li > a:focus {
+    color: #000;
+  }
+}
+
+.portfolio-box .portfolio-box-caption {
+  background: rgba(255, 129, 0, 0.9);
+}
+
+.text-primary {
+  color: #FF8200;
+}
+
+.btn-primary{
+  background-color: #FF8200;
+}
+
+.btn-primary .badge {
+  background-color: #FF8200;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-color: #EB7A05;
+  border-color: #EB7A05;
+}
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+  background-color: #FF8200;
+  border-color: #FF8200;
+}
+.btn-primary .badge {
+  color: #FF8200;
+}
+
+/***************************
+
+    Footer
+
+***************************/
+
+#footer {
+    height: auto;
+}
+
+@media (min-width: 992px) {
+    #footer {
+        height: 60px;
+    }
+}

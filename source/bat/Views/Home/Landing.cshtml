@@ -18,11 +18,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" type="text/css" />
-	@*<link rel="stylesheet" href="@Url.Content("~/assets/css/dark.css")" type="text/css" />
-	<link rel="stylesheet" href="@Url.Content("~/assets/css/font-icons.css")" type="text/css" />
-	<link rel="stylesheet" href="@Url.Content("~/assets/css/animate.css")" type="text/css" />*@
 	<link rel="stylesheet" href="@Url.Content("~/assets/vendor/font-awesome.min.css")" type="text/css" />
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/creative.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/creative-mod.css")" type="text/css" />
 	<link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
 
 	<link rel="stylesheet" href="@Url.Content("~/assets/css/responsive.css")" type="text/css" />
@@ -32,9 +30,6 @@
 	<link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 	<!-- Plugin CSS -->
 	<link href="@Url.Content("~/assets/vendor/magnific-popup/magnific-popup.css")" rel="stylesheet">
-
-	@*<script type="text/javascript" src="@Url.Content("~/assets/js/plugins.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/assets/js/creative.min.js")"></script>*@
 	@Html.Partial("_PartialAzureApplicationInsights")
 </head>
 <body id="page-top">
@@ -45,7 +40,7 @@
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
 				</button>
-				<a class="navbar-brand page-scroll" href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" style="height: 60px; margin-top: -12px;" /></a>
+				<a class="navbar-brand page-scroll" href="@Url.RouteUrl("home")"><img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" /></a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,7 +49,7 @@
 						<a class="page-scroll" href="#about"><div>About Us</div></a>
 					</li>
 					<li>
-						<a class="page-scroll" href="#services">Services</a>
+						<a class="page-scroll" href="#lessons">Lessons</a>
 					</li>
 					<li>
 						<a class="page-scroll" href="#sign-up">Sign Up</a>
@@ -73,7 +68,7 @@
 			<div class="header-content-inner">
 				<h1 id="homeHeading">Get quality instruction at any time, at any place</h1>
 				<hr>
-				<p>Buzzatutor is a team of experienced, professional and committed teachers, available online, whenever you need that extra help to get on top with your subject.</p>
+				<p id="header-info">Buzzatutor is a team of experienced, professional and committed teachers, available online, whenever you need that extra help to get on top with your subject.</p>
 				<a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
 			</div>
 		</div>
@@ -82,30 +77,26 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 text-center">
-					<h2 class="section-heading">The future is waiting for you!</h2>
-					<hr class="light">
-					<p class="text-faded">
-						Buzzatutor is a team of experienced, professional and committed teachers, available online,
-						whenever you need that extra help to get on top with your subject.
-					</p>
-					<p class="text-faded">
+					<p class="gray">
 						Buzzatutor's user friendly interface will allow your tutor to mark and correct your work in real time.
 					</p>
-					<p class="text-faded">
+					<p class="gray">
 						Whether you choose a one to one lesson or prefer to study with your friends, each individual user is able to
 						interact with the group from the comfort of their own home.
 					</p>
-					<a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                    <p class="gray">
+                        We want to enable our users to achieve their goals in a most clear and effective way.
+                    </p>
 				</div>
 			</div>
 		</div>
 	</section>
-	<section id="services">
+	<section id="lessons">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading">Some of our lessons.</h2>
-					<hr class="primary">
+					<h2 class="section-heading white-shadow green">Our Lessons.</h2>
+					<hr class="light">
 				</div>
 			</div>
 		</div>
@@ -113,63 +104,52 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="service-box">
-						<i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
-						<h3>English</h3>
-						<p><a href="@Url.RouteUrl("list-lessons", new { subject = "GCSE_English" })">GCSE English</a></p>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "A_Level_English"})">A-Level</a></p>
+						<i class="fa fa-4x fa-newspaper-o sr-icons white-shadow"></i>
+						<h3 class="white-shadow">English</h3>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new { subject = "GCSE_English" })">GCSE English</a></p>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "A_Level_English"})">A-Level</a></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="service-box">
-						<i class="fa fa-4x fa-calculator text-primary sr-icons"></i>
-						<h3>Maths</h3>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "GCSE_Maths"})">GCSE Maths</a></p>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "A_Level_Maths"})">A-Level Maths</a></p>
+						<i class="fa fa-4x fa-calculator sr-icons white-shadow"></i>
+						<h3 class="white-shadow">Maths</h3>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "GCSE_Maths"})">GCSE Maths</a></p>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "A_Level_Maths"})">A-Level Maths</a></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="service-box">
-						<i class="fa fa-4x fa-rocket text-primary sr-icons"></i>
-						<h3>Sciences</h3>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "Biology"})">Biology</a></p>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "Chemistry"})">Chemistry</a></p>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "Physics"})">Physics</a></p>
+						<i class="fa fa-4x fa-rocket sr-icons white-shadow"></i>
+						<h3 class="white-shadow">Sciences</h3>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "Biology"})">Biology</a></p>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "Chemistry"})">Chemistry</a></p>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "Physics"})">Physics</a></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="service-box">
-						<i class="fa fa-4x fa-map text-primary sr-icons"></i>
-						<h3>Languages</h3>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "German"})">German</a></p>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "French"})">French</a></p>
-						<p><a href="@Url.RouteUrl("list-lessons", new {subject = "Japanese"})">Japanese</a></p>
+						<i class="fa fa-4x fa-globe sr-icons white-shadow"></i>
+						<h3 class="white-shadow">Languages</h3>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "German"})">German</a></p>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "French"})">French</a></p>
+						<p><a class="white-shadow" href="@Url.RouteUrl("list-lessons", new {subject = "Japanese"})">Japanese</a></p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<section class="no-padding" id="portfolio">
-		<div class="container-fluid">
-			<div class="row no-gutter popup-gallery">
-				<div class="col-lg-4 col-sm-6">
-					<img src="@Url.Content("~/assets/img/slider/1.jpg")" class="img-responsive" alt="">
-				</div>
-				<div class="col-lg-4 col-sm-6">
-					<img src="@Url.Content("~/assets/img/slider/2.jpg")" class="img-responsive" alt="">
-				</div>
-				<div class="col-lg-4 col-sm-6">
-					<img src="@Url.Content("~/assets/img/slider/4.jpg")" class="img-responsive" alt="">
-				</div>
-			</div>
-		</div>
-	</section>
-	<aside class="bg-dark">
-		<div class="container text-center" id="sign-up">
+    <section id="tutors">
+
+    </section>
+	<section id="sign-up" class="bg-dark">
+		<div class="container text-center">
 			<div class="call-to-action">
-				<h2 style="color: #FFF">Sign Up Now!</h2>
+				<h2 class="white-shadow purple">Sign Up Now!</h2>
+                <hr class="light">
 				<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
 					<div class="col-md-6 form-group">
-						<label for="template-contactform-service">Your are a<small>*</small></label>
+						<label for="template-contactform-service" class="white-shadow">Your are a<small>*</small></label>
 						<select id="template-contactform-service" name="type" class="sm-form-control">
 							<option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
 							<option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
@@ -177,24 +157,24 @@
 					</div>
 
 					<div class="col-md-3 form-group">
-						<label for="template-contactform-firstname">First name<small>*</small></label>
+						<label for="template-contactform-firstname" class="white-shadow">First name<small>*</small></label>
 						<input type="text" id="template-contactform-firstname" name="firstname" value="" class="sm-form-control required" required />
 					</div>
 
 					<div class="col-md-3 col_last form-group">
-						<label for="template-contactform-lastname">Last Name <small>*</small></label>
+						<label for="template-contactform-lastname" class="white-shadow">Last Name <small>*</small></label>
 						<input type="text" id="template-contactform-lastname" name="lastname" value="" class="required sm-form-control" required />
 					</div>
 
 					<div class="clear"></div>
 
 					<div class="col-md-8 form-group">
-						<label for="template-contactform-email">Email address</label>
+						<label for="template-contactform-email" class="white-shadow">Email address<small>*</small></label>
 						<input type="email" id="template-contactform-email" name="email" value="" class="email required sm-form-control" required />
 					</div>
 
 					<div class="col-md-4  col_last form-group">
-						<label for="template-contactform-pass">Password</label>
+						<label for="template-contactform-pass" class="white-shadow">Password<small>*</small></label>
 						<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
 					</div>
 
@@ -212,31 +192,37 @@
 				</form>
 			</div>
 		</div>
-	</aside>
+	</section>
 
 	<footer id="footer">
-		<div id="copyrights">
-			<div class="container">
-				<p class="pull-left">
-					@DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
-				</p>
-				<p class="footer-link pull-right" style="margin-left: 40px;">
-					<a href="@Url.RouteUrl("terms")">
-						Terms and Conditions
-					</a>
-				</p>
-				<p class="footer-link pull-right" style="margin-left: 40px;">
-					<a href="@Url.RouteUrl("privacy")">
-						Privacy Policy
-					</a>
-				</p>
-				<p class="footer-link pull-right">
-					<a href="@Url.RouteUrl("about")">
-						About
-					</a>
-				</p>
-			</div>
-		</div>
+            <row>
+                <div class="col-md-6">
+                    <p class="center">
+                        @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p class="footer-link center">
+                        <a href="#about" class="page-scroll">
+                            About
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p class="footer-link center">
+                        <a href="@Url.RouteUrl("terms")">
+                            Terms and Conditions
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p class="footer-link center">
+                        <a href="@Url.RouteUrl("privacy")">
+                            Privacy Policy
+                        </a>
+                    </p>
+                </div>
+		</row>
 	</footer>
 	<!-- jQuery -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
