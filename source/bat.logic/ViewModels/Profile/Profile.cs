@@ -20,5 +20,17 @@ namespace bat.logic.ViewModels.Profile
                 this.familyMembers = conn.FamilyMembers.Where(i => i.Parent_ID == id).ToList();
             }
         }
+
+        public static string GetProfilePicture(int accountID)
+        {
+            using (var conn = new dbEntities())
+            {
+                var account = conn.Accounts.FirstOrDefault(a => a.ID == accountID);
+                if (account == null)
+                    throw new Exception("Account not found.");
+
+                return account.Picture;
+            }
+        }
     }
 }

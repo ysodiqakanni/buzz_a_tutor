@@ -55,7 +55,7 @@ namespace bat.Controllers
 
         [Authorize]
         [HttpPost] 
-         public ActionResult Edit(FormCollection frm)
+         public ActionResult Edit(string FirstName, string LastName, string Description, string Qualifications, int Rate, HttpPostedFileBase Picture)
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");
@@ -65,7 +65,7 @@ namespace bat.Controllers
             {
                 model.Initialise(user.ID);
                 model.Load(user.ID);
-                model.Save(user.ID, frm);
+                model.Save(user.ID, FirstName, LastName, Description, Qualifications, Rate, Picture);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -183,6 +183,13 @@ namespace bat.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ProfilePicture(int id)
+        {
+            var imageData = logic.ViewModels.Profile.Profile.GetProfilePicture(id);
+
+            return File(imageData, "image/jpg");
         }
     }
 }

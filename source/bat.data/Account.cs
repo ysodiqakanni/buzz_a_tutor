@@ -29,6 +29,10 @@ namespace bat.data
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string ZoomUserId { get; set; }
+        public string Description { get; set; }
+        public string Qualifications { get; set; }
+        public Nullable<int> Rate { get; set; }
+        public string Picture { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }

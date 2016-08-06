@@ -12,6 +12,10 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h1>@Model.account.Fname @Model.account.Lname</h1>
+        @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher)
+        {
+            <img src="data:image/png;base64, @Model.account.Picture" alt="Profile Pic" />
+        }
         <ul>
             <li><a href="@Url.Action("edit")">Edit Account</a></li>
         </ul>
