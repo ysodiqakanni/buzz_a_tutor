@@ -24,12 +24,6 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
-                name: "profilepicture",
-                url: "profile/profilepicture/{id}",
-                defaults: new { controller = "Profile", action = "ProfilePicture" }
-            );
-
-            routes.MapRoute(
                 name: "newMember",
                 url: "profile/family/new",
                 defaults: new { controller = "Profile", action = "NewMember" }

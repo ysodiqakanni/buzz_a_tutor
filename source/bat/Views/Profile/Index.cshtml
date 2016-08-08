@@ -10,16 +10,27 @@
 }
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h1>@Model.account.Fname @Model.account.Lname</h1>
-        @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher)
-        {
+    @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher)
+    {
+        <div class="col-md-2 col-md-offset-2">
             <img src="data:image/png;base64, @Model.account.Picture" alt="Profile Pic" />
-        }
-        <ul>
-            <li><a href="@Url.Action("edit")">Edit Account</a></li>
-        </ul>
-    </div>
+        </div>
+        <div class="col-md-8">
+            <h1>@Model.account.Fname @Model.account.Lname</h1>
+            <ul>
+                <li><a href="@Url.Action("edit")">Edit Account</a></li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-8 col-md-offset-2">
+            <h1>@Model.account.Fname @Model.account.Lname</h1>
+            <ul>
+                <li><a href="@Url.Action("edit")">Edit Account</a></li>
+            </ul>
+        </div>
+    }
 
     <div class="col-md-8 col-md-offset-2">
         <div style="overflow: auto;">

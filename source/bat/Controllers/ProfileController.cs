@@ -55,7 +55,7 @@ namespace bat.Controllers
 
         [Authorize]
         [HttpPost] 
-         public ActionResult Edit(string FirstName, string LastName, string Description, string Qualifications, int Rate, HttpPostedFileBase Picture)
+         public ActionResult Edit(string FirstName, string LastName, string Description, string Qualifications, int? Rate, HttpPostedFileBase Picture)
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) return RedirectToRoute("home");

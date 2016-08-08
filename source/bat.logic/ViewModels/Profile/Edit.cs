@@ -22,14 +22,8 @@ namespace bat.logic.ViewModels.Profile
             }
         }
 
-        public void Save(int id, string FirstName, string LastName, string Description, string Qualifications, int Rate, System.Web.HttpPostedFileBase Picture)
+        public void Save(int id, string FirstName, string LastName, string Description, string Qualifications, int? Rate, System.Web.HttpPostedFileBase Picture)
         {
-            byte[] thePictureAsBytes = new byte[Picture.ContentLength];
-            using (BinaryReader theReader = new BinaryReader(Picture.InputStream))
-            {
-                thePictureAsBytes = theReader.ReadBytes(Picture.ContentLength);
-            }
-
             using (var conn = new dbEntities())
             {
                 account = conn.Accounts.FirstOrDefault(a => a.ID == id);
@@ -39,7 +33,21 @@ namespace bat.logic.ViewModels.Profile
                 account.Description = Description;
                 account.Qualifications = Qualifications;
                 account.Rate = Rate;
-                account.Picture = Convert.ToBase64String(thePictureAsBytes);
+
+                if (Picture != null)
+                {
+                    byte[] thePictureAsBytes = new byte[Picture.ContentLength];
+                    using (BinaryReader theReader = new BinaryReader(Picture.InputStream))
+                    {
+                        thePictureAsBytes = theReader.ReadBytes(Picture.ContentLength);
+                    }
+                    account.Picture = Convert.ToBase64String(thePictureAsBytes);
+                }
+                else
+                {
+                    account.Picture = null;
+                }
+
                 conn.SaveChanges();
             }
         }
