@@ -34,8 +34,16 @@ namespace bat.logic.ViewModels.Profile
                 account.Qualifications = Qualifications;
                 account.Rate = Rate;
 
-                if (Picture != null)
+                if (Picture == null) account.Picture = null;
+                else
                 {
+                    if (Picture.ContentLength > 2500000)
+                        throw new Exception("Picture can't exceed 2.5MB in size.");
+
+                    var ext = System.IO.Path.GetExtension(Picture.FileName);
+                    if (!logic.Rules.ImageValidation.ValidateExtension(ext))
+                        throw new Exception("Invalid file extension.");
+
                     byte[] thePictureAsBytes = new byte[Picture.ContentLength];
                     using (BinaryReader theReader = new BinaryReader(Picture.InputStream))
                     {
@@ -43,11 +51,6 @@ namespace bat.logic.ViewModels.Profile
                     }
                     account.Picture = Convert.ToBase64String(thePictureAsBytes);
                 }
-                else
-                {
-                    account.Picture = null;
-                }
-
                 conn.SaveChanges();
             }
         }
