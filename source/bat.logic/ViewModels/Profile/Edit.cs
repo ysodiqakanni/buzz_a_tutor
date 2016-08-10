@@ -33,7 +33,19 @@ namespace bat.logic.ViewModels.Profile
                 account.Description = Description;
                 account.Qualifications = Qualifications;
                 account.Rate = Rate;
-                account.Picture = logic.Helpers.AzureStorage.StoredResources.Upload(Picture);
+
+                if (Picture != null)
+                {
+                    if(account.Picture == null)
+                    {
+                        account.Picture = Helpers.AzureStorage.StoredResources.UploadPicture(Picture);
+                    }
+                    else
+                    {
+                        Helpers.AzureStorage.AzureBlobStorage.Delete(Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, account.Picture);
+                        account.Picture = Helpers.AzureStorage.StoredResources.UploadPicture(Picture);
+                    }
+                }
 
                 conn.SaveChanges();
             }
