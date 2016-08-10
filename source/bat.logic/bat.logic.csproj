@@ -156,6 +156,7 @@
     <Compile Include="ApiModels\DashBoard\GetEvents.cs" />
     <Compile Include="Constants\Azure.cs" />
     <Compile Include="Constants\Colors.cs" />
+    <Compile Include="Constants\Picture.cs" />
     <Compile Include="Constants\Subjects.cs" />
     <Compile Include="Constants\TokBox.cs" />
     <Compile Include="Constants\Types.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Helpers\DateTimeExtensions.cs" />
     <Compile Include="Helpers\Numbers.cs" />
     <Compile Include="Helpers\PasswordStorage.cs" />
+    <Compile Include="Helpers\ResourceManagement.cs" />
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Exceptions\InvalidRecordException.cs" />
     <Compile Include="Exceptions\SaveException.cs" />
