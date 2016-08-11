@@ -13,25 +13,42 @@ namespace bat.logic.ViewModels.Homepage
     {
         public List<Lesson> lessons { get; set; }
         public String subject { get; set;}
+        public Account tutor { get; set; }
+
+        public class virtRoom
+        {
+            public Lesson lesson { get; set; }
+            public Account tutor { get; set; }
+        }
+
+        public List<virtRoom> classList { get; set; }
 
         public void Load(string subject, int? accountId)
         {
             this.subject = subject.Replace("_", " ");
-
+            this.classList = new List<virtRoom>();
             using (var conn = new dbEntities())
             {
                 var rs = conn.Lessons
                             .Where(l => l.Subject == this.subject && 
                                     (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count));
 
-                if (accountId.HasValue)
-                    this.lessons = rs.Where(l => l.LessonParticipants.All(p => p.Account_ID != accountId)).ToList();
-                else
-                    this.lessons = rs.ToList();
+                lessons = new List<Lesson>();
 
-                foreach (var lesson in this.lessons)
+                if (accountId.HasValue)
+                    lessons = rs.Where(l => l.LessonParticipants.All(p => p.Account_ID != accountId)).ToList();
+                else
+                    lessons = rs.ToList();              
+
+                foreach (var lesson in lessons)
                 {
                     lesson.BookingDate = logic.Rules.Timezone.ConvertFromUTC(lesson.BookingDate);
+
+                    this.classList.Add(new virtRoom
+                    {
+                        lesson = lesson,
+                        tutor = conn.Accounts.FirstOrDefault(t => t.ID == lesson.Account_ID)
+                });
                 }
             }
         }
