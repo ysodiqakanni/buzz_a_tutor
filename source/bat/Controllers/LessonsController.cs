@@ -276,18 +276,18 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult UploadResource(int id, HttpPostedFileBase ClassResource)
         {
-            logic.ViewModels.Lessons.Edit.UploadResource(id, ClassResource);
+            logic.Helpers.ResourceManagement.UploadResource(id, ClassResource);
             return RedirectToAction("Edit", new { id = id });
         }
 
         public ActionResult DownloadResource(int id, string name)
         {
-            return File(logic.ViewModels.Lessons.Edit.DownloadLessonResource(id).ToArray(), "application", name);
+            return File(logic.Helpers.ResourceManagement.DownloadLessonResource(id).ToArray(), "application", name);
         }
 
         public ActionResult DeleteResource(int id, int resourceId)
         {
-            logic.ViewModels.Lessons.Edit.DeleteResource(resourceId);
+            logic.Helpers.ResourceManagement.DeleteResource(resourceId);
             return RedirectToAction("Edit", new { id = id });
         }
     }

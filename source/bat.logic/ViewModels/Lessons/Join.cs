@@ -13,6 +13,7 @@ namespace bat.logic.ViewModels.Lessons
     {
         public Lesson lesson { get; set; }
         public String Subject { get; set; }
+        public Account teacher { get; set; }
 
         public Join()
         {
@@ -41,6 +42,8 @@ namespace bat.logic.ViewModels.Lessons
 
                 // timezone out for displaying
                 this.lesson.BookingDate = Rules.Timezone.ConvertFromUTC(this.lesson.BookingDate);
+
+                this.teacher = conn.Accounts.FirstOrDefault(t => t.ID == this.lesson.Account_ID);
 
                 if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
                     return false;

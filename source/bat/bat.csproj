@@ -237,6 +237,7 @@
     <Content Include="assets\css\batmain.css" />
     <Compile Include="Controllers\api\DashBoardApiController.cs" />
     <Compile Include="Controllers\api\LessonsApiController.cs" />
+    <Compile Include="Controllers\api\ProfilePictureApiController.cs" />
     <Compile Include="Controllers\ChatRecordsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="SignalRHub.cs" />

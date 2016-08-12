@@ -4,6 +4,11 @@
 }
 @section head {
     <title>Lessons by Subject</title>
+    <style>
+        .td-center{
+            text-align:center;
+        }
+    </style>
 }
 
 <p>
@@ -19,28 +24,34 @@
     <div class="col-sm-12">
         <table class="table" style="width:100%">
             <tr>
-                <td>
-                    <strong>Description</strong>
-                </td>
-                <td>
+                <th class="td-center" colspan="3">
                     <strong>Teacher</strong>
-                </td>
-                <td>
+                </th>
+                <th class="td-center">
+                    <strong>Lesson Description</strong>
+                </th>
+                <th class="td-center">
                     <strong>Date</strong>
-                </td>
-                <td>
+                </th>
+                <th class="td-center">
                     <strong>Time</strong>
-                </td>
-                <td></td>
+                </th>
+                <th class="td-center">
+                    <strong>Rate</strong>
+                </th>
+                <th></th>
             </tr>
-            @foreach (var lesson in Model.lessons)
+            @foreach (var classroom in Model.classList)
             {
                 <tr>
-                    <td>@lesson.Description</td>
-                    <td>@Model.GetFullAccountName(@lesson.Account_ID)</td>
-                    <td>@lesson.BookingDate.ToShortDateString()</td>
-                    <td>@lesson.BookingDate.ToShortTimeString()</td>
-                    <td><a href="@Url.RouteUrl("lessons/join", new { id = lesson.ID })" class="btn btn-default">@nextCaption</a></td>
+                    <td class="td-center"><img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = classroom.tutor.ID, name = Model.GetFullAccountName(classroom.tutor.ID)})" alt="Profile Pic" /></td>
+                    <td>@Model.GetFullAccountName(classroom.tutor.ID)</td>
+                    <td>@classroom.tutor.Description</td>
+                    <td class="td-center">@classroom.lesson.Description</td>
+                    <td class="td-center">@classroom.lesson.BookingDate.ToShortDateString()</td>
+                    <td class="td-center">@classroom.lesson.BookingDate.ToShortTimeString()</td>
+                    <td class="td-center">&#163 @classroom.tutor.Rate</td>
+                    <td class="td-center"><a href="@Url.RouteUrl("lessons/join", new { id = classroom.lesson.ID })" class="btn btn-default">@nextCaption</a></td>
                 </tr>
             }
         </table>

@@ -16,6 +16,10 @@
           <Property Name="Fname" Type="varchar" MaxLength="500" />
           <Property Name="Lname" Type="varchar" MaxLength="500" />
           <Property Name="ZoomUserId" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Qualifications" Type="varchar" MaxLength="500" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="Picture" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="ChatRecord">
           <Key>
@@ -295,6 +299,10 @@
           <NavigationProperty Name="FamilyMembers" Relationship="dbModel.FK_FamilyMember_Account" FromRole="Account" ToRole="FamilyMember" />
           <NavigationProperty Name="FamilyMembers1" Relationship="dbModel.FK_FamilyMember_Parent" FromRole="Account" ToRole="FamilyMember" />
           <NavigationProperty Name="Lessons" Relationship="dbModel.FK_Lesson_Account" FromRole="Account" ToRole="Lesson" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Qualifications" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_FamilyMember_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
@@ -460,6 +468,10 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="dbModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ZoomUserId" ColumnName="ZoomUserId" />
                 <ScalarProperty Name="Lname" ColumnName="Lname" />
                 <ScalarProperty Name="Fname" ColumnName="Fname" />

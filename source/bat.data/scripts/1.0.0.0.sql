@@ -233,3 +233,11 @@ REFERENCES [dbo].[Lesson] ([ID])
 GO
 ALTER TABLE [dbo].[LessonResource] CHECK CONSTRAINT [FK_LessonResource_Lesson]
 GO
+
+GO
+ALTER TABLE dbo.Account ADD
+	Description varchar(500) NULL,
+	Qualifications varchar(500) NULL,
+	Rate int NULL,
+	Picture varchar(MAX) NULL
+GO
