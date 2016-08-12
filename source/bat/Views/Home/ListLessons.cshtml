@@ -44,7 +44,15 @@
             @foreach (var classroom in Model.classList)
             {
                 <tr>
-                    <td class="td-center"><img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = classroom.tutor.ID, name = Model.GetFullAccountName(classroom.tutor.ID)})" alt="Profile Pic" /></td>
+                    @if (string.IsNullOrEmpty(classroom.tutor.Picture))
+                    {
+                        <td>
+                            <img style="height: 160px; width: 160px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+                        </td>
+                    }
+                    else {
+                        <td class="td-center"><img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = classroom.tutor.ID, name = Model.GetFullAccountName(classroom.tutor.ID)})" alt="Profile Pic" /></td>
+                    }
                     <td>@Model.GetFullAccountName(classroom.tutor.ID)</td>
                     <td>@classroom.tutor.Description</td>
                     <td class="td-center">@classroom.lesson.Description</td>

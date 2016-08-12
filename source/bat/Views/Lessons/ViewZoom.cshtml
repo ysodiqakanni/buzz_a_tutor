@@ -53,7 +53,14 @@
                 Teacher
             </strong>
             <br />
-            <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
+            @if (string.IsNullOrEmpty(Model.host.Picture))
+            {
+                <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+            }
+            else {
+                <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
+
+            }
             <br />
             @Model.host.Fname @Model.host.Lname
 

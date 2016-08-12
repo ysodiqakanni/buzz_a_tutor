@@ -13,5 +13,7 @@ namespace bat.logic.Constants
             Student = 1,
             Teacher = 2
         }
+
+        public static int Teacher = 2;
     }
 }

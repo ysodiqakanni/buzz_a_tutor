@@ -158,3 +158,10 @@ a {
 .fc-content {
     cursor: pointer;
 }
+
+.teacher{
+    list-style:none;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: lightgray 2px solid;
+}

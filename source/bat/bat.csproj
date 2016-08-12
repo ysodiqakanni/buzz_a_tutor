@@ -287,6 +287,7 @@
     <Content Include="assets\img\bg_form.png" />
     <Content Include="assets\img\big-image.png" />
     <Content Include="assets\img\camera_skins.png" />
+    <Content Include="assets\img\default-avatar.png" />
     <Content Include="assets\img\fav32x32.ico" />
     <Content Include="assets\img\btn-bg.png" />
     <Content Include="assets\img\favicon.png" />
@@ -487,6 +488,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Lessons\Edit.cshtml" />
     <Content Include="Views\Shared\_PartialAzureApplicationInsights.cshtml" />
+    <Content Include="Views\Home\ListTeachers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

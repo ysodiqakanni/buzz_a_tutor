@@ -147,6 +147,8 @@
 			<div class="call-to-action">
 				<h2 class="white-shadow purple">Sign Up Now!</h2>
                 <hr class="light">
+                @{ Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }); }
+
 				<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
 					<div class="col-md-6 form-group">
 						<label for="template-contactform-service" class="white-shadow">Your are a<small>*</small></label>
@@ -190,6 +192,7 @@
 						<button button class="btn btn-default btn-xl sr-button" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Sign up</button>
 					</div>
 				</form>
+                @{ Html.EndForm(); }
 			</div>
 		</div>
 	</section>

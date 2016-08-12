@@ -8,7 +8,16 @@ namespace bat.logic.Constants
 {
     class Picture
     {
-        public const string Default_Image = "70721a3a-7f52-4d0e-8132-cc932c609cbe";
+        public static string Default_Image
+        {
+            get
+            {
+#if DEBUG
+                return "3166134a-b1c6-4276-88e3-8a56c3564b7e";
+#endif
+                return "lesson-files";
+            }
+        }
     }
 }
 

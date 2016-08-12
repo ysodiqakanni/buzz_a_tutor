@@ -286,5 +286,27 @@ namespace bat.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult ListTeachers(string subject)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var model = new bat.logic.ViewModels.Homepage.TeacherList();
+
+            try
+            {
+                if (user != null)
+                    model.Initialise(user.ID);
+
+                model.Load(subject);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
     }
 }
