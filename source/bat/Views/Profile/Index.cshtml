@@ -13,7 +13,14 @@
     @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher)
     {
         <div class="col-md-2 col-md-offset-2">
-            <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.account.ID, name = Model.account.Fname})" alt="Profile Pic" />
+            @if (string.IsNullOrEmpty(Model.account.Picture))
+            {
+                    <img style="height: 160px; width: 160px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+            }
+            else
+            {
+                <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.account.ID, name = Model.account.Fname})" alt="Profile Pic" />
+            }
         </div>
         <div class="col-md-7 col-md-offset-1">
             <h1>@Model.account.Fname @Model.account.Lname</h1>

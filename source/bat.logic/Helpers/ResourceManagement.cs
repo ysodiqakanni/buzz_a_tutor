@@ -95,7 +95,7 @@ namespace bat.logic.Helpers
                     {
                         if(account.Picture == null)
                         {
-                            bat.logic.Helpers.AzureStorage.AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, bat.logic.Constants.Picture.Default_Image).DownloadToStream(memoryStream);
+                            return null;
                         }
                         else
                         {
