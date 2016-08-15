@@ -46,7 +46,7 @@
                     @Html.AntiForgeryToken();
 
                     <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
-                        <input type="text" class="form-control" placeholder="Username" name="txtUsername" value="@ViewBag.email" required autofocus>
+                        <input type="text" class="form-control" placeholder="Email" name="txtUsername" value="@ViewBag.email" required autofocus>
                         <br />
                         <input type="password" class="form-control" placeholder="Password" name="txtPassword" required>
                         <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
