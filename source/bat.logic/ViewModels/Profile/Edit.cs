@@ -38,12 +38,12 @@ namespace bat.logic.ViewModels.Profile
                 {
                     if(account.Picture == null)
                     {
-                        account.Picture = Helpers.AzureStorage.StoredResources.UploadPicture(Picture);
+                        account.Picture = Helpers.AzureStorage.StoredResources.UploadProfilePicture(Picture);
                     }
                     else
                     {
-                        Helpers.AzureStorage.AzureBlobStorage.Delete(Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, account.Picture);
-                        account.Picture = Helpers.AzureStorage.StoredResources.UploadPicture(Picture);
+                        Helpers.AzureStorage.AzureBlobStorage.Delete(Constants.Azure.AZURE_UPLOADED_PROFILE_IMAGES_STORAGE_CONTAINER, account.Picture);
+                        account.Picture = Helpers.AzureStorage.StoredResources.UploadProfilePicture(Picture);
                     }
                 }
 

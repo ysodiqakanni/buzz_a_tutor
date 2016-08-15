@@ -24,7 +24,7 @@ namespace bat.logic.Helpers
                     {
                         Lession_ID = lessonId,
                         Original_Name = resource.FileName,
-                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.Upload(resource)
+                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResource(resource)
                     };
                     conn.LessonResources.Add(lessonResource);
 
@@ -51,7 +51,7 @@ namespace bat.logic.Helpers
 
                     using (var memoryStream = new MemoryStream())
                     {
-                        bat.logic.Helpers.AzureStorage.AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, resource.Item_Storage_Name).DownloadToStream(memoryStream);
+                        logic.Helpers.AzureStorage.StoredResources.DownloadLessonResource(memoryStream, resource.Item_Storage_Name);
                         return memoryStream;
                     }
                 }
@@ -72,7 +72,7 @@ namespace bat.logic.Helpers
                 resource = conn.LessonResources.FirstOrDefault(a => a.ID == resourceID);
                 if (resource == null) throw new Exception("The resource does not exist.");
 
-                bat.logic.Helpers.AzureStorage.AzureBlobStorage.Delete(bat.logic.Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, resource.Item_Storage_Name);
+                bat.logic.Helpers.AzureStorage.AzureBlobStorage.Delete(bat.logic.Constants.Azure.AZURE_UPLOADED_LESSON_RESOURCES_STORAGE_CONTAINER, resource.Item_Storage_Name);
                 conn.LessonResources.Remove(conn.LessonResources.FirstOrDefault(i => i.ID == resourceID));
                 conn.SaveChanges();
             }
@@ -99,7 +99,7 @@ namespace bat.logic.Helpers
                         }
                         else
                         {
-                            bat.logic.Helpers.AzureStorage.AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER, account.Picture).DownloadToStream(memoryStream);
+                            logic.Helpers.AzureStorage.StoredResources.DownloadProfilePicture(memoryStream, account.Picture);
                         }
                         return memoryStream;
                     }

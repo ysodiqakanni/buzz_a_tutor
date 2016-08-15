@@ -11,7 +11,7 @@ namespace bat.logic.Constants
         public const string AZURE_STORAGE_ACCOUNT_NAME = "buzzatutor";
         public const string AZURE_STORAGE_ACCOUNT_KEY = "QclHbmZT/KdWpk9860ztq7CAuuELw2rSEZqKg5CMetRiWniuJNigIscljGWwllpHexBsGmuWaEV8fgi5RjSvhw==";
 
-        public static string AZURE_UPLOADED_IMAGES_STORAGE_CONTAINER
+        public static string AZURE_UPLOADED_LESSON_RESOURCES_STORAGE_CONTAINER
         {
             get
             {
@@ -19,6 +19,17 @@ namespace bat.logic.Constants
                 return "lesson-files-dev";
 #endif
                 return "lesson-files";
+            }
+        }
+
+        public static string AZURE_UPLOADED_PROFILE_IMAGES_STORAGE_CONTAINER
+        {
+            get
+            {
+#if DEBUG
+                return "profiles-dev";
+#endif
+                return "profiles";
             }
         }
     }
