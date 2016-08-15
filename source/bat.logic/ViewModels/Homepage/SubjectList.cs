@@ -12,7 +12,8 @@ namespace bat.logic.ViewModels.Homepage
     public class SubjectList : Master
     {
         public List<Lesson> lessons { get; set; }
-        public String subject { get; set;}
+        public string subject { get; set;}
+        public SubjectDescription subjectDescription { get; set; }
         public Account tutor { get; set; }
 
         public class virtRoom
@@ -23,12 +24,24 @@ namespace bat.logic.ViewModels.Homepage
 
         public List<virtRoom> classList { get; set; }
 
+        public SubjectList()
+        {
+            this.lessons = new List<Lesson>();
+            this.subjectDescription = new SubjectDescription();
+            this.tutor = new Account();
+        }
+
         public void Load(string subject, int? accountId)
         {
             this.subject = subject.Replace("_", " ");
             this.classList = new List<virtRoom>();
             using (var conn = new dbEntities())
             {
+                this.subjectDescription = conn.SubjectDescriptions.FirstOrDefault(s => s.Subject == this.subject) ??
+                                          new SubjectDescription()
+                                          {
+                                              Subject = subject
+                                          };
                 var rs = conn.Lessons
                             .Where(l => l.Subject == this.subject && 
                                     (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count));

@@ -11,16 +11,22 @@
     </style>
 }
 
-<p>
-    <h2 class="pull-left" style="margin-bottom: 40px;">
-        @Model.subject Lessons:
-    </h2>
-    <a href="@Url.RouteUrl("subjects")" class="btn btn-lg btn-primary pull-right" style="margin-top: 20px;">
-        More Subjects
-    </a>
-</p>
+<div style="overflow: auto;">
+    <p>
+        <h2 class="pull-left" style="margin-bottom: 40px;">
+            @Model.subject Lessons:
+        </h2>
+        <a href="@Url.RouteUrl("subjects")" class="btn btn-lg btn-primary pull-right" style="margin-top: 20px;">
+            More Subjects
+        </a>
+    </p>
+</div>
 
-<div class="row">
+<div>
+@Html.Raw(HttpUtility.UrlDecode(Model.subjectDescription.Description))
+</div>
+
+<div class="row" style="margin-top: 40px;">
     <div class="col-sm-12">
         <table class="table" style="width:100%">
             <tr>

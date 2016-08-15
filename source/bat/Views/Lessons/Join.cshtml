@@ -11,27 +11,29 @@
 
 @{ Html.BeginForm("Join", "Lessons", FormMethod.Post); }
 <div class="row">
-    <div class="col-md-4 col-md-offset-4 center">
-        <h1>@Model.lesson.Description</h1>
+    <div class="col-md-12 center">
+        <h2>@Model.lesson.Description</h2>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 col-md-offset-2">
-        <p><strong>Teacher:</strong> @Model.GetFullAccountName(Model.teacher.ID)</p>
-        <p>
-            <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.teacher.ID, name = Model.teacher.Fname})" alt="Profile Pic" />
-        </p>
-        <p>
-            <strong>Teacher's Bio:</strong> @Model.teacher.Description
-        </p>
-        <p>
-            <strong>Teacher's Qualifications:</strong> @Model.teacher.Qualifications
-        </p>
+    <div class="col-md-6">
+        <div>
+            <div class="pull-left">
+                <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = Model.teacher.ID, name = Model.teacher.Fname})" alt="Profile Pic" />
+            </div>
+            <div class="pull-left" style="margin-left: 20px;">
+                <p>
+                    @Model.GetFullAccountName(Model.teacher.ID)
+                    <br />
+                    @Model.teacher.Qualifications
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
         <p>
-           <strong>Subject:</strong> @Model.lesson.Subject
+            <strong>Subject:</strong> <a href="@Url.RouteUrl("list-lessons", new {subject = Model.lesson.Subject})">@Model.lesson.Subject</a>
         </p>
         <p>
             <strong>Date:</strong> @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
@@ -45,7 +47,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 col-md-offset-4" style="margin-top: 40px; overflow: auto;">
+    <div class="col-md-12" style="margin-top: 40px; overflow: auto;">
         <a href="@Url.RouteUrl("list-lessons", new {subject = Model.Subject})" class="btn btn-lg btn-default" style="width: 110px; margin-right: 20px;">
             Cancel
         </a>
