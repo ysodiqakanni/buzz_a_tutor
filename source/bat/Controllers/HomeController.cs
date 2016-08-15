@@ -19,7 +19,7 @@ namespace bat.Controllers
             return View(new bat.logic.ViewModels.Homepage.Landing());
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
@@ -27,7 +27,7 @@ namespace bat.Controllers
             {
                 user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
                 if (user == null)
-                    return View("Landing", new bat.logic.ViewModels.Homepage.Landing());
+                    return RedirectToAction("Landing");
 
                 return RedirectToAction("Index", "Admin");
             }
