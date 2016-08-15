@@ -26,6 +26,27 @@
 @Html.Raw(HttpUtility.UrlDecode(Model.subjectDescription.Description))
 </div>
 
+@if (Model.ExamPapers.Any())
+{
+    <p style="margin-top: 40px;">
+        <a class="btn btn-default" data-toggle="collapse" href="#collapseExamPapers" aria-expanded="false" aria-controls="collapseExamPapers">
+            Past Exam Papers
+        </a>
+    </p>
+    <div class="collapse" id="collapseExamPapers">
+        <table class="table">
+            @foreach (var paper in Model.ExamPapers)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("DownloadExamPaper", "Lessons", new {id = paper.ID, name = paper.Original_Name})"> @paper.Original_Name </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
 <div class="row" style="margin-top: 40px;">
     <div class="col-sm-12">
         <table class="table" style="width:100%">

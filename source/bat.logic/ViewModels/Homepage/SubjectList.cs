@@ -14,6 +14,7 @@ namespace bat.logic.ViewModels.Homepage
         public List<Lesson> lessons { get; set; }
         public string subject { get; set;}
         public SubjectDescription subjectDescription { get; set; }
+        public List<SubjectExamPaper> ExamPapers { get; set; }
         public Account tutor { get; set; }
 
         public class virtRoom
@@ -42,6 +43,8 @@ namespace bat.logic.ViewModels.Homepage
                                           {
                                               Subject = subject
                                           };
+                this.ExamPapers = conn.SubjectExamPapers.Where(s => s.SubjectDescription_ID == this.subjectDescription.ID).ToList();
+
                 var rs = conn.Lessons
                             .Where(l => l.Subject == this.subject && 
                                     (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count));
@@ -61,7 +64,7 @@ namespace bat.logic.ViewModels.Homepage
                     {
                         lesson = lesson,
                         tutor = conn.Accounts.FirstOrDefault(t => t.ID == lesson.Account_ID)
-                });
+                    });
                 }
             }
         }
