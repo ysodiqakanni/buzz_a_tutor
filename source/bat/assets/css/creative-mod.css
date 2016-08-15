@@ -13,17 +13,17 @@
 }
 
 header {
-    background: linear-gradient(#111, rgba(1, 1, 1, 0.1)), url('../img/landing/1.jpg') no-repeat center #eee;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url('../img/landing/1.jpg') no-repeat center #eee;
+    -ms-background-size:cover;
     background-size:cover;
 }
 
 #lessons {
-    background-image: url('../img/landing/3.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;  
-    padding-top: 125px;
-    padding-bottom: 150px;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url('../img/landing/3.jpg') no-repeat center #eee;
+    -ms-background-size:cover;
+    background-size:cover;
+    padding-top: 175px;
+    padding-bottom: 250px;
 }
 
 #tutors{
@@ -34,7 +34,8 @@ header {
 #sign-up {
     background-image: url('../img/landing/2.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    -ms-background-size:cover;
+    background-size:cover;
     background-position: center;
 }
 
