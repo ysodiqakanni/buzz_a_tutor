@@ -72,5 +72,40 @@ namespace bat.Controllers
                 return View("Error");
             }
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UploadExamPaper(int id, HttpPostedFileBase ExamPaper)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+            if (user == null) return RedirectToRoute("home");
+
+            var model = new logic.ViewModels.Admin.Edit();
+            model.Load(id);
+            model.UploadPaper(ExamPaper);
+
+            return RedirectToAction("Edit", new { subject = model.subjectDescription.Subject });
+        }
+
+        public ActionResult DeleteExamPaper(int id)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+            if (user == null) return RedirectToRoute("home");
+
+            var model = new logic.ViewModels.Admin.Edit();
+            model.DeletePaper(id);
+
+            return RedirectToAction("Edit", new { subject = model.subjectDescription.Subject });
+        }
+
+        public ActionResult DownloadExamPaper(int id, string name)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+            if (user == null) return RedirectToRoute("home");
+
+            var model = new logic.ViewModels.Admin.Edit();
+
+            return File(model.DownloadPaper(id).ToArray(), "application", name);
+        }
     }
 }

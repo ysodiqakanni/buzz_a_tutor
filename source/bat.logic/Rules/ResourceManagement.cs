@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace bat.logic.Helpers
+namespace bat.logic.Rules
 {
     public class ResourceManagement
     {

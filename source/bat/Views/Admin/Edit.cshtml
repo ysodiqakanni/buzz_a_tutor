@@ -33,3 +33,37 @@
 </div>
 
 @{ Html.EndForm(); }
+
+@if (Model.subjectDescription.ID > 0)
+{
+    <div>
+        <table class="table">
+            <tr>
+                <th colspan="2">
+                    Past Exam Papers
+                </th>
+            </tr>
+            <tr>
+                @{ Html.BeginForm("UploadExamPaper", "Admin", new {id = Model.subjectDescription.ID}, FormMethod.Post, new {enctype = "multipart/form-data"}); }
+                <td>
+                    <input type='file' class="form-control" name="ExamPaper" id="ExamPaper"/>
+                </td>
+                <td>
+                    <input type="submit"/>
+                </td>
+                @{ Html.EndForm(); }
+            </tr>
+            @foreach (var paper in Model.ExamPapers)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("DownloadExamPaper", "Admin", new {id = paper.ID, name = paper.Original_Name})"> @paper.Original_Name </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeleteExamPaper", "Admin", new {id = paper.ID})">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}

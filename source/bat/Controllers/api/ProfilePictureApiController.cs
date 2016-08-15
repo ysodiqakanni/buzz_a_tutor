@@ -10,7 +10,7 @@ namespace bat.Controllers.api
     {
         public ActionResult DownloadResource(int id, string name)
         {
-            return File(logic.Helpers.ResourceManagement.DownloadProfilePicture(id).ToArray(), "application", name);
+            return File(logic.Rules.ResourceManagement.DownloadProfilePicture(id).ToArray(), "application", name);
         }
     }
 }

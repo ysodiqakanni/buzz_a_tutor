@@ -30,6 +30,15 @@ namespace bat.logic.Helpers.AzureStorage
         {
             AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_PROFILE_IMAGES_STORAGE_CONTAINER, storageName).DownloadToStream(ms);
         }
+        public static string UploadExamPaper(HttpPostedFileBase file)
+        {
+            return Upload(file, Constants.Azure.AZURE_UPLOADED_EXAM_PAPERS_STORAGE_CONTAINER);
+        }
+
+        public static void DownloadExamPaper(MemoryStream ms, string storageName)
+        {
+            AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_EXAM_PAPERS_STORAGE_CONTAINER, storageName).DownloadToStream(ms);
+        }
 
         private static string Upload(HttpPostedFileBase file, string container)
         {

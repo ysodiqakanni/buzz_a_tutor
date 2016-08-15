@@ -21,6 +21,8 @@ namespace bat.logic.Rules
                     return true;
                 case ".jpeg":
                     return true;
+                case ".pdf":
+                    return true;
                 default:
                     return false;
             }

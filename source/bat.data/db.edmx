@@ -90,6 +90,15 @@
           <Property Name="Subject" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="SubjectExamPaper">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectDescription_ID" Type="int" Nullable="false" />
+          <Property Name="StorageName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Original_Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <Association Name="FK_ChatRecord_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="ChatRecord" Type="Self.ChatRecord" Multiplicity="*" />
@@ -174,6 +183,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubjectExamPaper_SubjectDescription">
+          <End Role="SubjectDescription" Type="Self.SubjectDescription" Multiplicity="1" />
+          <End Role="SubjectExamPaper" Type="Self.SubjectExamPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubjectExamPaper">
+              <PropertyRef Name="SubjectDescription_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChatRecord" EntityType="Self.ChatRecord" Schema="dbo" store:Type="Tables" />
@@ -183,6 +204,7 @@
           <EntitySet Name="LessonParticipant" EntityType="Self.LessonParticipant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonResource" EntityType="Self.LessonResource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubjectDescription" EntityType="Self.SubjectDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubjectExamPaper" EntityType="Self.SubjectExamPaper" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChatRecord_Lesson" Association="Self.FK_ChatRecord_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="ChatRecord" EntitySet="ChatRecord" />
@@ -210,6 +232,10 @@
           <AssociationSet Name="FK_LessonResource_Lesson" Association="Self.FK_LessonResource_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="LessonResource" EntitySet="LessonResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubjectExamPaper_SubjectDescription" Association="Self.FK_SubjectExamPaper_SubjectDescription">
+            <End Role="SubjectDescription" EntitySet="SubjectDescription" />
+            <End Role="SubjectExamPaper" EntitySet="SubjectExamPaper" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -253,6 +279,11 @@
             <End Role="LessonResource" EntitySet="LessonResources" />
           </AssociationSet>
           <EntitySet Name="SubjectDescriptions" EntityType="dbModel.SubjectDescription" />
+          <EntitySet Name="SubjectExamPapers" EntityType="dbModel.SubjectExamPaper" />
+          <AssociationSet Name="FK_SubjectExamPaper_SubjectDescription" Association="dbModel.FK_SubjectExamPaper_SubjectDescription">
+            <End Role="SubjectDescription" EntitySet="SubjectDescriptions" />
+            <End Role="SubjectExamPaper" EntitySet="SubjectExamPapers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="FamilyMember">
           <Key>
@@ -436,7 +467,30 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubjectExamPapers" Relationship="dbModel.FK_SubjectExamPaper_SubjectDescription" FromRole="SubjectDescription" ToRole="SubjectExamPaper" />
         </EntityType>
+        <EntityType Name="SubjectExamPaper">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectDescription_ID" Type="Int32" Nullable="false" />
+          <Property Name="StorageName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Original_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubjectDescription" Relationship="dbModel.FK_SubjectExamPaper_SubjectDescription" FromRole="SubjectExamPaper" ToRole="SubjectDescription" />
+        </EntityType>
+        <Association Name="FK_SubjectExamPaper_SubjectDescription">
+          <End Type="dbModel.SubjectDescription" Role="SubjectDescription" Multiplicity="1" />
+          <End Type="dbModel.SubjectExamPaper" Role="SubjectExamPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubjectExamPaper">
+              <PropertyRef Name="SubjectDescription_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -532,6 +586,16 @@
               <MappingFragment StoreEntitySet="SubjectDescription">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubjectExamPapers">
+            <EntityTypeMapping TypeName="dbModel.SubjectExamPaper">
+              <MappingFragment StoreEntitySet="SubjectExamPaper">
+                <ScalarProperty Name="Original_Name" ColumnName="Original_Name" />
+                <ScalarProperty Name="StorageName" ColumnName="StorageName" />
+                <ScalarProperty Name="SubjectDescription_ID" ColumnName="SubjectDescription_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

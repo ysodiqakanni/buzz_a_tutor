@@ -32,5 +32,16 @@ namespace bat.logic.Constants
                 return "profiles";
             }
         }
+
+        public static string AZURE_UPLOADED_EXAM_PAPERS_STORAGE_CONTAINER
+        {
+            get
+            {
+#if DEBUG
+                return "exampapers-dev";
+#endif
+                return "exampapers";
+            }
+        }
     }
 }

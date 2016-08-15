@@ -33,5 +33,6 @@ namespace bat.data
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<LessonResource> LessonResources { get; set; }
         public virtual DbSet<SubjectDescription> SubjectDescriptions { get; set; }
+        public virtual DbSet<SubjectExamPaper> SubjectExamPapers { get; set; }
     }
 }

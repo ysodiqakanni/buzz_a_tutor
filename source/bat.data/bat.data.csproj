@@ -93,6 +93,9 @@
     <Compile Include="SubjectDescription.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubjectExamPaper.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="db.Context.tt">
