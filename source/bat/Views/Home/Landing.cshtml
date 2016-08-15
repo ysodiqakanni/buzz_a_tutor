@@ -66,53 +66,61 @@
 	<header>
 		<div class="header-content">
 			<div class="header-content-inner">
-				<h1 id="homeHeading">Get quality instruction at any time, at any place</h1>
-				<hr>
 				<div class="row">
 					<div class="col-sm-6">
-						<p id="header-info">Buzzatutor is a team of experienced, professional and committed teachers, available online, whenever you need that extra help to get on top with your subject.</p>
+						<h1 id="homeHeading">
+							Get quality instruction.
+							<br />
+							Any time. Anywhere.
+						</h1>
+						<hr>
+						<p id="header-info">
+							Buzz a Tutor is a team of experienced, professional and committed teachers, available online, whenever you need that extra help to get on top with your subject.
+						</p>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4 col-sm-offset-2">
 						@{ Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }); }
 
 						<form class="nobottommargin" id="template-contactform" name="template-contactform" action="" method="post">
-							<div class="col-md-4 form-group">
-								<label for="template-contactform-service" class="white-shadow">Your are a<small>*</small></label>
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label for="template-contactform-firstname" class="white-shadow">First name</label>
+									<input type="text" id="template-contactform-firstname" name="firstname" value="" class="sm-form-control required" required/>
+								</div>
+
+								<div class="col-md-6 col_last form-group">
+									<label for="template-contactform-lastname" class="white-shadow">Last Name</label>
+									<input type="text" id="template-contactform-lastname" name="lastname" value="" class="required sm-form-control" required/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="template-contactform-service" class="white-shadow">Your are a</label>
 								<select id="template-contactform-service" name="type" class="sm-form-control">
-									<option value="@((int)bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
-									<option value="@((int)bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
+									<option value="@((int) bat.logic.Constants.Types.AccountTypes.Student)">Student</option>
+									<option value="@((int) bat.logic.Constants.Types.AccountTypes.Teacher)">Teacher</option>
 								</select>
-							</div>
-
-							<div class="col-md-4 form-group">
-								<label for="template-contactform-firstname" class="white-shadow">First name<small>*</small></label>
-								<input type="text" id="template-contactform-firstname" name="firstname" value="" class="sm-form-control required" required />
-							</div>
-
-							<div class="col-md-4 col_last form-group">
-								<label for="template-contactform-lastname" class="white-shadow">Last Name <small>*</small></label>
-								<input type="text" id="template-contactform-lastname" name="lastname" value="" class="required sm-form-control" required />
 							</div>
 
 							<div class="clear"></div>
 
-							<div class="col-md-8 form-group">
-								<label for="template-contactform-email" class="white-shadow">Email address<small>*</small></label>
-								<input type="email" id="template-contactform-email" name="email" value="" class="email required sm-form-control" required />
+							<div class="form-group">
+								<label for="template-contactform-email" class="white-shadow">Email address</label>
+								<input type="email" id="template-contactform-email" name="email" value="" class="email required sm-form-control" required/>
 							</div>
 
-							<div class="col-md-4  col_last form-group">
-								<label for="template-contactform-pass" class="white-shadow">Password<small>*</small></label>
-								<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required />
+							<div class="form-group">
+								<label for="template-contactform-pass" class="white-shadow">Password</label>
+								<input type="password" id="template-contactform-pass" name="password" value="" class="sm-form-control required" required/>
 							</div>
 
 							<div class="clear"></div>
 
 							<div class="col-full">
-							    <p style="color: #fff; text-align: center">@ViewBag.Error</p>
-							    <button button class="btn btn-primary btn-xl page-scroll" type="submit" value="submit" style="width: 200px;">
-							        Sign up
-							    </button>
+								<p style="color: #fff; text-align: center">@ViewBag.Error</p>
+								<button button class="btn btn-primary btn-xl page-scroll" type="submit" value="submit" style="width: 200px;">
+									Sign up
+								</button>
 							</div>
 						</form>
 						@{ Html.EndForm(); }

@@ -8,8 +8,10 @@
 
 #header-info {
     color: #fff;
-    font-weight: 800;
+    font-weight: 300;
     font-size: 22px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 1.25), 0 1px 30px rgba(0, 0, 0, 2.75);
 }
 
 header {
@@ -42,6 +44,8 @@ header {
 #homeHeading {
     color: #FFF;
     text-transform:none;
+    font-weight: 600;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 1.25), 0 1px 30px rgba(0, 0, 0, 2.75);
 }
 
 .navbar-brand {
