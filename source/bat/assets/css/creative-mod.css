@@ -97,6 +97,11 @@ header {
     color: #FF8200;
 }
 
+.no-margin {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 /********************************
 
     To use Theme Color
