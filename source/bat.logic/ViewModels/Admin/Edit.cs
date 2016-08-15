@@ -118,28 +118,5 @@ namespace bat.logic.ViewModels.Admin
                 conn.SaveChanges();
             }
         }
-
-        public MemoryStream DownloadPaper(int paperId)
-        {
-            try
-            {
-                using (var conn = new dbEntities())
-                {
-                    var paper = conn.SubjectExamPapers.FirstOrDefault(s => s.ID == paperId);
-                    if (paper == null) throw new Exception("The exam paper does not exist.");
-
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        logic.Helpers.AzureStorage.StoredResources.DownloadExamPaper(memoryStream, paper.StorageName);
-                        return memoryStream;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                var ignore = ex;
-            }
-            return null;
-        }
     }
 }

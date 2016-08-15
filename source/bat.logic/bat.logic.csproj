@@ -168,6 +168,7 @@
     <Compile Include="Helpers\DateTimeExtensions.cs" />
     <Compile Include="Helpers\Numbers.cs" />
     <Compile Include="Helpers\PasswordStorage.cs" />
+    <Compile Include="Rules\ExamPapers.cs" />
     <Compile Include="Rules\ResourceManagement.cs" />
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Exceptions\InvalidRecordException.cs" />

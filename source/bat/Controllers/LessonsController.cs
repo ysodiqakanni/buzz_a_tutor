@@ -290,5 +290,11 @@ namespace bat.Controllers
             logic.Rules.ResourceManagement.DeleteResource(resourceId);
             return RedirectToAction("Edit", new { id = id });
         }
+
+        [AllowAnonymous]
+        public ActionResult DownloadExamPaper(int id, string name)
+        {
+            return File(bat.logic.Rules.ExamPapers.DownloadPaper(id).ToArray(), "application", name);
+        }
     }
 }

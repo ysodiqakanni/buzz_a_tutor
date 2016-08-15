@@ -97,15 +97,5 @@ namespace bat.Controllers
 
             return RedirectToAction("Edit", new { subject = model.subjectDescription.Subject });
         }
-
-        public ActionResult DownloadExamPaper(int id, string name)
-        {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-            if (user == null) return RedirectToRoute("home");
-
-            var model = new logic.ViewModels.Admin.Edit();
-
-            return File(model.DownloadPaper(id).ToArray(), "application", name);
-        }
     }
 }

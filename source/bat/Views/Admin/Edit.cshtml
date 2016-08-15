@@ -57,7 +57,7 @@
             {
                 <tr>
                     <td>
-                        <a href="@Url.Action("DownloadExamPaper", "Admin", new {id = paper.ID, name = paper.Original_Name})"> @paper.Original_Name </a>
+                        <a href="@Url.Action("DownloadExamPaper", "Lessons", new {id = paper.ID, name = paper.Original_Name})"> @paper.Original_Name </a>
                     </td>
                     <td>
                         <a href="@Url.Action("DeleteExamPaper", "Admin", new {id = paper.ID})">Delete</a>
