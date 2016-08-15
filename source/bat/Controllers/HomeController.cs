@@ -23,7 +23,14 @@ namespace bat.Controllers
         public ActionResult Index()
         {
             var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            if (user == null) return View("Landing", new bat.logic.ViewModels.Homepage.Landing());
+            if (user == null)
+            {
+                user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null)
+                    return View("Landing", new bat.logic.ViewModels.Homepage.Landing());
+
+                return RedirectToAction("Index", "Admin");
+            }
 
             var model = new bat.logic.ViewModels.Homepage.Dashboard();
 

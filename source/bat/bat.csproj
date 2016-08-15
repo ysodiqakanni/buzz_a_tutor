@@ -235,6 +235,7 @@
     <Content Include="assets\css\animate.css" />
     <Content Include="assets\css\batstickyfoot.css" />
     <Content Include="assets\css\batmain.css" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\DashBoardApiController.cs" />
     <Compile Include="Controllers\api\LessonsApiController.cs" />
     <Compile Include="Controllers\api\ProfilePictureApiController.cs" />
@@ -256,7 +257,6 @@
     <Content Include="assets\css\colors.css" />
     <Content Include="assets\css\creative-mod.css" />
     <Content Include="assets\css\creative.css" />
-    <Content Include="assets\css\creative.min.css" />
     <Content Include="assets\css\dark.css" />
     <Content Include="assets\css\elastic.css" />
     <Content Include="assets\css\font-icons.css" />
@@ -489,6 +489,9 @@
     <Content Include="Views\Lessons\Edit.cshtml" />
     <Content Include="Views\Shared\_PartialAzureApplicationInsights.cshtml" />
     <Content Include="Views\Home\ListTeachers.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

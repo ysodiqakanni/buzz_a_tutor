@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Subjects</h2>
+
+@foreach (var dpt in bat.logic.Constants.Subjects.Departments)
+{
+    <p>
+        <strong>@dpt.Name</strong>
+    </p>
+    <ul>
+        @foreach (var s in dpt.Subjects)
+        {
+            <li>
+                <a href="@Url.Action("Edit", new {subject = @s})">@s</a>
+            </li>
+        }
+    </ul>
+}

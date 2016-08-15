@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bat.data;
+using bat.logic.Constants;
 using bat.logic.Exceptions;
 
 namespace bat.logic.ViewModels
@@ -25,6 +26,17 @@ namespace bat.logic.ViewModels
 
         public void Initialise(int accountId)
         {
+            if (accountId == 0)
+            {
+                this.account = new Account()
+                {
+                    ID = 0,
+                    Email = AdminLogin.User
+                };
+                this.initialised = true;
+                return;
+            }
+
             using (var conn = new dbEntities())
             {
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == accountId);

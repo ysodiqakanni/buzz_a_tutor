@@ -1,0 +1,35 @@
+﻿@model bat.logic.ViewModels.Admin.Edit
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Index";
+}
+@section scripts {
+    <script src="https://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#txtDescription',
+            theme: 'modern',
+            height: 400
+        });
+        $(document).ready(function () {
+        });
+    </script>
+}
+<h2>Edit Subject: @Model.subjectDescription.Subject</h2>
+
+@{ Html.BeginForm("Edit", "Admin", new { subject = Model.subjectDescription.Subject }, FormMethod.Post); }
+
+<div class="form-group">
+    <label class="control-label">Description</label>
+    <textarea class="form-control" rows="5" placeholder="Description" name="txtDescription" id="txtDescription">@HttpUtility.UrlDecode(Model.subjectDescription.Description)</textarea>
+</div>
+
+<div style="margin-top: 40px; margin-bottom: 20px; overflow: auto;">
+    <input type="submit" value="Ok" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
+    <a href="@Url.Action("Index")" class="btn btn-lg btn-default pull-right" style="margin-right: 20px;">
+        Cancel
+    </a>
+</div>
+
+@{ Html.EndForm(); }

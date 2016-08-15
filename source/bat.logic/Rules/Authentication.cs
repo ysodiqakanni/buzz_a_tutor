@@ -8,6 +8,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Shearnie.Net.Encryption;
 using bat.data;
+using bat.logic.Constants;
 using bat.logic.Helpers;
 
 namespace bat.logic.Rules
@@ -53,6 +54,20 @@ namespace bat.logic.Rules
 
         public Account GetUser(string username, string password)
         {
+            if (username.Equals(AdminLogin.User))
+            {
+#if (!DEBUG)
+                if (password != AdminLogin.Password)
+                    throw new Exception("Invalid username or password.");
+#endif
+                return new Account()
+                {
+                    ID = 0,
+                    AccountType_ID = 0,
+                    Email = "ADMIN"
+                };
+            }
+
             using (var conn = new dbEntities())
             {
                 var user =
@@ -90,6 +105,31 @@ namespace bat.logic.Rules
             var id = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
             var email = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
             if (id == null || email == null) return null;
+
+            // handle null user in home check if admin
+            if (Convert.ToInt32(id.Value) == 0)
+                return null;
+
+            return new Account()
+            {
+                ID = Convert.ToInt32(id.Value),
+                Email = email.Value
+            };
+        }
+
+        public Account GetLoggedInAdminUser()
+        {
+            if (this.context == null) return null;
+            var authenticationManager = this.context.Authentication;
+            var claim = authenticationManager.User.Identities.FirstOrDefault();
+            if (claim == null) return null;
+            var id = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var email = claim.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+            if (id == null || email == null) return null;
+
+            if (Convert.ToInt32(id.Value) != 0)
+                return null;
+
             return new Account()
             {
                 ID = Convert.ToInt32(id.Value),

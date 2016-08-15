@@ -82,6 +82,14 @@
           <Property Name="Original_Name" Type="varchar(max)" Nullable="false" />
           <Property Name="Item_Storage_Name" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <EntityType Name="SubjectDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <Association Name="FK_ChatRecord_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="ChatRecord" Type="Self.ChatRecord" Multiplicity="*" />
@@ -174,6 +182,7 @@
           <EntitySet Name="LessonAttachment" EntityType="Self.LessonAttachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonParticipant" EntityType="Self.LessonParticipant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonResource" EntityType="Self.LessonResource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubjectDescription" EntityType="Self.SubjectDescription" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChatRecord_Lesson" Association="Self.FK_ChatRecord_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="ChatRecord" EntitySet="ChatRecord" />
@@ -243,6 +252,7 @@
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonResource" EntitySet="LessonResources" />
           </AssociationSet>
+          <EntitySet Name="SubjectDescriptions" EntityType="dbModel.SubjectDescription" />
           </EntityContainer>
         <EntityType Name="FamilyMember">
           <Key>
@@ -419,6 +429,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SubjectDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -505,6 +523,15 @@
                 <ScalarProperty Name="Item_Storage_Name" ColumnName="Item_Storage_Name" />
                 <ScalarProperty Name="Original_Name" ColumnName="Original_Name" />
                 <ScalarProperty Name="Lession_ID" ColumnName="Lession_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubjectDescriptions">
+            <EntityTypeMapping TypeName="dbModel.SubjectDescription">
+              <MappingFragment StoreEntitySet="SubjectDescription">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

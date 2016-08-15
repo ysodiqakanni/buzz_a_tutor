@@ -154,6 +154,7 @@
   <ItemGroup>
     <Compile Include="ApiModels\DashBoard\GetDay.cs" />
     <Compile Include="ApiModels\DashBoard\GetEvents.cs" />
+    <Compile Include="Constants\AdminLogin.cs" />
     <Compile Include="Constants\Azure.cs" />
     <Compile Include="Constants\Colors.cs" />
     <Compile Include="Constants\Picture.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Models\Lessons\Attachment.cs" />
     <Compile Include="ViewModels\Homepage\Register.cs" />
     <Compile Include="ViewModels\Homepage\TeacherList.cs" />
+    <Compile Include="ViewModels\Admin\Edit.cs" />
     <Compile Include="ViewModels\Lessons\Join.cs" />
     <Compile Include="ViewModels\Lessons\Leave.cs" />
     <Compile Include="ViewModels\Lessons\Edit.cs" />
