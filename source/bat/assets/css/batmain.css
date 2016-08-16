@@ -165,3 +165,7 @@ a {
     padding-bottom: 15px;
     border-bottom: lightgray 2px solid;
 }
+
+.td-center {
+    vertical-align:middle;
+}

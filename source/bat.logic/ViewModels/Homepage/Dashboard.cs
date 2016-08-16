@@ -13,6 +13,14 @@ namespace bat.logic.ViewModels.Homepage
     {
         public List<Lesson> lessons { get; set; }
 
+        public class classroom
+        {
+            public Lesson lesson { get; set; }
+            public List<LessonParticipant> participants { get; set; } 
+        }
+
+        public List<classroom> classrooms { get; set; }
+
         public void Load()
         {
             if (!this.initialised) throw new MasterModelNotInitialised();
@@ -30,7 +38,23 @@ namespace bat.logic.ViewModels.Homepage
                         break;
 
                     case Types.AccountTypes.Teacher:
-                        this.lessons = conn.Lessons.Where(l => l.Account_ID == this.account.ID).ToList();
+                        this.classrooms = new List<classroom>();
+                        this.lessons = conn.Lessons.Where(l => l.Account_ID == this.account.ID)
+                            .ToList();
+
+                        foreach (var lesson in this.lessons)
+                        {
+                            if (lesson.BookingDate.Date >= DateTime.Now.Date && lesson.BookingDate.Date <= DateTime.Now.Date.AddDays(1))
+                            {
+                                this.classrooms.Add(new classroom
+                                {
+                                    lesson = lesson,
+                                    participants = conn.LessonParticipants.Where(l => l.Lesson_ID == lesson.ID)
+                                    .ToList()
+                                }
+                                );
+                            }
+                        }
                         break;
                 }
             }
