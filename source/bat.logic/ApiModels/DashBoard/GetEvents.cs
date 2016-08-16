@@ -15,6 +15,7 @@ namespace bat.logic.ApiModels.DashBoard
     {
         public class calEvent
         {
+            public int id { get; set; }
             public string title { get; set; }
             public string start { get; set; }
             public string color { get; set; }
@@ -47,6 +48,7 @@ namespace bat.logic.ApiModels.DashBoard
                         {
                             calEvents.Add(new calEvent
                             {
+                                id = l.ID,
                                 title = l.Subject,
                                 start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = "#3a87ad"
@@ -66,6 +68,7 @@ namespace bat.logic.ApiModels.DashBoard
                         {
                             calEvents.Add(new calEvent
                             {
+                                id = l.ID,
                                 title = l.Subject,
                                 start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
                                 color = "#EA8B23"

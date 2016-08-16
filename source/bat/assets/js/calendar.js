@@ -38,9 +38,7 @@ function rendorCalendar(userid) {
                     getDay(userid, date.format());
                 },
                 eventClick: function(calEvent) {
-                    getDay(userid, calEvent.start.format());
-                    //// change the border color just for fun
-                    //$(this).css('background-color', 'red');
+                    window.location.href = getLessonPath + "/" + calEvent.id;
                 }
             });
 

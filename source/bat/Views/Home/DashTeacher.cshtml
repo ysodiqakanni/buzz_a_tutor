@@ -12,19 +12,74 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
     </div>
-    <div class="col-md-6">
-        <p class="pull-right" style="margin-top: 20px;">
+</div>
+
+@if (Model.classrooms != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Today's lessons</h4>
+            <table class="table" style="width:100%">
+                <tr>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Student
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                    <th colspan="2">
+
+                    </th>
+                </tr>
+                @foreach (var classroom in Model.classrooms)
+                {
+                    <tr>
+                        <td style="vertical-align:middle">
+                            @classroom.lesson.Description
+                        </td>
+                        <td style="vertical-align:middle">
+                            @foreach (var participant in classroom.participants)
+                            {
+                                @Model.GetFullAccountName(participant.Account_ID)
+                            }
+                        </td>
+                        <td style="vertical-align:middle">
+                            @classroom.lesson.BookingDate.ToShortDateString()
+                        </td>
+                        <td style="vertical-align:middle">
+                            @classroom.lesson.BookingDate.ToShortTimeString()
+                        </td>
+                        <td style="vertical-align:middle">
+                            <a href="@Url.Action("Index", "Lessons", new { id = classroom.lesson.ID })" class="btn btn-primary">
+                                <strong>Join</strong> Lesson
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-12">
+        <p>
             <a href="@Url.RouteUrl("lessons/new")" class="btn btn-primary">
                 Create a new lesson
             </a>
         </p>
     </div>
 </div>
-
-<div class="row" style="margin-top: 60px;">
+<div class="row" style="margin-top: 10px;">
     <div class="col-sm-6">
         <input id="userID" type="hidden" value="@Model.account.ID" />
         <input id="getEventsPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getevents", new { controller = "DashBoardApi", action = "Getevents" })" />
