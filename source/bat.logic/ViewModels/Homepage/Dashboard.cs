@@ -12,13 +12,12 @@ namespace bat.logic.ViewModels.Homepage
     public class Dashboard : Master
     {
         public List<Lesson> lessons { get; set; }
-
+        public List<Lesson> today_lessons { get; set; }
         public class classroom
         {
             public Lesson lesson { get; set; }
             public List<LessonParticipant> participants { get; set; } 
         }
-
         public List<classroom> classrooms { get; set; }
 
         public void Load()
@@ -30,11 +29,20 @@ namespace bat.logic.ViewModels.Homepage
                 switch (this.accountType)
                 {
                     case Types.AccountTypes.Student:
+                        this.today_lessons = new List<Lesson>();
                         this.lessons =
                             conn.LessonParticipants.Where(p => p.Account_ID == this.account.ID)
                                 .Select(p => p.Lesson)
                                 .OrderBy(p => p.Subject)
                                 .ToList();
+
+                        foreach (var lesson in this.lessons)
+                        {
+                            if (lesson.BookingDate.Date >= DateTime.Now.Date && lesson.BookingDate.Date <= DateTime.Now.Date.AddDays(1))
+                            {
+                                this.today_lessons.Add(lesson);
+                            }
+                        }
                         break;
 
                     case Types.AccountTypes.Teacher:

@@ -20,9 +20,57 @@
         Find more Lessons
     </a>
 </div>
-<h4 style="margin-bottom: 20px;">
-    Here are your lessons
-</h4>
+
+@if (Model.today_lessons != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Today's lessons</h4>
+            <table class="table" style="width:100%">
+                <tr>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Teacher
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                    <th colspan="2">
+
+                    </th>
+                </tr>
+                @foreach (var lesson in Model.today_lessons)
+                {
+                    <tr>
+                        <td style="vertical-align:middle">
+                            @lesson.Description
+                        </td>
+                        <td style="vertical-align:middle">
+                            @Model.GetFullAccountName(lesson.Account_ID)
+                        </td>
+                        <td style="vertical-align:middle">
+                            @lesson.BookingDate.ToShortDateString()
+                        </td>
+                        <td style="vertical-align:middle">
+                            @lesson.BookingDate.ToShortTimeString()
+                        </td>
+                        <td style="vertical-align:middle">
+                            <a href="@Url.Action("Index", "Lessons", new { id = lesson.ID })" class="btn btn-primary">
+                                <strong>Join</strong> Lesson
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
 <div class="row">
     <div class="col-sm-6">
         <input id="userID" type="hidden" value="@Model.account.ID" />
