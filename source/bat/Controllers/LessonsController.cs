@@ -272,6 +272,57 @@ namespace bat.Controllers
         }
 
         [Authorize]
+        public ActionResult Reschedule(int id)
+        {
+            var model = new logic.ViewModels.Lessons.Reschedule();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Load(id);
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Reschedule(int id, FormCollection frm)
+        {
+            var model = new logic.ViewModels.Lessons.Reschedule();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Save(id, frm);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+
+            return RedirectToAction("Index", new { id = model.lesson.ID });
+        }
+
+
+        [Authorize]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult UploadResource(int id, HttpPostedFileBase ClassResource)

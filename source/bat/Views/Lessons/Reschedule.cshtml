@@ -1,0 +1,50 @@
+﻿@model bat.logic.ViewModels.Lessons.Reschedule
+@{
+    ViewBag.Title = "Reschedule Lesson";
+}
+
+@section head {
+    <link rel="stylesheet" href="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.css")">
+}
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/en-au.js"></script>
+    <script src="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+    <script src="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.js")"></script>
+    <script src="https://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#DetailedDescription',
+            theme: 'modern',
+            height: 400
+        });
+        $(document).ready(function () {
+            $('#BookingDate').datetimepicker({
+                locale: 'en-au'
+            });
+        });
+    </script>
+}
+
+<h2>Reschedule Lesson</h2>
+@{ Html.BeginForm("Reschedule", "Lessons", FormMethod.Post); }
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+        <div class="form-group">
+            <label class="control-label ">Date of lesson</label>
+            <input type='text' class="form-control" name="BookingDate" id="BookingDate" value="@Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")" required />
+        </div>
+
+        <div style="margin-top: 40px; margin-bottom: 20px; overflow: auto;">
+            <input type="submit" value="Ok" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
+            <a href="@Url.Action("Index", new { id = Model.lesson.ID })" class="btn btn-lg btn-default pull-right" style="margin-right: 20px;">
+                Back to lesson
+            </a>
+        </div>
+    </div>
+</div>
+@{ Html.EndForm(); }

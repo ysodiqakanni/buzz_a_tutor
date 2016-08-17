@@ -27,7 +27,10 @@
     </h2>
     @if (Model.IsTeacher)
     {
-        <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" c class="btn btn-lg btn-default pull-right">Edit lesson details</a>
+        <div class="pull-right">
+            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">Reschedule lesson</a>
+            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">Edit lesson details</a>
+        </div>
     }
 </div>
 
