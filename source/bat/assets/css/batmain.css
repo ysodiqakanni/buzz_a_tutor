@@ -169,3 +169,7 @@ a {
 .td-center {
     vertical-align:middle;
 }
+
+.txt-center{
+    text-align:center;
+}

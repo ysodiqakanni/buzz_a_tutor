@@ -4,7 +4,9 @@
 }
 
 <h2>Manage Subjects</h2>
-
+<p>
+    <a href="@Url.Action("Tutors", "Admin")" class="btn btn-primary">Tutors</a>
+</p>
 @foreach (var dpt in bat.logic.Constants.Subjects.Departments)
 {
     <p>

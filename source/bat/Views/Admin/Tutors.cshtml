@@ -1,0 +1,56 @@
+﻿@model bat.logic.ViewModels.Admin.Tutors
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Tutors";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h1>Tutors</h1>
+        <table class="table" style="width:100%">
+            <tr>
+                <th class="txt-center" colspan="2">
+                    <strong>Tutor</strong>
+                </th>
+                <th class="txt-center">
+                    <strong>Account Status</strong>
+                </th>
+            </tr>
+            @foreach (var tutor in Model.tutors)
+            {
+                <tr>
+                    <td hidden>
+                        <input id="tutor-ID" type="hidden" value="@tutor.ID" />
+                    </td>
+                    @if (string.IsNullOrEmpty(tutor.Picture))
+                    {
+                        <td class="txt-center">
+                            <img style="height: 80px; width: 80px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+                        </td>
+                    }
+                    else {
+                        <td class="txt-center">
+                            <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = tutor.ID, name = Model.GetFullAccountName(tutor.ID)})" alt="Profile Pic" />
+                        </td>
+                    }
+                    <td class="txt-center" >@Model.GetFullAccountName(tutor.ID)</td>
+                    <td class="txt-center">
+                        @if (tutor.Disabled != true)
+                        {
+                            <a href="@Url.Action("TutorStatus", "Admin", new { id =  tutor.ID, status = true })" class="btn btn-lg btn-default btn-success">
+                                Enabled
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("TutorStatus", "Admin", new { id =  tutor.ID, status = false })" class="btn btn-lg btn-default btn-danger">
+                                Disabled
+                            </a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -20,6 +20,7 @@
           <Property Name="Qualifications" Type="varchar" MaxLength="500" />
           <Property Name="Rate" Type="int" />
           <Property Name="Picture" Type="varchar(max)" />
+          <Property Name="Disabled" Type="bit" />
         </EntityType>
         <EntityType Name="ChatRecord">
           <Key>
@@ -344,6 +345,7 @@
           <Property Name="Qualifications" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Rate" Type="Int32" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Disabled" Type="Boolean" />
         </EntityType>
         <Association Name="FK_FamilyMember_Account">
           <End Type="dbModel.Account" Role="Account" Multiplicity="1" />
@@ -540,6 +542,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="dbModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />

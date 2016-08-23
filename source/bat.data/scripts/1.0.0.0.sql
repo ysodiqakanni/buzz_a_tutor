@@ -272,5 +272,8 @@ ALTER TABLE [dbo].[SubjectExamPaper]  WITH CHECK ADD  CONSTRAINT [FK_SubjectExam
 REFERENCES [dbo].[SubjectDescription] ([ID])
 GO
 
-
+GO
+ALTER TABLE dbo.Account ADD
+	Disabled bit NULL
+GO
 
