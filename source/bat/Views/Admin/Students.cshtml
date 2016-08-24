@@ -1,0 +1,42 @@
+﻿@model bat.logic.ViewModels.Admin.Students   
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Tutors";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h1>Students</h1>
+        <table class="table" style="width:100%">
+            <tr>
+                <th class="txt-center">
+                    <strong>Student</strong>
+                </th>
+                <th class="txt-center">
+                    <strong>Account Status</strong>
+                </th>
+            </tr>
+            @foreach (var student in Model.students)
+            {
+                <tr>
+                    <td class="txt-center" >@Model.GetFullAccountName(student.ID)</td>
+                    <td class="txt-center">
+                        @if (student.Disabled != true)
+                        {
+                            <a href="@Url.Action("StudentStatus", "Admin", new { id =  student.ID, status = true })" class="btn btn-lg btn-default btn-success">
+                                Enabled
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("StudentStatus", "Admin", new { id =  student.ID, status = false })" class="btn btn-lg btn-default btn-danger">
+                                Disabled
+                            </a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

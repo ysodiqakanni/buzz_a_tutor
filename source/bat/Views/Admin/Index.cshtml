@@ -2,22 +2,32 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewBag.Title = "Index";
 }
+<div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <h2>Manage Subjects</h2>
 
-<h2>Manage Subjects</h2>
-<p>
-    <a href="@Url.Action("Tutors", "Admin")" class="btn btn-primary">Tutors</a>
-</p>
-@foreach (var dpt in bat.logic.Constants.Subjects.Departments)
-{
-    <p>
-        <strong>@dpt.Name</strong>
-    </p>
-    <ul>
-        @foreach (var s in dpt.Subjects)
+        @foreach (var dpt in bat.logic.Constants.Subjects.Departments)
         {
-            <li>
-                <a href="@Url.Action("Edit", new {subject = @s})">@s</a>
-            </li>
+            <p>
+                <strong>@dpt.Name</strong>
+            </p>
+            <ul>
+                @foreach (var s in dpt.Subjects)
+                {
+                    <li>
+                        <a href="@Url.Action("Edit", new {subject = @s})">@s</a>
+                    </li>
+                }
+            </ul>
         }
-    </ul>
-}
+    </div>
+    <div class="col-md-4">
+        <p>
+            <a href="@Url.Action("Tutors", "Admin")" class="btn btn-primary">Manage Tutors</a>
+        </p>
+        <p>
+            <a href="@Url.Action("Students", "Admin")" class="btn btn-primary">Manage Students</a>
+        </p>
+    </div>
+</div>
+

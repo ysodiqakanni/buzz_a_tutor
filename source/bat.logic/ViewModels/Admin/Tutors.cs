@@ -32,5 +32,17 @@ namespace bat.logic.ViewModels.Admin
                 conn.SaveChanges();
             }
         }
+
+        public void Hidden(int id, bool status)
+        {
+            using (var conn = new dbEntities())
+            {
+                tutor = conn.Accounts.FirstOrDefault(l => l.ID == id);
+                if (this.tutor == null) throw new Exception("Account does not exist.");
+
+                tutor.Hidden = status;
+                conn.SaveChanges();
+            }
+        }
     }
 }

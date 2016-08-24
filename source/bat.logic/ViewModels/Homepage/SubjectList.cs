@@ -50,21 +50,31 @@ namespace bat.logic.ViewModels.Homepage
                                     (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count));
 
                 lessons = new List<Lesson>();
+                var tutors = new List<Account>();
+
+                tutors = conn.Accounts.Where(t => t.AccountType_ID == 2 && (t.Hidden != true && t.Disabled != true))
+                    .ToList();
 
                 if (accountId.HasValue)
                     lessons = rs.Where(l => l.LessonParticipants.All(p => p.Account_ID != accountId)).ToList();
                 else
-                    lessons = rs.ToList();              
+                    lessons = rs.ToList();
 
-                foreach (var lesson in lessons)
+                foreach (var tutor in tutors)
                 {
-                    lesson.BookingDate = logic.Rules.Timezone.ConvertFromUTC(lesson.BookingDate);
-
-                    this.classList.Add(new virtRoom
+                    foreach (var lesson in lessons)
                     {
-                        lesson = lesson,
-                        tutor = conn.Accounts.FirstOrDefault(t => t.ID == lesson.Account_ID)
-                    });
+                        if (lesson.Account_ID == tutor.ID)
+                        {
+                            lesson.BookingDate = logic.Rules.Timezone.ConvertFromUTC(lesson.BookingDate);
+
+                            this.classList.Add(new virtRoom
+                            {
+                                lesson = lesson,
+                                tutor = conn.Accounts.FirstOrDefault(t => t.ID == lesson.Account_ID)
+                            });
+                        }
+                    }
                 }
             }
         }

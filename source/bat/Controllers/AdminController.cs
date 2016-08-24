@@ -138,5 +138,66 @@ namespace bat.Controllers
                 return View("Error");
             }
         }
+
+        public ActionResult Hidden(int id, bool status)
+        {
+            var model = new logic.ViewModels.Admin.Tutors();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Hidden(id, status);
+                return RedirectToAction("Tutors", "Admin");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        public ActionResult Students()
+        {
+            var model = new logic.ViewModels.Admin.Students();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Load();
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        public ActionResult StudentStatus(int id, bool status)
+        {
+            var model = new logic.ViewModels.Admin.Students();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Save(id, status);
+                return RedirectToAction("Students", "Admin");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
     }
 }

@@ -277,3 +277,8 @@ ALTER TABLE dbo.Account ADD
 	Disabled bit NULL
 GO
 
+
+GO
+ALTER TABLE dbo.Account ADD
+	Hidden bit NULL
+GO

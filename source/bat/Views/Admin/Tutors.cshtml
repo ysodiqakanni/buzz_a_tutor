@@ -12,7 +12,7 @@
                 <th class="txt-center" colspan="2">
                     <strong>Tutor</strong>
                 </th>
-                <th class="txt-center">
+                <th class="txt-center" colspan="2">
                     <strong>Account Status</strong>
                 </th>
             </tr>
@@ -47,7 +47,20 @@
                                 Disabled
                             </a>
                         }
-
+                    </td>
+                    <td class="txt-center">
+                        @if (tutor.Hidden != true)
+                        {
+                            <a href="@Url.Action("Hidden", "Admin", new { id =  tutor.ID, status = true })" class="btn btn-lg btn-default btn-success">
+                                Visible
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Hidden", "Admin", new { id =  tutor.ID, status = false })" class="btn btn-lg btn-default btn-danger">
+                                Hidden
+                            </a>
+                        }
                     </td>
                 </tr>
             }
