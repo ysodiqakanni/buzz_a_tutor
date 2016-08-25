@@ -34,7 +34,7 @@ namespace bat.data
         public Nullable<int> Rate { get; set; }
         public string Picture { get; set; }
         public Nullable<bool> Disabled { get; set; }
-        public Nullable<bool> Hidden { get; set; }
+        public Nullable<bool> Approved { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }

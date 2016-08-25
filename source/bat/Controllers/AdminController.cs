@@ -139,7 +139,7 @@ namespace bat.Controllers
             }
         }
 
-        public ActionResult Hidden(int id, bool status)
+        public ActionResult Approve(int id, bool status)
         {
             var model = new logic.ViewModels.Admin.Tutors();
 
@@ -148,7 +148,7 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Hidden(id, status);
+                model.Approve(id, status);
                 return RedirectToAction("Tutors", "Admin");
             }
             catch (Exception ex)

@@ -9,11 +9,7 @@
         <EntityTypeShape EntityType="dbModel.LessonAttachment" Width="1.875" PointX="5.375" PointY="0.5" />
         <EntityTypeShape EntityType="dbModel.LessonParticipant" Width="1.875" PointX="5.375" PointY="4" />
         <EntityTypeShape EntityType="dbModel.ChatRecord" Width="1.5" PointX="2.875" PointY="5" />
-        <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.5" PointY="0.5" />
-        <AssociationConnector Association="dbModel.FK_FamilyMember_Account" />
-        <AssociationConnector Association="dbModel.FK_FamilyMember_Parent" />
         <EntityTypeShape EntityType="dbModel.Lesson" Width="1.75" PointX="2.875" PointY="0.5" />
-        <AssociationConnector Association="dbModel.FK_Lesson_Account" />
         <AssociationConnector Association="dbModel.FK_ChatRecord_Lesson" />
         <AssociationConnector Association="dbModel.FK_LessonAttachment_Lesson" />
         <AssociationConnector Association="dbModel.FK_LessonParticipant_Lesson" />
@@ -22,6 +18,10 @@
         <EntityTypeShape EntityType="dbModel.SubjectDescription" Width="1.875" PointX="5.375" PointY="6.5" />
         <EntityTypeShape EntityType="dbModel.SubjectExamPaper" Width="1.75" PointX="8" PointY="6.375" />
         <AssociationConnector Association="dbModel.FK_SubjectExamPaper_SubjectDescription" />
+        <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.625" PointY="0.5" />
+        <AssociationConnector Association="dbModel.FK_FamilyMember_Account" />
+        <AssociationConnector Association="dbModel.FK_FamilyMember_Parent" />
+        <AssociationConnector Association="dbModel.FK_Lesson_Account" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

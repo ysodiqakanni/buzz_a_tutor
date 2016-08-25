@@ -282,3 +282,9 @@ GO
 ALTER TABLE dbo.Account ADD
 	Hidden bit NULL
 GO
+
+GO
+EXECUTE sp_rename N'dbo.Account.Hidden', N'Tmp_Approved', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.Account.Tmp_Approved', N'Approved', 'COLUMN' 
+GO

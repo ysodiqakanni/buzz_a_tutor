@@ -18,7 +18,7 @@ namespace bat.logic.ViewModels.Homepage
             {
                 //Note to add ability to search Teachers by subject.
                 this.teachers = conn.Accounts
-                            .Where(l => l.AccountType_ID == Constants.Types.Teacher && l.Hidden != true)
+                            .Where(l => l.AccountType_ID == Constants.Types.Teacher && (l.Approved != false && l.Disabled != true))
                             .ToList();               
             }
         }

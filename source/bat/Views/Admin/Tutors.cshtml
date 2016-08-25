@@ -49,16 +49,16 @@
                         }
                     </td>
                     <td class="txt-center">
-                        @if (tutor.Hidden != true)
+                        @if (tutor.Approved != true)
                         {
-                            <a href="@Url.Action("Hidden", "Admin", new { id =  tutor.ID, status = true })" class="btn btn-lg btn-default btn-success">
-                                Visible
+                            <a href="@Url.Action("Approve", "Admin", new { id =  tutor.ID, status = true })" class="btn btn-lg btn-default btn-danger">
+                                Not approved
                             </a>
                         }
                         else
                         {
-                            <a href="@Url.Action("Hidden", "Admin", new { id =  tutor.ID, status = false })" class="btn btn-lg btn-default btn-danger">
-                                Hidden
+                            <a href="@Url.Action("Approve", "Admin", new { id =  tutor.ID, status = false })" class="btn btn-lg btn-default btn-success">
+                                Approved
                             </a>
                         }
                     </td>

@@ -33,14 +33,14 @@ namespace bat.logic.ViewModels.Admin
             }
         }
 
-        public void Hidden(int id, bool status)
+        public void Approve(int id, bool status)
         {
             using (var conn = new dbEntities())
             {
                 tutor = conn.Accounts.FirstOrDefault(l => l.ID == id);
                 if (this.tutor == null) throw new Exception("Account does not exist.");
 
-                tutor.Hidden = status;
+                tutor.Approved = status;
                 conn.SaveChanges();
             }
         }
