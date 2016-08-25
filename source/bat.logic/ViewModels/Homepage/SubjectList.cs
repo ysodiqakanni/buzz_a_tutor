@@ -60,9 +60,9 @@ namespace bat.logic.ViewModels.Homepage
                 else
                     lessons = rs.ToList();
 
-                foreach (var tutor in tutors)
+                foreach (var lesson in lessons)
                 {
-                    foreach (var lesson in lessons)
+                    foreach (var tutor in tutors)
                     {
                         if (lesson.Account_ID == tutor.ID)
                         {
@@ -73,6 +73,8 @@ namespace bat.logic.ViewModels.Homepage
                                 lesson = lesson,
                                 tutor = conn.Accounts.FirstOrDefault(t => t.ID == lesson.Account_ID)
                             });
+
+                            break;
                         }
                     }
                 }
