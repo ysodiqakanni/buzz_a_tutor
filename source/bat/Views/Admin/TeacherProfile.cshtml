@@ -1,0 +1,66 @@
+﻿@model bat.logic.ViewModels.Admin.TeacherProfile
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = ("Profile: " + Model.GetFullAccountName(Model.teacher.ID));
+}
+
+<div class="row" style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: solid;">
+    <a href="@Url.Action("Tutors", "Admin")" class="btn btn-primary pull-right">Back Tutors</a>
+    <h1>@Model.teacher.Fname @Model.teacher.Lname's Profile</h1>
+    <div class="col-md-2 col-md-offset-1">
+        @if (string.IsNullOrEmpty(Model.teacher.Picture))
+        {
+            <div class="txt-center">
+                <img style="height: 100%; width: 100%;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+            </div>
+        }
+        else {
+            <div class="txt-center">
+                <img style="height: 100%; width: 100%;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.teacher.ID, name = Model.GetFullAccountName(Model.teacher.ID)})" alt="Profile Pic" />
+            </div>
+        }
+    </div>
+    <div class="col-md-8 col-md-offset-1">
+        <p><strong>Name:</strong> @Model.GetFullAccountName(Model.teacher.ID)</p>
+        <p><strong>Email Address:</strong> @Model.teacher.Email</p>
+        <p><strong>Rate (&#163):</strong> @Model.teacher.Rate</p>
+        <div>
+            <strong>Account Status:</strong>
+            @if (Model.teacher.Disabled != true)
+            {
+                <a href="@Url.Action("TutorStatus", "Admin", new { id =  Model.teacher.ID, status = true })" class="btn btn-lg btn-default btn-success">
+                    Enabled
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("TutorStatus", "Admin", new { id =  Model.teacher.ID, status = false })" class="btn btn-lg btn-default btn-danger">
+                    Disabled
+                </a>
+            }
+        </div>
+        <div>
+            <strong>Approval:</strong>
+            @if (Model.teacher.Approved != true)
+            {
+                <a href="@Url.Action("Approve", "Admin", new { id =  Model.teacher.ID, status = true })" class="btn btn-lg btn-default btn-danger">
+                    Not approved
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("Approve", "Admin", new { id =  Model.teacher.ID, status = false })" class="btn btn-lg btn-default btn-success">
+                    Approved
+                </a>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <p><strong>Description:</strong></p>
+        <p>@Model.teacher.Description</p>
+        <p><strong>Qualifications:</strong></p>
+        <p>@Model.teacher.Qualifications</p>
+    </div>
+</div>

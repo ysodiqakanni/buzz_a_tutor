@@ -51,8 +51,8 @@ namespace bat.logic.ViewModels.Homepage
 
                 lessons = new List<Lesson>();
                 var tutors = new List<Account>();
-
-                tutors = conn.Accounts.Where(t => t.AccountType_ID == 2 && (t.Approved != false && t.Disabled != true))
+                var teacherType = (int)Constants.Types.AccountTypes.Teacher;
+                tutors = conn.Accounts.Where(t => t.AccountType_ID == teacherType && (t.Approved != false && t.Disabled != true))
                     .ToList();
 
                 if (accountId.HasValue)

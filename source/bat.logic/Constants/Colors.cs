@@ -10,5 +10,6 @@ namespace bat.logic.Constants
     {
         public const string TEACHER = "#EA8B23";
         public const string STUDENT = "#3a87ad";
+        public const string PAST = "#a3a3c2";
     }
 }

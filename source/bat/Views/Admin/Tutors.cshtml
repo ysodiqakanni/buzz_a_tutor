@@ -3,67 +3,71 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewBag.Title = "Tutors";
 }
+@section head {
+    <style>
+        .table {
+            display: table;
+            font-size: x-large;
+        }
+        .table-row 
+        { 
+            display:table-row; 
 
+        }
+        .table-cell 
+        { 
+            display:table-cell; 
+
+        }
+        .no-decoration {
+            text-decoration: none;
+        }
+    </style>
+}
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h1>Tutors</h1>
-        <table class="table" style="width:100%">
-            <tr>
-                <th class="txt-center" colspan="2">
-                    <strong>Tutor</strong>
-                </th>
-                <th class="txt-center" colspan="2">
-                    <strong>Account Status</strong>
-                </th>
-            </tr>
+        <div class="table">
+            <div class="table-row">
+                <div class="table-cell">
+                    Tutor
+                </div>
+                <div class="table-cell">
+                    Account Status
+                </div>
+                <div class="table-cell">
+                    Approval Status
+                </div>
+            </div>
             @foreach (var tutor in Model.tutors)
             {
-                <tr>
-                    <td hidden>
-                        <input id="tutor-ID" type="hidden" value="@tutor.ID" />
-                    </td>
-                    @if (string.IsNullOrEmpty(tutor.Picture))
+                <a href="@Url.Action("TeacherProfile", "Admin", new { id =  tutor.ID})" class="table-row">
+                    <div class="table-cell">@Model.GetFullAccountName(tutor.ID)</div>
+                    @if (tutor.Disabled != true)
                     {
-                        <td class="txt-center">
-                            <img style="height: 80px; width: 80px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-                        </td>
+                        <div class="table-cell" style="color:lawngreen">
+                            Enabled
+                        </div>
+                    }else
+                    {
+                        <div class="table-cell" style="color:red">
+                            Disabled
+                        </div>
                     }
-                    else {
-                        <td class="txt-center">
-                            <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = tutor.ID, name = Model.GetFullAccountName(tutor.ID)})" alt="Profile Pic" />
-                        </td>
+                    @if (tutor.Approved != true)
+                    {
+                            <div class="table-cell" style="color:red">
+                                Pending...
+                            </div>
                     }
-                    <td class="txt-center" >@Model.GetFullAccountName(tutor.ID)</td>
-                    <td class="txt-center">
-                        @if (tutor.Disabled != true)
-                        {
-                            <a href="@Url.Action("TutorStatus", "Admin", new { id =  tutor.ID, status = true })" class="btn btn-lg btn-default btn-success">
-                                Enabled
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("TutorStatus", "Admin", new { id =  tutor.ID, status = false })" class="btn btn-lg btn-default btn-danger">
-                                Disabled
-                            </a>
-                        }
-                    </td>
-                    <td class="txt-center">
-                        @if (tutor.Approved != true)
-                        {
-                            <a href="@Url.Action("Approve", "Admin", new { id =  tutor.ID, status = true })" class="btn btn-lg btn-default btn-danger">
-                                Not approved
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("Approve", "Admin", new { id =  tutor.ID, status = false })" class="btn btn-lg btn-default btn-success">
-                                Approved
-                            </a>
-                        }
-                    </td>
-                </tr>
+                    else
+                    {
+                        <div class="table-cell" style="color:lawngreen">
+                            Approved
+                        </div>
+                    }
+                </a>
             }
-        </table>
+        </div>
     </div>
 </div>

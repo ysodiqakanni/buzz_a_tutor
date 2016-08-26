@@ -129,7 +129,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Save(id, status);
-                return RedirectToAction("Tutors", "Admin");
+                return RedirectToAction("TeacherProfile", "Admin", new { id = id });
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Approve(id, status);
-                return RedirectToAction("Tutors", "Admin");
+                return RedirectToAction("TeacherProfile", "Admin", new { id = id });
             }
             catch (Exception ex)
             {
@@ -191,6 +191,26 @@ namespace bat.Controllers
 
                 model.Save(id, status);
                 return RedirectToAction("Students", "Admin");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        public ActionResult TeacherProfile(int id)
+        {
+            var model = new logic.ViewModels.Admin.TeacherProfile();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Load(id);
+                return View(model);
             }
             catch (Exception ex)
             {

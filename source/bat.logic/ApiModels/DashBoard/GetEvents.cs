@@ -46,14 +46,28 @@ namespace bat.logic.ApiModels.DashBoard
 
                         foreach (var l in lessons)
                         {
-                            calEvents.Add(new calEvent
+                            if (l.BookingDate >= DateTime.Now)
                             {
-                                id = l.ID,
-                                title = l.Subject,
-                                start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
-                                color = "#3a87ad"
+                                calEvents.Add(new calEvent
+                                {
+                                    id = l.ID,
+                                    title = l.Subject,
+                                    start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                    color = Constants.Colors.STUDENT
 
-                            });
+                                });
+                            }
+                            else
+                            {
+                                calEvents.Add(new calEvent
+                                {
+                                    id = l.ID,
+                                    title = l.Subject,
+                                    start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                    color = Constants.Colors.PAST
+
+                                });
+                            }
                         }
                         if (lessons == null)
                             throw new Exception("Lessons not found.");
@@ -66,14 +80,28 @@ namespace bat.logic.ApiModels.DashBoard
 
                         foreach (var l in ownLessons)
                         {
-                            calEvents.Add(new calEvent
+                            if (l.BookingDate >= DateTime.Now)
                             {
-                                id = l.ID,
-                                title = l.Subject,
-                                start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
-                                color = "#EA8B23"
+                                calEvents.Add(new calEvent
+                                {
+                                    id = l.ID,
+                                    title = l.Subject,
+                                    start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                    color = Constants.Colors.TEACHER
 
-                            });
+                                });
+                            }
+                            else
+                            {
+                                calEvents.Add(new calEvent
+                                {
+                                    id = l.ID,
+                                    title = l.Subject,
+                                    start = Timezone.ConvertFromUTC(l.BookingDate).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"),
+                                    color = Constants.Colors.PAST
+
+                                });
+                            }
                         }
                         if (ownLessons == null)
                             throw new Exception("Lessons not found.");
