@@ -158,6 +158,7 @@
     <Compile Include="Constants\Azure.cs" />
     <Compile Include="Constants\Colors.cs" />
     <Compile Include="Constants\Picture.cs" />
+    <Compile Include="Constants\Status.cs" />
     <Compile Include="Constants\Subjects.cs" />
     <Compile Include="Constants\TokBox.cs" />
     <Compile Include="Constants\Types.cs" />

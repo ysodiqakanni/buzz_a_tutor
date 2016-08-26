@@ -26,7 +26,9 @@ namespace bat.logic.ViewModels.Lessons
         }
 
         public bool IsTeacher =>
-            this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
+            this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher &&
+            this.account.Approved == (Boolean)Constants.Status.Approved &&
+            this.account.Disabled == (Boolean)Constants.Status.Enabled;
 
         public void Save(FormCollection frm)
         {
