@@ -159,6 +159,68 @@ namespace bat.Controllers
             }
         }
 
+
+        public ActionResult Lessons()
+        {
+            var model = new logic.ViewModels.Admin.Lessons();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Load();
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        public ActionResult Lesson(int id)
+        {
+            var model = new logic.ViewModels.Admin.Lesson();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Load(id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        public ActionResult LessonVisibility(int id, bool status)
+        {
+            var model = new logic.ViewModels.Admin.Lesson();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.LessonVisibility(id, status);
+                return RedirectToAction("Lesson", "Admin", new { id = id });
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
         public ActionResult Students()
         {
             var model = new logic.ViewModels.Admin.Students();

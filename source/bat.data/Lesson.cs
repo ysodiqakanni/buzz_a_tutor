@@ -34,6 +34,7 @@ namespace bat.data
         public string ZoomJoinUrl { get; set; }
         public string Subject { get; set; }
         public string DetailedDescription { get; set; }
+        public Nullable<bool> Hidden { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatRecord> ChatRecords { get; set; }

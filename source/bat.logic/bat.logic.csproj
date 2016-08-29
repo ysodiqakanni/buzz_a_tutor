@@ -183,6 +183,8 @@
     <Compile Include="Rules\ImageValidation.cs" />
     <Compile Include="Rules\Signup.cs" />
     <Compile Include="Rules\Timezone.cs" />
+    <Compile Include="ViewModels\Admin\Lesson.cs" />
+    <Compile Include="ViewModels\Admin\Lessons.cs" />
     <Compile Include="ViewModels\Admin\Students.cs" />
     <Compile Include="ViewModels\Admin\TeacherProfile.cs" />
     <Compile Include="ViewModels\Admin\Tutors.cs" />

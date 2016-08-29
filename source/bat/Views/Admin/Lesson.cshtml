@@ -1,0 +1,59 @@
+﻿@model bat.logic.ViewModels.Admin.Lesson
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = ("Lesson: " + Model.lesson.Description);
+}
+
+<div class="row">
+    <a href="@Url.Action("Lessons", "Admin")" class="btn btn-primary pull-right">Back Lessons</a>
+    <h1>@Model.lesson.Description</h1>
+    <div class="col-md-8 col-md-offset-1" style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: solid;">
+        <p><strong>Teacher:</strong> @Model.GetFullAccountName(Model.lesson.Account_ID)</p>
+        <p><strong>Subject:</strong> @Model.lesson.Subject</p>
+        <p><strong>Duration:</strong> @Model.lesson.DurationMins mintues</p>
+        <p><strong>Date:</strong> @Model.lesson.BookingDate.ToShortDateString()</p>
+        <p><strong>Time:</strong> @Model.lesson.BookingDate.ToShortTimeString()</p>
+            @if (Model.lesson.ClassSize != 0)
+            {
+                <p><strong>Class Size: </strong>Model.lesson.ClassSize</p>
+            }
+            else
+            {
+                <p><strong>Class Size: </strong>Open</p>
+            }
+        <div>
+            <strong>Lesson Status:</strong>
+            @if (Model.lesson.Hidden != true)
+            {
+                <a href="@Url.Action("LessonVisibility", "Admin", new { id =  Model.lesson.ID, status = true })" class="btn btn-lg btn-default btn-success">
+                    Visible
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("LessonVisibility", "Admin", new { id =  Model.lesson.ID, status = false })" class="btn btn-lg btn-default btn-danger">
+                    Hidden
+                </a>
+            }
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <p><strong>Description:</strong></p>
+        <p>@Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))</p>
+        <p><strong>Participants:</strong></p>
+        @if (Model.participants.Count > 0)
+        {
+            foreach (var participant in Model.participants)
+            {
+                <p>@Model.GetFullAccountName(participant.ID)</p>
+            }
+        }else
+        {
+            <p>Lesson is Empty</p>
+        }
+    </div>
+</div>

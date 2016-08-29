@@ -12,5 +12,7 @@ namespace bat.logic.Constants
         public const Boolean Disabled = true;
         public const Boolean Pending = false;
         public const Boolean Approved = true;
+        public const Boolean Shown = false;
+        public const Boolean Hidden = true;
     }
 }

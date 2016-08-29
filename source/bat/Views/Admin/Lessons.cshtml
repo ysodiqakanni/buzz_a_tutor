@@ -1,7 +1,7 @@
-﻿@model bat.logic.ViewModels.Admin.Tutors
+﻿@model bat.logic.ViewModels.Admin.Lessons
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    ViewBag.Title = "Lessons";
+    ViewBag.Title = "Tutors";
 }
 @section head {
     <style>
@@ -25,45 +25,42 @@
     </style>
 }
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <h1>Tutors</h1>
+    <div class="col-md-8 col-md-offset-2">
+        <h1>Lessons</h1>
         <div class="table">
             <div class="table-row">
+                <div class="table-cell">
+                    Description
+                </div>
                 <div class="table-cell">
                     Tutor
                 </div>
                 <div class="table-cell">
-                    Account Status
+                    Date
                 </div>
                 <div class="table-cell">
-                    Approval Status
+                    Time
+                </div>
+                <div class="table-cell">
+                    Status
                 </div>
             </div>
-            @foreach (var tutor in Model.tutors)
+            @foreach (var lesson in Model.lessons)
             {
-                <a href="@Url.Action("TeacherProfile", "Admin", new { id =  tutor.ID})" class="table-row">
-                    <div class="table-cell">@Model.GetFullAccountName(tutor.ID)</div>
-                    @if (tutor.Disabled != true)
+                <a href="@Url.Action("Lesson", "Admin", new { id =  lesson.ID})" class="table-row">
+                    <div class="table-cell">@lesson.Description</div>
+                    <div class="table-cell">@Model.GetFullAccountName(lesson.Account_ID)</div>
+                    <div class="table-cell">@lesson.BookingDate.ToShortDateString()</div>
+                    <div class="table-cell">@lesson.BookingDate.ToShortTimeString()</div>
+                    @if (lesson.Hidden != true)
                     {
                         <div class="table-cell" style="color:lawngreen">
-                            Enabled
+                            Shown
                         </div>
                     }else
                     {
                         <div class="table-cell" style="color:red">
-                            Disabled
-                        </div>
-                    }
-                    @if (tutor.Approved != true)
-                    {
-                            <div class="table-cell" style="color:red">
-                                Pending...
-                            </div>
-                    }
-                    else
-                    {
-                        <div class="table-cell" style="color:lawngreen">
-                            Approved
+                            Hidden
                         </div>
                     }
                 </a>

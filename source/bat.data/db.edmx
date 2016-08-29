@@ -56,6 +56,7 @@
           <Property Name="ZoomJoinUrl" Type="varchar(max)" />
           <Property Name="Subject" Type="varchar" MaxLength="500" />
           <Property Name="DetailedDescription" Type="varchar(max)" />
+          <Property Name="Hidden" Type="bit" />
         </EntityType>
         <EntityType Name="LessonAttachment">
           <Key>
@@ -348,6 +349,7 @@
           <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
           <NavigationProperty Name="LessonResources" Relationship="dbModel.FK_LessonResource_Lesson" FromRole="Lesson" ToRole="LessonResource" />
           <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
+          <Property Name="Hidden" Type="Boolean" />
         </EntityType>
         <Association Name="FK_ChatRecord_Lesson">
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
@@ -544,6 +546,7 @@
           <EntitySetMapping Name="Lessons">
             <EntityTypeMapping TypeName="dbModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
                 <ScalarProperty Name="DetailedDescription" ColumnName="DetailedDescription" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="ZoomJoinUrl" ColumnName="ZoomJoinUrl" />
