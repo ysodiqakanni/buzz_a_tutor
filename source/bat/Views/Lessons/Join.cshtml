@@ -19,7 +19,13 @@
     <div class="col-md-6">
         <div>
             <div class="pull-left">
-                <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = Model.teacher.ID, name = Model.teacher.Fname})" alt="Profile Pic" />
+                @if (string.IsNullOrEmpty(Model.account.Picture))
+                {
+                    <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+                }
+                else {
+                    <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.account.ID, name = Model.account.Fname})" alt="Profile Pic" />
+                }            
             </div>
             <div class="pull-left" style="margin-left: 20px;">
                 <p>

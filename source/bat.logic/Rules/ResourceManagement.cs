@@ -108,8 +108,8 @@ namespace bat.logic.Rules
             catch (Exception ex)
             {
                 var ignore = ex;
+                return null;
             }
-            return null;
         }
     }
 }
