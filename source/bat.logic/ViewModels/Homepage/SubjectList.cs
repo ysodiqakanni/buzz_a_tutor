@@ -55,7 +55,7 @@ namespace bat.logic.ViewModels.Homepage
                 var disabled = Constants.Status.Disabled;
                 var approved = Constants.Status.Approved;
                 var hidden = Constants.Status.Hidden;
-                tutors = conn.Accounts.Where(t => t.AccountType_ID == teacherType && (t.Approved == approved && t.Disabled == disabled))
+                tutors = conn.Accounts.Where(t => t.AccountType_ID == teacherType && (t.Approved == approved && t.Disabled != disabled))
                     .ToList();
 
                 if (accountId.HasValue)
