@@ -14,19 +14,27 @@
         <div id="board-top">
             <div class="fleft">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Attachment <span class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">File <span class="caret"></span></button>
+                    <ul class="dropdown-menu file-menu" role="menu">
+                        <li class="center">
+                            <button onclick="defaultBoard()" type="button" style="width: 80%;" class="btn">New</button>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="center">
+                            <button onclick="clearBoard()" type="button" style="width: 80%;" class="btn">Clear</button>
+                        </li>
+                        <li class="divider"></li>
                         <li>Upload:</li>
                         @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             <li>
-                                <label data-keepOpenOnClick for="data">File:</label>
-                                <input data-keepOpenOnClick type="file" name="data" id="data" />
-                            </li>
-                            <li>
                                 <label data-keepOpenOnClick for="title">Title:</label>
                                 <input data-keepOpenOnClick type="text" name="title" id="title" />
                                 <input data-keepOpenOnClick type="submit" />
+                            </li>
+                            <li>
+                                <label data-keepOpenOnClick for="data">File:</label>
+                                <input data-keepOpenOnClick type="file" name="data" id="data" />
                             </li>
                         }
                         <li class="divider"></li>
@@ -56,16 +64,12 @@
                         }
                     </ul>
                 </div>
-            </div>
-
-            <div class="fright">
-                <div class="bb-slider-div">
-                    <label for="lWSlider">Line Width:</label>
-                    <input type="range" id="lWSlider" onchange="changeLW(lWSlider.value)" value="3" min="1" max="5" />
                 </div>
+            <div class="fright">
+                <label for="lWSlider">Line Width:</label>
+                <input type="range" id="lWSlider" onchange="changeLW(lWSlider.value)" value="3" min="1" max="5" />
+                <label for="lWSlider">Chalk Colour:</label>
                 <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
-                <button onclick="defaultBoard()" type="button" class="btn btn-primary">New</button>
-                <button onclick="clearBoard()" type="button" class="btn btn-primary">Clear</button>
             </div>
         </div>
         <div id="board-inner">

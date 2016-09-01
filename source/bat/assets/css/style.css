@@ -3157,7 +3157,7 @@ body.side-push-panel.side-panel-open:not(.device-xxs):not(.device-xs):not(.devic
 #board-top {
 	width: 100%;
 	background: #703641;
-	height:50px;
+	height:40px;
 }
 #board-inner {
 	width: 100%;

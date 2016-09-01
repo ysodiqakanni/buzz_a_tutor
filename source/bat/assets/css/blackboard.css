@@ -56,15 +56,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcc00c', end
     cursor: pointer;
 }
 
-.bb-slider-div {
-    font-family: "Lato", sans-serif;
-    display: inline-flex;
-    color: white;
-    background-color: #C66921;
-    padding: 2px;
-    border-radius: 4px;
-}
-.bb-slider-div label {
-    display: inline;
-    margin-bottom: 0px;
+.bb-slider {
+    display: inline-block;
+    width: 30%;
 }
