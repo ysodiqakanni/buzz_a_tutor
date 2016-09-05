@@ -52,7 +52,8 @@ namespace bat
         public void JoinGroup(string groupName, string name)
         {
             Groups.Add(Context.ConnectionId, groupName);
-            Clients.Group(groupName).broadcastMessage("Classroom", name + " has joined.");
+            Save(groupName, "Classroom", name + " has joined.");
+            Clients.Group(groupName).broadcastMessage("Classroom", name + " has joined.");          
         }
 
 
@@ -60,11 +61,16 @@ namespace bat
         {
             // Call the broadcastMessage method to update clients.
             Clients.Group(message.GroupName).broadcastMessage(message.Name, message.Msg);
+            Save(message.GroupName, message.Name, message.Msg);
+        }
 
+
+        public void Save(string groupName, string name, string message)
+        {
             // Save message to DB
             using (var conn = new dbEntities())
             {
-                var id = Int32.Parse(message.GroupName);
+                var id = Int32.Parse(groupName);
 
                 this.lesson = conn.Lessons.FirstOrDefault(a => a.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
@@ -72,8 +78,8 @@ namespace bat
                 this.chatRecord = new ChatRecord()
                 {
                     Lesson_ID = id,
-                    Chat_User = message.Name,
-                    Char_Message = message.Msg,
+                    Chat_User = name,
+                    Char_Message = message,
                     DateTime = DateTime.Now.ToUniversalTime(),
                 };
                 conn.ChatRecords.Add(this.chatRecord);
@@ -81,6 +87,7 @@ namespace bat
             }
         }
     }
+
 
     public class MyMessage
     {

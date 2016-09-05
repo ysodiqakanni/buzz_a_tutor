@@ -2,6 +2,7 @@
 $(function () {
     // Declare a proxy to reference the hub.
     var chat = $.connection.chatHub;
+    var getChatPath = $("#getChatHistoryPath").val();
 
     // Create a function that the hub can call to broadcast messages.
     chat.client.broadcastMessage = function (name, message) {
@@ -16,9 +17,32 @@ $(function () {
     // Get the user name and store it to prepend to messages.
     var displayname = username;
 
-    // Start the connection.
-    $.connection.hub.start().done(function () {
+    // Get Chat's History
+    $.ajax({
+        type: "GET", // Type of request
+        url: getChatPath, //The controller/Action
+        dataType: "json",
+        data: {
+            "lessonId": lessonId
+        },
+        success: function (data) {
+            var message = JSON.parse(data);
+            for (i = 0; i < message.length; i++) {
+                // Html encode display name and message.
+                var encodedName = $('<div />').text(message[i].name).html();
+                var encodedMsg = $('<div />').text(message[i].msg).html();
+                // Add the message to the page.
+                $('#discussion').prepend('<li class="chatMessage"><strong>' + encodedName
+                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+            }
+        },
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    });
 
+    // Start the connection.
+    $.connection.hub.start().done(function () {       
         // Join the Lesson's Chat room
         chat.server.joinGroup(lessonId, displayname);
 

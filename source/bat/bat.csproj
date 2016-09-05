@@ -236,6 +236,7 @@
     <Content Include="assets\css\batstickyfoot.css" />
     <Content Include="assets\css\batmain.css" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\api\ChatApiController.cs" />
     <Compile Include="Controllers\api\DashBoardApiController.cs" />
     <Compile Include="Controllers\api\LessonsApiController.cs" />
     <Compile Include="Controllers\api\ProfilePictureApiController.cs" />
@@ -502,6 +503,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Views\ChatAPI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

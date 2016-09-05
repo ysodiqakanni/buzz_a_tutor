@@ -152,6 +152,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\Chat\Chat.cs" />
     <Compile Include="ApiModels\DashBoard\GetDay.cs" />
     <Compile Include="ApiModels\DashBoard\GetEvents.cs" />
     <Compile Include="Constants\AdminLogin.cs" />

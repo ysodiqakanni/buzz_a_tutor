@@ -35,21 +35,6 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <p>
-            <strong>
-                @Model.lesson.Subject
-            </strong>
-        </p>
-        <p>
-            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-        </p>
-        <p>
-            Duration mins: @Model.lesson.DurationMins
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Class size: @Model.lesson.ClassSize
-        </p>
-    </div>
     <div class="col-md-3">
         <p>
             <strong>
@@ -65,7 +50,21 @@
             }
             <br />
             @Model.host.Fname @Model.host.Lname
-
+        </p>
+    </div>
+    <div class="col-md-4">
+        <p>
+            <strong>
+                @Model.lesson.Subject
+            </strong>
+        </p>
+        <p>
+            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+        </p>
+        <p>
+            Duration mins: @Model.lesson.DurationMins
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Class size: @Model.lesson.ClassSize
         </p>
     </div>
     <div class="col-md-3">
@@ -97,6 +96,7 @@
         <div>
             @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
         </div>
+        @Html.Partial("_PartialChatBox", Model)
         <div>
             <table class="table">
                 <tr>

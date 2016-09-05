@@ -40,6 +40,12 @@ namespace bat
                 routeTemplate: "api/dashboard/getday",
                 defaults: new { controller = "DashBoardApi", action = "Getday" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "api/chat/gethistory",
+                routeTemplate: "api/chat/gethistory",
+                defaults: new { controller = "ChatApi", action = "GetChatHistory" }
+            );
         }
     }
 }

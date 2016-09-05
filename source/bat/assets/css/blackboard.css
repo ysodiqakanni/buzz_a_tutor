@@ -56,7 +56,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcc00c', end
     cursor: pointer;
 }
 
-.bb-slider {
+#lWSlider {
     display: inline-block;
     width: 30%;
 }
