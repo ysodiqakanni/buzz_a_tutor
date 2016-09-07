@@ -374,6 +374,7 @@
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\moment-timezone.js" />
     <Content Include="assets\js\moment.min.js" />
+    <Content Include="assets\js\pdfConvert.js" />
     <Content Include="assets\js\plugins.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />
@@ -393,6 +394,9 @@
     <Content Include="assets\vendor\magnific-popup\jquery.magnific-popup.js" />
     <Content Include="assets\vendor\magnific-popup\jquery.magnific-popup.min.js" />
     <Content Include="assets\vendor\magnific-popup\magnific-popup.css" />
+    <Content Include="assets\vendor\pdf.js\build\pdf.js" />
+    <Content Include="assets\vendor\pdf.js\build\pdf.worker.js" />
+    <Content Include="assets\vendor\pdf.js\LICENSE" />
     <Content Include="assets\vendor\respond.min.js" />
     <Content Include="assets\vendor\retina.js" />
     <Content Include="assets\vendor\scrollreveal\scrollreveal.js" />

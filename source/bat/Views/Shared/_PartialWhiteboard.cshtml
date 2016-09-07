@@ -39,6 +39,11 @@
                             </li>
                         }
                         <li class="divider"></li>
+                        <li>Upload:</li>
+                        <li>
+                            <input type="file" name="data" id="pdfData" />
+                        </li>
+                        <li class="divider"></li>
                         <li>Save the board:</li>
                         <li id="imgSaveSuccess" class="hidden">
                             <i class="fa fa-check"></i>
@@ -84,4 +89,5 @@
 
 @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
 @Scripts.Render("~/signalr/hubs")
+@Scripts.Render("~/assets/vendor/pdf.js/build/pdf.js")
 @Scripts.Render("~/assets/js/blackboard.js")
