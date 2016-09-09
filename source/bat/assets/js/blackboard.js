@@ -190,32 +190,6 @@ function saveImg(lessonId) {
 }
 // End of Save image function
 
-// Load image from pdf function
-function loadPDF() {
-    PDFJS.workerSrc = '../vendor/build/pdf.worker.js';
-    //Step 1: Get the file from the input element                
-    $('#pdfData').onchange = function (event) {
-        console.log("a pdf has been added");
-        var file = event.target.files[0];
-
-        //Step 2: Read the file using file reader
-        var fileReader = new FileReader();  
-
-        fileReader.onload = function() {
-
-            //Step 4:turn array buffer into typed array
-            var typedarray = new Uint8Array(this.result);
-
-            //Step 5:PDFJS should be able to read this
-            PDFJS.getDocument(typedarray).then(function(pdf) {
-                // do stuff
-                console.log(pdf);
-            });
-        }
-    }
-}
-// End of Load image from pdf function
-
 // Load image function
 function loadImg(id) {
     useImg = true;
@@ -249,42 +223,3 @@ function defaultBoard() {
     clearBoard();
 }
 // End of Default Board
-
-$("document").ready(function () {
-    $("#pdfData").change(function(event) {
-        var file = event.target.files[0];
-        //Step 2: Read the file using file reader
-        var fileReader = new FileReader();
-        fileReader.onload = function () {
-            //Step 4:turn array buffer into typed array
-            var typedarray = new Uint8Array(this.result);
-            //Step 5:PDFJS should be able to read this
-            PDFJS.getDocument(typedarray).then(function (pdf) {
-                // do stuff
-                pdf.getPage(1).then(function getPageHelloWorld(page) {
-                    var scale = 1.5;
-                    var viewport = canvas.width / page.getViewport(1.0).width;
-                    //
-                    // Prepare canvas using PDF page dimensions
-                    //
-                    var canvas = document.getElementById('canvas');
-                    var context = canvas.getContext('2d');
-                    canvas.width = blackboardWidth;
-                    canvas.height = blackboardHeight;
-
-                    //
-                    // Render PDF page into canvas context
-                    //
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                })
-            });
-        }
-
-        //Step 3:Read the file as ArrayBuffer
-        fileReader.readAsArrayBuffer(file);
-    });
-});
