@@ -10825,7 +10825,7 @@ body:not(.device-touch) .text-overlay {
 	-webkit-transition: border-color ease-in-out .15s;
 	-o-transition: border-color ease-in-out .15s;
 	transition: border-color ease-in-out .15s;
-	z-index: 999999999999999999;
+	z-index: 2;
 	position:relative;
 }
 
