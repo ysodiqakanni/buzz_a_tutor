@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>bat.logic</RootNamespace>
     <AssemblyName>bat.logic</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,8 +97,8 @@
       <HintPath>..\packages\WindowsAzure.Storage.7.1.2\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OpenTok, Version=2.3.5599.34963, Culture=neutral, processorArchitecture=MSIL">
@@ -108,6 +109,14 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SendGrid, Version=8.0.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.8.0.4\lib\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.CSharp.HTTP.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=79219bf4e5ecaaca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.CSharp.HTTP.Client.3.0.0\lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Shearnie.Net, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Shearnie.Net.1.8\lib\net45\Shearnie.Net.dll</HintPath>
       <Private>True</Private>
@@ -115,6 +124,11 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
@@ -159,6 +173,7 @@
     <Compile Include="Constants\Azure.cs" />
     <Compile Include="Constants\Colors.cs" />
     <Compile Include="Constants\Picture.cs" />
+    <Compile Include="Constants\SendGrid.cs" />
     <Compile Include="Constants\Status.cs" />
     <Compile Include="Constants\Subjects.cs" />
     <Compile Include="Constants\TokBox.cs" />
@@ -168,6 +183,7 @@
     <Compile Include="Helpers\AzureStorage\AzureBlobStorage.cs" />
     <Compile Include="Helpers\AzureStorage\StoredResources.cs" />
     <Compile Include="Helpers\DateTimeExtensions.cs" />
+    <Compile Include="Helpers\Emailer.cs" />
     <Compile Include="Helpers\Numbers.cs" />
     <Compile Include="Helpers\PasswordStorage.cs" />
     <Compile Include="Rules\ExamPapers.cs" />
@@ -190,6 +206,8 @@
     <Compile Include="ViewModels\Admin\TeacherProfile.cs" />
     <Compile Include="ViewModels\Admin\Tutors.cs" />
     <Compile Include="ViewModels\Homepage\Dashboard.cs" />
+    <Compile Include="ViewModels\Homepage\ResetPassword.cs" />
+    <Compile Include="ViewModels\Homepage\ForgotPassword.cs" />
     <Compile Include="ViewModels\Homepage\Landing.cs" />
     <Compile Include="Models\Lessons\Attachment.cs" />
     <Compile Include="ViewModels\Homepage\Register.cs" />

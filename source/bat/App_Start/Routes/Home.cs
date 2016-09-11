@@ -30,6 +30,18 @@ namespace bat.Routes
             );
 
             routes.MapRoute(
+                name: "forgotpassword",
+                url: "forgotpassword",
+                defaults: new { controller = "Home", action = "ForgotPassword" }
+            );
+
+            routes.MapRoute(
+                name: "resetpassword",
+                url: "resetpassword",
+                defaults: new { controller = "Home", action = "ResetPassword" }
+            );
+
+            routes.MapRoute(
                 name: "loginsignup",
                 url: "loginsignup",
                 defaults: new { controller = "Home", action = "LoginSignup" }

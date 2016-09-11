@@ -293,3 +293,11 @@ GO
 ALTER TABLE dbo.Lesson ADD
 	Hidden bit NULL
 GO
+
+
+
+ALTER TABLE dbo.Account ADD
+	ChangePasswordToken varchar(500) NULL,
+	ChangePasswordTokenExpiry datetime NULL
+GO
+

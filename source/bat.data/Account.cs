@@ -35,6 +35,8 @@ namespace bat.data
         public string Picture { get; set; }
         public Nullable<bool> Disabled { get; set; }
         public Nullable<bool> Approved { get; set; }
+        public string ChangePasswordToken { get; set; }
+        public Nullable<System.DateTime> ChangePasswordTokenExpiry { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }
