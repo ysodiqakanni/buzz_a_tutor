@@ -172,7 +172,7 @@ namespace bat.Controllers
             try
             {
                 var model = new bat.logic.ViewModels.Homepage.ForgotPassword();
-                model.SetToken(txtUsername, Request.Url.AbsoluteUri.Replace("ForgotPassword", "ResetPassword"));
+                model.SetToken(txtUsername, Request.Url.AbsoluteUri.ToLower().Replace("forgotpassword", "resetpassword"));
                 ViewBag.Response = "Please check your email for your password reset link.";
             }
             catch (Exception ex)
