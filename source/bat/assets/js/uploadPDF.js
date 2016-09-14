@@ -59,6 +59,16 @@ function savePDF(lessonId) {
             },
 
             success: function (data) {
+                // clear canvas
+
+                // update list
+                $("#attachment-list").empty()
+                $(jQuery.parseJSON(data)).each(function () {
+                    var id = this.id;
+                    var title = this.title;
+                    var attachmentBtn = '<button onclick="loadImg(' + id + ')">' + title + '</button>';
+                    $("#attachment-list").append(attachmentBtn);
+                });
                 $('#myModal').modal('toggle');
             },
 
