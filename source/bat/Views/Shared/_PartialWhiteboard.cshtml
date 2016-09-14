@@ -58,14 +58,14 @@
                         </li>
                         <li class="divider"></li>
                         <li>Load an image:</li>
-                        @foreach (var attachment in Model.attachments)
-                        {
-                            <li>
+                        <li id="attachment-list">
+                            @foreach (var attachment in Model.attachments)
+                            {
                                 <button onclick="loadImg('@attachment.ID')">
                                     @attachment.Title
                                 </button>
-                            </li>
-                        }
+                            }
+                        </li>
                     </ul>
                 </div>
                 </div>
