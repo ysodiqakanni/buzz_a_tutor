@@ -13062,3 +13062,11 @@ body:not(.no-transition) #wrapper,
 	color: black;
 	list-style-type: none;
 }
+
+.left-bump{
+    margin-left:40px;
+}
+
+footer p {
+    margin-bottom: 0px;
+}
