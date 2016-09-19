@@ -1,4 +1,66 @@
-﻿// Set up connection the Blackboard Hub
+﻿//Load Preview of upload item
+// Sets up input event on document load. 
+$("document").ready(function () {
+    $("#pdfData").change(function (event) {
+        var file = event.target.files[0];
+        var fileName = file.name;
+        var fileExt = fileName.split('.').pop().toLowerCase();
+        if (fileExt == "pdf") {
+            //Step 2: Read the file using file reader
+            var fileReader = new FileReader();
+            fileReader.onload = function () {
+                //Step 4:turn array buffer into typed array
+                var typedarray = new Uint8Array(this.result);
+                //Step 5:PDFJS should be able to read this
+                PDFJS.getDocument(typedarray).then(function (pdf) {
+                    pdf.getPage(1).then(function getPageHelloWorld(page) {
+                        //
+                        // Prepare canvas using PDF page dimensions
+                        //
+                        var scale = 0.8;
+                        var context = previewCanvas.getContext('2d');
+                        var viewport = page.getViewport(scale);
+                        previewCanvas.width = viewport.width;
+                        previewCanvas.height = viewport.height;
+                        //
+                        // Render PDF page into canvas context
+                        //
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                        $('#myModalLabel').val(fileName);
+                        $('#myModal').modal();
+                    })
+                });
+            }
+            //Step 3:Read the file as ArrayBuffer
+            fileReader.readAsArrayBuffer(file);
+        } else if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif") {
+            var fileReader = new FileReader();
+            fileReader.addEventListener("load", function () {
+                var context = previewCanvas.getContext('2d');
+                previewCanvas.width = 568;
+                previewCanvas.height = 600;
+                var img = new Image();
+                img.src = fileReader.result;
+                img.onload = function () {
+                    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+                $('#myModalLabel').val(fileName);
+                $('#myModal').modal();
+            }, false);
+
+            //Step 3:Read the file as ArrayBuffer
+            fileReader.readAsDataURL(file);
+        } else {
+            //Not accepted format
+        }
+    });
+});
+
+// Set up connection the Blackboard Hub
 var blackboardHub = $.connection.blackboardHub,
     $bb = $('#canvas'),
     //// Send a maximum of 10 messages per second
@@ -200,7 +262,6 @@ function saveImg(lessonId) {
 // Load image function
 function loadImg(id) {
     useImg = true;
-
     $.ajax({
         type: "POST", // Type of request
         url: "../api/lessons/getattachment", //The controller/Action
@@ -208,13 +269,10 @@ function loadImg(id) {
         data: {
             "attachmentid": id
         },
-
         success: function (data) {
-            console.log("get image stream succesful");
             imgData = data
             clearBoard();
         },
-
         error: function (err) {
             console.log("error[" + err.status + "]: " + err.statusText);
 //            $('#imgSaveFail').removeClass('hidden');
@@ -230,3 +288,57 @@ function defaultBoard() {
     clearBoard();
 }
 // End of Default Board
+
+// Save image function
+function savePDF(lessonId) {
+    var img2SaveRaw = previewCanvas.toDataURL('image/png'),
+        img2SaveArray = img2SaveRaw.split(','),
+        img2Save = img2SaveArray[1],
+        title = $('#myModalLabel').val();
+
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/upload", //The controller/Action
+        dataType: "json",
+        data: {
+            "lessonid": lessonId,
+            "title": title,
+            "data": img2Save,
+        },
+
+        success: function (data) {
+            // clear canvas
+
+            // update list
+            $("#attachment-list").empty()
+            $(jQuery.parseJSON(data)).each(function () {
+                var id = this.id;
+                var title = this.title;
+                var attachmentBtn = '<button onclick="loadImg(' + id + ')">' + title + '</button>';
+                $("#attachment-list").append(attachmentBtn);
+            });
+            $('#myModal').modal('toggle');
+        },
+
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    })
+}
+// End of Save image function
+
+// Save Preview canvas
+function saveCanvas() {
+    var img2SaveRaw = canvas.toDataURL('image/png')
+    var context = previewCanvas.getContext('2d');
+    previewCanvas.width = blackboardWidth;
+    previewCanvas.height = blackboardHeight;
+    var img = new Image();
+    img.src = img2SaveRaw;
+    img.onload = function () {
+        context.drawImage(img, 0, 0, previewCanvas.width, previewCanvas.height);
+    };
+    $('#myModalLabel').val('Blackboard');
+    $('#myModal').modal();
+}
+// End of Save Preview Canvas

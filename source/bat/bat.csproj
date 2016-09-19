@@ -376,7 +376,6 @@
     <Content Include="assets\js\moment.min.js" />
     <Content Include="assets\js\pdfConvert.js" />
     <Content Include="assets\js\plugins.js" />
-    <Content Include="assets\js\uploadPDF.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
@@ -508,7 +507,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Views\ChatAPI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

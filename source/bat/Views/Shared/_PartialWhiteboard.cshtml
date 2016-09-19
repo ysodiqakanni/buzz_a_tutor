@@ -11,57 +11,34 @@
     <div id="board-wrap">
         <input id="getChatHistoryPath" type="hidden" value="@Url.HttpRouteUrl("api/chat/gethistory", new { controller = "ChatApi", action = "GetChatHistory" })" />
         <div id="board-top">
+            @if (Model.account.ID == Model.lesson.Account_ID)
+            {
             <div class="fleft">
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">File <span class="caret"></span></button>
                     <ul class="dropdown-menu file-menu" role="menu">
-                        <li class="center">
-                            <button onclick="defaultBoard()" type="button" style="width: 80%;" class="btn">New</button>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="center">
-                            <button onclick="clearBoard()" type="button" style="width: 80%;" class="btn">Clear</button>
-                        </li>
-                        <li class="divider"></li>
-                        <li>Upload:</li>
-                        @using (Html.BeginForm("Upload", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            <li>
-                                <label data-keepOpenOnClick for="title">Title:</label>
-                                <input data-keepOpenOnClick type="text" name="title" id="title" />
-                                <input data-keepOpenOnClick type="submit" />
-                            </li>
-                            <li>
-                                <label data-keepOpenOnClick for="data">File:</label>
-                                <input data-keepOpenOnClick type="file" name="data" id="data" />
-                            </li>
-                        }
-                        <li class="divider"></li>
-                        <li>Upload:</li>
                         <li>
-                            <input type="file" name="data" id="pdfData" />
-                        </li>
-                        <li class="divider"></li>
-                        <li>Save the board:</li>
-                        <li id="imgSaveSuccess" class="hidden">
-                            <i class="fa fa-check"></i>
-                        </li>
-                        <li id="imgSaveFail" class="hidden">
-                            <i class="fa fa-exclamation-triangle"></i>
-                        </li>
-                        <li>
-                            <form>
-                                <label data-keepOpenOnClick for="saveTitle">Title:</label>
-                                <input data-keepOpenOnClick type="text" id="saveTitle" name="saveTitle">
-                                <input data-keepOpenOnClick type="button" onclick="saveImg('@Model.lesson.ID')" value="Save">
-                            </form>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-1">
+                                    <button onclick="defaultBoard()" type="button" class="btn btn-primary"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="max-width: inherit;" for="pdfData" class="btn btn-primary">
+                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                    </label>                                    
+                                    <input type="file" style="display:none" name="data" id="pdfData" />
+                                </div>
+                                <div class="col-md-3">
+                                    <button onclick="saveCanvas()" type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                         </li>
                         <li class="divider"></li>
                         <li>Load an image:</li>
                         <li id="attachment-list">
                             @foreach (var attachment in Model.attachments)
                             {
-                                <button onclick="loadImg('@attachment.ID')">
+                                <button class="btn btn-link" onclick="loadImg('@attachment.ID')">
                                     @attachment.Title
                                 </button>
                             }
@@ -69,6 +46,7 @@
                     </ul>
                 </div>
                 </div>
+            }
             <div class="fright">
                 <label for="lWSlider">Line Width:</label>
                 <input type="range" id="lWSlider" class="bb-slider" onchange="changeLW(lWSlider.value)" value="3" min="1" max="5" />
@@ -90,7 +68,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Upload PDF</h4>
+                    <input type="text" class="modal-title" id="myModalLabel">
                 </div>
                 <div class="modal-body">
                     <div id="pdfContainer" style="width:100%;">
