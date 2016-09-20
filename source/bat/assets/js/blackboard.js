@@ -1,6 +1,13 @@
-﻿//Load Preview of upload item
-// Sets up input event on document load. 
+﻿var previewCanvas = document.getElementById("previewCanvas");
 $("document").ready(function () {
+    $(function () {
+        $('#attachment-list').slimScroll({
+            height: '250px'
+        });
+    });
+    //Load Preview of upload item
+    previewCanvas 
+    // Sets up input event on document load.
     $("#pdfData").change(function (event) {
         var file = event.target.files[0];
         var fileName = file.name;
@@ -30,7 +37,7 @@ $("document").ready(function () {
                             viewport: viewport
                         };
                         page.render(renderContext);
-                        $('#myModalLabel').val(fileName);
+                        $('#previewTitle').val(fileName);
                         $('#myModal').modal();
                     })
                 });
@@ -48,7 +55,7 @@ $("document").ready(function () {
                 img.onload = function () {
                     context.drawImage(img, 0, 0, canvas.width, canvas.height);
                 };
-                $('#myModalLabel').val(fileName);
+                $('#previewTitle').val(fileName);
                 $('#myModal').modal();
             }, false);
 
@@ -244,7 +251,7 @@ function saveImg(lessonId) {
                 $(jQuery.parseJSON(data)).each(function () {
                     var id = this.id;
                     var title = this.title;
-                    var attachmentBtn = '<button onclick="loadImg(' + id + ')">' + title + '</button>';
+                    var attachmentBtn = '<button class="btn btn-link btn-block" onclick="loadImg(' + id + ')">' + title + '</button>';
                     $("#attachment-list").append(attachmentBtn);
                 });
                 $('#imgSaveSuccess').removeClass('hidden');
@@ -294,7 +301,7 @@ function savePDF(lessonId) {
     var img2SaveRaw = previewCanvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
-        title = $('#myModalLabel').val();
+        title = $('#previewTitle').val();
 
     $.ajax({
         type: "POST", // Type of request
@@ -314,7 +321,7 @@ function savePDF(lessonId) {
             $(jQuery.parseJSON(data)).each(function () {
                 var id = this.id;
                 var title = this.title;
-                var attachmentBtn = '<button onclick="loadImg(' + id + ')">' + title + '</button>';
+                var attachmentBtn = '<button class="btn btn-link btn-block" onclick="loadImg('+ id +')">' + title + '</button>';
                 $("#attachment-list").append(attachmentBtn);
             });
             $('#myModal').modal('toggle');
@@ -338,7 +345,7 @@ function saveCanvas() {
     img.onload = function () {
         context.drawImage(img, 0, 0, previewCanvas.width, previewCanvas.height);
     };
-    $('#myModalLabel').val('Blackboard');
+    $('#previewTitle').val('Blackboard');
     $('#myModal').modal();
 }
 // End of Save Preview Canvas

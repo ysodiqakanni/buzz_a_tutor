@@ -390,6 +390,8 @@
     <Content Include="assets\vendor\font-awesome\css\font-awesome.css" />
     <Content Include="assets\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Include="assets\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\vendor\jQuery-slimScroll-1.3.8\jquery.slimscroll.js" />
+    <Content Include="assets\vendor\jQuery-slimScroll-1.3.8\jquery.slimscroll.min.js" />
     <Content Include="assets\vendor\jquery.tinymce.min.js" />
     <Content Include="assets\vendor\magnific-popup\jquery.magnific-popup.js" />
     <Content Include="assets\vendor\magnific-popup\jquery.magnific-popup.min.js" />
