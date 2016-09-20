@@ -35,7 +35,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <h4 class="center">Load an image:</h4>
+                            <h4 class="center no-margin">Load an image:</h4>
                             <div id="attachment-list" class="center">
                                 @foreach (var attachment in Model.attachments)
                                 {
@@ -65,7 +65,7 @@
     <div class="shadow2"><img style="width:100%" src="@Url.Content("~/assets/img/shadow.png")"></div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="savePDF('@Model.lesson.ID')">Upload Image</button>
+                    <button type="button" class="btn btn-primary" onclick="savePreview('@Model.lesson.ID')">Upload Image</button>
                 </div>
             </div>
         </div>

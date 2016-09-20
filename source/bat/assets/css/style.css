@@ -13070,3 +13070,7 @@ body:not(.no-transition) #wrapper,
 footer p {
     margin-bottom: 0px;
 }
+
+.no-margin {
+    margin: 0px;
+}
