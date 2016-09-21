@@ -22,6 +22,8 @@
           <Property Name="Picture" Type="varchar(max)" />
           <Property Name="Disabled" Type="bit" />
           <Property Name="Approved" Type="bit" />
+          <Property Name="ChangePasswordToken" Type="varchar" MaxLength="500" />
+          <Property Name="ChangePasswordTokenExpiry" Type="datetime" />
         </EntityType>
         <EntityType Name="ChatRecord">
           <Key>
@@ -348,8 +350,8 @@
           <NavigationProperty Name="LessonAttachments" Relationship="dbModel.FK_LessonAttachment_Lesson" FromRole="Lesson" ToRole="LessonAttachment" />
           <NavigationProperty Name="LessonParticipants" Relationship="dbModel.FK_LessonParticipant_Lesson" FromRole="Lesson" ToRole="LessonParticipant" />
           <NavigationProperty Name="LessonResources" Relationship="dbModel.FK_LessonResource_Lesson" FromRole="Lesson" ToRole="LessonResource" />
-          <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
           <Property Name="Hidden" Type="Boolean" />
+          <NavigationProperty Name="Account" Relationship="dbModel.FK_Lesson_Account" FromRole="Lesson" ToRole="Account" />
         </EntityType>
         <Association Name="FK_ChatRecord_Lesson">
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
@@ -457,6 +459,8 @@
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Disabled" Type="Boolean" />
           <Property Name="Approved" Type="Boolean" />
+          <Property Name="ChangePasswordToken" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ChangePasswordTokenExpiry" Type="DateTime" Precision="3" />
           <NavigationProperty Name="FamilyMembers" Relationship="dbModel.FK_FamilyMember_Account" FromRole="Account" ToRole="FamilyMember" />
           <NavigationProperty Name="FamilyMembers1" Relationship="dbModel.FK_FamilyMember_Parent" FromRole="Account" ToRole="FamilyMember" />
           <NavigationProperty Name="Lessons" Relationship="dbModel.FK_Lesson_Account" FromRole="Account" ToRole="Lesson" />
@@ -593,6 +597,8 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="dbModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="ChangePasswordTokenExpiry" ColumnName="ChangePasswordTokenExpiry" />
+                <ScalarProperty Name="ChangePasswordToken" ColumnName="ChangePasswordToken" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="Disabled" ColumnName="Disabled" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />

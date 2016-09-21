@@ -52,11 +52,14 @@
                         <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
                     </div>
 
-                        <div style="overflow: auto; margin-top: 40px;">
-                            <button type="submit" class="btn btn-primary pull-right">
-                                Log In
-                            </button>
-                        </div>
+                    <div style="overflow: auto; margin-top: 40px;">
+                        <p style="margin-top: 40px;">
+                            <a href="@Url.Action("ForgotPassword")" class="pull-left">Forgot password?</a>
+                        </p>
+                        <button type="submit" class="btn btn-primary pull-right">
+                            Log In
+                        </button>
+                    </div>
 
                     if (ViewBag.LoginErrMsg != null)
                     {

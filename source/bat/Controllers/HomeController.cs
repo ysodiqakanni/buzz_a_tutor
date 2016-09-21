@@ -8,6 +8,7 @@ using bat.logic.Constants;
 using Elmah;
 using Microsoft.AspNet.Identity;
 using bat.data;
+using bat.logic.ViewModels.Homepage;
 
 namespace bat.Controllers
 {
@@ -149,7 +150,80 @@ namespace bat.Controllers
             else
             {
                 return RedirectToRoute("home");
-            }            
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            ViewData.Clear();
+            TempData.Clear();
+            Session.Clear();
+            var auth = new logic.Rules.Authentication(Request.GetOwinContext());
+            auth.Logout();
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult ForgotPassword(string txtUsername)
+        {
+            try
+            {
+                var model = new bat.logic.ViewModels.Homepage.ForgotPassword();
+                model.SetToken(txtUsername, Request.Url.AbsoluteUri.ToLower().Replace("forgotpassword", "resetpassword"));
+                ViewBag.Response = "Please check your email for your password reset link.";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrMsg = ex.Message;
+            }
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string t)
+        {
+            var model = new bat.logic.ViewModels.Homepage.ResetPassword();
+
+            try
+            {
+                ViewData.Clear();
+                TempData.Clear();
+                Session.Clear();
+                var auth = new logic.Rules.Authentication(Request.GetOwinContext());
+                auth.Logout();
+
+                model.VerifyToken(t);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Response = ex.Message;
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult ResetPassword(string token, string txtPassword1, string txtPassword2)
+        {
+            var model = new bat.logic.ViewModels.Homepage.ResetPassword();
+
+            try
+            {
+                var account = model.ChangePassword(token, txtPassword1, txtPassword2);
+
+                var auth = new logic.Rules.Authentication(Request.GetOwinContext());
+                auth.Login(account);
+
+                return RedirectToRoute("home");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrMsg = ex.Message;
+            }
+            return View(model);
         }
 
         [Authorize]

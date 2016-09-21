@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="dbModel.SubjectDescription" Width="1.875" PointX="5.375" PointY="6.5" />
         <EntityTypeShape EntityType="dbModel.SubjectExamPaper" Width="1.75" PointX="8" PointY="6.375" />
         <AssociationConnector Association="dbModel.FK_SubjectExamPaper_SubjectDescription" />
-        <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="dbModel.Account" Width="1.5" PointX="0.5" PointY="0.5" />
         <AssociationConnector Association="dbModel.FK_FamilyMember_Account" />
         <AssociationConnector Association="dbModel.FK_FamilyMember_Parent" />
         <AssociationConnector Association="dbModel.FK_Lesson_Account" />
