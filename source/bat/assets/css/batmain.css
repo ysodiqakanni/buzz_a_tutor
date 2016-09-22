@@ -173,3 +173,38 @@ a {
 .txt-center{
     text-align:center;
 }
+
+/********************************
+
+	Custom Styles.
+
+********************************/
+
+/* Lesson Stream */
+#video-wrap {
+	width: 415px; 
+	height:233px;
+}
+
+/* Chat Box */
+.chatBody {
+	height: 185px;
+	overflow: scroll;
+}
+
+#discussion {
+	color: black;
+	list-style-type: none;
+}
+
+.left-bump{
+    margin-left:40px;
+}
+
+footer p {
+    margin-bottom: 0px;
+}
+
+.no-margin {
+    margin: 0px;
+}
