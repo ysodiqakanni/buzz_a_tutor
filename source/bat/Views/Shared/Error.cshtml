@@ -1,4 +1,4 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@model bat.logic.ViewModels.Master
 @{
     ViewBag.Title = "Error";
 }
@@ -11,4 +11,4 @@
     </script>
 }
 
-<h2 class="text-danger">An unexpected error has occurred.</h2>
+<h2 class="text-danger">@ViewBag.Error</h2>

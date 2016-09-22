@@ -44,6 +44,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
+                return View("Error", model);
             }
 
             switch (model.accountType)

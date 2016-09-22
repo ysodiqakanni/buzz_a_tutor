@@ -42,6 +42,12 @@ namespace bat.logic.ViewModels
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == accountId);
                 if (this.account == null) throw new InvalidRecordException();
 
+                if (this.account.AccountType_ID == Constants.Types.Teacher && !(this.account.Approved ?? false))
+                    throw new Exception("Your account is pending approval.");
+
+                if (this.account.Disabled ?? false)
+                    throw new Exception("Your account has been disabled.");
+
                 this.familyMembers = conn.FamilyMembers.Where(i => i.Parent_ID == accountId).ToList();
 
                 // if not a parent, might be a family member

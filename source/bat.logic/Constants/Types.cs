@@ -14,6 +14,7 @@ namespace bat.logic.Constants
             Teacher = 2
         }
 
-        public static int Teacher = 2;
+        public static int Student = (int)AccountTypes.Student;
+        public static int Teacher = (int)AccountTypes.Teacher;
     }
 }

@@ -49,12 +49,12 @@
 
                 @RenderSection("nav", required: false)
                 <ul class="nav navbar-nav pull-right">
-                    @if (Model.account.ID > 0)
+                    @if ((Model.account?.ID ?? 0) > 0)
                     {
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href=""><i class="fa fa-user"></i> &nbsp; @Model.account.Fname @Model.account.Lname &nbsp; <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-right">
-                            @if (Model.familyMembers.Any())
+                            @if (Model.familyMembers != null && Model.familyMembers.Any())
                             {
                                 foreach (var familyMember in Model.familyMembers)
                                 {
