@@ -109,6 +109,7 @@
       <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
+    <Content Include="scripts\elmah.sql" />
     <Content Include="scripts\1.0.0.0.sql" />
   </ItemGroup>
   <ItemGroup>
