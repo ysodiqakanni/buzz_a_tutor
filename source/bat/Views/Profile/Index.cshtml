@@ -6,7 +6,7 @@
 
 @if (ViewBag.Error != null)
 {
-    <p style="color: red; font-weight: bold">Error: @ViewBag.Error</p>
+    <p style="color: red; font-weight: bold">@ViewBag.Error</p>
 }
 
 <div class="row">
@@ -23,7 +23,13 @@
             }
         </div>
         <div class="col-md-7 col-md-offset-1">
-            <h1>@Model.account.Fname @Model.account.Lname</h1>
+            <h1>@Model.account.Fname @Model.account.Lname 
+                @if (Model.account.Approved == true)
+                {
+                    <span class="green small-bold">(Approved)</span>
+                }
+            </h1>
+
             <ul>
                 <li><a href="@Url.Action("edit")">Edit Account</a></li>
             </ul>
@@ -49,16 +55,18 @@
                 <a href="@Url.Action("new")" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; New</a>
             </div>
         </div>
-
-        <table class="table">
-            @foreach (var familyMember in Model.familyMembers)
-            {
-                <tr>
-                    <td>
-                        <a href="@Url.Action("EditMember", new { id = familyMember.ID })">@Model.GetAccountName(familyMember.Account_ID)</a>
-                    </td>
-                </tr>
-            }
-        </table>
+        @if (Model.familyMembers != null)
+        {
+            <table class="table">
+                @foreach (var familyMember in Model.familyMembers)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("EditMember", new { id = familyMember.ID })">@Model.GetAccountName(familyMember.Account_ID)</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
     </div>
 </div>

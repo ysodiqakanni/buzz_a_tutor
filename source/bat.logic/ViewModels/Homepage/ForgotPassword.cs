@@ -28,7 +28,7 @@ namespace bat.logic.ViewModels.Homepage
                 conn.SaveChanges();
 
                 Helpers.Emailer.SendPlainText(
-                    "info@buzzatutor.com", "Buzz a Tutor",
+                    Constants.Email.Address, Constants.Email.Name,
                     acc.Email,
                     "Buzz a Tutor - Reset your password",
                     "Please click on the following link to reset your password." +

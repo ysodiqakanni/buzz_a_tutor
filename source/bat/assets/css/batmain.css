@@ -208,3 +208,16 @@ footer p {
 .no-margin {
     margin: 0px;
 }
+
+.green {
+    color: #3af843;
+}
+
+.red{
+    color:#fe3013;
+}
+
+.small-bold{
+    font-size: 25px;
+    font-weight: bold;
+}

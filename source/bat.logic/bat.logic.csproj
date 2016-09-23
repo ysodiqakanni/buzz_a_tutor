@@ -173,6 +173,7 @@
     <Compile Include="Constants\AdminLogin.cs" />
     <Compile Include="Constants\Azure.cs" />
     <Compile Include="Constants\Colors.cs" />
+    <Compile Include="Constants\Email.cs" />
     <Compile Include="Constants\Picture.cs" />
     <Compile Include="Constants\SendGrid.cs" />
     <Compile Include="Constants\Status.cs" />
