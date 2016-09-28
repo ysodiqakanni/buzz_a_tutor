@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Buzz a Tutor" />
+    <meta name="author" content="">
+    @RenderSection("meta", required: false)
+
+    <title>@ViewBag.Title</title>
+
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/assets/img/fav32x32.ico")" />
+    <link rel="prefetch" href="@Url.Content("~/assets/img/logo.png")">
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/assets/css/main")
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+
+    @RenderSection("head", required: false)
+    @Html.Partial("_PartialAzureApplicationInsights")
+</head>
+<body>
+    <div class="nav-header navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.RouteUrl("landing")">
+                    <img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" style="height: 60px; margin-top: -12px;" />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="@Url.RouteUrl("home")"><div>Home</div></a></li>
+                    <li><a href="@Url.RouteUrl("subjects")"><div>Lessons</div></a></li>
+                    <li><a href="@Url.RouteUrl("teachers")"><div>Teachers</div></a></li>
+                </ul>
+
+                @RenderSection("nav", required: false)
+                <ul class="nav navbar-nav pull-right">
+                    @*<li><a href="@Url.RouteUrl("home")"><div>Home</div></a></li>*@
+                    <li><a href="@Url.RouteUrl("about")"><div>About Us</div></a></li>
+                    <li><a href="@Url.RouteUrl("login")"><div>Log In</div></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 60px;">
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">
+                @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+            </p>
+            <p class="footer-link pull-right left-bump">
+                <a href="@Url.RouteUrl("terms")">
+                    Terms and Conditions
+                </a>
+            </p>
+            <p class="footer-link pull-right left-bump">
+                <a href="@Url.RouteUrl("privacy")">
+                    Privacy Policy
+                </a>
+            </p>
+            <p class="footer-link pull-right">
+                <a href="@Url.RouteUrl("about")">
+                    About
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

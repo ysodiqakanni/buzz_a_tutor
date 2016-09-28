@@ -498,7 +498,6 @@
     <Content Include="Views\Home\Landing.cshtml" />
     <Content Include="Views\Home\LoginSignup.cshtml" />
     <Content Include="Views\Lessons\NewZoomUserAccount.cshtml" />
-    <Content Include="Views\Lessons\Error.cshtml" />
     <Content Include="Views\Lessons\ZoomLessonHostNotReady.cshtml" />
     <Content Include="Views\Home\Privacy.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
@@ -519,6 +518,7 @@
     <Content Include="Views\Admin\Lesson.cshtml" />
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\_LayoutError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
