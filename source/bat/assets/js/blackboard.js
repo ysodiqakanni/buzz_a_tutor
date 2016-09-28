@@ -13,6 +13,17 @@ var canvas = document.getElementById("canvas"),
 
 var blackboardWidth = $('#blackBoard').width();
 var blackboardHeight = $('#blackBoard').height();
+
+var load = false;
+$('a[href="#blackboard-Tab"]').on('shown.bs.tab', function (e) {
+    if(load != true) {
+        blackboardWidth = $('#blackBoard').width();
+        canvas.width = blackboardWidth;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        load = true;
+    }
+})
+
 var rect = canvas.getBoundingClientRect();
 
 

@@ -13054,19 +13054,23 @@ body:not(.no-transition) #wrapper,
 
 /* Chat Box */
 .chatBody {
-	height: 185px;
+	height: 60vh;
 	overflow: scroll;
 }
 
 #discussion {
 	color: black;
 	list-style-type: none;
+    word-wrap: break-word;
 }
 
 .left-bump{
     margin-left:40px;
 }
 
+.bottom-bump{
+    margin-bottom:10px;
+}
 footer p {
     margin-bottom: 0px;
 }

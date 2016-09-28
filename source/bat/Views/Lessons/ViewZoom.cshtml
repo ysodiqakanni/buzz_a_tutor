@@ -21,98 +21,119 @@
         </script>*@
 }
 
-<div style="overflow: auto;">
-    <h2 class="pull-left" style="margin-bottom: 40px;">
-        @Model.lesson.Description
-    </h2>
-    @if (Model.IsTeacher)
-    {
-        <div class="pull-right">
-            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">Reschedule lesson</a>
-            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">Edit lesson details</a>
-        </div>
-    }
-</div>
+@section outsideContainer {
+    <div class="row" style="margin-top:-60px;">
+        <div class="col-md-12">
+            <div style="overflow: auto;">
+                <h2 class="pull-left" style="margin-bottom: 40px;">
+                    @Model.lesson.Description
+                </h2>
+                <div class="pull-right">
+                    @if (Model.IsTeacher)
+                    {
+                        <a href="@Url.Action("Reschedule", new { id = Model.lesson.ID })" class="btn btn-lg btn-default">Reschedule lesson</a>
+                        <a href="@Url.Action("Edit", new { id = Model.lesson.ID })" class="btn btn-lg btn-default">Edit lesson details</a>
+                    }
+                    <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
+                        Join session
+                    </a>
+                </div>
 
-<div class="row">
-    <div class="col-md-3">
-        <p>
-            <strong>
-                Teacher
-            </strong>
-            <br />
-            @if (string.IsNullOrEmpty(Model.host.Picture))
-            {
-                <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-            }
-            else {
-                <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
-            }
-            <br />
-            @Model.host.Fname @Model.host.Lname
-        </p>
-    </div>
-    <div class="col-md-4">
-        <p>
-            <strong>
-                @Model.lesson.Subject
-            </strong>
-        </p>
-        <p>
-            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-        </p>
-        <p>
-            Duration mins: @Model.lesson.DurationMins
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Class size: @Model.lesson.ClassSize
-        </p>
-    </div>
-    <div class="col-md-3">
-        <p>
-            <strong>
-                Attendees
-            </strong>
-            @foreach (var student in Model.others)
-            {
-                <text>
-                    <br />
-                    @student.Fname @student.Lname
-                </text>
-            }
-        </p>
-    </div>
-    <div class="col-md-2">
-        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
-            Join session
-        </a>
-    </div>
-</div>
-
-<div class="row" style="height: 40px;">
-    <div class="col-md-6">
-        @Html.Partial("_PartialWhiteboard", Model)
-    </div>
-    <div class="col-md-6">
-        <div>
-            @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
+            </div>
+            <div class="row" style="height: 40px;">
+                <div class="col-md-8">
+                    <ul class="nav nav-tabs bottom-bump">
+                        <li class="active"><a data-toggle="tab" href="#lessonOverview">Lesson Overview</a></li>
+                        <li><a data-toggle="tab" href="#blackboard-Tab">Blackboard and Resources</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="lessonOverview" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p>
+                                        <strong>
+                                            Teacher
+                                        </strong>
+                                        <br />
+                                        @if (string.IsNullOrEmpty(Model.host.Picture))
+                                        {
+                                            <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+                                        }
+                                        else {
+                                            <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
+                                        }
+                                        <br />
+                                        @Model.host.Fname @Model.host.Lname
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>
+                                        <strong>
+                                            @Model.lesson.Subject
+                                        </strong>
+                                    </p>
+                                    <p>
+                                        Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+                                    </p>
+                                    <p>
+                                        Duration mins: @Model.lesson.DurationMins
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        Class size: @Model.lesson.ClassSize
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>
+                                        <strong>
+                                            Attendees
+                                        </strong>
+                                        @foreach (var student in Model.others)
+                                        {
+                                            <text>
+                                                <br />
+                                                @student.Fname @student.Lname
+                                            </text>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
+                            </div>
+                        </div>
+                        <div id="blackboard-Tab" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.Partial("_PartialWhiteboard", Model)
+                                </div>
+                                <div class="col-md-4">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Lesson Resources
+                                            </th>
+                                        </tr>
+                                        @foreach (var resource in Model.lessonResources)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-11">
+                            @Html.Partial("_PartialChatBox", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        @Html.Partial("_PartialChatBox", Model)
-        <div>
-            <table class="table">
-                <tr>
-                    <th>
-                        Lesson Resources
-                    </th>
-                </tr>
-                @foreach (var resource in Model.lessonResources)
-            {
-                    <tr>
-                        <td>
-                            <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
     </div>
-</div>
+}

@@ -10,6 +10,5 @@ namespace bat.logic.Constants
     {
         public static string Address = "info@buzzatutor.com";
         public static string Name = "Buzz a Tutor";
-
     }
 }
