@@ -40,6 +40,18 @@ namespace bat.logic.Helpers.AzureStorage
             AzureBlobStorage.Download(bat.logic.Constants.Azure.AZURE_UPLOADED_EXAM_PAPERS_STORAGE_CONTAINER, storageName).DownloadToStream(ms);
         }
 
+        public static string UploadLessonResourceImage(string data)
+        {
+            var storageName = Guid.NewGuid().ToString().Replace("{", "").Replace("}", "");
+            // convert string to stream
+            byte[] byteArray = Encoding.UTF8.GetBytes(data);
+            //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
+            MemoryStream stream = new MemoryStream(byteArray);
+            AzureBlobStorage.Upload(stream, Constants.Azure.AZURE_UPLOADED_LESSON_RESOURCES_STORAGE_CONTAINER, storageName);
+
+            return storageName;
+        }
+
         private static string Upload(HttpPostedFileBase file, string container)
         {
             if (file == null) return null;

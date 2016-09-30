@@ -24,6 +24,12 @@ namespace bat
             );
 
             config.Routes.MapHttpRoute(
+                name: "api/lessons/uploadtocloud",
+                routeTemplate: "api/lessons/uploadtocloud",
+                defaults: new { controller = "LessonsApi", action = "UploadtoCloud" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "api/lessons/getattachment",
                 routeTemplate: "api/lessons/getattachment",
                 defaults: new { controller = "LessonsApi", action = "Getattachment" }

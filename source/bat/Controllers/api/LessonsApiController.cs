@@ -23,6 +23,16 @@ namespace bat.Controllers.api
 
         [Authorize]
         [System.Web.Http.HttpPost]
+        public string UploadtoCloud(FormDataCollection formData)
+        {
+            var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) throw new Exception("Unauthorised access.");
+
+            return logic.Rules.ResourceManagement.UploadResourceImage(formData);
+        }
+
+        [Authorize]
+        [System.Web.Http.HttpPost]
         public string Getattachment(FormDataCollection formData)
         {
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -31,6 +32,34 @@ namespace bat.logic.Rules
                     conn.SaveChanges();
                 }
                 return resource.FileName;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public static string UploadResourceImage(FormDataCollection resourceImage)
+        {
+            try
+            {
+                var lessonId = Convert.ToInt32(resourceImage["lessonId"]);
+                using (var conn = new dbEntities())
+                {
+                    var lesson = conn.Lessons.FirstOrDefault(l => l.ID == lessonId);
+                    if (lesson == null) throw new Exception("Lesson does not exist.");
+
+                    var lessonResource = new LessonResource()
+                    {
+                        Lession_ID = lessonId,
+                        Original_Name = resourceImage["title"],
+                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResourceImage(resourceImage["data"])
+                    };
+                    conn.LessonResources.Add(lessonResource);
+
+                    conn.SaveChanges();
+                }
+                return resourceImage["title"];
             }
             catch (Exception ex)
             {

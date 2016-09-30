@@ -13,6 +13,8 @@
     <script src="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
     <script src="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.js")"></script>
     <script src="https://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+    <script src="@Url.Content("~//assets/js/lessonResource.js")"></script>
+    <script src="@Url.Content("~//assets/vendor/pdf.js/build/pdf.js")"></script>
 
     <script type="text/javascript">
         tinymce.init({
@@ -102,14 +104,12 @@
             </th>
         </tr>
         <tr>
-            @{ Html.BeginForm("UploadResource", "lessons", new { id = Model.lesson.ID } , FormMethod.Post, new { enctype = "multipart/form-data" }); }
+            @*@{ Html.BeginForm("UploadResource", "lessons", new { id = Model.lesson.ID } , FormMethod.Post, new { enctype = "multipart/form-data" }); }
+            @{ Html.EndForm(); }*@
             <td>
+                <input type="hidden" id="uploadPath" value="@Url.Action("UploadResourceImage", "Lessons")" />
                 <input type='file' class="form-control" name="ClassResource" id="ClassResource" />
             </td>
-            <td>
-                <input type="submit" />
-            </td>
-            @{ Html.EndForm(); }
         </tr>
         @foreach (var resource in Model.lessonResources)
             {
@@ -123,4 +123,27 @@
             </tr>
         }
     </table>
+</div>
+
+    <!-- Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="form-group">
+                    <input type="text" class="modal-title form-control" id="previewTitle">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="pdfContainer" style="width:100%;">
+                    <canvas id="previewCanvas"></canvas>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="savePreview('@Model.lesson.ID')">Upload Image</button>
+            </div>
+        </div>
+    </div>
 </div>
