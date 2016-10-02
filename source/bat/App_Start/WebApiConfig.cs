@@ -30,6 +30,12 @@ namespace bat
             );
 
             config.Routes.MapHttpRoute(
+                name: "api/lessons/downloadfromcloud",
+                routeTemplate: "api/lessons/downloadfromcloud",
+                defaults: new { controller = "LessonsApi", action = "DownloadFromCloud" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "api/lessons/getattachment",
                 routeTemplate: "api/lessons/getattachment",
                 defaults: new { controller = "LessonsApi", action = "Getattachment" }

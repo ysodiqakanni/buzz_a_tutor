@@ -341,3 +341,32 @@ function saveCanvas() {
     $('#previewModal').modal();
 }
 // End of Save Preview Canvas
+
+// Load image from cloud function
+function loadCloudImg(id) {
+    useImg = true;
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/downloadfromcloud", //The controller/Action
+        dataType: "json",
+        data: {
+            "attachmentid": id
+        },
+        success: function (data) {
+            //console.log(data);
+            //var image = "data:image/png;base64," + data;
+            //window.open(image)
+            imageModel.clear = false;
+            imageModel.imageId = id;
+            blackboardHub.server.boardImage(imageModel);
+            imgData = data
+            clearBoard();
+
+        },
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+            //            $('#imgSaveFail').removeClass('hidden');
+        }
+    })
+}
+// End of Load image from cloud function

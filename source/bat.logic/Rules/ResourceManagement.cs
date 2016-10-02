@@ -92,6 +92,33 @@ namespace bat.logic.Rules
             return null;
         }
 
+        public static string DownloadLessonImage(int resourseID)
+        {
+            try
+            {
+                using (var conn = new dbEntities())
+                {
+                    LessonResource resource = new LessonResource();
+                    resource = conn.LessonResources.FirstOrDefault(r => r.ID == resourseID);
+                    if (resource == null)
+                        throw new Exception("Lesson resource not found.");
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        logic.Helpers.AzureStorage.StoredResources.DownloadLessonResource(memoryStream, resource.Item_Storage_Name);
+                        var imageByte = memoryStream.ToArray();
+
+                        return System.Text.Encoding.UTF8.GetString(imageByte, 0, imageByte.Length);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var ignore = ex;
+            }
+            return null;
+        }
+
         public static string DeleteResource(int resourceID)
         {
             using (var conn = new dbEntities())

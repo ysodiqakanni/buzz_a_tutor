@@ -31,6 +31,11 @@ namespace bat.Controllers.api
             return logic.Rules.ResourceManagement.UploadResourceImage(formData);
         }
 
+        public string DownloadFromCloud(FormDataCollection formData)
+        {
+            return logic.Rules.ResourceManagement.DownloadLessonImage(Convert.ToInt32(formData["attachmentid"]));
+        }
+
         [Authorize]
         [System.Web.Http.HttpPost]
         public string Getattachment(FormDataCollection formData)

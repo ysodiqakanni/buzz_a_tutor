@@ -14,6 +14,7 @@
     </script>
 }
 @section scripts {
+    <script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
     @*<script>
             $(document).ready(function () {
                 window.open('@Model.lesson.ZoomJoinUrl', '_blank');
@@ -117,6 +118,11 @@
                                             <tr>
                                                 <td>
                                                     <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-link btn-block" onclick="loadCloudImg('@resource.ID')">
+                                                        @resource.Original_Name
+                                                    </button>
                                                 </td>
                                             </tr>
                                         }
