@@ -126,6 +126,25 @@
 </div>
 
     <!-- Modal -->
+<div class="modal fade" id="toImageModal" tabindex="-1" role="dialog" aria-labelledby="toImageModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="form-group">
+                    <p>Whould you like to be able to display on blackboard?</p>
+                </div>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" onclick="loadPreview()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -138,6 +157,8 @@
             <div class="modal-body">
                 <div id="pdfContainer" style="width:100%;">
                     <canvas id="previewCanvas"></canvas>
+                </div>
+                <div id="pdfButtons"></div>
                 </div>
             </div>
             <div class="modal-footer">

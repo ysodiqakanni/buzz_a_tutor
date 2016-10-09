@@ -1,9 +1,22 @@
 ﻿var uploadPath = $("#uploadPath").val();
-
+var file;
 //Load Preview of upload item
 // Sets up input event on document load.
 $("#ClassResource").change(function (event) {
-    var file = event.target.files[0];
+    file = event.target.files[0];
+    var fileName = file.name;
+    var fileExt = fileName.split('.').pop().toLowerCase();
+    if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif" || fileExt == "pdf") {
+        $('#toImageModal').modal();
+    } else {
+        //Send file to upload
+    }
+});
+
+// Load image preview
+
+function loadPreview() {
+    $('#toImageModal').modal('hide');
     var fileName = file.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
     if (fileExt == "pdf") {
@@ -14,26 +27,34 @@ $("#ClassResource").change(function (event) {
             var typedarray = new Uint8Array(this.result);
             //Step 5:PDFJS should be able to read this
             PDFJS.getDocument(typedarray).then(function (pdf) {
-                pdf.getPage(1).then(function getPageHelloWorld(page) {
-                    //
-                    // Prepare canvas using PDF page dimensions
-                    //
-                    var scale = 0.8;
-                    var context = previewCanvas.getContext('2d');
-                    var viewport = page.getViewport(scale);
-                    previewCanvas.width = viewport.width;
-                    previewCanvas.height = viewport.height;
-                    //
-                    // Render PDF page into canvas context
-                    //
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                    $('#previewTitle').val(fileName);
-                    $('#previewModal').modal();
-                })
+                console.log('Number of Pages: ' + pdf.numPages);
+                for (var i = 0; i < pdf.numPages; i++) {
+                    $('#pdfButtons').append("<p>"+ i +"</p>");
+                }
+                function loadPdfPage(pageNum) {
+                    pdf.getPage(pageNum).then(function getPageHelloWorld(page) {
+                        //
+                        // Prepare canvas using PDF page dimensions
+                        //
+                        var scale = 0.8;
+                        var context = previewCanvas.getContext('2d');
+                        var viewport = page.getViewport(scale);
+                        previewCanvas.width = viewport.width;
+                        previewCanvas.height = viewport.height;
+                        //
+                        // Render PDF page into canvas context
+                        //
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                        $('#previewTitle').val(fileName);
+                        $('#previewModal').modal();
+                    })
+                }
+
+                loadPdfPage(1);
             });
         }
         //Step 3:Read the file as ArrayBuffer
@@ -55,10 +76,8 @@ $("#ClassResource").change(function (event) {
 
         //Step 3:Read the file as ArrayBuffer
         fileReader.readAsDataURL(file);
-    } else {
-        //Not accepted format
     }
-});
+}
 
 // Save image function
 function savePreview(lessonId) {
