@@ -27,20 +27,35 @@ function loadPreview() {
             var typedarray = new Uint8Array(this.result);
             //Step 5:PDFJS should be able to read this
             PDFJS.getDocument(typedarray).then(function (pdf) {
-                console.log('Number of Pages: ' + pdf.numPages);
-                for (var i = 0; i < pdf.numPages; i++) {
-                    $('#pdfButtons').append("<p>"+ i +"</p>");
+                function createCanvas(num) {
+                    console.log(num);
+                    canvasId = "previewCanvas-" + num;
+                    if (num == 1) {
+                        $('#canvasCarousel').append('<div class="item active"><canvas id="'+canvasId+'"></canvas><div class="carousel-caption"></div></div>');
+                    } else {
+                        $('#canvasCarousel').append('<div class="item"><canvas id='+canvasId+'"></canvas><div class="carousel-caption"></div></div>');
+                    }
                 }
-                function loadPdfPage(pageNum) {
-                    pdf.getPage(pageNum).then(function getPageHelloWorld(page) {
+                function getPage(pagenum) {
+                    console.log(pagenum);
+                    pdf.getPage(pagenum)
+                }
+                for(var i = 1; i <= pdf.numPages; i++) {
+                    console.log('Number of Pages: ' + i);
+                    $.when(createCanvas(i))
+                    .then(pdf.getPage(i)
+                    .then(function getPage(page) {
                         //
                         // Prepare canvas using PDF page dimensions
                         //
+                        canvasId = "previewCanvas-" + pagenum;
+                        console.log(canvasId);
+                        var canvas = document.getElementById(canvasId);
                         var scale = 0.8;
-                        var context = previewCanvas.getContext('2d');
+                        var context = canvas.getContext('2d');
                         var viewport = page.getViewport(scale);
-                        previewCanvas.width = viewport.width;
-                        previewCanvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
                         //
                         // Render PDF page into canvas context
                         //
@@ -51,10 +66,13 @@ function loadPreview() {
                         page.render(renderContext);
                         $('#previewTitle').val(fileName);
                         $('#previewModal').modal();
+                    }))
+                    .then(function () {
+                        console.log("Requests succeeded and animations completed");
+                    }).fail(function () {
+                        console.log("something went wrong!");
                     })
                 }
-
-                loadPdfPage(1);
             });
         }
         //Step 3:Read the file as ArrayBuffer
