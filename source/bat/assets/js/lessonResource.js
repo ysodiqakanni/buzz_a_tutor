@@ -14,12 +14,12 @@ $("#ClassResource").change(function (event) {
 });
 
 // Load image preview
-
 function loadPreview() {
     $('#toImageModal').modal('hide');
     $('#canvasCarousel').empty();
     var fileName = file.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
+    var title = fileName.split('.')[0];
     if (fileExt == "pdf") {
         //Step 2: Read the file using file reader
         var fileReader = new FileReader();
@@ -46,15 +46,17 @@ function loadPreview() {
                 var viewport = page.getViewport(1);
 
                 //We'll create a canvas for each page to draw it on
-                var id = 'carousel' + currPage;
+                var id = 'item' + currPage;
                 if (currPage == 1) {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
                 } else {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item"></div>');
                 }
+
                 var carouselItem = document.getElementById(id)
 
                 var canvas = document.createElement("canvas");
+                canvas.id = "page-"+currPage;
                 canvas.style.display = "block";
                 var context = canvas.getContext('2d');
                 canvas.height = viewport.height;
@@ -65,7 +67,8 @@ function loadPreview() {
 
                 //Add it to the web page
                 carouselItem.appendChild(canvas);
-                $('#previewTitle').val(fileName);
+                $('#' + id).append('<div class="carousel-caption"><input id="'+id+'check" type="checkbox"/></div');
+                $('#previewTitle').val(title);
 
                 if (currPage == numPages) {
                     $("#preview-carousel").append('<a class="left carousel-control" href="#preview-carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span></a>');
@@ -88,14 +91,28 @@ function loadPreview() {
     } else if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif") {
         var fileReader = new FileReader();
         fileReader.addEventListener("load", function () {
-            var context = previewCanvas.getContext('2d');
-            previewCanvas.width = 568;
-            previewCanvas.height = 600;
+            var id = "item" + 1;
+
+            $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
+
+            var carouselItem = document.getElementById(id)
+
+            var canvas = document.createElement("canvas");
+            canvas.id = "page-" + 1;
+            canvas.style.display = "block";
+            var context = canvas.getContext('2d');
+            canvas.height = 568;
+            canvas.width = 600;
+
+            //Draw it on the canvas
             var img = new Image();
             img.src = fileReader.result;
             img.onload = function () {
                 context.drawImage(img, 0, 0, canvas.width, canvas.height);
             };
+
+            //Add it to the web page
+            carouselItem.appendChild(canvas);
             $('#previewTitle').val(fileName);
             $('#previewModal').modal();
         }, false);
@@ -107,29 +124,53 @@ function loadPreview() {
 
 // Save image function
 function savePreview(lessonId) {
-    var img2SaveRaw = previewCanvas.toDataURL('image/png'),
+    var page = 1;
+    var pages = $("#canvasCarousel .item").length;
+    function postCanvas(id) {
+        var canvas = document.getElementById(id)
+        var img2SaveRaw = canvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = $('#previewTitle').val();
-    console.log(uploadPath);
+            console.log(uploadPath);
 
-    $.ajax({
-        type: "POST", // Type of request
-        url: "../../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
-        dataType: "json",
-        data: {
-            "lessonid": lessonId,
-            "title": title,
-            "data": img2Save,
-        },
+            $.ajax({
+                type: "POST", // Type of request
+                url: "../../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
+                dataType: "json",
+                data: {
+                    "lessonid": lessonId,
+                    "title": title +"-"+ id,
+                    "data": img2Save,
+                },
 
-        success: function (data) {
-            console.log(data);
-        },
+                success: function (data) {
+                    console.log(data);
+                },
 
-        error: function (err) {
-            console.log("error[" + err.status + "]: " + err.statusText);
+                error: function (err) {
+                    console.log("error[" + err.status + "]: " + err.statusText);
+                }
+            })
+    }
+    function ifchecked() {
+        var id = 'page-' + page;
+        var inputId = 'item' + page + 'check';
+        if ($("#" + inputId).is(":checked")) {
+            $.when(postCanvas(id))
+            .done(console.log(id + " uploaded successfully"));
         }
-    })
+        page++
+        if (page <= pages) {
+            ifchecked();
+        }
+    }
+    if (page == pages) {
+        var id = 'page-' + page;
+        postCanvas(id);
+    } else if(page <= pages){
+        ifchecked();
+    }
+    
 }
 // End of Save image function
