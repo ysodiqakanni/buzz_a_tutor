@@ -130,6 +130,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
@@ -188,6 +189,7 @@
     <Compile Include="Helpers\Emailer.cs" />
     <Compile Include="Helpers\Numbers.cs" />
     <Compile Include="Helpers\PasswordStorage.cs" />
+    <Compile Include="Models\Auditing\AccountRegistration.cs" />
     <Compile Include="Rules\ExamPapers.cs" />
     <Compile Include="Rules\ResourceManagement.cs" />
     <Compile Include="Helpers\Strings.cs" />

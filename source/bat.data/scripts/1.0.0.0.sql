@@ -301,3 +301,20 @@ ALTER TABLE dbo.Account ADD
 	ChangePasswordTokenExpiry datetime NULL
 GO
 
+
+
+
+CREATE TABLE [dbo].[EventLog](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Account_ID] [int] NOT NULL,
+	[EventDate] [datetime] NOT NULL,
+	[Data] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_EventLog] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+
