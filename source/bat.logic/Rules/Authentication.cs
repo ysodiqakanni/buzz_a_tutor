@@ -10,6 +10,7 @@ using Shearnie.Net.Encryption;
 using bat.data;
 using bat.logic.Constants;
 using bat.logic.Helpers;
+using Newtonsoft.Json;
 
 namespace bat.logic.Rules
 {
@@ -149,6 +150,27 @@ namespace bat.logic.Rules
 
             var authenticationManager = this.context.Authentication;
             authenticationManager.SignIn(id);
+
+            using (var conn = new dbEntities())
+            {
+                conn.Configuration.AutoDetectChangesEnabled = false;
+                conn.Configuration.ValidateOnSaveEnabled = false;
+
+                conn.EventLogs.Add(new EventLog()
+                {
+                    Account_ID = user.ID,
+                    Data = JsonConvert.SerializeObject(
+                    new Models.Auditing.AccountLogin()
+                    {
+                        ID = user.ID,
+                        Email = user.Email,
+                        Fname = user.Fname,
+                        Lname = user.Lname
+                    }),
+                    EventDate = DateTime.UtcNow
+                });
+                conn.SaveChanges();
+            }
         }
 
         public void Logout()

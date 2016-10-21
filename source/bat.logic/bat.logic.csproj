@@ -189,6 +189,7 @@
     <Compile Include="Helpers\Emailer.cs" />
     <Compile Include="Helpers\Numbers.cs" />
     <Compile Include="Helpers\PasswordStorage.cs" />
+    <Compile Include="Models\Auditing\AccountLogin.cs" />
     <Compile Include="Models\Auditing\AccountRegistration.cs" />
     <Compile Include="Rules\ExamPapers.cs" />
     <Compile Include="Rules\ResourceManagement.cs" />
