@@ -11,14 +11,31 @@ namespace bat.Controllers.api
 {
     public class LessonsApiController : ApiController
     {
-        [Authorize]
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public string Upload(FormDataCollection formData)
         {
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
             return bat.logic.ApiModels.Lessons.Upload.UploadImage(Convert.ToInt32(formData["lessonid"]), user.ID, formData["title"], formData["data"]);
+        }
+
+        [HttpPost]
+        public string UploadFile()
+        {
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                // Get the uploaded image from the Files collection
+                var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
+
+                if (httpPostedFile != null)
+                {
+                    // Validate the uploaded image(optional)
+                    return "success";
+                }
+                return "fail";
+            }
+            return "fail";
         }
 
         [Authorize]

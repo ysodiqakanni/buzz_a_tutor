@@ -13,10 +13,11 @@
     <script src="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
     <script src="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.js")"></script>
     <script src="https://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-    <script src="@Url.Content("~//assets/js/lessonResource.js")"></script>
     <script src="@Url.Content("~//assets/vendor/pdf.js/build/pdf.js")"></script>
+    <script src="@Url.Content("~//assets/js/lessonResource.js")"></script>
 
     <script type="text/javascript">
+        lessonId = @Model.lesson.ID;
         tinymce.init({
             selector: '#DetailedDescription',
             theme: 'modern',
@@ -104,18 +105,24 @@
             </th>
         </tr>
         <tr>
-            @*@{ Html.BeginForm("UploadResource", "lessons", new { id = Model.lesson.ID } , FormMethod.Post, new { enctype = "multipart/form-data" }); }
-            @{ Html.EndForm(); }*@
+            @{ Html.BeginForm("UploadResource", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data", id = "resourceForm" }); }           
             <td>
-                <input type="hidden" id="uploadPath" value="@Url.Action("UploadResourceImage", "Lessons")" />
-                <input type='file' class="form-control" name="ClassResource" id="ClassResource" />
+                <input type='file' class="form-control" name="classResource" id="classResource" />
             </td>
+             @{ Html.EndForm();}
         </tr>
         @foreach (var resource in Model.lessonResources)
             {
             <tr>
                 <td>
-                    <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
+                    @if (resource.Type_ID == bat.logic.Constants.Types.Default)
+                    {
+                        <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
+                    } else
+                    {
+                        <p>@resource.Original_Name</p>
+                    }
+
                 </td>
                 <td>
                     <a href="@Url.Action("deleteresource", "lessons", new { id = Model.lesson.ID, resourceId = resource.ID})">Delete</a>
@@ -126,7 +133,7 @@
 </div>
 
     <!-- Modal -->
-<div class="modal fade" id="toImageModal" tabindex="-1" role="dialog" aria-labelledby="toImageModalLabel">
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="toImageModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -134,13 +141,12 @@
                 <p></p>
             </div>
             <div class="modal-body">
-                <div>
-                    <p>Whould you like to be able to display on blackboard?</p>
+                <div id="message-container">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" onclick="loadPreview()">Yes</button>
+                <div class="pull-right" id="modal-button-container">
+                </div>
             </div>
         </div>
     </div>

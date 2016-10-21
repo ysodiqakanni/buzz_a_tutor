@@ -86,6 +86,7 @@
           <Property Name="Lession_ID" Type="int" Nullable="false" />
           <Property Name="Original_Name" Type="varchar(max)" Nullable="false" />
           <Property Name="Item_Storage_Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Type_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SubjectDescription">
           <Key>
@@ -398,6 +399,7 @@
           <Property Name="Original_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Item_Storage_Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Lesson" Relationship="dbModel.FK_LessonResource_Lesson" FromRole="LessonResource" ToRole="Lesson" />
+          <Property Name="Type_ID" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_LessonResource_Lesson">
           <End Type="dbModel.Lesson" Role="Lesson" Multiplicity="1" />
@@ -568,6 +570,7 @@
           <EntitySetMapping Name="LessonResources">
             <EntityTypeMapping TypeName="dbModel.LessonResource">
               <MappingFragment StoreEntitySet="LessonResource">
+                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
                 <ScalarProperty Name="Item_Storage_Name" ColumnName="Item_Storage_Name" />
                 <ScalarProperty Name="Original_Name" ColumnName="Original_Name" />
                 <ScalarProperty Name="Lession_ID" ColumnName="Lession_ID" />

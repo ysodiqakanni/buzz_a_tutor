@@ -1,21 +1,47 @@
 ﻿var uploadPath = $("#uploadPath").val();
 var file;
+var lessonId;
 //Load Preview of upload item
 // Sets up input event on document load.
-$("#ClassResource").change(function (event) {
+$("#classResource").change(function (event) {
+    $("#message-container").empty();
+    $("#modal-button-container").empty();
+    event.preventDefault();
     file = event.target.files[0];
     var fileName = file.name;
-    var fileExt = fileName.split('.').pop().toLowerCase();
-    if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif" || fileExt == "pdf") {
-        $('#toImageModal').modal();
-    } else {
-        //Send file to upload
-    }
+    $("#message-container").append("<p>" + fileName + " is ready to upload</p>");
+    $("#modal-button-container").append('<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+    $("#modal-button-container").append('<button type="button" class="btn btn-primary" onclick="submitResource(0)">Yes</button>');
+    $('#messageModal').modal();
 });
+
+function submitResource(trig) {
+    if ($("#classResource").val() != null && trig == 0) {       
+        var fileName = file.name;
+        var fileExt = fileName.split('.').pop().toLowerCase();
+        if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif" || fileExt == "pdf") {
+            $("#message-container").empty();
+            $("#modal-button-container").empty();
+            $("#message-container").append("<p>Whould you like to be able to display on blackboard?</p>");
+            $("#modal-button-container").append('<button type="button" class="btn btn-default" onclick="submitResource(1)">No</button>');
+            $("#modal-button-container").append('<button type="button" class="btn btn-primary" onclick="loadPreview()">Yes</button>');
+        } else {
+            $("#resourceForm").submit();
+            $("#message-container").empty();
+            $("#modal-button-container").empty();
+            $("#message-container").append("<p> Upload was succesful</p>");
+        }
+    } else if ($("#classResource").val() != null && trig == 1) {
+        $("#resourceForm").submit();
+        $("#message-container").empty();
+        $("#modal-button-container").empty();
+        $("#message-container").append("<p> Upload was succesful</p>");
+    }
+}
 
 // Load image preview
 function loadPreview() {
-    $('#toImageModal').modal('hide');
+    $('#messageModal').modal('hide');
     $('#canvasCarousel').empty();
     var fileName = file.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
@@ -124,6 +150,7 @@ function loadPreview() {
 
 // Save image function
 function savePreview(lessonId) {
+    $('#previewModal').modal("hide");
     var page = 1;
     var pages = $("#canvasCarousel .item").length;
     function postCanvas(id) {
@@ -132,8 +159,6 @@ function savePreview(lessonId) {
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = $('#previewTitle').val();
-            console.log(uploadPath);
-
             $.ajax({
                 type: "POST", // Type of request
                 url: "../../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
@@ -157,20 +182,17 @@ function savePreview(lessonId) {
         var id = 'page-' + page;
         var inputId = 'item' + page + 'check';
         if ($("#" + inputId).is(":checked")) {
-            $.when(postCanvas(id))
-            .done(console.log(id + " uploaded successfully"));
+            postCanvas(id)
         }
         page++
         if (page <= pages) {
             ifchecked();
+        } else if (page > pages) {
+            $("#resourceForm").submit();
         }
     }
-    if (page == pages) {
-        var id = 'page-' + page;
-        postCanvas(id);
-    } else if(page <= pages){
+    if (page < pages || page == pages) {
         ifchecked();
-    }
-    
+    }  
 }
 // End of Save image function

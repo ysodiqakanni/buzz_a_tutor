@@ -14,7 +14,15 @@ namespace bat.logic.Constants
             Teacher = 2
         }
 
+        public enum FileTypes
+        {
+            Default = 1,
+            Image = 2,
+        }
+
         public static int Student = (int)AccountTypes.Student;
         public static int Teacher = (int)AccountTypes.Teacher;
+        public static int Default = (int)FileTypes.Default;
+        public static int Image = (int)FileTypes.Image;
     }
 }

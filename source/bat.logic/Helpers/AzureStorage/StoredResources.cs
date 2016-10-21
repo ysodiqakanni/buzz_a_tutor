@@ -59,10 +59,6 @@ namespace bat.logic.Helpers.AzureStorage
             if (file.ContentLength > 2500000)
                 throw new Exception("Files can't exceed 2.5MB in size.");
 
-            var ext = System.IO.Path.GetExtension(file.FileName);
-            if (!logic.Rules.ImageValidation.ValidateExtension(ext))
-                throw new Exception("Invalid file extension.");
-
             var storageName = Guid.NewGuid().ToString().Replace("{", "").Replace("}", "");
 
             AzureBlobStorage.Upload(file.InputStream, container, storageName);

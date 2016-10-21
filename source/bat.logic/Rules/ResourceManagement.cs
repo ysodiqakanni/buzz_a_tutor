@@ -25,7 +25,8 @@ namespace bat.logic.Rules
                     {
                         Lession_ID = lessonId,
                         Original_Name = resource.FileName,
-                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResource(resource)
+                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResource(resource),
+                        Type_ID = Constants.Types.Default
                     };
                     conn.LessonResources.Add(lessonResource);
 
@@ -53,7 +54,8 @@ namespace bat.logic.Rules
                     {
                         Lession_ID = lessonId,
                         Original_Name = resourceImage["title"],
-                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResourceImage(resourceImage["data"])
+                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResourceImage(resourceImage["data"]),
+                        Type_ID = Constants.Types.Image
                     };
                     conn.LessonResources.Add(lessonResource);
 
