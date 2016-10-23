@@ -53,6 +53,7 @@ namespace bat.logic.Rules
                 conn.EventLogs.Add(new EventLog()
                 {
                     Account_ID = account.ID,
+                    Type = Models.Auditing.AccountRegistration.TypeToString(),
                     Data = JsonConvert.SerializeObject(
                         new Models.Auditing.AccountRegistration()
                         {
@@ -63,7 +64,8 @@ namespace bat.logic.Rules
                             Fname = account.Fname,
                             Lname = account.Lname
                         }),
-                    EventDate = DateTime.UtcNow
+                    EventDate = DateTime.UtcNow,
+                    IPAddress = Shearnie.Net.Web.ServerInfo.GetIPAddress
                 });
                 conn.SaveChanges();
             }

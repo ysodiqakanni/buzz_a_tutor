@@ -17,6 +17,8 @@ namespace bat.data
         public int ID { get; set; }
         public int Account_ID { get; set; }
         public System.DateTime EventDate { get; set; }
+        public string IPAddress { get; set; }
+        public string Type { get; set; }
         public string Data { get; set; }
     }
 }

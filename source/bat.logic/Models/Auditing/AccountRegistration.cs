@@ -14,5 +14,9 @@ namespace bat.logic.Models.Auditing
         public string AccountType { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
+        public static string TypeToString()
+        {
+            return "Account Registration";
+        }
     }
 }
