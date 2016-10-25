@@ -56,7 +56,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("Error");
+                return View("Error", model);
             }
         }
 
@@ -241,7 +241,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("Error");
+                return View("Error", model);
             }
         }
 
@@ -265,7 +265,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("Error");
+                return View("Error", model);
             }
 
             return RedirectToAction("Index", new { id = model.lesson.ID });
@@ -291,7 +291,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("Error");
+                return View("Error", model);
             }
         }
 
@@ -315,7 +315,7 @@ namespace bat.Controllers
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
-                return View("Error");
+                return View("Error", model);
             }
 
             return RedirectToAction("Index", new { id = model.lesson.ID });
