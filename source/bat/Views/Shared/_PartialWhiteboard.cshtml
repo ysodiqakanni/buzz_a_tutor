@@ -13,23 +13,20 @@
         <div id="board-top">
             <div class="fleft">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">File <span class="caret"></span></button>
+                    <button onclick="defaultBoard()" type="button" class="btn btn-primary" data-toggle="tooltip" title="New Board">
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i> &nbsp; New
+                    </button>
+                    <button onclick="saveCanvas()" type="button" class="btn btn-primary" data-toggle="tooltip" title="Save Board">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp; Save
+                    </button>
+
+                    @*<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">File <span class="caret"></span></button>
                     <ul class="dropdown-menu file-menu" role="menu">
                         <li>
-                            <div class="row">
-                                <div class="col-md-3 col-md-offset-1">
-                                    <button onclick="defaultBoard()" type="button" class="btn btn-primary" data-toggle="tooltip" title="New Board"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
-                                </div>
-                                <div class="col-md-3">
-                                    <label style="max-width: inherit;" for="pdfData" data-toggle="tooltip" title="Upload Image or PDF" class="btn btn-primary">
-                                        <i class="fa fa-upload" aria-hidden="true"></i>
-                                    </label>                                    
-                                    <input type="file" style="display:none" name="data" id="pdfData" />
-                                </div>
-                                <div class="col-md-3">
-                                    <button onclick="saveCanvas()" type="button" class="btn btn-primary"  data-toggle="tooltip" title="Save Board"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
+                            <label style="max-width: inherit;" for="pdfData" data-toggle="tooltip" title="Upload Image or PDF" class="btn btn-primary">
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                            </label>
+                            <input type="file" style="display:none" name="data" id="pdfData" />
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -43,9 +40,9 @@
                                 }
                             </div>
                         </li>
-                    </ul>
+                    </ul>*@
                 </div>
-                </div>
+            </div>
             <div class="fright">
                 <label for="lWSlider">Line Width:</label>
                 <input type="range" id="lWSlider" class="bb-slider" onchange="changeLW(lWSlider.value)" value="3" min="1" max="5" />
