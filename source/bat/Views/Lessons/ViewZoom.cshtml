@@ -14,6 +14,7 @@
     </script>
 }
 @section scripts {
+<script type="text/javascript" src="@Url.Content("~/assets/js/lessonJS.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
     @*<script>
             $(document).ready(function () {
@@ -112,6 +113,7 @@
                                         <tr>
                                             <th class="center">
                                                 Blackboard Images
+                                                <button class="btn btn-primary pull-right" onclick="uploadImageModal();"><i class="fa fa-upload" aria-hidden="true"></i></button>
                                             </th>
                                         </tr>
                                         @foreach (var resource in Model.lessonResources)
@@ -157,6 +159,26 @@
                         <div class="col-md-11">
                             @Html.Partial("_PartialChatBox", Model)
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
+        <div style="width:630px" class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="no-margin">Upload an image to use on the Blackboard</h4>
+                </div>
+                <div class="modal-body">
+                    <input style="margin-bottom: 2px;" type='file' class="form-control" name="Upload Blackboard image" id="bbImageInput" />
+                    <div id="upload-Canvas"></div>
+                    <div id="bbImageError"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right" id="modal-button-container">
                     </div>
                 </div>
             </div>
