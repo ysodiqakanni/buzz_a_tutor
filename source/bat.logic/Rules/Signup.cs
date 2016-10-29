@@ -50,24 +50,7 @@ namespace bat.logic.Rules
 
                 Rules.ZoomApi.CreateZoomUserAccount(account.ID);
 
-                conn.EventLogs.Add(new EventLog()
-                {
-                    Account_ID = account.ID,
-                    Type = Models.Auditing.AccountRegistration.TypeToString(),
-                    Data = JsonConvert.SerializeObject(
-                        new Models.Auditing.AccountRegistration()
-                        {
-                            ID = account.ID,
-                            AccountType_ID = type,
-                            AccountType = ((logic.Constants.Types.AccountTypes) type).ToString(),
-                            Email = account.Email,
-                            Fname = account.Fname,
-                            Lname = account.Lname
-                        }),
-                    EventDate = DateTime.UtcNow,
-                    IPAddress = Shearnie.Net.Web.ServerInfo.GetIPAddress
-                });
-                conn.SaveChanges();
+                EventLogging.Register(account);
             }
         }
     }

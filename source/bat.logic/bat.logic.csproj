@@ -192,6 +192,7 @@
     <Compile Include="Models\Auditing\CreateLesson.cs" />
     <Compile Include="Models\Auditing\AccountLogin.cs" />
     <Compile Include="Models\Auditing\AccountRegistration.cs" />
+    <Compile Include="Rules\EventLogging.cs" />
     <Compile Include="Rules\ExamPapers.cs" />
     <Compile Include="Rules\ResourceManagement.cs" />
     <Compile Include="Helpers\Strings.cs" />
