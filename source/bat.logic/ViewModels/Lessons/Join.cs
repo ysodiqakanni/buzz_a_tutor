@@ -74,6 +74,8 @@ namespace bat.logic.ViewModels.Lessons
                     Lesson_ID = this.lesson.ID
                 });
                 conn.SaveChanges();
+
+                Rules.EventLogging.JoinLesson(this.lesson.Account_ID, this.lesson, this.account);
             }
         }
     }

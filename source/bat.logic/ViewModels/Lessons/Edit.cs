@@ -84,6 +84,8 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson.ClassSize = int.Parse(frm["ClassSize"]);
                 this.lesson.Subject = (frm["Subject"] ?? "").Trim();
                 conn.SaveChanges();
+
+                Rules.EventLogging.EditLesson(this.account, this.lesson);
             }
         }
     }

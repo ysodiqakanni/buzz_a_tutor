@@ -68,6 +68,8 @@ namespace bat.logic.ViewModels.Lessons
                 };
                 conn.Lessons.Add(this.lesson);
                 conn.SaveChanges();
+
+                Rules.EventLogging.CreateLesson(this.account, this.lesson);
             }
         }
     }
