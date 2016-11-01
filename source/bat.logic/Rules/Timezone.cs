@@ -16,19 +16,14 @@ namespace bat.logic.Rules
 
         public static DateTime Today => new DateTime(Now.Year, Now.Month, Now.Day);
 
-        public static DateTime ConvertToUTC(DateTime date)
-        {
-            return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
-                Convert.ToDateTime(date.ToString("dd MMM yyyy hh:mm:ss tt")), GMT, "UTC");
-        }
+        public static DateTime ConvertFromUTC(DateTime date) =>
+            TimeZoneInfo.ConvertTimeFromUtc(new DateTime(date.Ticks), TimeZoneInfo.FindSystemTimeZoneById(GMT));
 
-        public static DateTime ConvertFromUTC(DateTime date)
-        {
-            return TimeZoneInfo.ConvertTimeFromUtc(
-                Convert.ToDateTime(date.ToString("dd MMM yyyy hh:mm:ss tt")), TimeZoneInfo.FindSystemTimeZoneById(GMT));
-        }
+        public static DateTime ConvertToUTC(DateTime date) =>
+            TimeZoneInfo.ConvertTimeBySystemTimeZoneId(new DateTime(date.Ticks), GMT, "UTC");
+
+        public static DateTime? ConvertFromUTC(DateTime? date) => date.HasValue ? ConvertFromUTC(date.Value) : (DateTime?)null;
 
         public static DateTime? ConvertToUTC(DateTime? date) => date.HasValue ? ConvertToUTC(date.Value) : (DateTime?)null;
-        public static DateTime? ConvertFromUTC(DateTime? date) => date.HasValue ? ConvertFromUTC(date.Value) : (DateTime?)null;
     }
 }

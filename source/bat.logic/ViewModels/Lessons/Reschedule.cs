@@ -73,6 +73,8 @@ namespace bat.logic.ViewModels.Lessons
 
                 this.lesson.BookingDate = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt));
                 conn.SaveChanges();
+
+                Rules.EventLogging.EditLesson(this.account, this.lesson);
             }
         }
     }

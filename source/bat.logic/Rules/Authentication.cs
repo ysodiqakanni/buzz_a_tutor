@@ -10,6 +10,7 @@ using Shearnie.Net.Encryption;
 using bat.data;
 using bat.logic.Constants;
 using bat.logic.Helpers;
+using Newtonsoft.Json;
 
 namespace bat.logic.Rules
 {
@@ -149,6 +150,8 @@ namespace bat.logic.Rules
 
             var authenticationManager = this.context.Authentication;
             authenticationManager.SignIn(id);
+
+            EventLogging.Login(user);
         }
 
         public void Logout()

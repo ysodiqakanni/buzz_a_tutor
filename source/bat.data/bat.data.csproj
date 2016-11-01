@@ -75,6 +75,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>db.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EventLog.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="FamilyMember.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>

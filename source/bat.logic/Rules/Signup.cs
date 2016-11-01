@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bat.data;
+using Newtonsoft.Json;
 
 namespace bat.logic.Rules
 {
@@ -48,6 +49,8 @@ namespace bat.logic.Rules
                 conn.SaveChanges();
 
                 Rules.ZoomApi.CreateZoomUserAccount(account.ID);
+
+                EventLogging.Register(account);
             }
         }
     }
