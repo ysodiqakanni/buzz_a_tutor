@@ -15,7 +15,7 @@
 }
 @section scripts {
 <script type="text/javascript" src="@Url.Content("~/assets/js/lessonJS.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
     @*<script>
             $(document).ready(function () {
                 window.open('@Model.lesson.ZoomJoinUrl', '_blank');
@@ -109,7 +109,7 @@
                                     @Html.Partial("_PartialWhiteboard", Model)
                                 </div>
                                 <div class="col-md-4">
-                                    <table class="table">
+                                    <table class="table" id="bbImage-list">
                                         <tr>
                                             <th class="center">
                                                 Blackboard Images

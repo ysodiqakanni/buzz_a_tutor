@@ -21,6 +21,12 @@ namespace bat
             Clients.Group(clientModel.Group, clientModel.LastUpdatedBy).UpdateChalk(clientModel);
         }
 
+        public void UpdateList(BBListUpdate Update)
+        {
+            // Update the Chalk model within our broadcaster
+            Clients.Group(Update.Group).UpdateList(Update);
+        }
+
         public void BoardImage(ImageModel imageModel)
         {
             Clients.Group(imageModel.Group, Context.ConnectionId).BoardImage(imageModel);
@@ -47,6 +53,14 @@ namespace bat
         // We don't want the client to get the "LastUpdatedBy" property
         [JsonIgnore]
         public string LastUpdatedBy { get; set; }
+    }
+
+    public class BBListUpdate
+    {
+        [JsonProperty("group")]
+        public string Group { get; set; }
+        [JsonProperty("update")]
+        public bool Update { get; set; }
     }
 
     public class ImageModel

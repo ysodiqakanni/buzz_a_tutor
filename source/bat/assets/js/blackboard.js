@@ -34,14 +34,6 @@ canvas.width = blackboardWidth;
 canvas.height = blackboardHeight;
 var previewCanvas = document.getElementById("previewCanvas");
 
-$("document").ready(function () {
-    $(function () {
-        $('#attachment-list').slimScroll({
-            height: '250px'
-        });
-    });
-});
-
 // Set up connection the Blackboard Hub
 var blackboardHub = $.connection.blackboardHub,
     $bb = $('#canvas'),
@@ -60,6 +52,10 @@ var blackboardHub = $.connection.blackboardHub,
         lineWidth: '3',
         color: '#000',
         group: lessonId,
+    },
+    listModel = {
+        group: lessonId,
+        update: true
     },
     imageModel = {
         group: lessonId,
@@ -84,6 +80,13 @@ $(function () {
             loadBackground(model.imageId);
         }
     };
+    blackboardHub.client.updateList = function (model) {
+        update = model;
+        console.log(update.update);
+        if (update.update == true) {
+            updateImageList(lessonId);
+        }
+    }
     $.connection.hub.start().done(function () {
         // Join the Lesson's Blackboard
         blackboardHub.server.joinGroup(lessonId);
@@ -186,52 +189,6 @@ function changeLW(lW) {
 }
 // end of change Line Width
 
-// Save image function
-function saveImg(lessonId) {
-    var img2SaveRaw = canvas.toDataURL('image/png'),
-        img2SaveArray = img2SaveRaw.split(','),
-        img2Save = img2SaveArray[1],
-        title = $('#saveTitle').val();
-    $('#imgSaveFail').addClass('hidden');
-    $('#imgSaveSuccess').addClass('hidden');
-
-
-    // For muckup purpose
-    if (title == '') {
-        $('#imgSaveFail').removeClass('hidden');
-    } else {
-
-        $.ajax({
-            type: "POST", // Type of request
-            url: "../api/lessons/upload", //The controller/Action
-            dataType: "json",
-            data: {
-                "lessonid": lessonId,
-                "title": title,
-                "data": img2Save,
-            },
-
-            success: function (data) {
-                // update list
-                $("#attachment-list").empty()
-                $(jQuery.parseJSON(data)).each(function () {
-                    var id = this.id;
-                    var title = this.title;
-                    var attachmentBtn = '<button class="btn btn-link btn-block" onclick="loadImg(' + id + ')">' + title + '</button>';
-                    $("#attachment-list").append(attachmentBtn);
-                });
-                $('#imgSaveSuccess').removeClass('hidden');
-            },
-
-            error: function (err) {
-                console.log("error[" + err.status + "]: " + err.statusText);
-                $('#imgSaveFail').removeClass('hidden');
-            }
-        })
-    }
-}
-// End of Save image function
-
 // Load image function
 function loadImg(id) {
     useImg = true;
@@ -290,42 +247,6 @@ function defaultBoard() {
 }
 // End of Default Board
 
-// Save image function
-function savePreview(lessonId) {
-    var img2SaveRaw = previewCanvas.toDataURL('image/png'),
-        img2SaveArray = img2SaveRaw.split(','),
-        img2Save = img2SaveArray[1],
-        title = $('#previewTitle').val();
-
-    $.ajax({
-        type: "POST", // Type of request
-        url: "../api/lessons/upload", //The controller/Action
-        dataType: "json",
-        data: {
-            "lessonid": lessonId,
-            "title": title,
-            "data": img2Save,
-        },
-
-        success: function (data) {
-            // update list
-            $("#attachment-list").empty()
-            $(jQuery.parseJSON(data)).each(function () {
-                var id = this.id;
-                var title = this.title;
-                var attachmentBtn = '<button class="btn btn-link btn-block" onclick="loadImg(' + id + ')">' + title + '</button>';
-                $("#attachment-list").append(attachmentBtn);
-            });
-            $('#previewModal').modal('toggle');
-        },
-
-        error: function (err) {
-            console.log("error[" + err.status + "]: " + err.statusText);
-        }
-    })
-}
-// End of Save image function
-
 // Save Preview canvas
 function saveCanvas() {
     var img2SaveRaw = canvas.toDataURL('image/png')
@@ -370,3 +291,30 @@ function loadCloudImg(id) {
     })
 }
 // End of Load image from cloud function
+
+// update list
+function updateImageList(lessonId) {
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/getbblist", //"../api/lessons/upload", //The controller/Action
+        dataType: "json",
+        data: {
+            "lessonid": lessonId,
+        },
+        success: function (data) {
+            $("#bbImage-list").empty();
+            $("#bbImage-list").append(tableHeader);
+            $(jQuery.parseJSON(data)).each(function () {
+                var id = this.id;
+                var title = this.title;
+                var attachmentLink = '<tr><td><button class="btn btn-link btn-block" onclick="loadCloudImg(' + id + ')">' + title + '</button></td></tr>'
+                $("#bbImage-list").append(attachmentLink);
+            });
+        },
+        error: function (err) {
+            errorMessage = "Something went wrong, try again later.";
+            $("#bbImageError").append(errorStart + errorMessage + errorEnd);
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    })
+}

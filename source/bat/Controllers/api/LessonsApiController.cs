@@ -62,5 +62,12 @@ namespace bat.Controllers.api
 
             return bat.logic.ApiModels.Lessons.GetAttachment.GetImageStream(Convert.ToInt32(formData["attachmentid"]));
         }
+
+        [Authorize]
+        [System.Web.Http.HttpPost]
+        public string GetBlackboardImages(FormDataCollection formData)
+        {
+            return bat.logic.ApiModels.Lessons.GetAttachment.GetBlackboardImages(Convert.ToInt32(formData["lessonId"]));
+        }
     }
 }

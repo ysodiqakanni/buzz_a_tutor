@@ -42,6 +42,12 @@ namespace bat
             );
 
             config.Routes.MapHttpRoute(
+                name: "api/lessons/getbblist",
+                routeTemplate: "api/lessons/getbblist",
+                defaults: new { controller = "LessonsApi", action = "GetBlackboardImages" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "api/dashboard/getevents",
                 routeTemplate: "api/dashboard/getevents",
                 defaults: new { controller = "DashBoardApi", action = "Getevents" }
