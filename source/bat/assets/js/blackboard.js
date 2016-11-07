@@ -303,7 +303,6 @@ function updateImageList(lessonId) {
         },
         success: function (data) {
             $("#bbImage-list").empty();
-            $("#bbImage-list").append(tableHeader);
             $(jQuery.parseJSON(data)).each(function () {
                 var id = this.id;
                 var title = this.title;
