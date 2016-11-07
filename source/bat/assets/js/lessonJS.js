@@ -6,7 +6,6 @@ var errorEnd = '</p>';
 var imageFile;
 var uploadBtn = '<button type="button" class="btn btn-primary" onclick="uploadImage()">Upload</button>';
 var uploadingIcon = '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>';
-var tableHeader = '<tr><th class="center">Blackboard Images<button class="btn btn-primary pull-right" onclick="uploadImageModal();"><i class="fa fa-upload" aria-hidden="true"></i></button></th></tr>';
 
 var uploadImageModal = function () {
     $("#modal-button-container").empty();
