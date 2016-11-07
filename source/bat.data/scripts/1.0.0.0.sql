@@ -329,7 +329,7 @@ CREATE TABLE [dbo].[LessonResource](
 	[Lession_ID] [int] NOT NULL,
 	[Original_Name] [varchar](max) NOT NULL,
 	[Item_Storage_Name] [varchar](500) NOT NULL,
-	[Type_ID] [int] NOT NULL,
+	[Type_ID] [int] NULL,
  CONSTRAINT [PK_LessonResources] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
