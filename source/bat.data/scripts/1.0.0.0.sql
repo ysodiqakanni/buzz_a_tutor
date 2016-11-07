@@ -308,7 +308,7 @@ CREATE TABLE [dbo].[EventLog](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Account_ID] [int] NOT NULL,
 	[EventDate] [datetime] NOT NULL,
-	[IPAddress][varchar](20) NOT NULL,
+	[IPAddress][varchar](50) NOT NULL,
 	[Type] [varchar](500) NOT NULL,
 	[Data] [varchar](max) NOT NULL,
  CONSTRAINT [PK_EventLog] PRIMARY KEY CLUSTERED 

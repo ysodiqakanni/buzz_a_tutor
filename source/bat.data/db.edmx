@@ -42,7 +42,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Account_ID" Type="int" Nullable="false" />
           <Property Name="EventDate" Type="datetime" Nullable="false" />
-          <Property Name="IPAddress" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IPAddress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Data" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -297,12 +297,12 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Lesson" EntitySet="Lessons" />
           </AssociationSet>
-          <EntitySet Name="EventLogs" EntityType="dbModel.EventLog" />
           <EntitySet Name="LessonResources" EntityType="dbModel.LessonResource" />
           <AssociationSet Name="FK_LessonResource_Lesson" Association="dbModel.FK_LessonResource_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
             <End Role="LessonResource" EntitySet="LessonResources" />
           </AssociationSet>
+          <EntitySet Name="EventLogs" EntityType="dbModel.EventLog" />
           </EntityContainer>
         <EntityType Name="FamilyMember">
           <Key>
@@ -493,17 +493,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="EventLog">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account_ID" Type="Int32" Nullable="false" />
-          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IPAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="LessonResource">
           <Key>
             <PropertyRef Name="ID" />
@@ -527,6 +516,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" Nullable="false" />
+          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IPAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -631,6 +631,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LessonResources">
+            <EntityTypeMapping TypeName="dbModel.LessonResource">
+              <MappingFragment StoreEntitySet="LessonResource">
+                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
+                <ScalarProperty Name="Item_Storage_Name" ColumnName="Item_Storage_Name" />
+                <ScalarProperty Name="Original_Name" ColumnName="Original_Name" />
+                <ScalarProperty Name="Lession_ID" ColumnName="Lession_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EventLogs">
             <EntityTypeMapping TypeName="dbModel.EventLog">
               <MappingFragment StoreEntitySet="EventLog">
@@ -639,17 +650,6 @@
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="EventDate" ColumnName="EventDate" />
                 <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LessonResources">
-            <EntityTypeMapping TypeName="dbModel.LessonResource">
-              <MappingFragment StoreEntitySet="LessonResource">
-                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
-                <ScalarProperty Name="Item_Storage_Name" ColumnName="Item_Storage_Name" />
-                <ScalarProperty Name="Original_Name" ColumnName="Original_Name" />
-                <ScalarProperty Name="Lession_ID" ColumnName="Lession_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

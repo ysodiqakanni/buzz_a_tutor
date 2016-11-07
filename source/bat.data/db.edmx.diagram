@@ -20,9 +20,9 @@
         <AssociationConnector Association="dbModel.FK_FamilyMember_Account" />
         <AssociationConnector Association="dbModel.FK_FamilyMember_Parent" />
         <AssociationConnector Association="dbModel.FK_Lesson_Account" />
-        <EntityTypeShape EntityType="dbModel.EventLog" Width="1.5" PointX="10" PointY="0.5" />
         <EntityTypeShape EntityType="dbModel.LessonResource" Width="1.875" PointX="5.375" PointY="2.875" />
         <AssociationConnector Association="dbModel.FK_LessonResource_Lesson" />
+        <EntityTypeShape EntityType="dbModel.EventLog" Width="1.5" PointX="8.375" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -33,7 +33,7 @@ namespace bat.data
         public virtual DbSet<SubjectDescription> SubjectDescriptions { get; set; }
         public virtual DbSet<SubjectExamPaper> SubjectExamPapers { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<EventLog> EventLogs { get; set; }
         public virtual DbSet<LessonResource> LessonResources { get; set; }
+        public virtual DbSet<EventLog> EventLogs { get; set; }
     }
 }
