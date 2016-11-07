@@ -18,7 +18,7 @@ namespace bat.data
         public int Lession_ID { get; set; }
         public string Original_Name { get; set; }
         public string Item_Storage_Name { get; set; }
-        public int Type_ID { get; set; }
+        public Nullable<int> Type_ID { get; set; }
     
         public virtual Lesson Lesson { get; set; }
     }
