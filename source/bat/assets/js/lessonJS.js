@@ -15,6 +15,9 @@ var uploadImageModal = function () {
     $('#uploadModal').modal();
 };
 $("#bbImageInput").change(function (event) {
+    $("#canvasCarousel").empty();
+    $("#modal-button-container").empty();
+    $("#modal-button-container").append(cancelBtn);
     $("upload-Canvas").empty();
     event.preventDefault();
     $("#bbImageError").empty();
@@ -119,6 +122,7 @@ $("#bbImageInput").change(function (event) {
         errorMessage = "Incorrect file type.";
         $("#bbImageError").append(errorStart + errorMessage + errorEnd);
     }
+    this.value = null;
 });
 function uploadImage() {
     $("#modal-button-container").empty();
@@ -161,6 +165,7 @@ function uploadImage() {
         if (page <= pages) {
             ifchecked();
         } else if (page > pages) {
+            console.log("done");
             $("#modal-button-container").empty();
             blackboardHub.server.updateList(listModel);
             $("#modal-button-container").append(successBtn);

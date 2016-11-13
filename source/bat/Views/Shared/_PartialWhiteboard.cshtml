@@ -19,28 +19,6 @@
                     <button onclick="saveCanvas()" type="button" class="btn btn-primary" data-toggle="tooltip" title="Save Board">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp; Save
                     </button>
-
-                    @*<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">File <span class="caret"></span></button>
-                    <ul class="dropdown-menu file-menu" role="menu">
-                        <li>
-                            <label style="max-width: inherit;" for="pdfData" data-toggle="tooltip" title="Upload Image or PDF" class="btn btn-primary">
-                                <i class="fa fa-upload" aria-hidden="true"></i>
-                            </label>
-                            <input type="file" style="display:none" name="data" id="pdfData" />
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <h4 class="center no-margin">Load an image:</h4>
-                            <div id="attachment-list" class="center">
-                                @foreach (var attachment in Model.attachments)
-                                {
-                                    <button class="btn btn-link btn-block" onclick="loadImg('@attachment.ID')">
-                                        @attachment.Title
-                                    </button>
-                                }
-                            </div>
-                        </li>
-                    </ul>*@
                 </div>
             </div>
             <div class="fright">
@@ -53,6 +31,7 @@
         <div id="board-inner">
             <div id="blackBoard">
                 <canvas id="canvas" style="align-content:center"></canvas>
+                <div id="loading-spinner" class="hidden"></div>
             </div>
         </div>
     </div><!-- /board-wrap-->

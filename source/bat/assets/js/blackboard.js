@@ -265,6 +265,9 @@ function saveCanvas() {
 
 // Load image from cloud function
 function loadCloudImg(id) {
+    //show spinner
+    $("#loading-spinner").removeClass("hidden");
+
     useImg = true;
     $.ajax({
         type: "POST", // Type of request
@@ -281,6 +284,8 @@ function loadCloudImg(id) {
             imageModel.imageId = id;
             blackboardHub.server.boardImage(imageModel);
             imgData = data
+            //end spinner
+            $("#loading-spinner").addClass("hidden");
             clearBoard();
 
         },
@@ -308,6 +313,9 @@ function updateImageList(lessonId) {
                 var title = this.title;
                 var attachmentLink = '<tr><td><button class="btn btn-link btn-block" onclick="loadCloudImg(' + id + ')">' + title + '</button></td></tr>'
                 $("#bbImage-list").append(attachmentLink);
+                $('#bbImage-list').slimScroll({
+                    height: '500px'
+                });
             });
         },
         error: function (err) {
