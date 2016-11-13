@@ -11,6 +11,7 @@ var uploadImageModal = function () {
     $("#modal-button-container").empty();
     $("#canvasCarousel").empty();
     $("#bbImageInput").empty();
+    $(".carousel-control").addClass("hidden");
     $("#modal-button-container").append(cancelBtn);
     $('#uploadModal').modal();
 };
@@ -29,7 +30,7 @@ $("#bbImageInput").change(function (event) {
         fileReader.addEventListener("load", function () {
             var currPage = 1; //Pages are 1-based not 0-based
             var id = "p" + 1;
-            $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
+            $('#canvasCarousel').append('<div id="' + id + '"class="item active hidden"></div>');
             var carouselItem = document.getElementById(id)
             var canvas = document.createElement("canvas");
             canvas.style.display = "block";
@@ -135,6 +136,7 @@ function uploadImage() {
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = imageFile.name;
+        //window.open("data:image/png;base64," + img2Save);
         $.ajax({
             type: "POST", // Type of request
             url: "../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
