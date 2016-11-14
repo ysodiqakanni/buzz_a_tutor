@@ -15,6 +15,7 @@ var uploadImageModal = function () {
     $("#modal-button-container").append(cancelBtn);
     $('#uploadModal').modal();
 };
+
 $("#bbImageInput").change(function (event) {
     $("#canvasCarousel").empty();
     $("#modal-button-container").empty();
@@ -25,7 +26,7 @@ $("#bbImageInput").change(function (event) {
     imageFile = event.target.files[0];
     var fileName = imageFile.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
-    if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif") {
+    if (fileExt === "png" || fileExt === "jpg" || fileExt === "tif") {
         var fileReader = new FileReader();
         fileReader.addEventListener("load", function () {
             var currPage = 1; //Pages are 1-based not 0-based
@@ -53,7 +54,7 @@ $("#bbImageInput").change(function (event) {
         //Step 3:Read the file as ArrayBuffer
         fileReader.readAsDataURL(imageFile);
         $("#modal-button-container").append(uploadBtn);
-    } else if (fileExt == "pdf") {
+    } else if (fileExt === "pdf") {
         //Step 2: Read the file using file reader
         var fileReader = new FileReader();
         fileReader.onload = function () {
@@ -80,13 +81,13 @@ $("#bbImageInput").change(function (event) {
 
                 //We'll create a canvas for each page to draw it on
                 var id = 'p' + currPage;
-                if (currPage == 1) {
+                if (currPage === 1) {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
                 } else {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item"></div>');
                 }
 
-                var carouselItem = document.getElementById(id)
+                var carouselItem = document.getElementById(id);
 
                 var canvas = document.createElement("canvas");
                 canvas.id = "p" + currPage + "-canvas";
@@ -102,7 +103,7 @@ $("#bbImageInput").change(function (event) {
                 carouselItem.appendChild(canvas);
                 $('#' + id).append('<div class="carousel-caption"><input id="' + id + '-check" type="checkbox"/></div');
 
-                if (currPage == numPages) {
+                if (currPage === numPages) {
                     $("#preview-carousel").append('<a class="left carousel-control" href="#preview-carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span></a>');
                     $("#preview-carousel").append('<a class="right carousel-control" href="#preview-carousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span></a>');
                     $('#preview-carousel').carousel();
@@ -125,11 +126,13 @@ $("#bbImageInput").change(function (event) {
     }
     this.value = null;
 });
+
 function uploadImage() {
     $("#modal-button-container").empty();
     $("#modal-button-container").append(uploadingIcon);
     var page = 1;
     var pages = $("#canvasCarousel .item").length;
+
     function postCanvas(id) {
         var canvas = document.getElementById(id + "-canvas");
         var img2SaveRaw = canvas.toDataURL('image/png'),
@@ -144,26 +147,27 @@ function uploadImage() {
             data: {
                 "lessonid": lessonId,
                 "title": title + "-" + id,
-                "data": img2Save,
+                "data": img2Save
             },
 
-            success: function (data) {
+            success: function(data) {
             },
 
-            error: function (err) {
+            error: function(err) {
                 errorMessage = "Something went wrong, try again later.";
                 $("#bbImageError").append(errorStart + errorMessage + errorEnd);
                 console.log("error[" + err.status + "]: " + err.statusText);
             }
-        })
+        });
     }
+
     function ifchecked() {
         var id = 'p' + page;
         var inputId = id + "-check";
         if ($("#" + inputId).is(":checked")) {
             postCanvas(id);
         }
-        page++
+        page++;
         if (page <= pages) {
             ifchecked();
         } else if (page > pages) {
@@ -173,7 +177,8 @@ function uploadImage() {
             $("#modal-button-container").append(successBtn);
         }
     }
-    if (page < pages || page == pages) {
+
+    if (page < pages || page === pages) {
         ifchecked();
     }
 }

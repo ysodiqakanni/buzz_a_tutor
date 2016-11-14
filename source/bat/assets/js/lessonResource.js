@@ -16,10 +16,10 @@ $("#classResource").change(function (event) {
 });
 
 function submitResource(trig) {
-    if ($("#classResource").val() != null && trig == 0) {       
+    if ($("#classResource").val() != null && trig === 0) {       
         var fileName = file.name;
         var fileExt = fileName.split('.').pop().toLowerCase();
-        if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif" || fileExt == "pdf") {
+        if (fileExt === "png" || fileExt === "jpg" || fileExt === "tif" || fileExt === "pdf") {
             $("#message-container").empty();
             $("#modal-button-container").empty();
             $("#message-container").append("<p>Whould you like to be able to display on blackboard?</p>");
@@ -31,7 +31,7 @@ function submitResource(trig) {
             $("#modal-button-container").empty();
             $("#message-container").append("<p> Upload was succesful</p>");
         }
-    } else if ($("#classResource").val() != null && trig == 1) {
+    } else if ($("#classResource").val() != null && trig === 1) {
         $("#resourceForm").submit();
         $("#message-container").empty();
         $("#modal-button-container").empty();
@@ -46,7 +46,7 @@ function loadPreview() {
     var fileName = file.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
     var title = fileName.split('.')[0];
-    if (fileExt == "pdf") {
+    if (fileExt === "pdf") {
         //Step 2: Read the file using file reader
         var fileReader = new FileReader();
         fileReader.onload = function () {
@@ -73,13 +73,13 @@ function loadPreview() {
 
                 //We'll create a canvas for each page to draw it on
                 var id = 'item' + currPage;
-                if (currPage == 1) {
+                if (currPage === 1) {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
                 } else {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item"></div>');
                 }
 
-                var carouselItem = document.getElementById(id)
+                var carouselItem = document.getElementById(id);
 
                 var canvas = document.createElement("canvas");
                 canvas.id = "page-"+currPage;
@@ -96,7 +96,7 @@ function loadPreview() {
                 $('#' + id).append('<div class="carousel-caption"><input id="'+id+'check" type="checkbox"/></div');
                 $('#previewTitle').val(title);
 
-                if (currPage == numPages) {
+                if (currPage === numPages) {
                     $("#preview-carousel").append('<a class="left carousel-control" href="#preview-carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span></a>');
                     $("#preview-carousel").append('<a class="right carousel-control" href="#preview-carousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span></a>');
                     $('#preview-carousel').carousel();
@@ -114,14 +114,14 @@ function loadPreview() {
         }
         //Step 3:Read the file as ArrayBuffer
         fileReader.readAsArrayBuffer(file);
-    } else if (fileExt == "png" || fileExt == "jpg" || fileExt == "tif") {
+    } else if (fileExt === "png" || fileExt === "jpg" || fileExt === "tif") {
         var fileReader = new FileReader();
         fileReader.addEventListener("load", function () {
             var id = "item" + 1;
 
             $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
 
-            var carouselItem = document.getElementById(id)
+            var carouselItem = document.getElementById(id);
 
             var canvas = document.createElement("canvas");
             canvas.id = "page-" + 1;
@@ -154,44 +154,44 @@ function savePreview(lessonId) {
     var page = 1;
     var pages = $("#canvasCarousel .item").length;
     function postCanvas(id) {
-        var canvas = document.getElementById(id)
+        var canvas = document.getElementById(id);
         var img2SaveRaw = canvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = $('#previewTitle').val();
-            $.ajax({
-                type: "POST", // Type of request
-                url: "../../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
-                dataType: "json",
-                data: {
-                    "lessonid": lessonId,
-                    "title": title +"-"+ id,
-                    "data": img2Save,
-                },
+        $.ajax({
+            type: "POST", // Type of request
+            url: "../../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
+            dataType: "json",
+            data: {
+                "lessonid": lessonId,
+                "title": title + "-" + id,
+                "data": img2Save
+            },
 
-                success: function (data) {
-                    console.log(data);
-                },
+            success: function(data) {
+                console.log(data);
+            },
 
-                error: function (err) {
-                    console.log("error[" + err.status + "]: " + err.statusText);
-                }
-            })
+            error: function(err) {
+                console.log("error[" + err.status + "]: " + err.statusText);
+            }
+        });
     }
     function ifchecked() {
         var id = 'page-' + page;
         var inputId = 'item' + page + 'check';
         if ($("#" + inputId).is(":checked")) {
-            postCanvas(id)
+            postCanvas(id);
         }
-        page++
+        page++;
         if (page <= pages) {
             ifchecked();
         } else if (page > pages) {
             $("#resourceForm").submit();
         }
     }
-    if (page < pages || page == pages) {
+    if (page < pages || page === pages) {
         ifchecked();
     }  
 }

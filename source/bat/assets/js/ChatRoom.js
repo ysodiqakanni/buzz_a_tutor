@@ -61,16 +61,16 @@ $(function () {
             sendMessage();
         });
 
-        $("#message").keydown(function (event) {
-            if (event.which == 13) {
+        $("#message").keydown(function(event) {
+            if (event.which === 13) {
                 sendMessage();
             }
-        })
+        });
     });
 
     // Lost connection with Server
-    $.connection.hub.reconnecting(function () {
+    $.connection.hub.reconnecting(function() {
         // Add the disconnect message to the page.
         $('#discussion').prepend('<li class="chatMessage"><strong> Classroom:</strong> Rejoining Classroom</li>');
-    })
+    });
 });

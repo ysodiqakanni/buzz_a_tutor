@@ -15,14 +15,14 @@ var blackboardWidth = $('#blackBoard').width();
 var blackboardHeight = $('#blackBoard').height();
 
 var load = false;
-$('a[href="#blackboard-Tab"]').on('shown.bs.tab', function (e) {
-    if(load != true) {
+$('a[href="#blackboard-Tab"]').on('shown.bs.tab', function(e) {
+    if (load !== true) {
         blackboardWidth = $('#blackBoard').width();
         canvas.width = blackboardWidth;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         load = true;
     }
-})
+});
 
 var rect = canvas.getBoundingClientRect();
 
@@ -51,7 +51,7 @@ var blackboardHub = $.connection.blackboardHub,
         nY: 0,
         lineWidth: '3',
         color: '#000',
-        group: lessonId,
+        group: lessonId
     },
     listModel = {
         group: lessonId,
@@ -72,7 +72,7 @@ $(function () {
     };
     blackboardHub.client.boardImage = function (model) {
         imageModel = model;
-        if (imageModel.clear == true) {
+        if (imageModel.clear === true) {
             useImg = false;
             clearBoard();
         } else {
@@ -83,7 +83,7 @@ $(function () {
     blackboardHub.client.updateList = function (model) {
         update = model;
         console.log(update.update);
-        if (update.update == true) {
+        if (update.update === true) {
             updateImageList(lessonId);
         }
     }
@@ -107,8 +107,8 @@ function remap(value, actualMin, actualMax, newMin, newMax) {
 
 function clearBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (useImg == true) {
-        var img = new Image()
+    if (useImg === true) {
+        var img = new Image();
         img.src = "data:image/png;base64," + imgData;
         img.onload = function () {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -127,13 +127,13 @@ clearBoard();
 canvas.onmousedown = function (e) {
     painting = true;
     lX = e.offsetX; //e.pageX - rect.left - window.scrollX;
-    lY = e.offsetY //e.pageY - rect.top - window.scrollY;
+    lY = e.offsetY; //e.pageY - rect.top - window.scrollY;
     paint(lX, lY, lX - 1, lY - 1, clientModel.lineWidth, clientModel.color);
     clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
     clientModel.oY = remap(lY, 0, blackboardHeight, 0, 600);
     clientModel.nX = remap(lX - 1, 0, blackboardWidth, 0, 600);
     clientModel.nY = remap(lY - 1, 0, blackboardHeight, 0, 600);
-    blackboardHub.server.updateModel(clientModel)
+    blackboardHub.server.updateModel(clientModel);
 };
 
 canvas.onmouseup = function (e) {
@@ -142,14 +142,14 @@ canvas.onmouseup = function (e) {
 
 canvas.onmousemove = function (e) {
     if (painting) {
-        var x = e.offsetX // e.pageX - rect.left - window.scrollX;
-        var y = e.offsetY //e.pageY - rect.top - window.scrollY;
+        var x = e.offsetX; // e.pageX - rect.left - window.scrollX;
+        var y = e.offsetY; //e.pageY - rect.top - window.scrollY;
         paint(lX, lY, x, y, clientModel.lineWidth, clientModel.color);
         clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
         clientModel.oY = remap(lY, 0, blackboardHeight, 0, 600);
         clientModel.nX = remap(x, 0, blackboardWidth, 0, 600);
         clientModel.nY = remap(y, 0, blackboardHeight, 0, 600);
-        blackboardHub.server.updateModel(clientModel)
+        blackboardHub.server.updateModel(clientModel);
 
         lX = x;
         lY = y;
@@ -199,19 +199,18 @@ function loadImg(id) {
         data: {
             "attachmentid": id
         },
-        success: function (data) {
+        success: function(data) {
             imageModel.clear = false;
             imageModel.imageId = id;
             blackboardHub.server.boardImage(imageModel);
-            imgData = data
+            imgData = data;
             clearBoard();
-            
         },
-        error: function (err) {
+        error: function(err) {
             console.log("error[" + err.status + "]: " + err.statusText);
             //            $('#imgSaveFail').removeClass('hidden');
         }
-    })
+    });
 }
 // End of Save image function
 
@@ -224,15 +223,15 @@ function loadBackground(id) {
         data: {
             "attachmentid": id
         },
-        success: function (data) {
-            imgData = data
+        success: function(data) {
+            imgData = data;
             clearBoard();
         },
-        error: function (err) {
+        error: function(err) {
             console.log("error[" + err.status + "]: " + err.statusText);
             //            $('#imgSaveFail').removeClass('hidden');
         }
-    })
+    });
 }
 // End of Save image function
 
@@ -241,15 +240,15 @@ function defaultBoard() {
     useImg = false;
     data = '';
     imageModel.clear = true;
-    blackboardHub.server.boardImage(imageModel).done(function () {
-       clearBoard();
-    })
+    blackboardHub.server.boardImage(imageModel).done(function() {
+        clearBoard();
+    });
 }
 // End of Default Board
 
 // Save Preview canvas
 function saveCanvas() {
-    var img2SaveRaw = canvas.toDataURL('image/png')
+    var img2SaveRaw = canvas.toDataURL('image/png');
     var context = previewCanvas.getContext('2d');
     previewCanvas.width = blackboardWidth;
     previewCanvas.height = blackboardHeight;
@@ -276,24 +275,24 @@ function loadCloudImg(id) {
         data: {
             "attachmentid": id
         },
-        success: function (data) {
+        success: function(data) {
             //console.log(data);
             //var image = "data:image/png;base64," + data;
             //window.open(image)
             imageModel.clear = false;
             imageModel.imageId = id;
             blackboardHub.server.boardImage(imageModel);
-            imgData = data
+            imgData = data;
             //end spinner
             $("#loading-spinner").addClass("hidden");
             clearBoard();
 
         },
-        error: function (err) {
+        error: function(err) {
             console.log("error[" + err.status + "]: " + err.statusText);
             //            $('#imgSaveFail').removeClass('hidden');
         }
-    })
+    });
 }
 // End of Load image from cloud function
 
@@ -304,24 +303,24 @@ function updateImageList(lessonId) {
         url: "../api/lessons/getbblist", //"../api/lessons/upload", //The controller/Action
         dataType: "json",
         data: {
-            "lessonid": lessonId,
+            "lessonid": lessonId
         },
-        success: function (data) {
+        success: function(data) {
             $("#bbImage-list").empty();
-            $(jQuery.parseJSON(data)).each(function () {
+            $(jQuery.parseJSON(data)).each(function() {
                 var id = this.id;
                 var title = this.title;
-                var attachmentLink = '<tr><td><button class="btn btn-link btn-block" onclick="loadCloudImg(' + id + ')">' + title + '</button></td></tr>'
+                var attachmentLink = '<tr><td><button class="btn btn-link btn-block" onclick="loadCloudImg(' + id + ')">' + title + '</button></td></tr>';
                 $("#bbImage-list").append(attachmentLink);
                 $('#bbImage-list').slimScroll({
                     height: '500px'
                 });
             });
         },
-        error: function (err) {
+        error: function(err) {
             errorMessage = "Something went wrong, try again later.";
             $("#bbImageError").append(errorStart + errorMessage + errorEnd);
             console.log("error[" + err.status + "]: " + err.statusText);
         }
-    })
+    });
 }

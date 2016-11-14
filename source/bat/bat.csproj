@@ -367,7 +367,6 @@
     <Content Include="assets\js\canvas.slider.fade.js" />
     <Content Include="assets\js\chatRoom.js" />
     <Content Include="assets\js\creative.min.js" />
-    <Content Include="assets\js\demo.js" />
     <Content Include="assets\js\events-data.js" />
     <Content Include="assets\js\fullcalendar.min.js" />
     <Content Include="assets\js\functions.js" />
@@ -566,9 +565,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_PartialWhiteboard.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="assets\js\demo.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

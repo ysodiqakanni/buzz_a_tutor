@@ -29,12 +29,12 @@ var whiteBoard = {
             x: 0,
             y: 0,
             color: '#fff',
-            group: lessonId,
+            group: lessonId
         },
         moved: false,
         useData: true,
         imgID : 0,
-        imgData : '',
+        imgData : ''
     },
 
     init: function () {
@@ -72,7 +72,7 @@ var whiteBoard = {
         $("#" + this.s.frameName).append(canvas);
         this.s.canvas = document.getElementById(this.s.canvasName);
         this.s.btx = this.s.canvas.getContext('2d');
-        console.log(whiteBoard.s)
+        console.log(whiteBoard.s);
         if (this.s.useData) {
             // Get Image
             var img = new Image();
@@ -239,17 +239,17 @@ var whiteBoard = {
             dataType: "json",
             data: {
                 "Title": title,
-                "Data" : img,
+                "Data": img
             },
-            
-            success: function (data) {
+
+            success: function(data) {
                 console.log(data);
             },
-            
-            error: function (err) {
+
+            error: function(err) {
                 console.log(err);
             }
-        })
+        });
 
-    },
+    }
 }
