@@ -31,7 +31,7 @@ namespace bat.logic.ViewModels.Admin
                 this.subjectDescription = conn.SubjectDescriptions.FirstOrDefault(s => s.ID == id);
                 if (this.subjectDescription == null)
                     throw new Exception("Invalid subject description record.");
-                this.ExamPapers = this.subjectDescription.SubjectExamPapers.Where(s => s.ID == this.subjectDescription.ID).ToList();
+                this.ExamPapers = conn.SubjectExamPapers.Where(s => s.SubjectDescription_ID == this.subjectDescription.ID).ToList();
 
                 this.subject = this.subjectDescription.Subject;
             }
@@ -61,7 +61,7 @@ namespace bat.logic.ViewModels.Admin
                                               Subject = subject
                                           };
                 if (this.subjectDescription.ID > 0)
-                    this.ExamPapers = conn.SubjectExamPapers.Where(s => s.ID == this.subjectDescription.ID).ToList();
+                    Load(this.subjectDescription.ID);
             }
         }
 
