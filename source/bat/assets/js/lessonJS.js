@@ -8,6 +8,7 @@ var uploadBtn = '<button type="button" class="btn btn-primary" onclick="uploadIm
 var uploadingIcon = '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>';
 
 var uploadImageModal = function () {
+    $("#bbImageInput").val('');
     $("#modal-button-container").empty();
     $("#canvasCarousel").empty();
     $("#bbImageInput").empty();
@@ -124,7 +125,6 @@ $("#bbImageInput").change(function (event) {
         errorMessage = "Incorrect file type.";
         $("#bbImageError").append(errorStart + errorMessage + errorEnd);
     }
-    this.value = null;
 });
 
 function uploadImage() {
@@ -150,7 +150,14 @@ function uploadImage() {
                 "data": img2Save
             },
 
-            success: function(data) {
+            success: function (data) {
+                updateImageList(lessonId);
+                if (page > pages) {
+                    blackboardHub.server.updateList(listModel);
+                    //$("#modal-button-container").empty();
+                    //$("#modal-button-container").append(successBtn);
+                    $('#uploadModal').modal('toggle');
+                }
             },
 
             error: function(err) {
@@ -170,15 +177,10 @@ function uploadImage() {
         page++;
         if (page <= pages) {
             ifchecked();
-        } else if (page > pages) {
-            console.log("done");
-            $("#modal-button-container").empty();
-            blackboardHub.server.updateList(listModel);
-            $("#modal-button-container").append(successBtn);
         }
     }
 
-    if (page < pages || page === pages) {
+    if (page <= pages) {
         ifchecked();
     }
 }
