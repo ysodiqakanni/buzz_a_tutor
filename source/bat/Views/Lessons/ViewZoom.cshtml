@@ -39,11 +39,15 @@
                 <div class="pull-right">
                     @if (Model.IsTeacher)
                     {
-                        <a href="@Url.Action("Reschedule", new { id = Model.lesson.ID })" class="btn btn-lg btn-default">Reschedule lesson</a>
-                        <a href="@Url.Action("Edit", new { id = Model.lesson.ID })" class="btn btn-lg btn-default">Edit lesson details</a>
+                        <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
+                            <i class="fa fa-calendar"></i> Reschedule lesson
+                        </a>
+                        <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
+                            <i class="fa fa-edit"></i> Edit lesson details
+                        </a>
                     }
                     <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
-                        Join session
+                        <i class="fa fa-video-camera"></i> Start video
                     </a>
                 </div>
 
@@ -53,7 +57,6 @@
                     <ul class="nav nav-tabs bottom-bump">
                         <li class="active"><a data-toggle="tab" href="#lessonOverview">Lesson Overview</a></li>
                         <li><a data-toggle="tab" href="#blackboard-Tab">Blackboard</a></li>
-                        <li><a data-toggle="tab" href="#resources-Tab">Lesson Resources</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="lessonOverview" class="tab-pane fade in active" style="padding: 20px;">
@@ -132,49 +135,6 @@
                                             }
                                         }
                                     </div>
-                                </div>
-
-                                @*<div>
-                                    <table class="table" 
-                                        <tr>
-                                            <th class="center">
-
-
-                                            </th>
-                                        </tr>
-                                        @foreach (var resource in Model.lessonResources)
-                                        {
-                                            if (resource.Type_ID == bat.logic.Constants.Types.Image)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <button class="btn btn-link btn-block" onclick="loadCloudImg('@resource.ID')">
-                                                            @resource.Original_Name
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </table>
-                                </div>*@
-                            </div>
-                        </div>
-                        <div id="resources-Tab" class="tab-pane fade">
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-1">
-                                    <table class="table">
-                                        @foreach (var resource in Model.lessonResources)
-                                        {
-                                            if (resource.Type_ID == bat.logic.Constants.Types.Default)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </table>
                                 </div>
                             </div>
                         </div>

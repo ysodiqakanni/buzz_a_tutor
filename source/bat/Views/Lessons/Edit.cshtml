@@ -101,15 +101,8 @@
     <table class="table">
         <tr>
             <th colspan="2">
-                Lesson Resources
+                Blackboard Images
             </th>
-        </tr>
-        <tr>
-            @{ Html.BeginForm("UploadResource", "Lessons", new { id = Model.lesson.ID }, FormMethod.Post, new { enctype = "multipart/form-data", id = "resourceForm" }); }           
-            <td>
-                <input type='file' class="form-control" name="classResource" id="classResource" />
-            </td>
-             @{ Html.EndForm();}
         </tr>
         @foreach (var resource in Model.lessonResources)
             {
@@ -122,7 +115,6 @@
                     {
                         <p>@resource.Original_Name</p>
                     }
-
                 </td>
                 <td>
                     <a href="@Url.Action("deleteresource", "lessons", new { id = Model.lesson.ID, resourceId = resource.ID})">Delete</a>
@@ -132,45 +124,3 @@
     </table>
 </div>
 
-    <!-- Modal -->
-<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="toImageModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <p></p>
-            </div>
-            <div class="modal-body">
-                <div id="message-container">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="pull-right" id="modal-button-container">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="form-group">
-                    <input type="text" class="modal-title form-control" id="previewTitle">
-                </div>
-            </div>
-            <div id="modal-preview-body" class="modal-body">
-                <div id="preview-carousel" class="carousel slide">
-                    <div id="canvasCarousel" class="carousel-inner" role="listbox">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="savePreview('@Model.lesson.ID')">Upload Image</button>
-            </div>
-        </div>
-    </div>
-</div>

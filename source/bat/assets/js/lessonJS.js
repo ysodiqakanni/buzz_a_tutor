@@ -12,6 +12,7 @@ var uploadImageModal = function () {
     $("#modal-button-container").empty();
     $("#canvasCarousel").empty();
     $("#bbImageInput").empty();
+    $("#bbImageError").empty();
     $(".carousel-control").addClass("hidden");
     $("#modal-button-container").append(cancelBtn);
     $('#uploadModal').modal();
@@ -23,7 +24,6 @@ $("#bbImageInput").change(function (event) {
     $("#modal-button-container").append(cancelBtn);
     $("upload-Canvas").empty();
     event.preventDefault();
-    $("#bbImageError").empty();
     imageFile = event.target.files[0];
     var fileName = imageFile.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
