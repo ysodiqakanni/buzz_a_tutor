@@ -2,6 +2,15 @@
 @{
     ViewBag.Title = "Add Family Member";
 }
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                $('input[type=submit]').attr('disabled', 'disabled');
+            });
+        });
+    </script>
+}
 
 @{ Html.BeginForm("New", "Profile", FormMethod.Post); }
 
