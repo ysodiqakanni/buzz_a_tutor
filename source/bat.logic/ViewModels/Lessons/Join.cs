@@ -61,6 +61,9 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
 
+                if (this.lesson.Account_ID == this.account.ID)
+                    return;
+
                 if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
                     return;
 
