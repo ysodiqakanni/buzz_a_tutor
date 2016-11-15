@@ -191,5 +191,49 @@ namespace bat.Controllers
 
             return File(imageData, "image/jpg");
         }
+
+        [Authorize]
+        public ActionResult Lessons()
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return RedirectToRoute("home");
+
+            var model = new bat.logic.ViewModels.Profile.Lessons();
+
+            try
+            {
+                model.Initialise(user.ID);
+                model.Load(user.ID);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public ActionResult LessonDetails(int id)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) return RedirectToRoute("home");
+
+            var model = new bat.logic.ViewModels.Profile.LessonDetails();
+
+            try
+            {
+                model.Initialise(user.ID);
+                model.Load(id);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
     }
 }

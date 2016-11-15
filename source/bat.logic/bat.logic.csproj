@@ -236,8 +236,8 @@
     <Compile Include="ViewModels\Profile\New.cs" />
     <Compile Include="ViewModels\Profile\Profile.cs" />
     <Compile Include="ViewModels\Profile\EditMember.cs" />
-    <Compile Include="ViewModels\ChatRecords\Details.cs" />
-    <Compile Include="ViewModels\ChatRecords\Index.cs" />
+    <Compile Include="ViewModels\Profile\LessonDetails.cs" />
+    <Compile Include="ViewModels\Profile\Lessons.cs" />
     <Compile Include="Rules\Authentication.cs" />
     <Compile Include="Models\Zoom\Meeting.cs" />
     <Compile Include="Models\Zoom\MeetingList.cs" />

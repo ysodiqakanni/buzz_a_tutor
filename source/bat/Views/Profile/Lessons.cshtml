@@ -1,0 +1,52 @@
+﻿@model bat.logic.ViewModels.Profile.Lessons
+@{
+    ViewBag.Title = "Lesson History";
+    var colSize = Model.teacherLessons.Any() ? 4 : 6;
+}
+
+<div class="row">
+    @if (Model.teacherLessons.Any())
+    {
+        <div class="col-sm-4">
+            <h2>Lessons you have taught</h2>
+            @foreach (var lesson in Model.teacherLessons)
+            {
+                <p>
+                    <a href="@Url.RouteUrl("profile/lesson-history-details", new {id = lesson.ID})">
+                        @lesson.Description
+                    </a>
+                </p>
+            }
+        </div>
+    }
+    <div class="col-sm-@colSize">
+        <h2>Lessons you have joined</h2>
+        @foreach (var lesson in Model.lessons)
+        {
+            <p>
+                <a href="@Url.RouteUrl("profile/lesson-history-details", new {id = lesson.ID})">
+                    @lesson.Description
+                </a>
+            </p>
+        }
+    </div>
+    <div class="col-sm-@colSize">
+        <h2>Lessons by family member</h2>
+        @foreach (var familyRecord in Model.familyRecords)
+        {
+            <strong>
+                <p>
+                    @Model.GetAccountName(familyRecord.familyMember.ID)
+                </p>
+            </strong>
+            foreach (var lesson in familyRecord.lessons)
+            {
+                <p>
+                    <a href="@Url.RouteUrl("profile/lesson-history-details", new {id = lesson.ID})">
+                        @lesson.Description
+                    </a>
+                </p>
+            }
+        }
+    </div>
+</div>

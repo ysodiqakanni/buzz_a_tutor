@@ -237,7 +237,6 @@
     <Compile Include="App_Start\Routes\Lessons.cs" />
     <Compile Include="App_Start\Routes\Home.cs" />
     <Compile Include="App_Start\Routes\Profile.cs" />
-    <Compile Include="App_Start\Routes\Records.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
@@ -250,7 +249,6 @@
     <Compile Include="Controllers\api\DashBoardApiController.cs" />
     <Compile Include="Controllers\api\LessonsApiController.cs" />
     <Compile Include="Controllers\api\ProfilePictureApiController.cs" />
-    <Compile Include="Controllers\ChatRecordsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="SignalRHub.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -492,8 +490,8 @@
     <Content Include="Views\Profile\New.cshtml" />
     <Content Include="Views\Profile\EditMember.cshtml" />
     <Content Include="Views\Shared\_LayoutYucky.cshtml" />
-    <Content Include="Views\ChatRecords\Details.cshtml" />
-    <Content Include="Views\ChatRecords\Index.cshtml" />
+    <Content Include="Views\Profile\LessonDetails.cshtml" />
+    <Content Include="Views\Profile\Lessons.cshtml" />
     <Content Include="Views\Lessons\ViewZoom.cshtml" />
     <Content Include="Views\Home\ListLessons.cshtml" />
     <Content Include="Views\Home\Landing.cshtml" />
