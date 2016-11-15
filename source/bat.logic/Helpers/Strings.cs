@@ -15,5 +15,14 @@ namespace bat.logic.Helpers
 
             return val.Substring(0, length) + "...";
         }
+
+        public static bool EmailValid(string email)
+        {
+            var parts = email.Split('@');
+            if (parts.Length != 2) return false;
+
+            var domainParts = parts[1].Split('.');
+            return domainParts.Length >= 2;
+        }
     }
 }
