@@ -1,0 +1,60 @@
+﻿@model bat.logic.ViewModels.Homepage.SubjectList
+@{
+    var nextCaption = Model.account.ID > 0 ? "Learn More" : "Register now";
+    ViewBag.Title = Model.tutor.Fname + " " + Model.tutor.Lname;
+    var rate = Model.tutor.Rate ?? 0;
+}
+<div style="overflow: auto;">
+    <p style="float: left;">
+        @if (string.IsNullOrEmpty(Model.tutor.Picture))
+            {
+            <img style="height: 80px; width: 80px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+        }
+        else
+        {
+            <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = Model.tutor.ID, name = Model.GetFullAccountName(Model.tutor.ID)})" alt="Profile Pic" />
+        }
+    </p>
+    <div style="float: left; margin-left: 20px;">
+        <strong>
+            <p>
+                @Model.GetFullAccountName(Model.tutor.ID) - &#163 @rate.ToString("#.00") /hr
+            </p>
+        </strong>
+        <p>
+            @Model.tutor.Qualifications &nbsp;
+        </p>
+        <p>
+            @Model.tutor.Description &nbsp;
+        </p>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 40px;">
+    <div class="col-sm-12">
+        <table class="table" style="width:100%">
+            <tr>
+                <th>
+                    <strong>Lesson Description</strong>
+                </th>
+                <th>
+                    <strong>Date</strong>
+                </th>
+                <th>
+                    <strong>Time</strong>
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var lesson in Model.lessons)
+            {
+                <tr>
+                    <td>@lesson.Description</td>
+                    <td>@lesson.BookingDate.ToShortDateString()</td>
+                    <td>@lesson.BookingDate.ToShortTimeString()</td>
+                    <td><a href="@Url.RouteUrl("lessons/join", new { id = lesson.ID })" class="btn btn-default">@nextCaption</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

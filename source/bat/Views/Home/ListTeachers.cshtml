@@ -27,10 +27,15 @@
                 </p>
             </strong>
             <p style="text-align: center;">
-                @teacher.Qualifications
+                @teacher.Qualifications &nbsp;
             </p>
             <p style="text-align: center;">
-                @teacher.Description
+                @teacher.Description &nbsp;
+            </p>
+            <p style="text-align: center;">
+                <a href="@Url.RouteUrl("teacher", new {id = teacher.ID})" class="btn btn-primary">
+                    View Profile
+                </a>
             </p>
         </div>
     }

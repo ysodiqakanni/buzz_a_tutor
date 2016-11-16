@@ -1,9 +1,9 @@
 ﻿@model bat.logic.ViewModels.Homepage.SubjectList
 @{
     var nextCaption = Model.account.ID > 0 ? "Learn More" : "Register now";
+    ViewBag.Title = "Lessons by Subject";
 }
 @section head {
-    <title>Lessons by Subject</title>
     <style>
         .td-center{
             text-align:center;
