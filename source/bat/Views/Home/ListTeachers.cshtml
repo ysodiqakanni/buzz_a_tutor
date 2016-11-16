@@ -1,34 +1,37 @@
 ﻿@model bat.logic.ViewModels.Homepage.TeacherList
 
-@section head{
-    <title>Our Tutors</title>
+@{
+    ViewBag.Title = "Teachers";
 }
 
-<h2>Our Tutors</h2>
-<hr/>
-<ul>
+<h3>Teachers</h3>
+<hr />
+<div class="row">
     @foreach (var teacher in Model.teachers)
     {
-        <li class="teacher">
-            <div class="row">
-                <div class="col-md-3" style="text-align:center;">
-                    @if (string.IsNullOrEmpty(teacher.Picture))
-                    {
-                        <img style="height: 160px; width: 160px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-                    }
-                    else
-                    {
-                        <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = teacher.ID, name = Model.GetFullAccountName(teacher.ID)})" alt="Profile Pic" />
-                    }
-                </div>
-                <div class="col-md-9">
-                    <p class="pull-right"><strong>&#163 @teacher.Rate /hr</strong></p>
-                    <h3><strong>@Model.GetFullAccountName(teacher.ID)</strong></h3> 
-                    <p> @teacher.Qualifications</p>
-                    <p> @teacher.Description</p>
-                    
-                </div> 
-            </div>
-        </li>
+        var rate = teacher.Rate ?? 0;
+        <div class="col-md-3">
+            <p style="text-align: center;">
+                @if (string.IsNullOrEmpty(teacher.Picture))
+                {
+                    <img style="height: 80px; width: 80px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+                }
+                else
+                {
+                    <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = teacher.ID, name = Model.GetFullAccountName(teacher.ID)})" alt="Profile Pic" />
+                }
+            </p>
+            <strong>
+                <p style="text-align: center;">
+                    @Model.GetFullAccountName(teacher.ID) - &#163 @rate.ToString("#.00") /hr
+                </p>
+            </strong>
+            <p style="text-align: center;">
+                @teacher.Qualifications
+            </p>
+            <p style="text-align: center;">
+                @teacher.Description
+            </p>
+        </div>
     }
-</ul>
+</div>
