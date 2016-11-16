@@ -12,14 +12,9 @@
     <script src='@Url.Content("~/assets/js/calendar.js")'></script>
 }
 
-<div style="overflow: auto;">
-    <h2 class="pull-left" style="margin-bottom: 40px;">
-        Welcome, @Model.account.Fname @Model.account.Lname
-    </h2>
-    <a href="@Url.RouteUrl("subjects")" class="btn btn-lg btn-primary pull-right" style="margin-top: 20px;">
-        Find more Lessons
-    </a>
-</div>
+<h2 style="margin-bottom: 40px;">
+    Welcome, @Model.account.Fname @Model.account.Lname
+</h2>
 
 @if (Model.today_lessons != null)
 {
@@ -71,7 +66,7 @@
     </div>
 }
 
-<div class="row">
+<div class="row" style="margin-top: 40px;">
     <div class="col-sm-6">
         <input id="userID" type="hidden" value="@Model.account.ID" />
         <input id="getEventsPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getevents", new { controller = "DashBoardApi", action = "Getevents" })" />

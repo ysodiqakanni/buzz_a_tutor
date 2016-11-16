@@ -29,9 +29,15 @@
             </div>
             <div class="pull-left" style="margin-left: 20px;">
                 <p>
-                    @Model.GetFullAccountName(Model.teacher.ID)
-                    <br />
+                    <a href="@Url.RouteUrl("teacher", new {id = Model.teacher.ID})">
+                        @Model.GetFullAccountName(Model.teacher.ID)
+                    </a>
+                </p>
+                <p>
                     @Model.teacher.Qualifications
+                </p>
+                <p>
+                    @Model.teacher.Description
                 </p>
             </div>
         </div>
