@@ -263,6 +263,36 @@ function saveCanvas() {
 }
 // End of Save Preview Canvas
 
+function uploadCanvas() {
+    var img2SaveRaw = previewCanvas.toDataURL('image/png'),
+        img2SaveArray = img2SaveRaw.split(','),
+        img2Save = img2SaveArray[1],
+        title = $('#previewTitle').val();
+
+    if (title == '') {
+        $('#imgSaveFail').removeClass('hidden');
+    } else {
+        $.ajax({
+            type: "POST", // Type of request
+            url: "../api/lessons/uploadtocloud", //The controller/Action
+            dataType: "json",
+            data: {
+                "lessonid": lessonId,
+                "title": title,
+                "data": img2Save,
+            },
+            success: function (data) {
+                // update list
+            },
+
+            error: function (err) {
+                console.log("error[" + err.status + "]: " + err.statusText);
+                $('#imgSaveFail').removeClass('hidden');
+            }
+        })
+    }
+}
+
 // Load image from cloud function
 function loadCloudImg(id) {
     //show spinner

@@ -171,6 +171,7 @@ function savePreview(lessonId) {
 
                 success: function (data) {
                     console.log(data);
+                    blackboardHub.server.updateList(listModel);
                 },
 
                 error: function (err) {
