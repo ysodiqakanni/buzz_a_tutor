@@ -21,6 +21,10 @@
             height: 400
         });
         $(document).ready(function () {
+            $("form").submit(function (event) {
+                $('input[type=submit]').attr('disabled', 'disabled');
+            });
+
             $('#BookingDate').datetimepicker({
                 locale: 'en-au'
             });

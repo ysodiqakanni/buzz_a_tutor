@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using bat.data;
 
-namespace bat.logic.ViewModels.ChatRecords
+namespace bat.logic.ViewModels.Profile
 {
-    public class Index : Master
+    public class Lessons : Master
     {
         public Lesson lesson { get; set; }
         public List<Lesson> lessons { get; set; }

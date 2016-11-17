@@ -14,8 +14,8 @@
     </script>
 }
 @section scripts {
-<script type="text/javascript" src="@Url.Content("~/assets/js/lessonJS.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/js/lessonJS.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js")"></script>
     @*<script>
             $(document).ready(function () {
@@ -39,11 +39,15 @@
                 <div class="pull-right">
                     @if (Model.IsTeacher)
                     {
-                        <a href="@Url.Action("Reschedule", new { id = Model.lesson.ID })" class="btn btn-lg btn-default">Reschedule lesson</a>
-                        <a href="@Url.Action("Edit", new { id = Model.lesson.ID })" class="btn btn-lg btn-default">Edit lesson details</a>
+                        <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
+                            <i class="fa fa-calendar"></i> Reschedule lesson
+                        </a>
+                        <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
+                            <i class="fa fa-edit"></i> Edit lesson details
+                        </a>
                     }
                     <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
-                        Join session
+                        <i class="fa fa-video-camera"></i> Start video
                     </a>
                 </div>
 
@@ -53,10 +57,9 @@
                     <ul class="nav nav-tabs bottom-bump">
                         <li class="active"><a data-toggle="tab" href="#lessonOverview">Lesson Overview</a></li>
                         <li><a data-toggle="tab" href="#blackboard-Tab">Blackboard</a></li>
-                        <li><a data-toggle="tab" href="#resources-Tab">Lesson Resources</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="lessonOverview" class="tab-pane fade in active">
+                        <div id="lessonOverview" class="tab-pane fade in active" style="padding: 20px;">
                             <div class="row">
                                 <div class="col-md-3">
                                     <p>
@@ -116,7 +119,7 @@
                                 </div>
                                 <div  class="col-md-4">
                                     <div>
-                                        <h4 class="center no-margin">
+                                        <h4 class="no-margin">
                                             Blackboard Images
                                             <button class="btn btn-primary pull-right" onclick="uploadImageModal();"><i class="fa fa-upload" aria-hidden="true"></i></button>
                                         </h4>
@@ -126,64 +129,28 @@
                                         {
                                             if (resource.Type_ID == bat.logic.Constants.Types.Image)
                                             {
-                                                <button class="btn btn-link btn-block" onclick="loadCloudImg('@resource.ID')">
+                                                <button class="btn btn-link" onclick="loadCloudImg('@resource.ID')">
                                                     @resource.Original_Name
                                                 </button>
                                             }
                                         }
                                     </div>
                                 </div>
-
-                                @*<div>
-                                    <table class="table" 
-                                        <tr>
-                                            <th class="center">
-
-
-                                            </th>
-                                        </tr>
-                                        @foreach (var resource in Model.lessonResources)
-                                        {
-                                            if (resource.Type_ID == bat.logic.Constants.Types.Image)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <button class="btn btn-link btn-block" onclick="loadCloudImg('@resource.ID')">
-                                                            @resource.Original_Name
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </table>
-                                </div>*@
-                            </div>
-                        </div>
-                        <div id="resources-Tab" class="tab-pane fade">
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-1">
-                                    <table class="table">
-                                        @foreach (var resource in Model.lessonResources)
-                                        {
-                                            if (resource.Type_ID == bat.logic.Constants.Types.Default)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <a href="@Url.Action("downloadresource", "lessons", new { id = resource.ID, name = resource.Original_Name})"> @resource.Original_Name </a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-11">
-                            @Html.Partial("_PartialChatBox", Model)
+                    <ul class="nav nav-tabs bottom-bump">
+                        <li class="active"><a data-toggle="tab" href="#ChatBoxTab">Chat</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="ChatBoxTab" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    @Html.Partial("_PartialChatBox", Model)
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

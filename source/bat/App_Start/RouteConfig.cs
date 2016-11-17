@@ -13,10 +13,9 @@ namespace bat
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            new Routes.Home(routes);
-            new Routes.Lessons(routes);
-            new Routes.Profile(routes);
-            new Routes.Records(routes);
+            var homeRoutes = new Routes.Home(routes);
+            var lessonsRoutes = new Routes.Lessons(routes);
+            var profileRoutes = new Routes.Profile(routes);
 
             routes.MapRoute(
                 name: "Default",

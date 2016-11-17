@@ -1,9 +1,9 @@
 ﻿@model bat.logic.ViewModels.Homepage.SubjectList
 @{
     var nextCaption = Model.account.ID > 0 ? "Learn More" : "Register now";
+    ViewBag.Title = "Lessons by Subject";
 }
 @section head {
-    <title>Lessons by Subject</title>
     <style>
         .td-center{
             text-align:center;
@@ -51,7 +51,7 @@
     <div class="col-sm-12">
         <table class="table" style="width:100%">
             <tr>
-                <th class="td-center" colspan="3">
+                <th colspan="2">
                     <strong>Teacher</strong>
                 </th>
                 <th class="td-center">
@@ -80,8 +80,14 @@
                     else {
                         <td class="td-center"><img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = classroom.tutor.ID, name = Model.GetFullAccountName(classroom.tutor.ID)})" alt="Profile Pic" /></td>
                     }
-                    <td>@Model.GetFullAccountName(classroom.tutor.ID)</td>
-                    <td>@classroom.tutor.Description</td>
+                    <td>
+                        <p>
+                            @Model.GetFullAccountName(classroom.tutor.ID)
+                        </p>
+                        <p>
+                            @classroom.tutor.Description
+                        </p>
+                    </td>
                     <td class="td-center">@classroom.lesson.Description</td>
                     <td class="td-center">@classroom.lesson.BookingDate.ToShortDateString()</td>
                     <td class="td-center">@classroom.lesson.BookingDate.ToShortTimeString()</td>

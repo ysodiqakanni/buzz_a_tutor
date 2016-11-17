@@ -28,6 +28,8 @@ namespace bat.logic.ViewModels.Homepage
         public SubjectList()
         {
             this.lessons = new List<Lesson>();
+            this.classList = new List<virtRoom>();
+            this.ExamPapers = new List<SubjectExamPaper>();
             this.subjectDescription = new SubjectDescription();
             this.tutor = new Account();
         }
@@ -35,7 +37,6 @@ namespace bat.logic.ViewModels.Homepage
         public void Load(string subject, int? accountId)
         {
             this.subject = subject.Replace("_", " ");
-            this.classList = new List<virtRoom>();
             using (var conn = new dbEntities())
             {
                 this.subjectDescription = conn.SubjectDescriptions.FirstOrDefault(s => s.Subject == this.subject) ??
@@ -82,6 +83,18 @@ namespace bat.logic.ViewModels.Homepage
                         }
                     }
                 }
+            }
+        }
+
+        public void LoadByTeacher(int teacherId)
+        {
+            using (var conn = new dbEntities())
+            {
+                this.tutor = conn.Accounts.FirstOrDefault(a => a.ID == teacherId) ?? new Account();
+                this.lessons = conn.Lessons
+                            .Where(l => l.Account_ID == teacherId && l.Hidden != true &&
+                                    (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count))
+                            .ToList();
             }
         }
     }

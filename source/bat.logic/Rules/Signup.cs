@@ -32,6 +32,9 @@ namespace bat.logic.Rules
             if (string.IsNullOrEmpty(password))
                 throw new Exception("Password required.");
 
+            if (!Helpers.Strings.EmailValid(email))
+                throw new Exception("Email not valid.");
+
             using (var conn = new dbEntities())
             {
                 if (conn.Accounts.Any(a => a.Email == email))

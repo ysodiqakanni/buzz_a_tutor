@@ -32,9 +32,25 @@ namespace bat.logic.ViewModels.Profile
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == this.familyMember.Account_ID);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
-                account.Fname = (frm["Fname"]);
-                account.Lname = (frm["Lname"]);
-                account.Email = (frm["Email"]);         
+                var firstName = (frm["Fname"] ?? "").Trim();
+                var lastName = (frm["Lname"] ?? "").Trim();
+                var email = (frm["Email"] ?? "").Trim();
+
+                if (string.IsNullOrEmpty(firstName))
+                    throw new Exception("First name required.");
+
+                if (string.IsNullOrEmpty(lastName))
+                    throw new Exception("Last name required.");
+
+                if (string.IsNullOrEmpty(email))
+                    throw new Exception("Email required.");
+
+                if (!Helpers.Strings.EmailValid(email))
+                    throw new Exception("Email not valid.");
+
+                account.Fname = firstName;
+                account.Lname = lastName;
+                account.Email = email;         
                 conn.SaveChanges();
             }
         }

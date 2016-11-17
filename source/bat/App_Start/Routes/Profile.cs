@@ -46,6 +46,18 @@ namespace bat.Routes
                 url: "profile/",
                 defaults: new { controller = "Profile", action = "Index" }
             );
+
+            routes.MapRoute(
+                name: "profile/lesson-history-details",
+                url: "profile/lesson-history/{id}",
+                defaults: new { controller = "Profile", action = "LessonDetails" }
+            );
+
+            routes.MapRoute(
+                name: "profile/lesson-history",
+                url: "profile/lesson-history/",
+                defaults: new { controller = "Profile", action = "Lessons" }
+            );
         }
     }
 }

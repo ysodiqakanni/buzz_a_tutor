@@ -1,0 +1,81 @@
+﻿@model bat.logic.ViewModels.Profile.LessonDetails
+
+@{
+    ViewBag.Title = "Lesson Details";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div style="float: right;">
+            <a href="@Url.RouteUrl("lessons/join", new { id = Model.lesson.ID })" class="btn btn-default">Go To Lesson</a>
+        </div>
+        <p>
+            <strong>
+                @Model.lesson.Subject
+            </strong>
+        </p>
+        <p>
+            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+        </p>
+        <p>
+            Duration mins: @Model.lesson.DurationMins
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Class size: @Model.lesson.ClassSize
+        </p>
+    </div>
+    <div class="col-md-5">
+        <p>
+            <strong>
+                Attendees
+            </strong>
+            @foreach (var student in Model.others)
+            {
+                <text>
+                    <br/>
+                    @student.Fname @student.Lname
+                </text>
+            }
+        </p>
+    </div>
+</div>
+
+<div style="margin-bottom: 60px;">
+    @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
+</div>
+
+<h3>Chat log</h3>
+<table class="table">
+    <tr>
+        <th>
+            <p>User</p>
+        </th>
+        <th>
+            <p>Message</p>
+        </th>
+        <th>
+            <p>Date Time</p>
+        </th>
+    </tr>
+
+    @foreach (var item in Model.chatRecords)
+    {
+        <tr>
+            <td>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Chat_User)
+                </p>
+            </td>
+            <td>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Char_Message)
+                </p>
+            </td>
+            <td>
+                <p>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </p>
+            </td>
+        </tr>
+    }
+
+</table>

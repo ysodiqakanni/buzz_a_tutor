@@ -312,6 +312,50 @@ namespace bat.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult ListTeachers(string subject)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var model = new bat.logic.ViewModels.Homepage.TeacherList();
+
+            try
+            {
+                if (user != null)
+                    model.Initialise(user.ID);
+
+                model.Load(subject);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ListTeacherLessons(int id)
+        {
+            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+            var model = new bat.logic.ViewModels.Homepage.SubjectList();
+
+            try
+            {
+                if (user != null)
+                    model.Initialise(user.ID);
+
+                model.LoadByTeacher(id);
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Register(string type, string firstname, string lastname, string email, string password, string returnUrl)
         {
@@ -367,28 +411,6 @@ namespace bat.Controllers
         public ActionResult Privacy()
         {
             return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult ListTeachers(string subject)
-        {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            var model = new bat.logic.ViewModels.Homepage.TeacherList();
-
-            try
-            {
-                if (user != null)
-                    model.Initialise(user.ID);
-
-                model.Load(subject);
-            }
-            catch (Exception ex)
-            {
-                ErrorSignal.FromCurrentContext().Raise(ex);
-                ViewBag.Error = ex.Message;
-            }
-
-            return View(model);
         }
     }
 }

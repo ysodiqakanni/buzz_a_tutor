@@ -64,6 +64,13 @@ namespace bat.Routes
                 url: "teachers",
                 defaults: new { controller = "Home", action = "ListTeachers" }
             );
+
+            routes.MapRoute(
+                name: "teacher",
+                url: "teacher/{id}",
+                defaults: new { controller = "Home", action = "ListTeacherLessons" }
+            );
+
             routes.MapRoute(
                 name: "list-lessons",
                 url: "list-lessons/{subject}",

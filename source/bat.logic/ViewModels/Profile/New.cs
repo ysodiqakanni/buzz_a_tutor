@@ -25,12 +25,28 @@ namespace bat.logic.ViewModels.Profile
                 this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
                 if (this.account == null) throw new Exception("Account does not exist.");
 
+                var firstName = (frm["Fname"] ?? "").Trim();
+                var lastName = (frm["Lname"] ?? "").Trim();
+                var email = (frm["Email"] ?? "").Trim();
+
+                if (string.IsNullOrEmpty(firstName))
+                    throw new Exception("First name required.");
+
+                if (string.IsNullOrEmpty(lastName))
+                    throw new Exception("Last name required.");
+
+                if (string.IsNullOrEmpty(email))
+                    throw new Exception("Email required.");
+
+                if (!Helpers.Strings.EmailValid(email))
+                    throw new Exception("Email not valid.");
+
                 this.Account = new Account()
                 {
                     AccountType_ID = (int) Constants.Types.AccountTypes.Student,
-                    Fname = (frm["Fname"]),
-                    Lname = (frm["Lname"]),
-                    Email = (frm["Email"]),
+                    Fname = firstName,
+                    Lname = lastName,
+                    Email = email,
                     Password = Helpers.PasswordStorage.CreateHash("")
                 };
                 conn.Accounts.Add(this.Account);
