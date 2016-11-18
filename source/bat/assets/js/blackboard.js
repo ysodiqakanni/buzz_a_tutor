@@ -248,6 +248,7 @@ function defaultBoard() {
 
 // Save Preview canvas
 function saveCanvas() {
+    $("#previewModal .modal-dialog").width(blackboardWidth + 30);
     var img2SaveRaw = canvas.toDataURL('image/png');
     var context = previewCanvas.getContext('2d');
     previewCanvas.width = blackboardWidth;
