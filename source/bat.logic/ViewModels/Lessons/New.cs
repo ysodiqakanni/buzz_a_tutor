@@ -25,6 +25,14 @@ namespace bat.logic.ViewModels.Lessons
             };
         }
 
+        public void SetDate(string date)
+        {
+            if (string.IsNullOrEmpty(date)) return;
+            var bits = date.Split('-');
+            if (bits.Length < 3) return;
+            this.lesson.BookingDate = new DateTime(Convert.ToInt32(bits[0]), Convert.ToInt32(bits[1]), Convert.ToInt32(bits[2]), 9, 0, 0);
+        }
+
         public bool IsTeacher =>
             this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher &&
             (this.account.Approved ?? false) == Constants.Status.Approved &&

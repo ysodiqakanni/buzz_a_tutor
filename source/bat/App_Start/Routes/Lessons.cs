@@ -13,8 +13,8 @@ namespace bat.Routes
         {
             routes.MapRoute(
                 name: "lessons/new",
-                url: "lessons/new",
-                defaults: new { controller = "Lessons", action = "New" }
+                url: "lessons/new/{date}",
+                defaults: new { controller = "Lessons", action = "New", date = UrlParameter.Optional }
             );
 
             routes.MapRoute(

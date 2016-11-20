@@ -61,7 +61,7 @@ namespace bat.Controllers
         }
 
         [Authorize]
-        public ActionResult New()
+        public ActionResult New(string date)
         {
             var model = new bat.logic.ViewModels.Lessons.New();
 
@@ -72,6 +72,7 @@ namespace bat.Controllers
 
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
+                model.SetDate(date);
             }
             catch (Exception ex)
             {
