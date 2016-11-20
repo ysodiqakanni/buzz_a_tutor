@@ -269,7 +269,7 @@ function uploadCanvas() {
         img2Save = img2SaveArray[1],
         title = $('#previewTitle').val();
 
-    if (title == '') {
+    if (title === '') {
         $('#imgSaveFail').removeClass('hidden');
     } else {
         $.ajax({
@@ -279,17 +279,18 @@ function uploadCanvas() {
             data: {
                 "lessonid": lessonId,
                 "title": title,
-                "data": img2Save,
+                "data": img2Save
             },
-            success: function (data) {
-                // update list
+            success: function(data) {
+                blackboardHub.server.updateList(listModel);
+                $('#previewModal').modal('toggle');
             },
 
-            error: function (err) {
+            error: function(err) {
                 console.log("error[" + err.status + "]: " + err.statusText);
                 $('#imgSaveFail').removeClass('hidden');
             }
-        })
+        });
     }
 }
 
