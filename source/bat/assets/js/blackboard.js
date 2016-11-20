@@ -9,7 +9,10 @@ var canvas = document.getElementById("canvas"),
     painting = false,
     lX = 0,
     lY = 0,
-    lineThickness = 3;
+    lineThickness = 3,
+    brush = true,
+    text = false,
+    fontColor = '#fff';
 
 var blackboardWidth = $('#blackBoard').width();
 var blackboardHeight = $('#blackBoard').height();
@@ -53,6 +56,13 @@ var blackboardHub = $.connection.blackboardHub,
         color: '#000',
         group: lessonId
     },
+    textBBModel = {
+        oX: 0,
+        oY: 0,
+        text: "",
+        color: '#000',
+        group: lessonId
+    },
     listModel = {
         group: lessonId,
         update: true
@@ -69,6 +79,12 @@ $(function () {
     blackboardHub.client.updateChalk = function (model) {
         serverModel = model;
         print();
+    };
+    blackboardHub.client.bBText = function (model) {
+        console.log(model);
+        ctx.fillStyle = model.color;
+        ctx.font = "20px Georgia";
+        ctx.fillText(model.text, model.oX, model.oY);
     };
     blackboardHub.client.boardImage = function (model) {
         imageModel = model;
@@ -125,15 +141,29 @@ function clearBoard() {
 
 clearBoard();
 canvas.onmousedown = function (e) {
-    painting = true;
-    lX = e.offsetX; //e.pageX - rect.left - window.scrollX;
-    lY = e.offsetY; //e.pageY - rect.top - window.scrollY;
-    paint(lX, lY, lX - 1, lY - 1, clientModel.lineWidth, clientModel.color);
-    clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
-    clientModel.oY = remap(lY, 0, blackboardHeight, 0, 600);
-    clientModel.nX = remap(lX - 1, 0, blackboardWidth, 0, 600);
-    clientModel.nY = remap(lY - 1, 0, blackboardHeight, 0, 600);
-    blackboardHub.server.updateModel(clientModel);
+    if (brush) {
+        painting = true;
+        lX = e.offsetX; //e.pageX - rect.left - window.scrollX;
+        lY = e.offsetY; //e.pageY - rect.top - window.scrollY;
+        paint(lX, lY, lX - 1, lY - 1, clientModel.lineWidth, clientModel.color);
+        clientModel.oX = remap(lX, 0, blackboardWidth, 0, 600);
+        clientModel.oY = 
+        clientModel.nX = remap(lX - 1, 0, blackboardWidth, 0, 600);
+        clientModel.nY = remap(lY - 1, 0, blackboardHeight, 0, 600);
+        blackboardHub.server.updateModel(clientModel);
+    } else if (text) {
+        ctx.fillStyle = fontColor;
+        ctx.font = "20px Georgia";
+        var userText = prompt("Blackboard Text", "Type Here");
+        if (userText != null) {
+            ctx.fillText(userText, e.offsetX, e.offsetY);
+            textBBModel.color = fontColor;
+            textBBModel.oX = remap(e.offsetX, 0, blackboardWidth, 0, 600);
+            textBBModel.oY = remap(e.offsetY, 0, blackboardHeight, 0, 600);
+            textBBModel.text = userText;
+            blackboardHub.server.updateBBText(textBBModel);
+        }
+    }
 };
 
 canvas.onmouseup = function (e) {
@@ -180,6 +210,12 @@ function print() {
 // Change Chalk color
 function changeColor(color) {
     clientModel.color = color;
+}
+// end of change chalk color
+
+// Change Chalk color
+function changeFontColor(color) {
+    fontColor = color;
 }
 // end of change chalk color
 
@@ -354,4 +390,21 @@ function updateImageList(lessonId) {
             console.log("error[" + err.status + "]: " + err.statusText);
         }
     });
+}
+
+// Add text function
+function switchTools() {
+    if(brush){
+        brush = false,
+        text = true;
+        $("#tool-btn").empty().append('<i class="fa fa-font" aria-hidden="true"></i> &nbsp; Text');
+        $("#brushStyle").addClass("hidden");
+        $("#textStyle").removeClass("hidden");
+    } else if (text) {
+        brush = true,
+        text = false;
+        $("#tool-btn").empty().append('<i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp; Brush');
+        $("#textStyle").addClass("hidden");
+        $("#brushStyle").removeClass("hidden");
+    }
 }

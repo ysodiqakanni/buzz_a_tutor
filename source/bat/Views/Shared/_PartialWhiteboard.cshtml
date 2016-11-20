@@ -19,13 +19,20 @@
                     <button onclick="saveCanvas()" type="button" class="btn btn-primary" data-toggle="tooltip" title="Save Board">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp; Save
                     </button>
+                    <button id="tool-btn" onclick="switchTools()" type="button" class="btn btn-primary" data-toggle="tooltip" title="Switch Tools">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp; Brush
+                    </button>
                 </div>
             </div>
-            <div class="fright">
+            <div id="brushStyle" class="fright">
                 <label for="lWSlider">Line Width:</label>
                 <input type="range" id="lWSlider" class="bb-slider" onchange="changeLW(lWSlider.value)" value="3" min="1" max="5" />
-                <label for="lWSlider">Chalk Colour:</label>
+                <label for="chalkColor">Chalk Colour:</label>
                 <input name="chalkColor" id="chalkColor" type="color" onchange="changeColor(chalkColor.value)" />
+            </div>
+            <div id="textStyle" class="fright hidden">
+                <label for="fontColorPicker">Font Colour:</label>
+                <input name="fontColorPicker" id="fontColorPicker" type="color" onchange="changeFontColor(fontColorPicker.value)" />
             </div>
         </div>
         <div id="board-inner">
