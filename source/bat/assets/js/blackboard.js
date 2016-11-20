@@ -396,13 +396,13 @@ function switchTools() {
     if(brush){
         brush = false,
         text = true;
-        $("#tool-btn").empty().append('<i class="fa fa-font" aria-hidden="true"></i> &nbsp; Text');
+        $("#tool-btn").empty().append('<i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp; Brush');
         $("#brushStyle").addClass("hidden");
         $("#textStyle").removeClass("hidden");
     } else if (text) {
         brush = true,
         text = false;
-        $("#tool-btn").empty().append('<i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp; Brush');
+        $("#tool-btn").empty().append('<i class="fa fa-font" aria-hidden="true"></i> &nbsp; Text');
         $("#textStyle").addClass("hidden");
         $("#brushStyle").removeClass("hidden");
     }
