@@ -81,7 +81,6 @@ $(function () {
         print();
     };
     blackboardHub.client.bBText = function (model) {
-        console.log(model);
         ctx.fillStyle = model.color;
         ctx.font = "20px Georgia";
         ctx.fillText(model.text, model.oX, model.oY);
@@ -305,7 +304,7 @@ function uploadCanvas() {
         img2Save = img2SaveArray[1],
         title = $('#previewTitle').val();
 
-    if (title === '') {
+    if (title == '') {
         $('#imgSaveFail').removeClass('hidden');
     } else {
         $.ajax({
@@ -315,18 +314,17 @@ function uploadCanvas() {
             data: {
                 "lessonid": lessonId,
                 "title": title,
-                "data": img2Save
+                "data": img2Save,
             },
-            success: function(data) {
-                blackboardHub.server.updateList(listModel);
-                $('#previewModal').modal('toggle');
+            success: function (data) {
+                // update list
             },
 
-            error: function(err) {
+            error: function (err) {
                 console.log("error[" + err.status + "]: " + err.statusText);
                 $('#imgSaveFail').removeClass('hidden');
             }
-        });
+        })
     }
 }
 
