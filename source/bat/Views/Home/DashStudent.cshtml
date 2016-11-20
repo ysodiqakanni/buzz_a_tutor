@@ -5,13 +5,13 @@
 
 @section head {
     <link rel='stylesheet' href='@Url.Content("~/assets/css/fullcalendar.min.css")' />
-    <script src='@Url.Content("~/assets/js/jquery.js")'></script>
+}
+@section scripts {
     <script src='@Url.Content("~/assets/js/moment.min.js")'></script>
     <script src='@Url.Content("~/assets/js/moment-timezone.js")'></script>
     <script src='@Url.Content("~/assets/js/fullcalendar.min.js")'></script>
     <script src='@Url.Content("~/assets/js/calendar.js")'></script>
 }
-
 <h2 style="margin-bottom: 40px;">
     Welcome, @Model.account.Fname @Model.account.Lname
 </h2>
