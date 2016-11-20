@@ -262,13 +262,6 @@ namespace bat.Controllers
             return RedirectToRoute("home");
         }
 
-
-        [AllowAnonymous]
-        public ActionResult TermsAndConditions()
-        {
-            return View();
-        }
-
         [AllowAnonymous]
         public ActionResult ListLessons(string subject)
         {
