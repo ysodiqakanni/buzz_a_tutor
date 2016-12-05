@@ -72,7 +72,9 @@ function getDay(userid, date) {
         },
 
         success: function (data) {
-            $('.new-lesson-button').attr('href', newUrl + '/' + date);
+            if (newUrl !== '') {
+                $('.new-lesson-button').attr('href', newUrl + '/' + date);
+            }
 
             $('#agendaDay').fullCalendar({
                 defaultView: 'agendaDay',
