@@ -18,6 +18,8 @@ namespace bat.logic.Constants
             Corp = 3
         }
 
+        public static int ErrorCode_CannotCreateMeeting => 1010;
+
         //public static string HostId_SteveShearn => "EsgmJhBuRWWdv3nYU3KmWw";
         //public static string HostId_AlexHoTerry => "eJuzv5bkSp239JWpORJLYw";
         //public static string HostId_Admin => "x11Ccx9xSqOZlUxBSkabFQ";

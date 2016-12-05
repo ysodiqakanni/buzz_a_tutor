@@ -7,24 +7,18 @@ using bat.logic.Constants;
 using bat.logic.Models.Zoom;
 using Newtonsoft.Json;
 using bat.data;
+using bat.logic.Exceptions;
 
 namespace bat.logic.Rules
 {
     public class ZoomApi
     {
-        private static void CheckError(string rs)
+        private static void CheckError(string resultJson)
         {
-            var err = "";
-            try
-            {
-                var error = JsonConvert.DeserializeObject<Error>(rs);
-                if (error.error.code > 0) err = error.error.message;
-            }
-            catch (Exception ex)
-            {
-                var ignore = ex;
-            }
-            if (!string.IsNullOrEmpty(err)) throw new Exception(err);
+            var rs = JsonConvert.DeserializeObject<Error>(resultJson);
+            if (rs.error != null)
+                if (rs.error.code > 0)
+                    throw new ZoomException(rs.error.code, rs.error.message);
         }
 
         public static string ListUsers()

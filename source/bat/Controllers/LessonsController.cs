@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bat.logic.Constants;
+using bat.logic.Exceptions;
 
 namespace bat.Controllers
 {
@@ -45,12 +46,19 @@ namespace bat.Controllers
 
                     case Types.AccountTypes.Teacher:
                         model.CreateZoomMeeting();
-                        break;
+                        return View("ViewZoom", model);
+
+                    default:
+                        throw new Exception("Invalid account type.");
                 }
 
 
                 model.CreateZoomMeeting();
                 return View("ViewZoom", model);
+            }
+            catch(ZoomException ex) when (ex.Code == bat.logic.Constants.Zoom.ErrorCode_CannotCreateMeeting)
+            {
+                return View("NewZoomUserAccount", model);
             }
             catch (Exception ex)
             {
