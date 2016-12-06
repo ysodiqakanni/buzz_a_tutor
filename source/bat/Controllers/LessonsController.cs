@@ -246,6 +246,10 @@ namespace bat.Controllers
                 
                 return View(model);
             }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
+            }
             catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
@@ -269,6 +273,10 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Save(id, frm);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
             }
             catch (Exception ex)
             {
@@ -296,6 +304,10 @@ namespace bat.Controllers
 
                 return View(model);
             }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
+            }
             catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
@@ -319,6 +331,10 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Save(id, frm);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
             }
             catch (Exception ex)
             {

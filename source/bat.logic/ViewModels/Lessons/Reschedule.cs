@@ -12,6 +12,7 @@ using bat.logic.Constants;
 using bat.logic.Models.Lessons;
 using bat.logic.Rules;
 using OpenTokSDK;
+using bat.logic.Exceptions;
 
 namespace bat.logic.ViewModels.Lessons
 {
@@ -45,6 +46,9 @@ namespace bat.logic.ViewModels.Lessons
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
+                if (this.lesson.Account_ID != this.account.ID) throw new WrongAccountException();
+
+                this.host = this.lesson.Account;
 
                 // timezone out for displaying
                 this.lesson.BookingDate = Rules.Timezone.ConvertFromUTC(this.lesson.BookingDate);
@@ -52,7 +56,6 @@ namespace bat.logic.ViewModels.Lessons
                 this.lessonResources = conn.LessonResources.Where(r => r.Lession_ID == id)
                                         .ToList();
 
-                this.host = this.lesson.Account;
                 this.lesson.Subject = this.lesson.Subject ?? "";
             }
         }
