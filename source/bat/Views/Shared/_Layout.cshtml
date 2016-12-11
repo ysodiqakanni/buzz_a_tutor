@@ -58,7 +58,7 @@
                             {
                                 foreach (var familyMember in Model.familyMembers)
                                 {
-                                    <li><a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountName(familyMember.Account_ID)</a></li>
+                                    <li><a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountFirstName(familyMember.Account_ID)</a></li>
                                 }
                                 <li role="separator" class="divider"></li>
                                 <li><a href="@Url.RouteUrl("profile")">Profile</a></li>
@@ -68,7 +68,7 @@
                             }
                             else if (Model.parent != null)
                             {
-                                <li><a href="@Url.RouteUrl("swap", new {id = Model.parent.ID})">@Model.GetAccountName(Model.parent.ID)</a></li>
+                                <li><a href="@Url.RouteUrl("swap", new {id = Model.parent.ID})">@Model.GetAccountFirstName(Model.parent.ID)</a></li>
                             }
                             else
                             {

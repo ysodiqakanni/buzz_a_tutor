@@ -67,7 +67,7 @@ namespace bat.logic.ViewModels
             this.initialised = true;
         }
 
-        public string GetAccountName(int accountId)
+        public string GetAccountFirstName(int accountId)
         {
             using (var conn = new dbEntities())
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bat.data;
+using bat.logic.Exceptions;
 
 namespace bat.logic.ViewModels.Profile
 {
@@ -25,6 +26,7 @@ namespace bat.logic.ViewModels.Profile
             {
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == id);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
+                if (this.lesson.Account_ID != this.account.ID) throw new WrongAccountException();
 
                 // timezone out for displaying
                 this.lesson.BookingDate = Rules.Timezone.ConvertFromUTC(this.lesson.BookingDate);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using bat.logic.Exceptions;
 
 namespace bat.Controllers
 {
@@ -87,7 +88,7 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToRoute("home");
+                if (model.IsTeacher) return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -109,7 +110,7 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToRoute("home");
+                if (model.IsTeacher) return RedirectToAction("Index");
 
                 model.Save(user.ID, frm);
                 return RedirectToAction("Index");
@@ -133,9 +134,13 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToRoute("home");
+                if (model.IsTeacher) return RedirectToAction("Index");
 
                 model.load(id);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -157,9 +162,13 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToRoute("home");
+                if (model.IsTeacher) RedirectToAction("Index");
 
                 model.Save(frm);
+                return RedirectToAction("Index");
+            }
+            catch (WrongAccountException)
+            {
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -181,9 +190,13 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToRoute("home");
+                if (model.IsTeacher) return RedirectToAction("Index");
 
                 model.Delete(id);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -235,6 +248,10 @@ namespace bat.Controllers
             {
                 model.Initialise(user.ID);
                 model.Load(id);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
             }
             catch (Exception ex)
             {

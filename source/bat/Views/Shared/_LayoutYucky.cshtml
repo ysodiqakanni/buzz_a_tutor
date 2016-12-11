@@ -53,7 +53,7 @@
                                 {
                                     <div class="top-cart-item clearfix">
                                         <div class="top-cart-item-desc">
-                                            <a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountName(familyMember.Account_ID)</a>
+                                            <a href="@Url.RouteUrl("swap", new {id = familyMember.Account_ID})">@Model.GetAccountFirstName(familyMember.Account_ID)</a>
                                         </div>
                                     </div>
                                 }
@@ -72,7 +72,7 @@
                             {
                                 <div class="top-cart-item clearfix">
                                     <div class="top-cart-item-desc">
-                                        <a href="@Url.RouteUrl("swap", new {id = Model.parent.ID})">@Model.GetAccountName(Model.parent.ID)</a>
+                                        <a href="@Url.RouteUrl("swap", new {id = Model.parent.ID})">@Model.GetAccountFirstName(Model.parent.ID)</a>
                                     </div>
                                 </div>
                             }

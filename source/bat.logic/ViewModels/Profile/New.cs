@@ -22,9 +22,6 @@ namespace bat.logic.ViewModels.Profile
         {
             using (var conn = new dbEntities())
             {
-                this.account = conn.Accounts.FirstOrDefault(a => a.ID == id);
-                if (this.account == null) throw new Exception("Account does not exist.");
-
                 var firstName = (frm["Fname"] ?? "").Trim();
                 var lastName = (frm["Lname"] ?? "").Trim();
                 var email = (frm["Email"] ?? "").Trim();
@@ -41,7 +38,7 @@ namespace bat.logic.ViewModels.Profile
                 if (!Helpers.Strings.EmailValid(email))
                     throw new Exception("Email not valid.");
 
-                this.Account = new Account()
+                var accountDetails = new Account()
                 {
                     AccountType_ID = (int) Constants.Types.AccountTypes.Student,
                     Fname = firstName,
@@ -49,12 +46,12 @@ namespace bat.logic.ViewModels.Profile
                     Email = email,
                     Password = Helpers.PasswordStorage.CreateHash("")
                 };
-                conn.Accounts.Add(this.Account);
+                conn.Accounts.Add(accountDetails);
                 conn.SaveChanges();
 
                 this.familyMemeber = new FamilyMember()
                 {
-                    Account_ID = this.Account.ID,
+                    Account_ID = accountDetails.ID,
                     Parent_ID = id,
                 };
                 conn.FamilyMembers.Add(this.familyMemeber);
