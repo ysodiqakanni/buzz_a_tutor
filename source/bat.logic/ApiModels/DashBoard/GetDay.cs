@@ -41,7 +41,8 @@ namespace bat.logic.ApiModels.DashBoard
                 switch (user.AccountType_ID)
                 {
                     case 1: // Student
-                        var lessons = conn.LessonParticipants.Where(p => p.Account_ID == userID)
+                        var lessons = conn.LessonParticipants
+                                        .Where(p => p.Account_ID == userID)
                                         .Select(p => p.Lesson)
                                         .Where(l => l.BookingDate >= dateVal && l.BookingDate < tomorrow)
                                         .ToList();
@@ -64,7 +65,8 @@ namespace bat.logic.ApiModels.DashBoard
                         break;
 
                     case 2: // Teacher
-                        var ownLessons = conn.Lessons.Where(p => p.Account_ID == userID)
+                        var ownLessons = conn.Lessons
+                            .Where(p => p.Account_ID == userID)
                             .Where(l => l.BookingDate >= dateVal && l.BookingDate < tomorrow)
                             .ToList();
 

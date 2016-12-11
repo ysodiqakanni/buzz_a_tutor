@@ -47,7 +47,7 @@ namespace bat.logic.ViewModels.Homepage
                 this.ExamPapers = conn.SubjectExamPapers.Where(s => s.SubjectDescription_ID == this.subjectDescription.ID).ToList();
 
                 var rs = conn.Lessons
-                            .Where(l => l.Subject == this.subject && 
+                            .Where(l => l.Subject == this.subject && l.Hidden != true &&
                                     (l.ClassSize == 0 || l.ClassSize > l.LessonParticipants.Count));
 
                 lessons = new List<Lesson>();
