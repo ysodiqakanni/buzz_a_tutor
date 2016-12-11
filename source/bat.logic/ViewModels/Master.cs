@@ -85,5 +85,12 @@ namespace bat.logic.ViewModels
                 return name;
             }
         }
+
+        public bool IsEnabled =>
+            (this.account.Approved ?? false) == Constants.Status.Approved && (this.account.Disabled ?? false) == Constants.Status.Enabled;
+
+        public bool IsTeacher =>
+            this.account.AccountType_ID == (int) Constants.Types.AccountTypes.Teacher;
+
     }
 }

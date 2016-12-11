@@ -33,11 +33,6 @@ namespace bat.logic.ViewModels.Lessons
             this.lesson.BookingDate = new DateTime(Convert.ToInt32(bits[0]), Convert.ToInt32(bits[1]), Convert.ToInt32(bits[2]), 9, 0, 0);
         }
 
-        public bool IsTeacher =>
-            this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher &&
-            (this.account.Approved ?? false) == Constants.Status.Approved &&
-            (this.account.Disabled ?? false) == Constants.Status.Enabled;
-
         public void Save(FormCollection frm)
         {
             // expect dd mm yyyy hh:mm tt

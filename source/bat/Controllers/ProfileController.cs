@@ -87,6 +87,7 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
+                if (model.IsTeacher) return RedirectToRoute("home");
             }
             catch (Exception ex)
             {
@@ -108,6 +109,8 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
+                if (model.IsTeacher) return RedirectToRoute("home");
+
                 model.Save(user.ID, frm);
                 return RedirectToAction("Index");
             }
@@ -130,6 +133,8 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
+                if (model.IsTeacher) return RedirectToRoute("home");
+
                 model.load(id);
             }
             catch (Exception ex)
@@ -152,6 +157,8 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
+                if (model.IsTeacher) return RedirectToRoute("home");
+
                 model.Save(frm);
                 return RedirectToAction("Index");
             }
@@ -174,6 +181,8 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
+                if (model.IsTeacher) return RedirectToRoute("home");
+
                 model.Delete(id);
             }
             catch (Exception ex)

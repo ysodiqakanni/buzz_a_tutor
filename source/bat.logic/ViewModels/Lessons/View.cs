@@ -41,9 +41,6 @@ namespace bat.logic.ViewModels.Lessons
             this.others = new List<Account>();
         }
 
-        public bool IsTeacher =>
-            this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
-
         public bool WebRTCAvailable
         {
             get

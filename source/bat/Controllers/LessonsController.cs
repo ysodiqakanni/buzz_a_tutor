@@ -79,7 +79,7 @@ namespace bat.Controllers
                 if (user == null) return RedirectToRoute("home");
 
                 model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
+                if (!model.IsTeacher || !model.IsEnabled) return RedirectToRoute("home");
                 model.SetDate(date);
             }
             catch (Exception ex)

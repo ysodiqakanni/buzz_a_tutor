@@ -65,9 +65,6 @@ namespace bat.logic.ViewModels.Lessons
             }
         }
 
-        public bool IsTeacher =>
-            this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
-
         public void Save(int lessonId, FormCollection frm)
         {
             using (var conn = new dbEntities())

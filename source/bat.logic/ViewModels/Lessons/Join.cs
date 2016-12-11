@@ -28,9 +28,6 @@ namespace bat.logic.ViewModels.Lessons
             };
         }
 
-        public bool IsTeacher =>
-            this.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher;
-
         public bool Load(int id)
         {
             using (var conn = new dbEntities())
