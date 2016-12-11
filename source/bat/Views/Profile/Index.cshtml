@@ -23,25 +23,35 @@
             }
         </div>
         <div class="col-md-7 col-md-offset-1">
-            <h1>@Model.account.Fname @Model.account.Lname 
+            <h1>@Model.account.Fname @Model.account.Lname
                 @if (Model.account.Approved == true)
                 {
                     <span class="green small-bold">(Approved)</span>
                 }
             </h1>
-
-            <ul>
-                <li><a href="@Url.Action("edit")">Edit Account</a></li>
-            </ul>
+            <h4>
+                Rate (&#163): @Model.account.Rate
+            </h4>
+            <p>
+                <strong>
+                    @Model.account.Qualifications
+                </strong>
+            </p>
+            <p>
+                @Model.account.Description
+            </p>
+            <p>
+                <a href="@Url.Action("edit")" class="btn btn-primary">Edit Details</a>
+            </p>
         </div>
     }
     else
     {
         <div class="col-md-8 col-md-offset-2">
             <h1>@Model.account.Fname @Model.account.Lname</h1>
-            <ul>
-                <li><a href="@Url.Action("edit")">Edit Account</a></li>
-            </ul>
+            <p>
+                <a href="@Url.Action("edit")" class="btn btn-primary">Edit Details</a>
+            </p>
         </div>
 
         <div class="col-md-8 col-md-offset-2">
