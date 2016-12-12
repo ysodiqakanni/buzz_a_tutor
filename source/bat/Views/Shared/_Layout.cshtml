@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.RouteUrl("landing")">
+                <a class="navbar-brand" href="@Url.RouteUrl("home")">
                     <img src="@Url.Content("~/assets/img/logo.png")" alt="Buzz a Tutor" style="height: 60px; margin-top: -12px;" />
                 </a>
             </div>
@@ -101,7 +101,7 @@
     <footer class="footer">
         <div class="container">
             <p class="pull-left">
-                @DateTime.Today.ToString("yyyy") Copyright © Buzz a Tutor. All rights reserved.
+                @DateTime.Today.ToString("yyyy") Copyright © <a href="@Url.RouteUrl("landing")" style="color: #fff;">Buzz a Tutor</a>. &nbsp; All rights reserved.
             </p>
             <p class="footer-link pull-right left-bump">
                 <a href="@Url.RouteUrl("terms")">
