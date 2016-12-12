@@ -1,13 +1,13 @@
 ﻿@model bat.logic.ViewModels.Profile.Edit
 @{
-    ViewBag.Title = "Edit Profile";
+    ViewBag.Title = "Complete Profile";
 }
 
  @{ Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }); }
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h1>@ViewBag.Title</h1>
+            <h2>Complete your Profile Information</h2>
             <hr />
             @if (ViewBag.Error != null)
             {
@@ -53,9 +53,6 @@
 
             <div style="margin-top: 40px; overflow: auto;">
                 <input type="submit" value="Ok" class="btn btn-lg btn-success pull-right" style="width: 110px;" />
-                <a href="@Url.Action("Index")" class="btn btn-lg btn-default pull-right" style="width: 110px; margin-right: 20px;">
-                    Cancel
-                </a>
             </div>
         </div>
     </div>

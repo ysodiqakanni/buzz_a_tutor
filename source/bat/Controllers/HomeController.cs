@@ -38,6 +38,13 @@ namespace bat.Controllers
             try
             {
                 model.Initialise(user.ID);
+
+                if (model.accountType == Types.AccountTypes.Teacher && 
+                    (string.IsNullOrEmpty(model.account.Description) || string.IsNullOrEmpty(model.account.Qualifications)))
+                {
+                    return RedirectToAction("Complete", "Profile");
+                }
+
                 model.Load();
             }
             catch (Exception ex)
