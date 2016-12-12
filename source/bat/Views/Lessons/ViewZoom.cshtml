@@ -11,6 +11,7 @@
         lessonId = "@Model.lesson.ID";
         id = @Model.account.ID;
         username = "@Model.account.Fname" + " " + "@Model.account.Lname";
+        var deleteResourceUrl = '@Url.Action("DeleteResource", "Lessons", new { id = Model.lesson.ID })';
     </script>
 }
 @section scripts {
@@ -129,9 +130,16 @@
                                         {
                                             if (resource.Type_ID == bat.logic.Constants.Types.Image)
                                             {
-                                                <button class="btn btn-link" onclick="loadCloudImg('@resource.ID')">
-                                                    @resource.Original_Name
-                                                </button>
+                                                <div style="overflow: auto;">
+                                                    <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID')">
+                                                        @resource.Original_Name
+                                                    </button>
+
+                                                    <a href="@Url.Action("DeleteResource", "Lessons", new {id = Model.lesson.ID, resourceId = resource.ID})"
+                                                       class="pull-right" style="padding: 10px;">
+                                                        <i class="fa fa-remove"></i>
+                                                    </a>
+                                                </div>
                                             }
                                         }
                                     </div>

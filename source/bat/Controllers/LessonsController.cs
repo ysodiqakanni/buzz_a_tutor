@@ -364,7 +364,7 @@ namespace bat.Controllers
         public ActionResult DeleteResource(int id, int resourceId)
         {
             logic.Rules.ResourceManagement.DeleteResource(resourceId);
-            return RedirectToAction("Edit", new { id = id });
+            return RedirectToAction("Index", new { id = id });
         }
 
         [AllowAnonymous]

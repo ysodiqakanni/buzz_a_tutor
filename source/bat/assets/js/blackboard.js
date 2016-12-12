@@ -376,7 +376,12 @@ function updateImageList(lessonId) {
             $(jQuery.parseJSON(data)).each(function() {
                 var id = this.id;
                 var title = this.title;
-                var attachmentLink = '<tr><td><button class="btn btn-link btn-block" onclick="loadCloudImg(' + id + ')">' + title + '</button></td></tr>';
+                var attachmentLink = 
+                    '<div style="overflow: auto;"><button class="btn btn-link pull-left" onclick="loadCloudImg(' + id + ')">' + title + '</button>' +
+                    '<a href="' + deleteResourceUrl + '/?resourceId=' + id + '" class="pull-right" style="padding: 10px;">' +
+                    '<i class="fa fa-remove"></i>' +
+                    '</a>' +
+                    '</div>';
                 $("#bbImage-list").append(attachmentLink);
                 $('#bbImage-list').slimScroll({
                     height: '500px'
