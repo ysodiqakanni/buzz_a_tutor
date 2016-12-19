@@ -1,0 +1,63 @@
+﻿@model bat.logic.ViewModels.Lessons.View
+@{
+    ViewBag.Title = "Lesson has been Cancelled";
+}
+
+@section head {
+}
+@section scripts {
+}
+
+@{ Html.BeginForm("Cancel", "Lessons", FormMethod.Post); }
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>This lesson has been cancelled</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div style="overflow: auto;">
+                    <h2 class="pull-left" style="margin-bottom: 40px;">
+                        @Model.lesson.Description
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            <strong>
+                                @Model.lesson.Subject
+                            </strong>
+                        </p>
+                        <p>
+                            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
+                        </p>
+                        <p>
+                            Duration mins: @Model.lesson.DurationMins
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            Class size: @Model.lesson.ClassSize
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <strong>
+                                Attendees
+                            </strong>
+                            @foreach (var student in Model.others)
+                            {
+                                <text>
+                                    <br />
+                                    @student.Fname @student.Lname
+                                </text>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@{ Html.EndForm(); }

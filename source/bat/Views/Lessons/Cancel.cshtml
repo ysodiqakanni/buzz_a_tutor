@@ -6,18 +6,6 @@
 @section head {
 }
 @section scripts {
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '#DetailedDescription',
-            theme: 'modern',
-            height: 400
-        });
-        $(document).ready(function () {
-            $('#BookingDate').datetimepicker({
-                locale: 'en-au'
-            });
-        });
-    </script>
 }
 
 @{ Html.BeginForm("Cancel", "Lessons", FormMethod.Post); }

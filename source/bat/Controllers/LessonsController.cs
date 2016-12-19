@@ -24,6 +24,11 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 model.Load(id);
 
+                if (model.lesson.CancelledDate.HasValue)
+                {
+                    return View("CancelledLesson", model);
+                }
+
                 // TokBox option, disable for now to try Zoom only
                 //if (model.WebRTCAvailable)
                 //{
@@ -243,7 +248,12 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Load(id);
-                
+
+                if (model.lesson.CancelledDate.HasValue)
+                {
+                    return RedirectToAction("Index", new {id = id});
+                }
+
                 return View(model);
             }
             catch (WrongAccountException)
@@ -302,6 +312,11 @@ namespace bat.Controllers
                 if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Load(id);
 
+                if (model.lesson.CancelledDate.HasValue)
+                {
+                    return RedirectToAction("Index", new { id = id });
+                }
+
                 return View(model);
             }
             catch (WrongAccountException)
@@ -359,6 +374,11 @@ namespace bat.Controllers
                 model.Initialise(user.ID);
                 if (!model.IsTeacher) return RedirectToRoute("home");
                 model.Load(id);
+
+                if (model.lesson.CancelledDate.HasValue)
+                {
+                    return RedirectToAction("Index", new { id = id });
+                }
 
                 return View(model);
             }

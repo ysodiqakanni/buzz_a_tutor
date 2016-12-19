@@ -12,14 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/en-au.js"></script>
     <script src="@Url.Content("~//assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
     <script src="@Url.Content("~//assets/vendor/bootstrap-select/bootstrap-select.min.js")"></script>
-    <script src="https://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 
     <script type="text/javascript">
-        tinymce.init({
-            selector: '#DetailedDescription',
-            theme: 'modern',
-            height: 400
-        });
         $(document).ready(function () {
             $('#BookingDate').datetimepicker({
                 locale: 'en-au'
