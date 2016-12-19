@@ -1,4 +1,5 @@
-﻿@model bat.logic.ViewModels.Profile.Lessons
+﻿@using bat.logic.Rules
+@model bat.logic.ViewModels.Profile.Lessons
 @{
     ViewBag.Title = "Lesson History";
     var colSize = Model.teacherLessons.Any() ? 4 : 6;
@@ -14,6 +15,11 @@
                 <p>
                     <a href="@Url.RouteUrl("profile/lesson-history-details", new {id = lesson.ID})">
                         @lesson.Description
+                        @if (lesson.CancelledDate.HasValue)
+                        {
+                            <text>Cancelled:</text>
+                            @Timezone.ConvertFromUTC(lesson.CancelledDate.Value).ToString("dd MMM yyyy");
+                        }
                     </a>
                 </p>
             }
@@ -26,6 +32,11 @@
             <p>
                 <a href="@Url.RouteUrl("profile/lesson-history-details", new {id = lesson.ID})">
                     @lesson.Description
+                    @if (lesson.CancelledDate.HasValue)
+                    {
+                        <text>Cancelled:</text>
+                        @Timezone.ConvertFromUTC(lesson.CancelledDate.Value).ToString("dd MMM yyyy");
+                    }
                 </a>
             </p>
         }
@@ -44,6 +55,11 @@
                 <p>
                     <a href="@Url.RouteUrl("profile/lesson-history-details", new {id = lesson.ID})">
                         @lesson.Description
+                        @if (lesson.CancelledDate.HasValue)
+                        {
+                            <text>Cancelled:</text>
+                            @Timezone.ConvertFromUTC(lesson.CancelledDate.Value).ToString("dd MMM yyyy");
+                        }
                     </a>
                 </p>
             }

@@ -1,4 +1,5 @@
-﻿@model bat.logic.ViewModels.Profile.LessonDetails
+﻿@using bat.logic.Rules
+@model bat.logic.ViewModels.Profile.LessonDetails
 
 @{
     ViewBag.Title = "Lesson Details";
@@ -17,6 +18,15 @@
         <p>
             Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
         </p>
+        @if (Model.lesson.CancelledDate.HasValue)
+        {
+            <p>
+                <strong>
+                    Cancelled:
+                    @Timezone.ConvertFromUTC(Model.lesson.CancelledDate.Value).ToString("dd MMM yyyy")
+                </strong>
+            </p>
+        }
         <p>
             Duration mins: @Model.lesson.DurationMins
             &nbsp;&nbsp;&nbsp;&nbsp;

@@ -42,6 +42,9 @@ namespace bat.logic.ViewModels.Lessons
 
                 this.teacher = conn.Accounts.FirstOrDefault(t => t.ID == this.lesson.Account_ID);
 
+                if (this.lesson.Account_ID == this.account.ID)
+                    return false;
+
                 if (conn.LessonParticipants.Any(l => l.Account_ID == this.account.ID && l.Lesson_ID == this.lesson.ID))
                     return false;
 
