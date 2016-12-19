@@ -12,7 +12,7 @@ using bat.logic.Exceptions;
 
 namespace bat.logic.ViewModels.Lessons
 {
-    public class Reschedule : Master
+    public class Cancel : Master
     {
 
         public Account host { get; set; }
@@ -20,7 +20,7 @@ namespace bat.logic.ViewModels.Lessons
         public Lesson lesson { get; set; }
 
 
-        public Reschedule()
+        public Cancel()
         {
             this.lesson = new Lesson()
             {
@@ -53,11 +53,7 @@ namespace bat.logic.ViewModels.Lessons
                 this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == lessonId);
                 if (this.lesson == null) throw new Exception("Lesson does not exist.");
 
-                // expect dd mm yyyy hh:mm tt
-                var bkdt = (frm["BookingDate"] ?? "").Trim();
-                if (string.IsNullOrEmpty(bkdt)) throw new Exception("Booking date is required.");
-
-                this.lesson.BookingDate = Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt));
+                this.lesson.CancelledDate = DateTime.UtcNow;
                 conn.SaveChanges();
 
                 Rules.EventLogging.EditLesson(this.account, this.lesson);

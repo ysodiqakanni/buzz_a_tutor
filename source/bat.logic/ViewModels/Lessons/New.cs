@@ -19,7 +19,7 @@ namespace bat.logic.ViewModels.Lessons
         {
             this.lesson = new Lesson()
             {
-                BookingDate = DateTime.UtcNow,
+                BookingDate = DateTime.UtcNow.AddDays(1),
                 DurationMins = 15,
                 ClassSize = 0
             };
@@ -30,7 +30,8 @@ namespace bat.logic.ViewModels.Lessons
             if (string.IsNullOrEmpty(date)) return;
             var bits = date.Split('-');
             if (bits.Length < 3) return;
-            this.lesson.BookingDate = new DateTime(Convert.ToInt32(bits[0]), Convert.ToInt32(bits[1]), Convert.ToInt32(bits[2]), 9, 0, 0);
+            this.lesson.BookingDate = new DateTime(
+                Convert.ToInt32(bits[0]), Convert.ToInt32(bits[1]), Convert.ToInt32(bits[2]), 9, 0, 0);
         }
 
         public void Save(FormCollection frm)
@@ -43,6 +44,9 @@ namespace bat.logic.ViewModels.Lessons
             {
                 var description = (frm["Description"] ?? "").Trim();
                 if (string.IsNullOrEmpty(description)) throw new Exception("Description is required.");
+
+                if (Rules.Timezone.ConvertToUTC(Convert.ToDateTime(bkdt)) < DateTime.UtcNow)
+                    throw new Exception("Booking date not valid.");
 
                 var detailedDescription = (frm["DetailedDescription"] ?? "").Trim();
                 detailedDescription = HttpUtility.UrlEncode(detailedDescription);

@@ -520,6 +520,7 @@
     <Content Include="Views\Shared\_LayoutError.cshtml" />
     <Content Include="Views\Home\ListTeacherLessons.cshtml" />
     <Content Include="Views\Profile\Complete.cshtml" />
+    <Content Include="Views\Lessons\Cancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

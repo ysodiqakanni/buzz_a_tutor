@@ -344,3 +344,8 @@ GO
 
 ALTER TABLE [dbo].[LessonResource] CHECK CONSTRAINT [FK_LessonResource_Lesson]
 GO
+
+
+
+ALTER TABLE dbo.Lesson ADD CancelledDate datetime NULL
+GO

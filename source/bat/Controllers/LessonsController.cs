@@ -346,6 +346,63 @@ namespace bat.Controllers
             return RedirectToAction("Index", new { id = model.lesson.ID });
         }
 
+        [Authorize]
+        public ActionResult Cancel(int id)
+        {
+            var model = new logic.ViewModels.Lessons.Cancel();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Load(id);
+
+                return View(model);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error", model);
+            }
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Cancel(int id, FormCollection frm)
+        {
+            var model = new logic.ViewModels.Lessons.Cancel();
+
+            try
+            {
+                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+                if (user == null) return RedirectToRoute("home");
+
+                model.Initialise(user.ID);
+                if (!model.IsTeacher) return RedirectToRoute("home");
+                model.Save(id, frm);
+            }
+            catch (WrongAccountException)
+            {
+                return RedirectToRoute("home");
+            }
+            catch (Exception ex)
+            {
+                ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.Error = ex.Message;
+                return View("Error", model);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
 
         [Authorize]
         [ValidateInput(false)]

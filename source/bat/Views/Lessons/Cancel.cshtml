@@ -1,0 +1,41 @@
+﻿@model bat.logic.ViewModels.Lessons.Cancel
+@{
+    ViewBag.Title = "Cancel Lesson";
+}
+
+@section head {
+}
+@section scripts {
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#DetailedDescription',
+            theme: 'modern',
+            height: 400
+        });
+        $(document).ready(function () {
+            $('#BookingDate').datetimepicker({
+                locale: 'en-au'
+            });
+        });
+    </script>
+}
+
+@{ Html.BeginForm("Cancel", "Lessons", FormMethod.Post); }
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h2>Cancel Lesson</h2>
+
+        <p>
+            Are you sure?
+        </p>
+
+        <div style="margin-top: 40px; margin-bottom: 20px; overflow: auto;">
+            <input type="submit" value="Continue" class="btn btn-lg btn-danger pull-right" style="width: 110px;" />
+            <a href="@Url.Action("Index", new { id = Model.lesson.ID })" class="btn btn-lg btn-default pull-right" style="margin-right: 20px;">
+                No
+            </a>
+        </div>
+    </div>
+</div>
+@{ Html.EndForm(); }

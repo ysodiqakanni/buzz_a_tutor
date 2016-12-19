@@ -29,11 +29,11 @@ namespace bat.data
         public virtual DbSet<LessonAttachment> LessonAttachments { get; set; }
         public virtual DbSet<LessonParticipant> LessonParticipants { get; set; }
         public virtual DbSet<ChatRecord> ChatRecords { get; set; }
-        public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<SubjectDescription> SubjectDescriptions { get; set; }
         public virtual DbSet<SubjectExamPaper> SubjectExamPapers { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<LessonResource> LessonResources { get; set; }
         public virtual DbSet<EventLog> EventLogs { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
     }
 }
