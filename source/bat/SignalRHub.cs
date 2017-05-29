@@ -12,6 +12,7 @@ namespace bat
         public void JoinGroup(string groupName)
         {
             Groups.Add(Context.ConnectionId, groupName);
+            //Clients.Group(groupName).getSnapShot();
         }
 
         public void UpdateModel(ChalkModel clientModel)
@@ -36,6 +37,20 @@ namespace bat
         public void BoardImage(ImageModel imageModel)
         {
             Clients.Group(imageModel.Group, Context.ConnectionId).BoardImage(imageModel);
+        }
+
+        public void UploadSnapshot(string snapshot, string groupName)
+        {
+            //clientModel.LastUpdatedBy = Context.ConnectionId;
+            // Update the Chalk model within our broadcaster
+            Clients.Group(groupName).loadSnapShot(snapshot);
+        }
+
+        public void GetTeacherSnapshot(string groupName)
+        {
+            //clientModel.LastUpdatedBy = Context.ConnectionId;
+            // Update the Chalk model within our broadcaster
+            Clients.Group(groupName,Context.ConnectionId).getTeacherSnapshot();
         }
     }
     public class ChalkModel
