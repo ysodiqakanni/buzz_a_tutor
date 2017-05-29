@@ -8,11 +8,26 @@
     <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/blackboard.css")" />
 <link href="~/assets/css/literallycanvas.css" rel="stylesheet" />
     <script>
-        isHost = "@Model.IsTeacher";
+        @*isHost = "@Model.IsTeacher";
+        lessonId = "@Model.lesson.ID";
+        id = @Model.account.ID;
+        username = "@Model.account.Fname" + " " + "@Model.account.Lname";
+        var deleteResourceUrl = '@Url.Action("DeleteResource", "Lessons", new { id = Model.lesson.ID })';*@
+
         lessonId = "@Model.lesson.ID";
         id = @Model.account.ID;
         username = "@Model.account.Fname" + " " + "@Model.account.Lname";
         var deleteResourceUrl = '@Url.Action("DeleteResource", "Lessons", new { id = Model.lesson.ID })';
+        var IsHost = "false";
+        var IsHaveControl = "false";
+        var exitMode = false;
+        if(@Model.account.AccountType_ID == 2)
+        {
+            IsHost = "true";
+            IsHaveControl = "true";
+            exitMode = true;
+        }
+
     </script>
 }
 @section scripts {

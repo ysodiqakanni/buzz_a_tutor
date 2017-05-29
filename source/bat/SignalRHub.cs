@@ -2,6 +2,7 @@
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace bat
@@ -9,10 +10,37 @@ namespace bat
     public class BlackboardHub : Hub
     {
         //Connect to Group
-        public void JoinGroup(string groupName)
+
+        static List<Participant> ConnectedUsers = new List<Participant>();
+
+        //public void JoinGroup(string groupName)
+        //{
+        //    Groups.Add(Context.ConnectionId, groupName);
+        //    //Clients.Group(groupName).getSnapShot();
+        //}
+
+        public void JoinGroup(string groupName, string userId, string userName, string isHost, string isHaveControl)
         {
+            if (ConnectedUsers.Count(u => u.UserId == userId && u.GroupName == groupName) == 0)
+                ConnectedUsers.Add(new Participant()
+                {
+                    ConnectionId = Context.ConnectionId,
+                    UserId = userId,
+                    UserName = userName,
+                    Status = "Online",
+                    IsHost = isHost,
+                    IsHaveControl = isHaveControl,
+                    GroupName = groupName,
+                });
+            else
+            {
+                var index = ConnectedUsers.FindIndex(p => p.UserId == userId && p.GroupName == groupName);
+                ConnectedUsers[index].ConnectionId = Context.ConnectionId;
+                ConnectedUsers[index].IsHaveControl = isHaveControl;
+                ConnectedUsers[index].IsHost = isHost;
+                ConnectedUsers[index].Status = "Online";
+            }
             Groups.Add(Context.ConnectionId, groupName);
-            //Clients.Group(groupName).getSnapShot();
         }
 
         public void UpdateModel(ChalkModel clientModel)
@@ -43,16 +71,43 @@ namespace bat
         {
             //clientModel.LastUpdatedBy = Context.ConnectionId;
             // Update the Chalk model within our broadcaster
-            Clients.Group(groupName).loadSnapShot(snapshot);
+
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
+            var teacherConnectionId = "";
+            if (index != -1)
+                teacherConnectionId = ConnectedUsers[index].ConnectionId;
+
+            Clients.Group(groupName, teacherConnectionId).loadSnapShot(snapshot);
         }
 
         public void GetTeacherSnapshot(string groupName)
         {
             //clientModel.LastUpdatedBy = Context.ConnectionId;
             // Update the Chalk model within our broadcaster
-            Clients.Group(groupName,Context.ConnectionId).getTeacherSnapshot();
+
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
+            var teacherConnectionId = "";
+            if (index != -1)
+                teacherConnectionId = ConnectedUsers[index].ConnectionId;
+
+            Clients.Client(teacherConnectionId).getTeacherSnapshot();
         }
     }
+
+    public class Participant
+    {
+        public string ConnectionId { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Status { get; set; }
+
+        public string IsHost { get; set; }
+
+        public string IsHaveControl { get; set; }
+
+        public string GroupName { get; set; }
+    }
+
     public class ChalkModel
     {
         // We declare Left and Top as lowercase with 

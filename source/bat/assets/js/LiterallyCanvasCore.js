@@ -11,7 +11,7 @@ $(function () {
         blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
     };
     blackboardHub.client.loadSnapShot = function (snapshotString) {
-        
+        debugger
         var lc1 = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../Content/lc-images',
             snapshot: JSON.parse(snapshotString),
@@ -26,8 +26,10 @@ $(document).ready(function () {
 
     $.connection.hub.start().done(function () {
         // Join the Lesson's Blackboard
-        blackboardHub.server.joinGroup(lessonId);
-        if (isHost === "True") {
+        //blackboardHub.server.joinGroup(lessonId);
+        debugger;
+        blackboardHub.server.joinGroup(lessonId, id, username, IsHost, IsHaveControl);
+        if (IsHost === "true") {
             teacherCanvas = LC.init(document.getElementById("lc"), {
                 imageURLPrefix: '../assets/img/lc-images',
 
