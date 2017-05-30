@@ -105,6 +105,19 @@ namespace bat
 
             Clients.Client(teacherConnectionId).getTeacherSnapshot();
         }
+
+        public void UploadShape(string shapeString,string previousShapeId, string groupName)
+        {
+            //clientModel.LastUpdatedBy = Context.ConnectionId;
+            // Update the Chalk model within our broadcaster
+
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
+            var teacherConnectionId = "";
+            if (index != -1)
+                teacherConnectionId = ConnectedUsers[index].ConnectionId;
+
+            Clients.Group(groupName, teacherConnectionId).loadShape(shapeString,previousShapeId);
+        }
     }
 
     public class Participant

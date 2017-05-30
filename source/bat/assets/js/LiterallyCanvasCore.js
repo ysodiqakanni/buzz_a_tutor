@@ -22,6 +22,11 @@ $(function () {
         console.log("load after init called");
         studentCanvas.loadSnapshot(JSON.parse(snapshotString));
     };
+
+    blackboardHub.client.loadShape = function (shapeString, previousShapeId) {
+        console.log("load after init called");
+        studentCanvas.saveShape(JSON.parse(shapeString),true,previousShapeId);
+    };
 });
 
 $(document).ready(function () {
@@ -37,18 +42,33 @@ $(document).ready(function () {
                 strokeWidths: [1, 2, 3, 5, 30]
             });
             teacherCanvas.repaintAllLayers();
+
+                teacherCanvas.on("shapeSave", function (shape, previousShapeId) {
+                    var snaps = teacherCanvas.getSnapshot();
+                    blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+                });
+
+
             teacherCanvas.on("mousedown", function () {
+                //console.clear();
+                //console.log(teacherCanvas);
                 var snaps = teacherCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
             });
-            teacherCanvas.on("mousemove", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
-            });
+            //teacherCanvas.on("mousemove", function () {
+            //    console.clear();
+            //    console.log(teacherCanvas);
+            //    var snaps = teacherCanvas.getSnapshot();
+            //    blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            //});
             teacherCanvas.on("mouseup", function () {
                 var snaps = teacherCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
             });
+
+            //var x = teacherCanvas.prototype.pointerUp;
+
+            //console.log(x);
         }
         else {
             blackboardHub.server.getTeacherSnapshot(lessonId);
