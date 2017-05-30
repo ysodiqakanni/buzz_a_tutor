@@ -5,15 +5,9 @@
 
 @section head {
     <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
-    <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/blackboard.css")" />
-<link href="~/assets/css/literallycanvas.css" rel="stylesheet" />
+    @Styles.Render("~/assets/css/blackboard")
+    @Styles.Render("~/assets/css/literallycanvas")
     <script>
-        @*isHost = "@Model.IsTeacher";
-        lessonId = "@Model.lesson.ID";
-        id = @Model.account.ID;
-        username = "@Model.account.Fname" + " " + "@Model.account.Lname";
-        var deleteResourceUrl = '@Url.Action("DeleteResource", "Lessons", new { id = Model.lesson.ID })';*@
-
         lessonId = "@Model.lesson.ID";
         id = @Model.account.ID;
         username = "@Model.account.Fname" + " " + "@Model.account.Lname";
@@ -27,24 +21,16 @@
             IsHaveControl = "true";
             exitMode = true;
         }
-
     </script>
 }
+
+
 @section scripts {
-    <script type="text/javascript" src="@Url.Content("~/assets/js/lessonJS.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/assets/js/lessonResource.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/assets/js/react-0.14.3.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/assets/js/literallycanvas.js")"></script>
-    @*<script>
-            $(document).ready(function () {
-                window.open('@Model.lesson.ZoomJoinUrl', '_blank');
-            });
-        </script>*@
     <script>
         $('#bbImage-list').slimScroll({
             height: '500px'
         });
+
     </script>
 }
 
@@ -90,7 +76,8 @@
                                         {
                                             <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
                                         }
-                                        else {
+                                        else
+                                        {
                                             <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
                                         }
                                         <br />
@@ -136,7 +123,7 @@
                                 <div class="col-md-8">
                                     @Html.Partial("_PartialWhiteboard", Model)
                                 </div>
-                                <div  class="col-md-4">
+                                <div class="col-md-4">
                                     <div>
                                         <h4 class="no-margin">
                                             Blackboard Images
@@ -207,3 +194,10 @@
         </div>
     </div>
 }
+
+@Scripts.Render("~/assets/js/lesson")
+@Scripts.Render("~/assets/vendor/slimscroll")
+@Scripts.Render("~/signalr")
+@Scripts.Render("~/signalr/hubs")
+@Scripts.Render("~/assets/vendor/pdf")
+@Scripts.Render("~/assets/js/literallycanvas")

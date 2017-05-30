@@ -80,6 +80,19 @@ namespace bat
             Clients.Group(groupName, teacherConnectionId).loadSnapShot(snapshot);
         }
 
+        public void UploadSnapshotOnInit(string snapshot, string groupName)
+        {
+            //clientModel.LastUpdatedBy = Context.ConnectionId;
+            // Update the Chalk model within our broadcaster
+
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
+            var teacherConnectionId = "";
+            if (index != -1)
+                teacherConnectionId = ConnectedUsers[index].ConnectionId;
+
+            Clients.Group(groupName, teacherConnectionId).loadSnapShotOnInit(snapshot);
+        }
+
         public void GetTeacherSnapshot(string groupName)
         {
             //clientModel.LastUpdatedBy = Context.ConnectionId;

@@ -407,13 +407,15 @@
     <Content Include="assets\js\lessonJS.js" />
     <Content Include="assets\js\lessonResource.js" />
     <Content Include="assets\js\literallycanvas.js" />
-    <Content Include="assets\js\LiterallyCanvasCore.js" />
+    <Content Include="assets\js\literallyCanvasCore.js" />
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\moment-timezone.js" />
     <Content Include="assets\js\moment.min.js" />
     <Content Include="assets\js\pdfConvert.js" />
     <Content Include="assets\js\plugins.js" />
     <Content Include="assets\js\react-0.14.3.js" />
+    <Content Include="assets\js\react-0.14.4.js" />
+    <Content Include="assets\js\react-dom-0.14.3.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
