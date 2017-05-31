@@ -413,7 +413,6 @@
     <Content Include="assets\js\moment.min.js" />
     <Content Include="assets\js\pdfConvert.js" />
     <Content Include="assets\js\plugins.js" />
-    <Content Include="assets\js\react-0.14.3.js" />
     <Content Include="assets\js\react-0.14.4.js" />
     <Content Include="assets\js\react-dom-0.14.3.js" />
     <Content Include="assets\js\videoStreaming.js" />

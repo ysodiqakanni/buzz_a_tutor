@@ -53,7 +53,7 @@ namespace bat
            ));
 
             bundles.Add(new ScriptBundle("~/signalr").Include(
-                "~/Scripts/jquery.signalR-2.2.0.min.js"
+                "~/Scripts/jquery.signalR-2.2.0.js"
             ));
 
             bundles.Add(new ScriptBundle("~/assets/vendor/pdf").Include(
