@@ -69,55 +69,61 @@ namespace bat
 
         public void UploadSnapshot(string snapshot, string groupName)
         {
-            //clientModel.LastUpdatedBy = Context.ConnectionId;
-            // Update the Chalk model within our broadcaster
-
-            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
-            var teacherConnectionId = "";
-            if (index != -1)
-                teacherConnectionId = ConnectedUsers[index].ConnectionId;
-
+            var teacherConnectionId = retriveTeacherContextId();
             Clients.Group(groupName, teacherConnectionId).loadSnapShot(snapshot);
         }
 
         public void UploadSnapshotOnInit(string snapshot, string groupName)
         {
-            //clientModel.LastUpdatedBy = Context.ConnectionId;
-            // Update the Chalk model within our broadcaster
-
-            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
-            var teacherConnectionId = "";
-            if (index != -1)
-                teacherConnectionId = ConnectedUsers[index].ConnectionId;
-
+            var teacherConnectionId = retriveTeacherContextId();
             Clients.Group(groupName, teacherConnectionId).loadSnapShotOnInit(snapshot);
         }
 
         public void GetTeacherSnapshot(string groupName)
         {
-            //clientModel.LastUpdatedBy = Context.ConnectionId;
-            // Update the Chalk model within our broadcaster
-
-            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
-            var teacherConnectionId = "";
-            if (index != -1)
-                teacherConnectionId = ConnectedUsers[index].ConnectionId;
-
+            var teacherConnectionId = retriveTeacherContextId();
             Clients.Client(teacherConnectionId).getTeacherSnapshot();
         }
 
         public void UploadShape(string shapeString,string previousShapeId, string groupName)
         {
-            //clientModel.LastUpdatedBy = Context.ConnectionId;
-            // Update the Chalk model within our broadcaster
-
-            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
-            var teacherConnectionId = "";
-            if (index != -1)
-                teacherConnectionId = ConnectedUsers[index].ConnectionId;
-
+            var teacherConnectionId = retriveTeacherContextId();
             Clients.Group(groupName, teacherConnectionId).loadShape(shapeString,previousShapeId);
         }
+
+        public void ClearBoard(string groupName)
+        {
+            var teacherConnectionId = retriveTeacherContextId();
+            Clients.Group(groupName, teacherConnectionId).clearBoard();
+        }
+
+        public void UndoAction(string groupName)
+        {
+            var teacherConnectionId = retriveTeacherContextId();
+            Clients.Group(groupName, teacherConnectionId).undoAction();
+        }
+
+        public void RedoAction(string groupName)
+        {
+            var teacherConnectionId = retriveTeacherContextId();
+            Clients.Group(groupName, teacherConnectionId).redoAction();
+        }
+
+        public void ColorChange(string colorType,string colorValue,string groupName)
+        {
+            var teacherConnectionId = retriveTeacherContextId();
+            Clients.Group(groupName, teacherConnectionId).colorChange(colorType, colorValue);
+        }
+
+        private string retriveTeacherContextId()
+        {
+            string teacherContextId = "";
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
+            if (index != -1)
+                teacherContextId = ConnectedUsers[index].ConnectionId;
+            return teacherContextId;
+        }
+
     }
 
     public class Participant

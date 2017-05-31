@@ -26,6 +26,19 @@ $(function () {
         var shapeToRender = LC.JSONToShape(JSON.parse(shapeString));
         studentCanvas.saveShape(shapeToRender, true, previousShapeId);
     };
+
+    blackboardHub.client.clearBoard = function () {
+        studentCanvas.clear();
+    };
+    blackboardHub.client.undoAction = function () {
+        studentCanvas.undo();
+    };
+    blackboardHub.client.redoAction = function () {
+        studentCanvas.redo();
+    };
+    blackboardHub.client.colorChange = function (colorType,colorValue) {
+        studentCanvas.setColor(colorType,colorValue);
+    };
 });
 
 $(document).ready(function () {
@@ -49,28 +62,22 @@ $(document).ready(function () {
                 blackboardHub.server.uploadShape(JSON.stringify(shapeString),previousShapeId, lessonId);
             });
             teacherCanvas.on("clear", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+                blackboardHub.server.clearBoard(lessonId);
             });
             teacherCanvas.on("undo", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+                blackboardHub.server.undoAction(lessonId);
             });
             teacherCanvas.on("redo", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+                blackboardHub.server.redoAction(lessonId);
             });
-            teacherCanvas.on("primaryColorChange", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            teacherCanvas.on("primaryColorChange", function (newColor) {
+                blackboardHub.server.ColorChange("primary", newColor, lessonId);
             });
-            teacherCanvas.on("secondaryColorChange", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            teacherCanvas.on("secondaryColorChange", function (newColor) {
+                blackboardHub.server.ColorChange("secondary", newColor, lessonId);
             });
-            teacherCanvas.on("backgroundColorChange", function () {
-                var snaps = teacherCanvas.getSnapshot();
-                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            teacherCanvas.on("backgroundColorChange", function (newColor) {
+                blackboardHub.server.colorChange("background", newColor, lessonId);
             });
         }
         else {
@@ -78,3 +85,8 @@ $(document).ready(function () {
         }
     });
 });
+
+//function uploadSnapShot() {
+//    var snaps = teacherCanvas.getSnapshot();
+//    blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+//}
