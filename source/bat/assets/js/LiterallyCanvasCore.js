@@ -2,6 +2,7 @@
 var blackboardHub = $.connection.blackboardHub;
 var teacherCanvas;
 var studentCanvas;
+var onInit = true;
 
 $(function () {
     blackboardHub.client.getTeacherSnapshot = function () {      
@@ -9,7 +10,6 @@ $(function () {
         blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
     };
     blackboardHub.client.loadSnapShotOnInit = function (snapshotString) {
-        console.log("load before init called");
         studentCanvas = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../Content/lc-images',
             snapshot: JSON.parse(snapshotString),
@@ -19,13 +19,12 @@ $(function () {
         });
     };
     blackboardHub.client.loadSnapShot = function (snapshotString) {
-        console.log("load after init called");
         studentCanvas.loadSnapshot(JSON.parse(snapshotString));
     };
 
     blackboardHub.client.loadShape = function (shapeString, previousShapeId) {
-        console.log("load after init called");
-        studentCanvas.saveShape(JSON.parse(shapeString),true,previousShapeId);
+        var shapeToRender = LC.JSONToShape(JSON.parse(shapeString));
+        studentCanvas.saveShape(shapeToRender, true, previousShapeId);
     };
 });
 
@@ -36,39 +35,43 @@ $(document).ready(function () {
         if (IsHost === "true") {
             teacherCanvas = LC.init(document.getElementById("lc"), {
                 imageURLPrefix: '../assets/img/lc-images',
-
                 toolbarPosition: 'bottom',
                 defaultStrokeWidth: 2,
                 strokeWidths: [1, 2, 3, 5, 30]
             });
-            teacherCanvas.repaintAllLayers();
-
-                teacherCanvas.on("shapeSave", function (shape, previousShapeId) {
-                    var snaps = teacherCanvas.getSnapshot();
-                    blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
-                });
-
-
-            teacherCanvas.on("mousedown", function () {
-                //console.clear();
-                //console.log(teacherCanvas);
+            if (onInit) {
+                onInit = false;
+                var snaps = teacherCanvas.getSnapshot();
+                blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
+            }
+            teacherCanvas.on("shapeSave", function (shape, previousShapeId) {               
+                var shapeString = LC.shapeToJSON(shape.shape);
+                blackboardHub.server.uploadShape(JSON.stringify(shapeString),previousShapeId, lessonId);
+            });
+            teacherCanvas.on("clear", function () {
                 var snaps = teacherCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
             });
-            //teacherCanvas.on("mousemove", function () {
-            //    console.clear();
-            //    console.log(teacherCanvas);
-            //    var snaps = teacherCanvas.getSnapshot();
-            //    blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
-            //});
-            teacherCanvas.on("mouseup", function () {
+            teacherCanvas.on("undo", function () {
                 var snaps = teacherCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
             });
-
-            //var x = teacherCanvas.prototype.pointerUp;
-
-            //console.log(x);
+            teacherCanvas.on("redo", function () {
+                var snaps = teacherCanvas.getSnapshot();
+                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            });
+            teacherCanvas.on("primaryColorChange", function () {
+                var snaps = teacherCanvas.getSnapshot();
+                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            });
+            teacherCanvas.on("secondaryColorChange", function () {
+                var snaps = teacherCanvas.getSnapshot();
+                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            });
+            teacherCanvas.on("backgroundColorChange", function () {
+                var snaps = teacherCanvas.getSnapshot();
+                blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
+            });
         }
         else {
             blackboardHub.server.getTeacherSnapshot(lessonId);
