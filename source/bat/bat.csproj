@@ -368,6 +368,7 @@
     <Content Include="assets\img\lc-images\screenshot.png" />
     <Content Include="assets\img\lc-images\text.png" />
     <Content Include="assets\img\lc-images\undo.png" />
+    <Content Include="assets\img\lc-images\user.png" />
     <Content Include="assets\img\lc-images\zoom-in.png" />
     <Content Include="assets\img\lc-images\zoom-out.png" />
     <Content Include="assets\img\line.gif" />
