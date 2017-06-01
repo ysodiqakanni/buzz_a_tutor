@@ -41,6 +41,12 @@ namespace bat
                 ConnectedUsers[index].Status = "Online";
             }
             Groups.Add(Context.ConnectionId, groupName);
+            RefreshList();
+        }
+
+        public void RefreshList()
+        {
+            Clients.All.refreshList(ConnectedUsers);
         }
 
         public void UpdateModel(ChalkModel clientModel)

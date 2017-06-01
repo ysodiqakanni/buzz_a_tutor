@@ -3,13 +3,28 @@ var blackboardHub = $.connection.blackboardHub;
 var teacherCanvas;
 var studentCanvas;
 var onInit = true;
-var allUsers =
-    [
-        { name: "Nitin", id: "1" },
-        { name: "Yogesh", id: "2" }
-    ];
+var allUsers = [];
+    //[
+    //    { name: "Nitin", id: "1" },
+    //    { name: "Yogesh", id: "2" }
+    //];
 
 $(function () {
+
+    blackboardHub.client.refreshList = function (connectedUsers) {
+        $(".user-List").empty();
+        $.each(connectedUsers, function (index, user) {
+            if (user.IsHost != "true") {
+                var userObj = {
+                    name: user.UserName,
+                    id: user.UserId
+                }
+                allUsers.push(userObj);
+            }
+        });
+        //RefreshUserList("hidden-row-container", "row_", "connected-users", connectedUsers, id);
+    };
+
     blackboardHub.client.getTeacherSnapshot = function () {
         var snaps = teacherCanvas.getSnapshot();
         blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
@@ -23,6 +38,7 @@ $(function () {
             strokeWidths: [1, 2, 3, 5, 30]
         });
     };
+
     blackboardHub.client.loadSnapShot = function (snapshotString) {
         studentCanvas.loadSnapshot(JSON.parse(snapshotString));
     };
