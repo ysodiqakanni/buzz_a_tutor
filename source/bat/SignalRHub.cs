@@ -75,71 +75,73 @@ namespace bat
 
         public void UploadSnapshot(string snapshot, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).loadSnapShot(snapshot);
         }
 
         public void UploadSnapshotOnInit(string snapshot, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).loadSnapShotOnInit(snapshot);
+                Clients.Group(groupName, teacherConnectionId).loadOnInitWithSnapShot(snapshot);
         }
 
         public void GetTeacherSnapshot(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Client(teacherConnectionId).getTeacherSnapshot();
+            else
+                Clients.Client(Context.ConnectionId).loadOnInitWithoutSnapShot();
         }
 
         public void UploadShape(string shapeString, string previousShapeId, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).loadShape(shapeString, previousShapeId);
         }
 
         public void ClearBoard(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).clearBoard();
         }
 
         public void UndoAction(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).undoAction();
         }
 
         public void RedoAction(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).redoAction();
         }
 
         public void PanAction(string coordinates,string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).panAction(coordinates);
         }
 
         public void ColorChange(string colorType, string colorValue, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId();
+            var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Group(groupName, teacherConnectionId).colorChange(colorType, colorValue);
         }
 
-        private string retriveTeacherContextId()
+        private string retriveTeacherContextId(string groupName)
         {
             string teacherContextId = "";
-            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true");
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true" && p.GroupName == groupName);
             if (index != -1)
                 teacherContextId = ConnectedUsers[index].ConnectionId;
             return teacherContextId;

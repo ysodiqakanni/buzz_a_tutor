@@ -10,6 +10,7 @@
     </script>
 
     <div id="board-wrap">
+        <div id="loader-container" class="se-pre-con"></div>
         <input id="getChatHistoryPath" type="hidden" value="@Url.HttpRouteUrl("api/chat/gethistory", new { controller = "ChatApi", action = "GetChatHistory" })" />
         <div id="lc"></div>    
     @*<div id="board-top">

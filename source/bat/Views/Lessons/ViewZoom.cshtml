@@ -5,6 +5,7 @@
 
 @section head {
     <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/Loader.css")" />
     @Styles.Render("~/assets/css/blackboard")
     @Styles.Render("~/assets/css/literallycanvas")
     <script>
@@ -30,6 +31,10 @@
         $('#bbImage-list').slimScroll({
             height: '500px'
         });
+        //$(window).load(function() {
+        //    // Animate loader off screen
+        //    $(".se-pre-con").fadeOut("slow");
+        //});
 
     </script>
 }
@@ -194,6 +199,7 @@
         </div>
     </div>
 @*<div id="lc"></div>*@
+
 }
 
 @Scripts.Render("~/assets/js/lesson")
