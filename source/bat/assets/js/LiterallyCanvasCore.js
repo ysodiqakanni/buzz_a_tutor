@@ -308,7 +308,7 @@ $(document).ready(function () {
                     //})), 
                     div({
                         name: "hidden-row-container",
-                        textContent : "Nitin",
+                        text : "Nitin",
                     }, div({
                         className: "row",
                         name : "row_0",
@@ -478,7 +478,7 @@ function uploadSnapShot() {
 }
 function resizeTeacherCanvas() {
     if (IsHost === "true") {
-        hideLoader("loader-container");
+        //hideLoader("loader-container");
         setTimeout(function () {
             var elementToMatch = $(".with-gui")[0];
             var elementsToResize = $(".lc-drawing.with-gui canvas");
@@ -489,13 +489,17 @@ function resizeTeacherCanvas() {
 }
 
 function resizeStudentCanvas() {
-    hideLoader("loader-container");
+    //hideLoader("loader-container");
     var elementToMatch = $("#lc")[0];
     var elementsToResize = $(".lc-drawing.with-gui canvas");
     var scale = 1;
     LC.util.matchElementSize(elementToMatch, elementsToResize, scale, callback = null);
 }
 
-function hideLoader(LoaderContainer) {
-    $("#" + LoaderContainer).fadeOut("slow");
-}
+//function hideLoader(LoaderContainer) {
+//    $("#" + LoaderContainer).fadeOut("slow");
+//}
+
+$(function () {
+    alert("hii");
+});
