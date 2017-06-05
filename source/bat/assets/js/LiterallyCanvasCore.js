@@ -12,7 +12,7 @@ var allUsers;
 $(function () {
 
     blackboardHub.client.refreshList = function (connectedUsers) {
-        $("#connected-users").empty();
+        //$("#connected-users").empty();
         //$.each(connectedUsers, function (index, user) {
         //    if (user.IsHost != "true") {
         //        var userObj = {
@@ -84,12 +84,12 @@ $(function () {
     };
 });
 
-function test() {
-    alert("Nitin");
-}
+//function test() {
+//    alert("Nitin");
+//}
 
 function LastDivCount(container) {
-    var lastDiv = $('div[name=' + container + ']').children().last().attr('id');//$('ul[id=' + container + ']').children().length//.last().attr('id');//$('div[name=' + container + ']').children().last().attr('id');
+    var lastDiv = $('ul[id=' + container + ']').children().length;//$('div[name=' + container + ']').children().last().attr('id');//$('ul[id=' + container + ']').children().length//.last().attr('id');//$('div[name=' + container + ']').children().last().attr('id');
     //var count = 0;
     //if (lastDiv != 0) { count = count + 1;}//count = parseInt(lastDiv.split('_')[2]); }
     ////count = count + 1;
@@ -251,6 +251,7 @@ $(document).ready(function () {
                     event.currentTarget.value = "Revoke";
                 else
                     event.currentTarget.value = "Grant";
+                console.log($("#users").find(":selected").text());
                 //return this.updateTool(newState);
             },
             //handleItalic: function (event) {
@@ -273,56 +274,37 @@ $(document).ready(function () {
             //    return this.updateTool();
             //},
             render: function () {
-                var br, div, input, label, lc, optgroup, option, ref4, select, span;
+                var br, div, input, label, lc, optgroup, option, ref4, select, span,ul;
                 lc = this.props.lc;
-                ref4 = React.DOM, div = ref4.div, input = ref4.input, select = ref4.select, option = ref4.option, br = ref4.br, label = ref4.label, span = ref4.span, optgroup = ref4.optgroup,button = ref4.button;
-                return div({
+                ref4 = React.DOM, div = ref4.div, input = ref4.input, select = ref4.select, option = ref4.option, br = ref4.br, label = ref4.label, span = ref4.span, optgroup = ref4.optgroup,button = ref4.button,ul=ref4.ul;
+                return ul({
                     className: 'user-List',
                     id: "connected-users"
-                },
-                //}, select({
-                //    className:"col-lg-3 dropdown",
-                //    value: this.state.fontName,
-                //    onChange: this.handleFontFamily
-                //}, allUsers.map((function (_this) {
-                //    return function (arg) {
-                //        var user;
-                //        user = arg;
-                //        return option({
-                //            value: user.name,
-                //            key: user.id
-                //        }, user.name);
-                //        //fonts.map(function (user, ix) {
-                //        //    return option({
-                //        //        value: user.name,
-                //        //        key: ix
-                //        //    }, user.name);
-                //        //});
-                //    };
-                //})(this))), span({},input({
-                //    type: 'button',
-                //    id: 'btnAction',
-                //    value: 'Grant',
-                //    className: "btn btn-primary",
-                //    optionsStyle : "float:right",
-                    //})), 
-                    div({
-                        name: "hidden-row-container",
-                        text : "Nitin",
-                    }, div({
-                        className: "row",
-                        name : "row_0",
-                    }, div({
-                        className: "col-xs-7",
-                        id : "user",
-                    }), div({
-                        className : "col-xs-5",
-                    }, input({
-                        className: "btn btn-primary btn-xs",
-                        value: "Grant",
+                    }, select({
+                        className: "col-lg-3 dropdown",
+                        id:"users",
+                        //value: this.state.fontName,
+                        onChange: this.handleFontFamily
+                    }, allUsers.map((function (_this) {
+                        return function (arg) {
+                            var user;
+                            user = arg;
+                            if (user.IsHost == "false") {
+                                return option({
+                                    value: user.UserName,
+                                    key: user.UserId
+                                }, user.UserName);
+                            }
+                        };
+                    })(this))), span({},input({
+                        type: 'button',
+                        id: 'btnAction',
+                        value: 'Grant',
+                        className: "btn btn-primary",
+                        optionsStyle: "float:right",
                         onClick : this.AssignHandle,
-                    })))));
-            }
+                    })));
+           }
         }));
         if (IsHost === "true") {
             teacherCanvas = LC.init(document.getElementById("lc"), {
@@ -500,6 +482,10 @@ function resizeStudentCanvas() {
 //    $("#" + LoaderContainer).fadeOut("slow");
 //}
 
-$(function () {
-    alert("hii");
-});
+//$(function () {
+//    setInterval(function () { 
+//        if ($("div[name=hidden-row-container]")[0] != undefined) {
+//            $("div[name=hidden-row-container]")[0].textContent += " Nitin ";
+//        }
+//     }, 3000);
+//});
