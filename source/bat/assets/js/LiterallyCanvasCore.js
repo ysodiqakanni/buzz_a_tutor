@@ -312,7 +312,7 @@ $(document).ready(function () {
                         value: "Grant",
                         onClick : this.AssignHandle,
                     })))));
-                test();
+                //test();
             }
         }));
         if (IsHost === "true") {

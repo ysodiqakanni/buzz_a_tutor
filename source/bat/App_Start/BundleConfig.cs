@@ -41,9 +41,9 @@ namespace bat
                 "~/assets/js/lessonResource.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/assets/vendor/slimscroll").Include(
-                "~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"
-            ));
+            //bundles.Add(new ScriptBundle("~/assets/vendor/slimscroll").Include(
+            //    "~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"
+            //));
 
             bundles.Add(new ScriptBundle("~/assets/js/literallycanvas").Include(
                "~/assets/js/react-0.14.4.js",
