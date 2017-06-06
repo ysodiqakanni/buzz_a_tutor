@@ -151,7 +151,7 @@ namespace bat
 
         public void RemoveOthersHandler(string Group, string connectionId, string LastUpdatedBy, string snapshotString)
         {
-            //Clients.Group(Group, connectionId).RemoveHandle(snapshotString);
+            Clients.Group(Group, connectionId, LastUpdatedBy).RemoveHandle(snapshotString);
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
             for (int i = 0; i < ConnectedUsers.Count; i++)
             {

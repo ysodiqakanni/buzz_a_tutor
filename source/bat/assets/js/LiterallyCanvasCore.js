@@ -16,11 +16,13 @@ $(function () {
             $("#users").empty();
             SetInitialValue();
             $.each(allUsers, function (index, user) {
-                if (user.IsHost != "true")
+                if (user.IsHost != "true") {
+                    console.log("user - " + user.UserName);
                     $('#users').append($('<option>', {
                         value: user.UserId,
                         text: user.UserName,
                     }));
+                }
             });
         }
     };
@@ -76,7 +78,9 @@ $(function () {
     };
 
     blackboardHub.client.assignHandle = function (snapshotString) {
-        studentCanvas.teardown();
+        //if (studentCanvas != undefined) {
+            studentCanvas.teardown();
+        //}
         teacherCanvas = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../assets/img/lc-images',
             snapshot: JSON.parse(snapshotString),
@@ -87,7 +91,10 @@ $(function () {
         isHost = "true";
     };
     blackboardHub.client.removeHandle = function (snapshotString) {
-        teacherCanvas.teardown();
+        //if (teacherCanvas != undefined) {
+            teacherCanvas.teardown();
+        //}
+        //teacherCanvas.teardown();
         studentCanvas = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../assets/img/lc-images',
             snapshot: JSON.parse(snapshotString),
@@ -262,7 +269,6 @@ $(document).ready(function () {
                         return function (arg) {
                             var user;
                             user = arg;
-                            $("#hdnConnId").val(user.ConnectionId);
                             if (user.IsHost == "false") {
                                 return option({
                                     value: user.UserId,
@@ -360,7 +366,7 @@ function RevokeControl(connectionId) {
 }
 function SetInitialValue() {
     var selectedUserConnId = $("#hdnConnId").val();
-    if (selectedUserConnId != undefined) {
+    if (selectedUserConnId != undefined && selectedUserConnId != "") {
         var result = $.grep(allUsers, function (e) { return e.ConnectionId == selectedUserConnId; });
         var user = result[0];
         $("#hdnConnId").val(user.ConnectionId);
@@ -370,7 +376,8 @@ function SetInitialValue() {
         else {
             $("#btnAction").val("Grant");
         }
-    } else {
-        $("#hdnConnId").val(allUsers[0].ConnectionId);
     }
+    //else {
+    //    $("#hdnConnId").val(allUsers[0].ConnectionId);
+    //}
 }
