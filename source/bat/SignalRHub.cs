@@ -138,6 +138,43 @@ namespace bat
                 Clients.Group(groupName, teacherConnectionId).colorChange(colorType, colorValue);
         }
 
+        public void AssignHandle(string Group, string connectionId,string snapshotString)
+        {
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
+            if (index != -1)
+                ConnectedUsers[index].IsHaveControl = "true";
+            string LastUpdatedBy = Context.ConnectionId;
+            Clients.Client(connectionId).AssignHandle(snapshotString);
+            //RemoveOthersHandler(Group, connectionId, LastUpdatedBy);
+            RefreshList(LastUpdatedBy);
+        }
+
+        public void RemoveOthersHandler(string Group, string connectionId, string LastUpdatedBy)
+        {
+            Clients.Group(Group, connectionId).RemoveHandle();
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
+            for (int i = 0; i < ConnectedUsers.Count; i++)
+            {
+                if (i != index)
+                    ConnectedUsers[i].IsHaveControl = "false";
+            }
+        }
+        public void RemoveHandle(string Group, string connectionId,string snapshotString)
+        {
+            Clients.Client(connectionId).RemoveHandle(snapshotString);
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
+            if (index != -1)
+                ConnectedUsers[index].IsHaveControl = "false";
+            string LastUpdatedBy = Context.ConnectionId;
+            //AssignHandle(Group, LastUpdatedBy);
+            RefreshList(LastUpdatedBy);
+        }
+
+        public void RefreshList(string connectionId)
+        {
+            Clients.Client(connectionId).refreshList(ConnectedUsers);
+        }
+
         private string retriveTeacherContextId(string groupName)
         {
             string teacherContextId = "";

@@ -4,26 +4,24 @@ var teacherCanvas;
 var studentCanvas;
 var onInit = true;
 var allUsers;
-    //[
-    //    { name: "Nitin", id: "1" },
-    //    { name: "Yogesh", id: "2" }
-    //];
 
 $(function () {
 
     blackboardHub.client.refreshList = function (connectedUsers) {
-        //$("#connected-users").empty();
-        //$.each(connectedUsers, function (index, user) {
-        //    if (user.IsHost != "true") {
-        //        var userObj = {
-        //            name: user.UserName,
-        //            id: user.UserId
-        //        }
-        //        allUsers.push(userObj);
-        //    }
-        //});
         allUsers = connectedUsers;
-        //RefreshUserList("hidden-row-container", "row_", "connected-users", connectedUsers, id);
+        if ($("#connected-users")[0] != undefined) {
+            //const element = document.getElementById('users')
+            //element.dispatchEvent(new Event('focus', { bubbles: true }))
+            $("#users").empty();
+            SetInitialValue();
+            $.each(allUsers, function (index, user) {
+                if (user.IsHost != "true")
+                    $('#users').append($('<option>', {
+                        value: user.UserId,
+                        text: user.UserName,
+                    }));
+            });
+        }
     };
 
     blackboardHub.client.getTeacherSnapshot = function () {
@@ -54,16 +52,9 @@ $(function () {
     };
 
     blackboardHub.client.loadShape = function (shapeString, previousShapeId) {
-
-        //var snaps = teacherCanvas.getSnapshot();
         var shapes = LC.snapshotToShapes(studentCanvas.getSnapshot());
-        $.each(shapes, function (index, shape) {
-            console.log(shape);
-        })
         var shapeToRender = LC.JSONToShape(JSON.parse(shapeString));
         studentCanvas.saveShape(shapeToRender, true, previousShapeId);
-        //var shapes = LC.snapshotToShapes(studentCanvas.getSnapshot())
-        //console.log(shapes);
     };
 
     blackboardHub.client.clearBoard = function () {
@@ -82,17 +73,31 @@ $(function () {
     blackboardHub.client.colorChange = function (colorType, colorValue) {
         studentCanvas.setColor(colorType, colorValue);
     };
+
+    blackboardHub.client.assignHandle = function (snapshotString) {
+        studentCanvas.teardown();
+        studentCanvas = LC.init(document.getElementById("lc"), {
+            imageURLPrefix: '../assets/img/lc-images',
+            snapshot: JSON.parse(snapshotString),
+            toolbarPosition: 'bottom',
+            defaultStrokeWidth: 2,
+            strokeWidths: [1, 2, 3, 5, 30]
+        });
+    };
+    blackboardHub.client.removeHandle = function (snapshotString) {
+        studentCanvas.teardown();
+        studentCanvas = LC.init(document.getElementById("lc"), {
+            imageURLPrefix: '../assets/img/lc-images',
+            snapshot: JSON.parse(snapshotString),
+            toolbarPosition: 'hidden',
+            defaultStrokeWidth: 2,
+            strokeWidths: [1, 2, 3, 5, 30]
+        });
+    };
 });
 
-//function test() {
-//    alert("Nitin");
-//}
-
 function LastDivCount(container) {
-    var lastDiv = $('ul[id=' + container + ']').children().length;//$('div[name=' + container + ']').children().last().attr('id');//$('ul[id=' + container + ']').children().length//.last().attr('id');//$('div[name=' + container + ']').children().last().attr('id');
-    //var count = 0;
-    //if (lastDiv != 0) { count = count + 1;}//count = parseInt(lastDiv.split('_')[2]); }
-    ////count = count + 1;
+    var lastDiv = $('ul[id=' + container + ']').children().length;
     lastDiv += 1;
     return lastDiv;
 }
@@ -198,100 +203,65 @@ $(document).ready(function () {
             displayName: 'userList',
             getInitialState: function () {
                 return {
-                    isItalic: false,
-                    isBold: false,
-                    fontName: 'Helvetica',
-                    fontSizeIndex: 4
+                    
                 };
             },
-            getFontSizes: function () {
-                return [9, 10, 12, 14, 18, 24, 36, 48, 64, 72, 96, 144, 288];
+            handleChangeUser: function (event) {
+                var selectedUserId = event.target.selectedOptions[0].value;
+                var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
+                if (result.length == 0) {
+                    // not found
+                } else if (result.length == 1) {
+                    // access the foo property using result[0].foo
+                    var user = result[0];
+                    $("#hdnConnId").val(user.ConnectionId);
+                    if (user.IsHaveControl == "true") {
+                        $("#btnAction").val("Revoke");
+                    }
+                    else {
+                        $("#btnAction").val("Grant");
+                    }
+                } else {
+                    // multiple items found
+                }
             },
-            //updateTool: function (newState) {
-            //    var fontSize, items, k;
-            //    if (newState == null) {
-            //        newState = {};
-            //    }
-            //    for (k in this.state) {
-            //        if (!(k in newState)) {
-            //            newState[k] = this.state[k];
-            //        }
-            //    }
-            //    fontSize = this.getFontSizes()[newState.fontSizeIndex];
-            //    items = [];
-            //    if (newState.isItalic) {
-            //        items.push('italic');
-            //    }
-            //    if (newState.isBold) {
-            //        items.push('bold');
-            //    }
-            //    items.push(fontSize + "px");
-            //    items.push(FONT_NAME_TO_VALUE[newState.fontName]);
-            //    this.props.lc.tool.font = items.join(' ');
-            //    return this.props.lc.trigger('setFont', items.join(' '));
-            //},
-            //handleFontSize: function (event) {
-            //    var newState;
-            //    newState = {
-            //        fontSizeIndex: event.target.value
-            //    };
-            //    this.setState(newState);
-            //    return this.updateTool(newState);
-            //},
-            //handleFontFamily: function (event) {
-            //    var newState;
-            //    newState = {
-            //        fontName: event.target.selectedOptions[0].innerHTML
-            //    };
-            //    this.setState(newState);
-            //    //return this.updateTool(newState);
-            //},
+            RefreshList: function (event) {
+                //console.log(event);
+                //$("#users").empty();
+                //$.each(allUsers, function (index, user) {
+                //    if (user.IsHost != "true")
+                //    $('#users').append($('<option>', {
+                //        value: user.UserId,
+                //        text: user.UserName,
+                //    }));
+                //});
+            },
             AssignHandle: function (event) {
+                var connectionId = $("#hdnConnId").val();
                 if (event.currentTarget.value == "Grant")
-                    event.currentTarget.value = "Revoke";
+                    GiveControl(connectionId);
                 else
-                    event.currentTarget.value = "Grant";
-                console.log($("#users").find(":selected").text());
-                //return this.updateTool(newState);
+                    RevokeControl(connectionId);
             },
-            //handleItalic: function (event) {
-            //    var newState;
-            //    newState = {
-            //        isItalic: !this.state.isItalic
-            //    };
-            //    this.setState(newState);
-            //    return this.updateTool(newState);
-            //},
-            //handleBold: function (event) {
-            //    var newState;
-            //    newState = {
-            //        isBold: !this.state.isBold
-            //    };
-            //    this.setState(newState);
-            //    return this.updateTool(newState);
-            //},
-            //componentDidMount: function () {
-            //    return this.updateTool();
-            //},
             render: function () {
                 var br, div, input, label, lc, optgroup, option, ref4, select, span,ul;
                 lc = this.props.lc;
                 ref4 = React.DOM, div = ref4.div, input = ref4.input, select = ref4.select, option = ref4.option, br = ref4.br, label = ref4.label, span = ref4.span, optgroup = ref4.optgroup,button = ref4.button,ul=ref4.ul;
-                return ul({
+                return div({
                     className: 'user-List',
                     id: "connected-users"
                     }, select({
                         className: "col-lg-3 dropdown",
                         id:"users",
-                        //value: this.state.fontName,
-                        onChange: this.handleFontFamily
+                        onChange: this.handleChangeUser,
+                        onFocus:this.RefreshList,
                     }, allUsers.map((function (_this) {
                         return function (arg) {
                             var user;
                             user = arg;
                             if (user.IsHost == "false") {
                                 return option({
-                                    value: user.UserName,
+                                    value: user.UserId,
                                     key: user.UserId
                                 }, user.UserName);
                             }
@@ -345,107 +315,7 @@ $(document).ready(function () {
             });
             teacherCanvas.on("backgroundColorChange", function (newColor) {
                 blackboardHub.server.colorChange("background", newColor, lessonId);
-            });
-
-            //teacherCanvas.on("drawStart", function (tool) {
-            //    var toolName = tool.tool.name;
-            //    switch (toolName) {
-            //        case "Rectangle":
-            //            //console.log("Rectangle is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Ellipse":
-            //            //console.log("Ellipse is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Pencil":
-            //            //console.log("Pencil is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Line":
-            //            //console.log("Line is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Eraser":
-            //            //console.log(tool.tool);
-            //            //console.log("eraser is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //    //var shape = tool.tool.currentShape;
-            //    //var shapeString = LC.shapeToJSON(shape);
-            //    //blackboardHub.server.uploadShape(JSON.stringify(shapeString), "", lessonId);
-            //});
-
-            //teacherCanvas.on("drawContinue", function (tool) {
-            //    var toolName = tool.tool.name;
-            //    switch (toolName) {
-            //        case "Rectangle":
-            //            //console.log("Rectangle is drawing");
-            //            //var shape = tool.tool.currentShape;
-            //            //var shapeString = LC.shapeToJSON(shape);
-            //            //blackboardHub.server.uploadShape(JSON.stringify(shapeString), "", lessonId);
-            //            uploadSnapShot();
-            //            break;
-            //        case "Ellipse":
-            //            //console.log("Ellipse is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Pencil":
-            //            console.log("Pencil is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Line":
-            //            console.log("Line is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Eraser":
-            //            //console.log(tool.tool);
-            //            console.log("eraser is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //    //var shape = tool.tool.currentshape;
-            //    //var shapestring = lc.shapetojson(shape);
-            //    //blackboardhub.server.uploadshape(json.stringify(shapestring), "", lessonid);
-            //});
-
-            //teacherCanvas.on("drawEnd", function (tool) {
-            //    var toolName = tool.tool.name;
-            //    switch (toolName) {
-            //        case "Rectangle":
-            //            //console.log("Rectangle is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Ellipse":
-            //            console.log("Ellipse is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Pencil":
-            //            console.log("Pencil is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Line":
-            //            console.log("Line is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        case "Eraser":
-            //            //console.log(tool.tool);
-            //            //console.log("eraser is drawing");
-            //            uploadSnapShot();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //    //console.log(tool);
-            //    //var shape = tool.tool.currentShape;
-            //    //var shapeString = LC.shapeToJSON(shape);
-            //    //blackboardHub.server.uploadShape(JSON.stringify(shapeString), "", lessonId);
-            //});
+            });            
         }
         else {
             resizeStudentCanvas();
@@ -460,7 +330,6 @@ function uploadSnapShot() {
 }
 function resizeTeacherCanvas() {
     if (IsHost === "true") {
-        //hideLoader("loader-container");
         setTimeout(function () {
             var elementToMatch = $(".with-gui")[0];
             var elementsToResize = $(".lc-drawing.with-gui canvas");
@@ -471,21 +340,31 @@ function resizeTeacherCanvas() {
 }
 
 function resizeStudentCanvas() {
-    //hideLoader("loader-container");
     var elementToMatch = $("#lc")[0];
     var elementsToResize = $(".lc-drawing.with-gui canvas");
     var scale = 1;
     LC.util.matchElementSize(elementToMatch, elementsToResize, scale, callback = null);
 }
 
-//function hideLoader(LoaderContainer) {
-//    $("#" + LoaderContainer).fadeOut("slow");
-//}
-
-//$(function () {
-//    setInterval(function () { 
-//        if ($("div[name=hidden-row-container]")[0] != undefined) {
-//            $("div[name=hidden-row-container]")[0].textContent += " Nitin ";
-//        }
-//     }, 3000);
-//});
+function GiveControl(connectionId) {
+    var snaps = teacherCanvas.getSnapshot();
+    blackboardHub.server.assignHandle(lessonId, connectionId, JSON.stringify(snaps));
+}
+function RevokeControl(connectionId) {
+    var snaps = teacherCanvas.getSnapshot();
+    blackboardHub.server.removeHandle(lessonId, connectionId, JSON.stringify(snaps));
+}
+function SetInitialValue() {
+    var selectedUserConnId = $("#hdnConnId").val();
+    if (selectedUserConnId != undefined) {
+        var result = $.grep(allUsers, function (e) { return e.ConnectionId == selectedUserConnId; });
+        var user = result[0];
+        $("#hdnConnId").val(user.ConnectionId);
+        if (user.IsHaveControl == "true") {
+            $("#btnAction").val("Revoke");
+        }
+        else {
+            $("#btnAction").val("Grant");
+        }
+    }
+}
