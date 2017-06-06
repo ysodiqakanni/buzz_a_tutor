@@ -4,6 +4,7 @@ var teacherCanvas;
 var studentCanvas;
 var onInit = true;
 var allUsers;
+var isHost = IsHost;
 
 $(function () {
 
@@ -76,16 +77,17 @@ $(function () {
 
     blackboardHub.client.assignHandle = function (snapshotString) {
         studentCanvas.teardown();
-        studentCanvas = LC.init(document.getElementById("lc"), {
+        teacherCanvas = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../assets/img/lc-images',
             snapshot: JSON.parse(snapshotString),
             toolbarPosition: 'bottom',
             defaultStrokeWidth: 2,
             strokeWidths: [1, 2, 3, 5, 30]
         });
+        isHost = "true";
     };
     blackboardHub.client.removeHandle = function (snapshotString) {
-        studentCanvas.teardown();
+        teacherCanvas.teardown();
         studentCanvas = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../assets/img/lc-images',
             snapshot: JSON.parse(snapshotString),
@@ -93,6 +95,7 @@ $(function () {
             defaultStrokeWidth: 2,
             strokeWidths: [1, 2, 3, 5, 30]
         });
+        isHost = "false";
     };
 });
 
@@ -144,7 +147,7 @@ function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connecte
 $(document).ready(function () {
 
     $.connection.hub.start().done(function () {
-        blackboardHub.server.joinGroup(lessonId, id, username, IsHost, IsHaveControl);
+        blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
         var MyTool = function (lc) {  // take lc as constructor arg
             var self = this;
 
@@ -180,7 +183,7 @@ $(document).ready(function () {
                     };
 
                     var onPointerMove = function (pt) {
-                        console.log("Mouse moved to", pt);
+                        //console.log("Mouse moved to", pt);
                     };
 
                     // lc.on() returns a function that unsubscribes us. capture it.
@@ -259,6 +262,7 @@ $(document).ready(function () {
                         return function (arg) {
                             var user;
                             user = arg;
+                            $("#hdnConnId").val(user.ConnectionId);
                             if (user.IsHost == "false") {
                                 return option({
                                     value: user.UserId,
@@ -276,7 +280,7 @@ $(document).ready(function () {
                     })));
            }
         }));
-        if (IsHost === "true") {
+        if (isHost === "true") {
             teacherCanvas = LC.init(document.getElementById("lc"), {
                 imageURLPrefix: '../assets/img/lc-images',
                 toolbarPosition: 'bottom',
@@ -329,7 +333,7 @@ function uploadSnapShot() {
     blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
 }
 function resizeTeacherCanvas() {
-    if (IsHost === "true") {
+    if (isHost === "true") {
         setTimeout(function () {
             var elementToMatch = $(".with-gui")[0];
             var elementsToResize = $(".lc-drawing.with-gui canvas");
@@ -366,5 +370,7 @@ function SetInitialValue() {
         else {
             $("#btnAction").val("Grant");
         }
+    } else {
+        $("#hdnConnId").val(allUsers[0].ConnectionId);
     }
 }

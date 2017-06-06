@@ -145,13 +145,13 @@ namespace bat
                 ConnectedUsers[index].IsHaveControl = "true";
             string LastUpdatedBy = Context.ConnectionId;
             Clients.Client(connectionId).AssignHandle(snapshotString);
-            //RemoveOthersHandler(Group, connectionId, LastUpdatedBy);
+            RemoveOthersHandler(Group, connectionId, LastUpdatedBy, snapshotString);
             RefreshList(LastUpdatedBy);
         }
 
-        public void RemoveOthersHandler(string Group, string connectionId, string LastUpdatedBy)
+        public void RemoveOthersHandler(string Group, string connectionId, string LastUpdatedBy, string snapshotString)
         {
-            Clients.Group(Group, connectionId).RemoveHandle();
+            //Clients.Group(Group, connectionId).RemoveHandle(snapshotString);
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
             for (int i = 0; i < ConnectedUsers.Count; i++)
             {
@@ -166,7 +166,7 @@ namespace bat
             if (index != -1)
                 ConnectedUsers[index].IsHaveControl = "false";
             string LastUpdatedBy = Context.ConnectionId;
-            //AssignHandle(Group, LastUpdatedBy);
+            AssignHandle(Group, LastUpdatedBy, snapshotString);
             RefreshList(LastUpdatedBy);
         }
 
