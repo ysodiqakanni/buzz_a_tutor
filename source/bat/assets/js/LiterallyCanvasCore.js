@@ -3,13 +3,20 @@ var blackboardHub = $.connection.blackboardHub;
 var teacherCanvas;
 var studentCanvas;
 var onInit = true;
-var allUsers;
+var allUsers = [];
 var isHost = IsHost;
 
 $(function () {
 
     blackboardHub.client.refreshList = function (connectedUsers) {
-        allUsers = connectedUsers;
+        debugger;
+        allUsers = [];
+        $.each(connectedUsers, function (i, user) {
+            if (user.IsHost != "true") {
+                allUsers.push(user);
+            }
+        });
+        //allUsers = connectedUsers;
         if ($("#connected-users")[0] != undefined) {
             //const element = document.getElementById('users')
             //element.dispatchEvent(new Event('focus', { bubbles: true }))
@@ -17,7 +24,7 @@ $(function () {
             SetInitialValue();
             $.each(allUsers, function (index, user) {
                 if (user.IsHost != "true") {
-                    console.log("user - " + user.UserName);
+                    //console.log("user - " + user.UserName);
                     $('#users').append($('<option>', {
                         value: user.UserId,
                         text: user.UserName,
@@ -79,9 +86,9 @@ $(function () {
 
     blackboardHub.client.assignHandle = function (snapshotString) {
         //if (studentCanvas != undefined) {
-            studentCanvas.teardown();
+            //studentCanvas.teardown();
         //}
-        teacherCanvas = LC.init(document.getElementById("lc"), {
+        studentCanvas = LC.init(document.getElementById("lc"), {
             imageURLPrefix: '../assets/img/lc-images',
             snapshot: JSON.parse(snapshotString),
             toolbarPosition: 'bottom',
@@ -92,7 +99,7 @@ $(function () {
     };
     blackboardHub.client.removeHandle = function (snapshotString) {
         //if (teacherCanvas != undefined) {
-            teacherCanvas.teardown();
+            //teacherCanvas.teardown();
         //}
         //teacherCanvas.teardown();
         studentCanvas = LC.init(document.getElementById("lc"), {
@@ -270,6 +277,8 @@ $(document).ready(function () {
                             var user;
                             user = arg;
                             if (user.IsHost == "false") {
+                                //$("#hdnConnId").val(user.ConnectionId);
+                                $("#hdnConnId").val(allUsers[0].ConnectionId);
                                 return option({
                                     value: user.UserId,
                                     key: user.UserId
@@ -377,7 +386,7 @@ function SetInitialValue() {
             $("#btnAction").val("Grant");
         }
     }
-    //else {
-    //    $("#hdnConnId").val(allUsers[0].ConnectionId);
-    //}
+    else {
+        $("#hdnConnId").val(allUsers[0].ConnectionId);
+    }
 }

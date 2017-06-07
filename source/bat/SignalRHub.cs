@@ -161,12 +161,13 @@ namespace bat
         }
         public void RemoveHandle(string Group, string connectionId,string snapshotString)
         {
-            Clients.Client(connectionId).RemoveHandle(snapshotString);
+            string LastUpdatedBy = Context.ConnectionId;
+            Clients.Group(Group,LastUpdatedBy).RemoveHandle(snapshotString);
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
             if (index != -1)
                 ConnectedUsers[index].IsHaveControl = "false";
-            string LastUpdatedBy = Context.ConnectionId;
-            AssignHandle(Group, LastUpdatedBy, snapshotString);
+            //string LastUpdatedBy = Context.ConnectionId;
+            //AssignHandle(Group, LastUpdatedBy, snapshotString);
             RefreshList(LastUpdatedBy);
         }
 
