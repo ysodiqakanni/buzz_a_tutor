@@ -98,47 +98,47 @@ namespace bat
 
         public void UploadShape(string shapeString, string previousShapeId, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId(groupName);
-            if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).loadShape(shapeString, previousShapeId);
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).loadShape(shapeString, previousShapeId);
         }
 
         public void ClearBoard(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId(groupName);
-            if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).clearBoard();
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).clearBoard();
         }
 
         public void UndoAction(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId(groupName);
-            if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).undoAction();
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).undoAction();
         }
 
         public void RedoAction(string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId(groupName);
-            if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).redoAction();
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).redoAction();
         }
 
-        public void PanAction(string coordinates,string groupName)
+        public void PanAction(string coordinates, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId(groupName);
-            if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).panAction(coordinates);
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).panAction(coordinates);
         }
 
         public void ColorChange(string colorType, string colorValue, string groupName)
         {
-            var teacherConnectionId = retriveTeacherContextId(groupName);
-            if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).colorChange(colorType, colorValue);
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).colorChange(colorType, colorValue);
         }
 
-        public void AssignHandle(string Group, string connectionId,string snapshotString)
+        public void AssignHandle(string Group, string connectionId, string snapshotString)
         {
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
             if (index != -1)
@@ -159,15 +159,13 @@ namespace bat
                     ConnectedUsers[i].IsHaveControl = "false";
             }
         }
-        public void RemoveHandle(string Group, string connectionId,string snapshotString)
+        public void RemoveHandle(string Group, string connectionId, string snapshotString)
         {
             string LastUpdatedBy = Context.ConnectionId;
-            Clients.Group(Group,LastUpdatedBy).RemoveHandle(snapshotString);
+            Clients.Group(Group, LastUpdatedBy).RemoveHandle(snapshotString);
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
             if (index != -1)
                 ConnectedUsers[index].IsHaveControl = "false";
-            //string LastUpdatedBy = Context.ConnectionId;
-            //AssignHandle(Group, LastUpdatedBy, snapshotString);
             RefreshList(LastUpdatedBy);
         }
 
