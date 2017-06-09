@@ -90,7 +90,7 @@ LC.defineOptionsStyle("userList", React.createClass({
         } else {
             // multiple items found
         }
-        this.setState(selectedUserId);
+        //this.setState(selectedUserId);
     },
     RefreshList: function (event) {
 
@@ -112,7 +112,6 @@ LC.defineOptionsStyle("userList", React.createClass({
         }, select({
             className: "col-lg-3 dropdown",
             id: "users",
-            value: "35",
             onChange: this.handleChangeUser,
             onFocus: this.RefreshList,
         }, allUsers.map((function (_this) {
@@ -132,7 +131,7 @@ LC.defineOptionsStyle("userList", React.createClass({
             type: 'button',
             id: 'btnAction',
             value: btnStatus,
-            className: "btn btn-primary",
+            className: "btn btn-primary btn-sm",
             optionsStyle: "float:right",
             onClick: this.AssignHandle,
         })));
@@ -150,7 +149,7 @@ $(function () {
         });
         if ($("#connected-users")[0] != undefined) {
             $("#users").empty();
-            SetInitialValue();
+           
             $.each(allUsers, function (index, user) {
                 if (user.IsHost != "true") {
                     $('#users').append($('<option>', {
@@ -159,12 +158,13 @@ $(function () {
                     }));
                 }
             });
+            SetInitialValue();
         }
     };
 
-    blackboardHub.client.getTeacherSnapshot = function () {
+    blackboardHub.client.getTeacherSnapshot = function (userConnectionId) {
         var snaps = buzzCanvas.getSnapshot();
-        blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
+        blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps),userConnectionId, lessonId);
     };
     blackboardHub.client.loadOnInitWithSnapShot = function (snapshotString) {
         options = {
@@ -241,6 +241,16 @@ $(function () {
         }
     };
 
+    blackboardHub.client.zoomAction = function (zoomAmount) {
+        if (isHaveControl == "true") {
+            return false;
+        }
+        else {
+            var coordsObj = JSON.parse(zoomAmount);
+            buzzCanvas.setZoom(coordsObj.newScale);
+        }
+    };
+
     blackboardHub.client.assignHandle = function (snapshotString) {
         options = {
             imageURLPrefix: '../assets/img/lc-images',
@@ -269,38 +279,6 @@ $(function () {
 
 });
 
-function LastDivCount(container) {
-    var lastDiv = $('ul[id=' + container + ']').children().length;
-    lastDiv += 1;
-    return lastDiv;
-}
-function PopulateActiveUsers(referenceContainer, referenceRow, appendRowTo, activeUserId, activeUserName, userConnectionId, access) {
-    var newRowCount = LastDivCount(appendRowTo);
-    $("#" + appendRowTo).append('<li id="listitem_' + activeUserId + '"></li>');
-    $('div[name=' + referenceContainer + ']').children().clone().appendTo("#listitem_" + activeUserId);
-    $("#" + appendRowTo + " #" + referenceRow + "0").attr("id", referenceRow + newRowCount);
-    $("#" + appendRowTo + " #" + referenceRow + newRowCount).find("#user").html(activeUserName);
-    $("#" + appendRowTo + " #" + referenceRow + newRowCount).find("#user").addClass("LoggedInUsers");
-    $("#" + appendRowTo + " #" + referenceRow + newRowCount).find('button').attr("id", "btn" + referenceRow + userConnectionId);
-    $("#btn" + referenceRow + userConnectionId).html(access);
-    $("#" + appendRowTo + " #" + referenceRow + newRowCount).find('button').on('click', function () {
-        ToggleButton($(this).attr("id"), userConnectionId, access);
-        return false;
-    });
-    $('#' + referenceRow + newRowCount).css("display", "block");
-}
-function ToggleButton(buttonId, userConnectionId, access) {
-    if ($("#" + buttonId).html() == "Grant") {
-        access = "Revoke";
-        $("#" + buttonId).html("Revoke");
-        GiveControl(userConnectionId);
-    }
-    else {
-        access = "Grant";
-        $("#" + buttonId).html("Grant");
-        RevokeControl(userConnectionId);
-    }
-}
 function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connectedUsers, activeUserId) {
     $.each(connectedUsers, function (i, k) {
         if (connectedUsers[i].UserId != activeUserId) {
@@ -372,13 +350,16 @@ function InitCanvas(options, isHost) {
             blackboardHub.server.redoAction(lessonId);
         });
         buzzCanvas.on("primaryColorChange", function (newColor) {
-            blackboardHub.server.ColorChange("primary", newColor, lessonId);
+            blackboardHub.server.colorChange("primary", newColor, lessonId);
         });
         buzzCanvas.on("secondaryColorChange", function (newColor) {
-            blackboardHub.server.ColorChange("secondary", newColor, lessonId);
+            blackboardHub.server.colorChange("secondary", newColor, lessonId);
         });
         buzzCanvas.on("backgroundColorChange", function (newColor) {
             blackboardHub.server.colorChange("background", newColor, lessonId);
+        });
+        buzzCanvas.on("zoom", function (amount) {
+            blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
         });
     }
 }
@@ -423,6 +404,7 @@ function SetInitialValue() {
         var result = $.grep(allUsers, function (e) { return e.ConnectionId == selectedUserConnId; });
         var user = result[0];
         $("#hdnConnId").val(user.ConnectionId);
+        $('#users option[value="' + user.UserId + '"]').attr('selected', 'selected');
         if (user.IsHaveControl == "true") {
             $("#btnAction").val("Revoke");
         }
@@ -432,5 +414,6 @@ function SetInitialValue() {
     }
     else {
         $("#hdnConnId").val(allUsers[0].ConnectionId);
+        $('#users option[value="' + allUsers[0].UserId + '"]');
     }
 }

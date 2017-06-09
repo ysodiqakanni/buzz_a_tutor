@@ -80,18 +80,19 @@ namespace bat
                 Clients.Group(groupName, teacherConnectionId).loadSnapShot(snapshot);
         }
 
-        public void UploadSnapshotOnInit(string snapshot, string groupName)
+        public void UploadSnapshotOnInit(string snapshot, string userConnectionId, string groupName)
         {
             var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
-                Clients.Group(groupName, teacherConnectionId).loadOnInitWithSnapShot(snapshot);
+                Clients.Client(userConnectionId).loadOnInitWithSnapShot(snapshot);
+            //Clients.Group(groupName, teacherConnectionId).loadOnInitWithSnapShot(snapshot);
         }
 
         public void GetTeacherSnapshot(string groupName)
         {
             var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
-                Clients.Client(teacherConnectionId).getTeacherSnapshot();
+                Clients.Client(teacherConnectionId).getTeacherSnapshot(Context.ConnectionId);
             else
                 Clients.Client(Context.ConnectionId).loadOnInitWithoutSnapShot();
         }
@@ -136,6 +137,13 @@ namespace bat
             var currentUserConnectionId = Context.ConnectionId;
             if (currentUserConnectionId != "")
                 Clients.Group(groupName, currentUserConnectionId).colorChange(colorType, colorValue);
+        }
+
+        public void ZoomAction(string zoomAmount, string groupName)
+        {
+            var currentUserConnectionId = Context.ConnectionId;
+            if (currentUserConnectionId != "")
+                Clients.Group(groupName, currentUserConnectionId).zoomAction(zoomAmount);
         }
 
         public void AssignHandle(string Group, string connectionId, string snapshotString)
