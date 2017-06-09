@@ -4797,28 +4797,44 @@ _ = require('../core/localization')._;
 
 ColorWell = React.createFactory(require('./ColorWell'));
 
+//ColorPickers = React.createFactory(React.createClass({
+//  displayName: 'ColorPickers',
+//  render: function() {
+//    var div, lc;
+//    lc = this.props.lc;
+//    div = React.DOM.div;
+//    return div({
+//      className: 'lc-color-pickers'
+//    }, ColorWell({
+//      lc: lc,
+//      colorName: 'primary',
+//      label: _('stroke')
+//    }), ColorWell({
+//      lc: lc,
+//      colorName: 'secondary',
+//      label: _('fill')
+//    }), ColorWell({
+//      lc: lc,
+//      colorName: 'background',
+//      label: _('bg')
+//    }));
+//  }
+    //}));
+
 ColorPickers = React.createFactory(React.createClass({
-  displayName: 'ColorPickers',
-  render: function() {
-    var div, lc;
-    lc = this.props.lc;
-    div = React.DOM.div;
-    return div({
-      className: 'lc-color-pickers'
-    }, ColorWell({
-      lc: lc,
-      colorName: 'primary',
-      label: _('stroke')
-    }), ColorWell({
-      lc: lc,
-      colorName: 'secondary',
-      label: _('fill')
-    }), ColorWell({
-      lc: lc,
-      colorName: 'background',
-      label: _('bg')
-    }));
-  }
+    displayName: 'ColorPickers',
+    render: function () {
+        var div, lc;
+        lc = this.props.lc;
+        div = React.DOM.div;
+        return div({
+            className: 'lc-color-pickers'
+        }, ColorWell({
+            lc: lc,
+            colorName: 'primary',
+            label: _('stroke')
+        }));
+    }
 }));
 
 Picker = React.createClass({

@@ -237,7 +237,14 @@ $(function () {
             return false;
         }
         else {
-            buzzCanvas.setColor(colorType, colorValue);
+            //if (colorType == "background") {
+            //    if ($(".literally.toolbar-hidden") != undefined) {
+            //        $(".literally.toolbar-hidden").css("background-color", colorValue);
+            //        $(".lc-drawing.with-gui").css("background-color", "transparent");
+            //    }
+            //}
+            //else
+                buzzCanvas.setColor(colorType, colorValue);
         }
     };
 
@@ -257,7 +264,8 @@ $(function () {
             snapshot: JSON.parse(snapshotString),
             toolbarPosition: 'bottom',
             defaultStrokeWidth: 2,
-            strokeWidths: [1, 2, 3, 5, 30]
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan]
         };
         isHaveControl = "true";
         InitCanvas(options, isHaveControl);
@@ -303,7 +311,8 @@ $(document).ready(function () {
                 toolbarPosition: 'bottom',
                 defaultStrokeWidth: 2,
                 strokeWidths: [1, 2, 3, 5, 30],
-                tools: LC.defaultTools.concat([MyTool])
+                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],
+                //tools: LC.defaultTools.concat([MyTool])
             };
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
