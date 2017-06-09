@@ -16,54 +16,62 @@ var MyTool = function (lc) {  // take lc as constructor arg
 
     return {
         usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
-        name: 'user',
+        name: 'User List',
         iconName: 'user',
         strokeWidth: lc.opts.defaultStrokeWidth,
         optionsStyle: 'userList',
 
         didBecomeActive: function (lc) {
-            var onPointerDown = function (pt) {
-                self.currentShape = LC.createShape('Line', {
-                    x1: pt.x, y1: pt.y, x2: pt.x, y2: pt.y,
-                    strokeWidth: self.strokeWidth, color: lc.getColor('primary')
-                });
-                lc.setShapesInProgress([self.currentShape]);
-                lc.repaintLayer('main');
-            };
-
-            var onPointerDrag = function (pt) {
-                self.currentShape.x2 = pt.x;
-                self.currentShape.y2 = pt.y;
-                lc.setShapesInProgress([self.currentShape]);
-                lc.repaintLayer('main');
-            };
-
-            var onPointerUp = function (pt) {
-                self.currentShape.x2 = pt.x;
-                self.currentShape.y2 = pt.y;
-                lc.setShapesInProgress([]);
-                lc.saveShape(self.currentShape);
-            };
-
-            var onPointerMove = function (pt) {
-                //console.log("Mouse moved to", pt);
-            };
-
-            // lc.on() returns a function that unsubscribes us. capture it.
-            self.unsubscribeFuncs = [
-              lc.on('lc-pointerdown', onPointerDown),
-              lc.on('lc-pointerdrag', onPointerDrag),
-              lc.on('lc-pointerup', onPointerUp),
-              lc.on('lc-pointermove', onPointerMove)
-            ];
+            //console.log("activeted");
         },
 
         willBecomeInactive: function (lc) {
-            // call all the unsubscribe functions
-            self.unsubscribeFuncs.map(function (f) { f() });
+            //console.log("activeted sonn");
         }
     }
 };
+
+
+var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
+    var self = this;
+
+    return {
+        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
+        name: 'Save',
+        iconName: 'save',
+        strokeWidth: lc.opts.defaultStrokeWidth,
+
+        didBecomeActive: function (lc) {
+            debugger;
+            //var previewCanvas = buzzCanvas.getImage();
+            $('#previewModal').modal(buzzCanvas.getSnapshot());
+        },
+
+        willBecomeInactive: function (lc) {
+            //console.log("activeted sonn");
+        }
+    }
+};
+
+var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
+    var self = this;
+
+    return {
+        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
+        name: 'Download',
+        iconName: 'download',
+        strokeWidth: lc.opts.defaultStrokeWidth,
+
+        didBecomeActive: function (lc) {
+
+        },
+
+        willBecomeInactive: function (lc) {
+
+        }
+    }
+};
+
 
 LC.defineOptionsStyle("userList", React.createClass({
     displayName: 'userList',
@@ -311,7 +319,7 @@ $(document).ready(function () {
                 toolbarPosition: 'bottom',
                 defaultStrokeWidth: 2,
                 strokeWidths: [1, 2, 3, 5, 30],
-                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],
+                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool, SaveWhiteboardTool, DownloadWhiteboardTool],
                 //tools: LC.defaultTools.concat([MyTool])
             };
             isHaveControl = "true";

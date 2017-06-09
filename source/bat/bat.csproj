@@ -350,6 +350,7 @@
     <Content Include="assets\img\lc-images\alpha.png" />
     <Content Include="assets\img\lc-images\checkerboard-8x8.png" />
     <Content Include="assets\img\lc-images\dashed-line.png" />
+    <Content Include="assets\img\lc-images\download.png" />
     <Content Include="assets\img\lc-images\ellipse.png" />
     <Content Include="assets\img\lc-images\eraser.png" />
     <Content Include="assets\img\lc-images\eyedropper.png" />
@@ -365,6 +366,7 @@
     <Content Include="assets\img\lc-images\rectangle.png" />
     <Content Include="assets\img\lc-images\redo.png" />
     <Content Include="assets\img\lc-images\saturation.png" />
+    <Content Include="assets\img\lc-images\save.png" />
     <Content Include="assets\img\lc-images\screenshot.png" />
     <Content Include="assets\img\lc-images\text.png" />
     <Content Include="assets\img\lc-images\undo.png" />
