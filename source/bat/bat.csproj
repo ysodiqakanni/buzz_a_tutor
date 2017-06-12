@@ -421,6 +421,7 @@
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
+    <Content Include="assets\sample-video\mov_bbb.mp4.mp4" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />

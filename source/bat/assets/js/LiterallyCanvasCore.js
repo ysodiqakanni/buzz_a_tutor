@@ -23,6 +23,80 @@ var ListUpdate = {
     update : false,
 }
 
+
+$(document).ready(function () {
+    function toggleSidebar(side) {
+        if (side !== "left" && side !== "right") {
+            return false;
+        }
+        var left = $("#sidebar-left"),
+            right = $("#sidebar-right"),
+            content = $("#middle-content"),
+            openSidebarsCount = 5,
+            contentClass = "";
+				
+        // toggle sidebar
+        if (side === "left") {
+            left.toggleClass("collapsed");
+        } else if (side === "right") {
+            right.toggleClass("collapsed");
+        }
+        debugger;
+        // determine number of open sidebars
+        if (left.hasClass("collapsed")) {
+            openSidebarsCount += 2;
+        }
+				
+        if (right.hasClass("collapsed")) {
+            openSidebarsCount += 5;
+        }
+				
+        // determine appropriate content class
+        if (openSidebarsCount === 12) {
+            contentClass = "col-lg-12";
+        }
+        else if (openSidebarsCount === 10) {
+            contentClass = "col-lg-10";
+        } else if (openSidebarsCount === 7) {
+            contentClass = "col-lg-7";
+        } else {
+            contentClass = "col-lg-5";
+        }
+				
+        // apply class to content
+        content.removeClass("col-lg-12 col-lg-10 col-lg-7 col-lg-5")
+               .addClass(contentClass);
+    }
+    $(".toggle-sidebar-left").click(function (event) {
+        debugger;
+        toggleSidebar("left");
+        var currentClass = $(event.currentTarget.children).attr('class');
+        var element = $(event.currentTarget.children);
+        changeClass(currentClass,element);
+        //resizeTeacherCanvas();
+        return false;
+    });
+    $(".toggle-sidebar-right").click(function () {
+        toggleSidebar("right");
+        var currentClass = $(event.currentTarget.children).attr('class');
+        var element = $(event.currentTarget.children);
+        changeClass(currentClass, element);
+        //resizeTeacherCanvas();
+        return false;
+    });
+});
+
+function changeClass(className, element) {
+    if (className == "glyphicon glyphicon-chevron-left") {
+        element.removeClass(className);
+        element.addClass("glyphicon glyphicon-chevron-right")
+    }
+    else {
+        element.removeClass(className);
+        element.addClass("glyphicon glyphicon-chevron-left")
+    }
+}
+
 var MyTool = function (lc) {  // take lc as constructor arg
     var self = this;
 
@@ -64,7 +138,10 @@ var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
 
             if (previewCanvas != undefined)
                 previewCanvas.teardown();
-            previewCanvas = LC.init(document.getElementById("previewCanvas"), options);
+            setTimeout(function () {
+                previewCanvas = LC.init(document.getElementById("previewCanvas"), options);
+            }, 1000);
+            
             $('#previewTitle').val('White-Board');
             $('#previewModal').modal();
         },
