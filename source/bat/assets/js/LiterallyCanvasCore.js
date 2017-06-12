@@ -1,8 +1,7 @@
 ﻿
 var blackboardHub = $.connection.blackboardHub;
 var buzzCanvas;
-var buzzCanvas;
-var buzzCanvas;
+var previewCanvas;
 var onInit = true;
 var allUsers = [];
 var isHost = IsHost;
@@ -10,6 +9,19 @@ var options;
 var isHaveControl;
 var btnStatus = "Grant";
 var selectedUserId;
+var useImg = false,
+    imgData = '';
+
+var imageModel = {
+    group: lessonId,
+    clear: true,
+    imageId: ""
+}
+
+var ListUpdate = {
+    group: lessonId,
+    update : false,
+}
 
 var MyTool = function (lc) {  // take lc as constructor arg
     var self = this;
@@ -42,13 +54,22 @@ var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
         strokeWidth: lc.opts.defaultStrokeWidth,
 
         didBecomeActive: function (lc) {
-            debugger;
-            //var previewCanvas = buzzCanvas.getImage();
-            $('#previewModal').modal(buzzCanvas.getSnapshot());
+            options = {
+                imageURLPrefix: '../assets/img/lc-images',
+                snapshot: buzzCanvas.getSnapshot(),
+                toolbarPosition: 'hidden',
+                defaultStrokeWidth: 2,
+                strokeWidths: [1, 2, 3, 5, 30]
+            };
+
+            if (previewCanvas != undefined)
+                previewCanvas.teardown();
+            previewCanvas = LC.init(document.getElementById("previewCanvas"), options);
+            $('#previewTitle').val('White-Board');
+            $('#previewModal').modal();
         },
 
         willBecomeInactive: function (lc) {
-            //console.log("activeted sonn");
         }
     }
 };
@@ -98,7 +119,6 @@ LC.defineOptionsStyle("userList", React.createClass({
         } else {
             // multiple items found
         }
-        //this.setState(selectedUserId);
     },
     RefreshList: function (event) {
 
@@ -157,7 +177,7 @@ $(function () {
         });
         if ($("#connected-users")[0] != undefined) {
             $("#users").empty();
-           
+
             $.each(allUsers, function (index, user) {
                 if (user.IsHost != "true") {
                     $('#users').append($('<option>', {
@@ -172,7 +192,7 @@ $(function () {
 
     blackboardHub.client.getTeacherSnapshot = function (userConnectionId) {
         var snaps = buzzCanvas.getSnapshot();
-        blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps),userConnectionId, lessonId);
+        blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), userConnectionId, lessonId);
     };
     blackboardHub.client.loadOnInitWithSnapShot = function (snapshotString) {
         options = {
@@ -245,14 +265,7 @@ $(function () {
             return false;
         }
         else {
-            //if (colorType == "background") {
-            //    if ($(".literally.toolbar-hidden") != undefined) {
-            //        $(".literally.toolbar-hidden").css("background-color", colorValue);
-            //        $(".lc-drawing.with-gui").css("background-color", "transparent");
-            //    }
-            //}
-            //else
-                buzzCanvas.setColor(colorType, colorValue);
+            buzzCanvas.setColor(colorType, colorValue);
         }
     };
 
@@ -293,6 +306,23 @@ $(function () {
 
     };
 
+    blackboardHub.client.updateList = function (model) {
+        update = model;
+        if (update.update === true) {
+            updateImageList(lessonId);
+        }
+    }
+    blackboardHub.client.boardImage = function (model) {
+        imageModel = model;
+        if (imageModel.clear === true) {
+            useImg = false;
+            clearOrLoadBoard();
+        } else {
+            useImg = true;
+            loadBackground(model.imageId);
+        }
+    };
+
 });
 
 function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connectedUsers, activeUserId) {
@@ -329,8 +359,6 @@ $(document).ready(function () {
                 var snaps = buzzCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
             }
-
-
         }
         else {
             resizeStudentCanvas();
@@ -432,5 +460,141 @@ function SetInitialValue() {
     else {
         $("#hdnConnId").val(allUsers[0].ConnectionId);
         $('#users option[value="' + allUsers[0].UserId + '"]');
+    }
+}
+
+//Save whiteboard
+
+function uploadCanvas() {
+    var previewCanvasString = previewCanvas.getSnapshot();
+    var img2SaveRaw = LC.renderSnapshotToImage(previewCanvasString, null).toDataURL('image/png'),
+        img2SaveArray = img2SaveRaw.split(','),
+        img2Save = img2SaveArray[1],
+        title = $('#previewTitle').val();
+    if (title == '') {
+        $('#imgSaveFail').removeClass('hidden');
+    } else {
+        $.ajax({
+            type: "POST", // Type of request
+            url: "../api/lessons/uploadtocloud", //The controller/Action
+            dataType: "json",
+            data: {
+                "lessonid": lessonId,
+                "title": title,
+                "data": img2Save,
+            },
+            success: function (data) {
+                ListUpdate.update = true;
+                blackboardHub.server.updateList(ListUpdate);
+                $('#previewModal').modal('toggle');
+            },
+            error: function (err) {
+                console.log("error[" + err.status + "]: " + err.statusText);
+                $('#imgSaveFail').removeClass('hidden');
+            }
+        })
+    }
+}
+
+function loadImg(id) {
+    useImg = true;
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/getattachment", //The controller/Action
+        dataType: "json",
+        data: {
+            "attachmentid": id
+        },
+        success: function (data) {
+            imageModel.clear = false;
+            imageModel.imageId = id;
+            blackboardHub.server.boardImage(imageModel);
+            imgData = data;
+            clearOrLoadBoard();
+        },
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    });
+}
+
+function loadCloudImg(id) {
+    useImg = true;
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/downloadfromcloud", //The controller/Action
+        dataType: "json",
+        data: {
+            "attachmentid": id
+        },
+        success: function (data) {
+            imageModel.clear = false;
+            imageModel.imageId = id;
+            blackboardHub.server.boardImage(imageModel);
+            imgData = data;
+            clearOrLoadBoard();
+        },
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    });
+}
+
+function loadBackground(id) {
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/downloadfromcloud",//"../api/lessons/getattachment", //The controller/Action
+        dataType: "json",
+        data: {
+            "attachmentid": id
+        },
+        success: function (data) {
+            imgData = data;
+            clearOrLoadBoard();
+        },
+        error: function (err) {
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    });
+}
+
+function updateImageList(lessonId) {
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/getbblist", //"../api/lessons/upload", //The controller/Action
+        dataType: "json",
+        data: {
+            "lessonid": lessonId
+        },
+        success: function (data) {
+            $("#bbImage-list").empty();
+            $(jQuery.parseJSON(data)).each(function () {
+                var id = this.id;
+                var title = this.title;
+                var attachmentLink =
+                    '<div style="overflow: auto;"><button class="btn btn-link pull-left" onclick="loadCloudImg(' + id + ')">' + title + '</button>' +
+                    '<a href="' + deleteResourceUrl + '/?resourceId=' + id + '" class="pull-right" style="padding: 10px;">' +
+                    '<i class="fa fa-remove"></i>' +
+                    '</a>' +
+                    '</div>';
+                $("#bbImage-list").append(attachmentLink);
+                $('#bbImage-list').slimScroll({
+                    height: '500px'
+                });
+            });
+        },
+        error: function (err) {
+            errorMessage = "Something went wrong, try again later.";
+            $("#bbImageError").append(errorStart + errorMessage + errorEnd);
+            console.log("error[" + err.status + "]: " + err.statusText);
+        }
+    });
+}
+
+function clearOrLoadBoard() {
+    if (useImg === true) {
+        var img = new Image();
+        img.src = "data:image/png;base64," + imgData;
+        buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img }));
     }
 }
