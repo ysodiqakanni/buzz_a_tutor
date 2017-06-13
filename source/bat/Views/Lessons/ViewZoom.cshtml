@@ -26,6 +26,15 @@
         .collapsed {
             display: none; /* hide it for small displays */
         }
+
+        .inline {
+            display: inline-block;
+            border: 0px solid red;
+        }
+        .nomarginrow{
+            margin-right: 0px;
+    margin-left: 0px;
+        }
     </style>
 }
 
@@ -46,145 +55,103 @@
 @section outsideContainer {
 
     <input type="hidden" id="hdnConnId" />
-    <div class="row" style="margin-top:-60px;">
+    <div class="row nomarginrow" style="margin-top:-60px;">
         <div class="col-md-12">
-            @*<div style="overflow: auto;">
-                    <h2 class="pull-left" style="margin-bottom: 40px;">
-                        @Model.lesson.Description
-                    </h2>
-                    <div class="pull-right">
-                        @if (Model.IsTeacher)
-                        {
-                            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
-                                <i class="fa fa-calendar"></i> Reschedule lesson
-                            </a>
-                            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
-                                <i class="fa fa-edit"></i> Edit lesson details
-                            </a>
-                        }
-                        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
-                            <i class="fa fa-video-camera"></i> Start video
-                        </a>
-                    </div>
-
-                </div>*@
             <div class="row">
                 <div class="col-lg-2" id="sidebar-left">
-                    <div class="col-md-5">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" type="button" data-toggle="dropdown">
-                                @Model.lesson.Description <span class="caret"></span>
+                    <div class="pull-right"><a href="javascript:void(0)" class="closebtn toggle-sidebar-left" onclick="closeNav('.toggle-sidebar-left,.closebtn.toggle-sidebar-left')">&times;</a></div>                    
+                    <div class="col-md-12">
+                        <div style="background:#cccccc;border:1px solid #cccccc;">
+                            <div class="dropdown">
+                                <div class='inline' style="font-weight: bold;"><div>@Model.lesson.Description</div></div>
+                                <div class="dropdown-toggle" type="button" data-toggle="dropdown" style="font-size: smaller;">
+                                    @*<div>@Model.lesson.Description</div> &nbsp; <div>@Model.lesson.Subject<span class="caret"></span></div>*@
 
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation" class="have-child">
-                                    @if (Model.IsTeacher)
-                                    {
-                                        <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
-                                            <i class="fa fa-calendar"></i> Reschedule lesson
+                                    <div class='inline'><div>@Model.lesson.Subject<span class="caret"></span></div></div>
+                                </div>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="have-child">
+                                        @if (Model.IsTeacher)
+                                        {
+                                            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
+                                                <i class="fa fa-calendar"></i> Reschedule lesson
+                                            </a>
+                                            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
+                                                <i class="fa fa-edit"></i> Edit lesson details
+                                            </a>
+                                        }
+                                        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-md btn-primary">
+                                            <i class="fa fa-video-camera"></i> Start video
                                         </a>
-                                        <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-lg btn-default">
-                                            <i class="fa fa-edit"></i> Edit lesson details
-                                        </a>
-                                    }
-                                    <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-lg btn-primary">
-                                        <i class="fa fa-video-camera"></i> Start video
-                                    </a>
                                     </li>
 
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-7">
-                        <p>
-                            <strong>
-                                @Model.lesson.Subject
-                            </strong>
-                            
-                            @*@if (string.IsNullOrEmpty(Model.host.Picture))
-                                {
-                                    <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-                                }
-                                else
-                                {
-                                    <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
-                                }
-                                <br />*@
-                            @*@Model.host.Fname @Model.host.Lname*@
-                        </p>
-                    </div>
-                    
+
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6">
+                            <br />
+                            <div class="col-md-4">
                                 @if (string.IsNullOrEmpty(Model.host.Picture))
                                 {
-                                    <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+                                    <img style="height: 50px; width: 50px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
                                 }
                                 else
                                 {
-                                    <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
+                                    <img style="height: 50px; width: 50px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
                                 }
                             </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <p>
-                                        @Model.host.Fname @Model.host.Lname
-                                    </p>
-                                </div>
-                                <div class="row">
-                                    <p>
-                                        Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-                                    </p>
-                                </div>
-                                <div class="row">
-                                    <p>
-                                        Duration mins: @Model.lesson.DurationMins
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        Class size: @Model.lesson.ClassSize
-                                    </p>
-                                </div>
+                            <div class="col-md-8">
+                                @Model.host.Fname @Model.host.Lname<br />
                             </div>
                         </div>
-                        @*<p>
-                                <strong>
-                                    @Model.lesson.Subject
-                                </strong>
-                            </p>*@
-                        @*<p>
-                                Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-                            </p>
-                            <p>
-                                Duration mins: @Model.lesson.DurationMins
-                                &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="row">
+                            <div class="col-md-12" style="font-size: 14px;">
+                                Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")<br />
+                                Duration mins: @Model.lesson.DurationMins<br />
                                 Class size: @Model.lesson.ClassSize
-                            </p>*@
+                            </div>
+                        </div>
+                        <br />
                     </div>
                     <div class="col-md-12">
-                        <p>
-                            <strong>
-                                Attendees
-                            </strong>
+                        <strong>
+                            Attendees
+                        </strong>
+                        <div class="col-md-12" style="overflow:auto;font-size: 16px;">
                             @foreach (var student in Model.others)
                             {
                                 <text>
                                     <br />
-                                    @student.Fname @student.Lname
+                                    <i class="fa fa-user"></i> @student.Fname @student.Lname
                                 </text>
                             }
-                        </p>
+                        </div>
                     </div>
 
                 </div>
                 <div class="col-lg-5" id="middle-content">
-                    <div class="btn-group" role="group" aria-label="Controls">
-                        <button type="button" class="btn btn-danger toggle-sidebar-left"><span class="glyphicon glyphicon-chevron-left"></span></button>
-                        <button type="button" class="btn btn-danger toggle-sidebar-right"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                    
+                        <button type="button" class="btn toggle-sidebar-left" style='display:none'  onclick="closeNav('.closebtn.toggle-sidebar-left,.toggle-sidebar-left')"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                        <button type="button" class="btn toggle-sidebar-right pull-right" style='display:none'  onclick="closeNav('.closebtn.toggle-sidebar-right,.toggle-sidebar-right')"><span class="glyphicon glyphicon-chevron-left"></span></button>
 
-                    </div>
+                    <br />
                     <div class="row">
                         <div class="col-lg-12">
                             @Html.Partial("_PartialWhiteboard", Model)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-5" id="sidebar-right">
+                    <div class="pull-left"><a href="javascript:void(0)" class="closebtn toggle-sidebar-right" onclick="closeNav('.toggle-sidebar-right,.closebtn.toggle-sidebar-right')">&times;</a></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <video width="100%" height="100%" controls="controls" controlsList="nodownload">
+                                <source src="~/assets/sample-video/mov_bbb.mp4.mp4" type="video/mp4" />
+                            </video>
                         </div>
                     </div>
                     <div class="row">
@@ -193,128 +160,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5" id="sidebar-right">
-                    <video width="100%" height="100%" controls="controls">
-                        <source src="~/assets/sample-video/mov_bbb.mp4.mp4" type="video/mp4" />
-                    </video>
-                    @*<video width="100%" height="100%" controls>
-                            <source src="movie.mp4" type="video/mp4">
-                            <source src="movie.ogg" type="video/ogg">
-                            Your browser does not support the video tag.
-                        </video>*@
-                </div>
-                @*<div class="col-md-8">
-                        <ul class="nav nav-tabs bottom-bump">
-                            <li class="active"><a data-toggle="tab" href="#lessonOverview">Lesson Overview</a></li>
-                            <li><a data-toggle="tab" href="#blackboard-Tab" onclick="resizeTeacherCanvas()">Blackboard</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="lessonOverview" class="tab-pane fade in active" style="padding: 20px;">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <p>
-                                            <strong>
-                                                Teacher
-                                            </strong>
-                                            <br />
-                                            @if (string.IsNullOrEmpty(Model.host.Picture))
-                                            {
-                                                <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-                                            }
-                                            else
-                                            {
-                                                <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
-                                            }
-                                            <br />
-                                            @Model.host.Fname @Model.host.Lname
-                                        </p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>
-                                            <strong>
-                                                @Model.lesson.Subject
-                                            </strong>
-                                        </p>
-                                        <p>
-                                            Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")
-                                        </p>
-                                        <p>
-                                            Duration mins: @Model.lesson.DurationMins
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            Class size: @Model.lesson.ClassSize
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>
-                                            <strong>
-                                                Attendees
-                                            </strong>
-                                            @foreach (var student in Model.others)
-                                            {
-                                                <text>
-                                                    <br />
-                                                    @student.Fname @student.Lname
-                                                </text>
-                                            }
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    @Html.Raw(HttpUtility.UrlDecode(Model.lesson.DetailedDescription))
-                                </div>
-                            </div>
-                            <div id="blackboard-Tab" class="tab-pane fade">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        @Html.Partial("_PartialWhiteboard", Model)
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div>
-                                            <h4 class="no-margin">
-                                                Blackboard Images
-                                                <button class="btn btn-primary pull-right" onclick="uploadImageModal();"><i class="fa fa-upload" aria-hidden="true"></i></button>
-                                            </h4>
-                                        </div>
-                                        <div id="bbImage-list">
-                                            @foreach (var resource in Model.lessonResources)
-                                            {
-                                                if (resource.Type_ID == bat.logic.Constants.Types.Image)
-                                                {
-                                                    <div style="overflow: auto;">
-                                                        <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID')">
-                                                            @resource.Original_Name
-                                                        </button>
-
-                                                        <a href="@Url.Action("DeleteResource", "Lessons", new {id = Model.lesson.ID, resourceId = resource.ID})"
-                                                           class="pull-right" style="padding: 10px;">
-                                                            <i class="fa fa-remove"></i>
-                                                        </a>
-                                                    </div>
-                                                }
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <ul class="nav nav-tabs bottom-bump">
-                            <li class="active"><a data-toggle="tab" href="#ChatBoxTab">Chat</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="ChatBoxTab" class="tab-pane fade in active">
-                                <div class="row">
-                                    <div class="col-md-11">
-                                        @Html.Partial("_PartialChatBox", Model)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
             </div>
         </div>
     </div>
+    <br />
+    <br />
+    <br />
     <!-- Modal -->
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
         <div style="width:630px" class="modal-dialog" role="document">

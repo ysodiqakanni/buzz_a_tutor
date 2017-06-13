@@ -20,9 +20,15 @@ var imageModel = {
 
 var ListUpdate = {
     group: lessonId,
-    update : false,
+    update: false,
 }
 
+function closeNav(className) {
+    classToShow = className.split(",")[0];
+    classToHide = className.split(",")[1];
+    $(classToHide).hide();
+    $(classToShow).show();
+}
 
 $(document).ready(function () {
     function toggleSidebar(side) {
@@ -34,23 +40,23 @@ $(document).ready(function () {
             content = $("#middle-content"),
             openSidebarsCount = 5,
             contentClass = "";
-				
+
         // toggle sidebar
         if (side === "left") {
             left.toggleClass("collapsed");
         } else if (side === "right") {
             right.toggleClass("collapsed");
         }
-        debugger;
+
         // determine number of open sidebars
         if (left.hasClass("collapsed")) {
             openSidebarsCount += 2;
         }
-				
+
         if (right.hasClass("collapsed")) {
             openSidebarsCount += 5;
         }
-				
+
         // determine appropriate content class
         if (openSidebarsCount === 12) {
             contentClass = "col-lg-12";
@@ -62,7 +68,7 @@ $(document).ready(function () {
         } else {
             contentClass = "col-lg-5";
         }
-				
+
         // apply class to content
         content.removeClass("col-lg-12 col-lg-10 col-lg-7 col-lg-5")
                .addClass(contentClass);
@@ -70,17 +76,17 @@ $(document).ready(function () {
     $(".toggle-sidebar-left").click(function (event) {
         debugger;
         toggleSidebar("left");
-        var currentClass = $(event.currentTarget.children).attr('class');
-        var element = $(event.currentTarget.children);
-        changeClass(currentClass,element);
+        //var currentClass = $(event.currentTarget.children).attr('class');
+        //var element = $(event.currentTarget.children);
+        //changeClass(currentClass,element);
         //resizeTeacherCanvas();
         return false;
     });
     $(".toggle-sidebar-right").click(function () {
         toggleSidebar("right");
-        var currentClass = $(event.currentTarget.children).attr('class');
-        var element = $(event.currentTarget.children);
-        changeClass(currentClass, element);
+        //var currentClass = $(event.currentTarget.children).attr('class');
+        //var element = $(event.currentTarget.children);
+        //changeClass(currentClass, element);
         //resizeTeacherCanvas();
         return false;
     });
@@ -116,60 +122,6 @@ var MyTool = function (lc) {  // take lc as constructor arg
         }
     }
 };
-
-
-var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
-    var self = this;
-
-    return {
-        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
-        name: 'Save',
-        iconName: 'save',
-        strokeWidth: lc.opts.defaultStrokeWidth,
-
-        didBecomeActive: function (lc) {
-            options = {
-                imageURLPrefix: '../assets/img/lc-images',
-                snapshot: buzzCanvas.getSnapshot(),
-                toolbarPosition: 'hidden',
-                defaultStrokeWidth: 2,
-                strokeWidths: [1, 2, 3, 5, 30]
-            };
-
-            if (previewCanvas != undefined)
-                previewCanvas.teardown();
-            setTimeout(function () {
-                previewCanvas = LC.init(document.getElementById("previewCanvas"), options);
-            }, 1000);
-            
-            $('#previewTitle').val('White-Board');
-            $('#previewModal').modal();
-        },
-
-        willBecomeInactive: function (lc) {
-        }
-    }
-};
-
-var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
-    var self = this;
-
-    return {
-        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
-        name: 'Download',
-        iconName: 'download',
-        strokeWidth: lc.opts.defaultStrokeWidth,
-
-        didBecomeActive: function (lc) {
-
-        },
-
-        willBecomeInactive: function (lc) {
-
-        }
-    }
-};
-
 
 LC.defineOptionsStyle("userList", React.createClass({
     displayName: 'userList',
@@ -305,12 +257,13 @@ $(function () {
     };
 
     blackboardHub.client.clearBoard = function () {
-        if (isHaveControl == "true") {
-            return false;
-        }
-        else {
-            buzzCanvas.clear();
-        }
+        //if (isHaveControl == "true") {
+        //    return false;
+        //}
+        //else {
+        //    buzzCanvas.clear();
+        //}
+        buzzCanvas.clear();
     };
     blackboardHub.client.undoAction = function () {
         if (isHaveControl == "true") {
@@ -360,6 +313,7 @@ $(function () {
         options = {
             imageURLPrefix: '../assets/img/lc-images',
             snapshot: JSON.parse(snapshotString),
+            secondaryColor: 'transparent',
             toolbarPosition: 'bottom',
             defaultStrokeWidth: 2,
             strokeWidths: [1, 2, 3, 5, 30],
@@ -425,6 +379,7 @@ $(document).ready(function () {
                 imageURLPrefix: '../assets/img/lc-images',
                 toolbarPosition: 'bottom',
                 defaultStrokeWidth: 2,
+                secondaryColor: 'transparent',
                 strokeWidths: [1, 2, 3, 5, 30],
                 tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool, SaveWhiteboardTool, DownloadWhiteboardTool],
                 //tools: LC.defaultTools.concat([MyTool])
@@ -458,7 +413,9 @@ function InitCanvas(options, isHost) {
         });
 
         buzzCanvas.on("clear", function () {
-            blackboardHub.server.clearBoard(lessonId);
+            if (isHaveControl == "true") {
+                blackboardHub.server.clearBoard(lessonId);
+            }
         });
 
         buzzCanvas.on("pan", function (coords) {
@@ -542,12 +499,61 @@ function SetInitialValue() {
 
 //Save whiteboard
 
+var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
+    var self = this;
+
+    return {
+        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
+        name: 'Save',
+        iconName: 'save',
+        strokeWidth: lc.opts.defaultStrokeWidth,
+
+        didBecomeActive: function (lc) {
+            debugger;
+            var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
+                              img2SaveArray = img2SaveRaw.split(','),
+                              img2Save = img2SaveArray[1],
+                              imgExtension = img2SaveArray[0];
+            imgData = img2Save;
+            $('#previewCanvas').css("height", buzzCanvas.canvas.clientHeight);
+            $('#previewCanvas').css("width", buzzCanvas.canvas.clientWidth);
+            $('#previewCanvas').css("background-image", "url('" + imgExtension + "," + img2Save + "')");
+            $('#previewCanvas').css("background-repeat", "no-repeat");
+            $('#previewTitle').val('White-Board');
+            $('#previewModal').modal();
+        },
+
+        willBecomeInactive: function (lc) {
+        }
+    }
+};
+
+var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
+    var self = this;
+
+    return {
+        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
+        name: 'Download',
+        iconName: 'download',
+        strokeWidth: lc.opts.defaultStrokeWidth,
+
+        didBecomeActive: function (lc) {
+
+        },
+
+        willBecomeInactive: function (lc) {
+
+        }
+    }
+};
+
 function uploadCanvas() {
-    var previewCanvasString = previewCanvas.getSnapshot();
-    var img2SaveRaw = LC.renderSnapshotToImage(previewCanvasString, null).toDataURL('image/png'),
-        img2SaveArray = img2SaveRaw.split(','),
-        img2Save = img2SaveArray[1],
-        title = $('#previewTitle').val();
+    //var previewCanvasString = previewCanvas.getSnapshot();
+    //var img2SaveRaw = LC.renderSnapshotToImage(previewCanvasString, null).toDataURL('image/png'),
+    //    img2SaveArray = img2SaveRaw.split(','),
+    //    img2Save = img2SaveArray[1],
+    //    title = $('#previewTitle').val();
+    var title = $('#previewTitle').val();
     if (title == '') {
         $('#imgSaveFail').removeClass('hidden');
     } else {
@@ -558,9 +564,10 @@ function uploadCanvas() {
             data: {
                 "lessonid": lessonId,
                 "title": title,
-                "data": img2Save,
+                "data": imgData,
             },
             success: function (data) {
+                imgData = "";
                 ListUpdate.update = true;
                 blackboardHub.server.updateList(ListUpdate);
                 $('#previewModal').modal('toggle');

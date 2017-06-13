@@ -13054,7 +13054,7 @@ body:not(.no-transition) #wrapper,
 
 /* Chat Box */
 .chatBody {
-	height: 20vh;
+	height: 30vh;
 	overflow: scroll;
 }
 
