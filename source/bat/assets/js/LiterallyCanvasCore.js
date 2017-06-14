@@ -538,7 +538,7 @@ var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
         strokeWidth: lc.opts.defaultStrokeWidth,
 
         didBecomeActive: function (lc) {
-
+            $('#BBListModal').modal();
         },
 
         willBecomeInactive: function (lc) {
@@ -548,11 +548,6 @@ var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
 };
 
 function uploadCanvas() {
-    //var previewCanvasString = previewCanvas.getSnapshot();
-    //var img2SaveRaw = LC.renderSnapshotToImage(previewCanvasString, null).toDataURL('image/png'),
-    //    img2SaveArray = img2SaveRaw.split(','),
-    //    img2Save = img2SaveArray[1],
-    //    title = $('#previewTitle').val();
     var title = $('#previewTitle').val();
     if (title == '') {
         $('#imgSaveFail').removeClass('hidden');
@@ -580,27 +575,27 @@ function uploadCanvas() {
     }
 }
 
-function loadImg(id) {
-    useImg = true;
-    $.ajax({
-        type: "POST", // Type of request
-        url: "../api/lessons/getattachment", //The controller/Action
-        dataType: "json",
-        data: {
-            "attachmentid": id
-        },
-        success: function (data) {
-            imageModel.clear = false;
-            imageModel.imageId = id;
-            blackboardHub.server.boardImage(imageModel);
-            imgData = data;
-            clearOrLoadBoard();
-        },
-        error: function (err) {
-            console.log("error[" + err.status + "]: " + err.statusText);
-        }
-    });
-}
+//function loadImg(id) {
+//    useImg = true;
+//    $.ajax({
+//        type: "POST", // Type of request
+//        url: "../api/lessons/getattachment", //The controller/Action
+//        dataType: "json",
+//        data: {
+//            "attachmentid": id
+//        },
+//        success: function (data) {
+//            imageModel.clear = false;
+//            imageModel.imageId = id;
+//            blackboardHub.server.boardImage(imageModel);
+//            imgData = data;
+//            clearOrLoadBoard();
+//        },
+//        error: function (err) {
+//            console.log("error[" + err.status + "]: " + err.statusText);
+//        }
+//    });
+//}
 
 function loadCloudImg(id) {
     useImg = true;
@@ -617,6 +612,7 @@ function loadCloudImg(id) {
             blackboardHub.server.boardImage(imageModel);
             imgData = data;
             clearOrLoadBoard();
+            $('#BBListModal').modal('toggle');
         },
         error: function (err) {
             console.log("error[" + err.status + "]: " + err.statusText);
@@ -677,8 +673,11 @@ function updateImageList(lessonId) {
 
 function clearOrLoadBoard() {
     if (useImg === true) {
-        var img = new Image();
-        img.src = "data:image/png;base64," + imgData;
-        buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img }));
+        if (buzzCanvas != undefined) {
+            buzzCanvas.clear();
+            var img = new Image();
+            img.src = "data:image/png;base64," + imgData;
+            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img }));
+        }
     }
 }

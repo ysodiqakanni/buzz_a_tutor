@@ -189,6 +189,46 @@
             </div>
         </div>
     </div>
+
+<div class="modal fade" id="BBListModal" tabindex="-1" role="dialog" aria-labelledby="BBListModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="form-group">
+                    <input type="text" class="modal-title form-control" id="BBListTitle">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="BBListContainer" style="width:100%;">
+                    <div id="bbImage-list">
+                        @foreach (var resource in Model.lessonResources)
+                        {
+                            if (resource.Type_ID == bat.logic.Constants.Types.Image)
+                            {
+                                <div style="overflow: auto;">
+                                    <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID')">
+                                        @resource.Original_Name
+                                    </button>
+
+                                    <a href="@Url.Action("DeleteResource", "Lessons", new {id = Model.lesson.ID, resourceId = resource.ID})"
+                                       class="pull-right" style="padding: 10px;">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Load Image</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     @*<div id="lc"></div>*@
 
 }
