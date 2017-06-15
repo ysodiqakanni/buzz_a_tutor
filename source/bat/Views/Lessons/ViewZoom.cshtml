@@ -101,7 +101,7 @@
             <div class="dropdown" style="margin-left: 5px;">
                 <div class='inline' style="font-weight: bold;"><div>@Model.lesson.Description</div></div>
                 <div class="dropdown-toggle" type="button" data-toggle="dropdown" style="font-size: smaller;">
-                    <div class='inline'><div>@Model.lesson.Subject<span class="caret"></span></div></div>
+                    <div class='inline'><div style="cursor: pointer;">@Model.lesson.Subject<span class="caret"></span></div></div>
                 </div>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation" class="have-child">
@@ -131,7 +131,7 @@
             {
                 <img style="height: 50px; width: 50px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
             }
-            <a href="#" target="_blank" class="navbar-link">@Model.host.Fname @Model.host.Lname</a>
+            <a class="navbar-link">@Model.host.Fname @Model.host.Lname</a>
             <div style="font-size: 15px;text-align: left;">
                 Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")<br />
                 Duration mins: @Model.lesson.DurationMins<br />

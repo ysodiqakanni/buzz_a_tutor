@@ -23,85 +23,6 @@ var ListUpdate = {
     update: false,
 }
 
-function closeNav(className) {
-    classToShow = className.split(",")[0];
-    classToHide = className.split(",")[1];
-    $(classToHide).hide();
-    $(classToShow).show();
-}
-
-$(document).ready(function () {
-    function toggleSidebar(side) {
-        if (side !== "left" && side !== "right") {
-            return false;
-        }
-        var left = $("#sidebar-left"),
-            right = $("#sidebar-right"),
-            content = $("#middle-content"),
-            openSidebarsCount = 5,
-            contentClass = "";
-
-        // toggle sidebar
-        if (side === "left") {
-            left.toggleClass("collapsed");
-        } else if (side === "right") {
-            right.toggleClass("collapsed");
-        }
-
-        // determine number of open sidebars
-        if (left.hasClass("collapsed")) {
-            openSidebarsCount += 2;
-        }
-
-        if (right.hasClass("collapsed")) {
-            openSidebarsCount += 5;
-        }
-
-        // determine appropriate content class
-        if (openSidebarsCount === 12) {
-            contentClass = "col-lg-12";
-        }
-        else if (openSidebarsCount === 10) {
-            contentClass = "col-lg-10";
-        } else if (openSidebarsCount === 7) {
-            contentClass = "col-lg-7";
-        } else {
-            contentClass = "col-lg-5";
-        }
-
-        // apply class to content
-        content.removeClass("col-lg-12 col-lg-10 col-lg-7 col-lg-5")
-               .addClass(contentClass);
-    }
-    $(".toggle-sidebar-left").click(function (event) {
-        toggleSidebar("left");
-        //var currentClass = $(event.currentTarget.children).attr('class');
-        //var element = $(event.currentTarget.children);
-        //changeClass(currentClass,element);
-        resizeTeacherCanvas();
-        return false;
-    });
-    $(".toggle-sidebar-right").click(function () {
-        toggleSidebar("right");
-        //var currentClass = $(event.currentTarget.children).attr('class');
-        //var element = $(event.currentTarget.children);
-        //changeClass(currentClass, element);
-        //resizeTeacherCanvas();
-        return false;
-    });
-});
-
-function changeClass(className, element) {
-    if (className == "glyphicon glyphicon-chevron-left") {
-        element.removeClass(className);
-        element.addClass("glyphicon glyphicon-chevron-right")
-    }
-    else {
-        element.removeClass(className);
-        element.addClass("glyphicon glyphicon-chevron-left")
-    }
-}
-
 var MyTool = function (lc) {  // take lc as constructor arg
     var self = this;
 
@@ -256,13 +177,13 @@ $(function () {
     };
 
     blackboardHub.client.clearBoard = function () {
-        //if (isHaveControl == "true") {
-        //    return false;
-        //}
-        //else {
-        //    buzzCanvas.clear();
-        //}
-        buzzCanvas.clear();
+        if (isHaveControl == "true") {
+            return false;
+        }
+        else {
+            buzzCanvas.clear();
+        }
+        //buzzCanvas.clear();
     };
     blackboardHub.client.undoAction = function () {
         if (isHaveControl == "true") {
@@ -381,7 +302,6 @@ $(document).ready(function () {
                 secondaryColor: 'transparent',
                 strokeWidths: [1, 2, 3, 5, 30],
                 tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool, SaveWhiteboardTool, DownloadWhiteboardTool],
-                //tools: LC.defaultTools.concat([MyTool])
             };
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
@@ -412,9 +332,10 @@ function InitCanvas(options, isHost) {
         });
 
         buzzCanvas.on("clear", function () {
-            if (isHaveControl == "true") {
-                blackboardHub.server.clearBoard(lessonId);
-            }
+            blackboardHub.server.clearBoard(lessonId);
+            //if (isHaveControl == "true") {
+            //    blackboardHub.server.clearBoard(lessonId);
+            //}
         });
 
         buzzCanvas.on("pan", function (coords) {
