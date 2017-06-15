@@ -262,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\blackboard.css" />
+    <Content Include="assets\css\BootSideMenu.css" />
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\chatStyle.css" />
     <Content Include="assets\css\colors.css" />
@@ -390,6 +391,7 @@
     <Content Include="assets\img\landing\4.jpg" />
     <Content Include="assets\img\vertical_line.png" />
     <Content Include="assets\js\blackboard.js" />
+    <Content Include="assets\js\BootSideMenu.js" />
     <Content Include="assets\js\calendar.js" />
     <Content Include="assets\js\canvas.slider.fade.js" />
     <Content Include="assets\js\chatRoom.js" />

@@ -74,12 +74,11 @@ $(document).ready(function () {
                .addClass(contentClass);
     }
     $(".toggle-sidebar-left").click(function (event) {
-        debugger;
         toggleSidebar("left");
         //var currentClass = $(event.currentTarget.children).attr('class');
         //var element = $(event.currentTarget.children);
         //changeClass(currentClass,element);
-        //resizeTeacherCanvas();
+        resizeTeacherCanvas();
         return false;
     });
     $(".toggle-sidebar-right").click(function () {
@@ -574,28 +573,6 @@ function uploadCanvas() {
         })
     }
 }
-
-//function loadImg(id) {
-//    useImg = true;
-//    $.ajax({
-//        type: "POST", // Type of request
-//        url: "../api/lessons/getattachment", //The controller/Action
-//        dataType: "json",
-//        data: {
-//            "attachmentid": id
-//        },
-//        success: function (data) {
-//            imageModel.clear = false;
-//            imageModel.imageId = id;
-//            blackboardHub.server.boardImage(imageModel);
-//            imgData = data;
-//            clearOrLoadBoard();
-//        },
-//        error: function (err) {
-//            console.log("error[" + err.status + "]: " + err.statusText);
-//        }
-//    });
-//}
 
 function loadCloudImg(id) {
     useImg = true;

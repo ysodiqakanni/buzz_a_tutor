@@ -5,6 +5,7 @@
 
 @section head {
     <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+    @Styles.Render("~/assets/css/BootSideMenu")
     @Styles.Render("~/assets/css/blackboard")
     @Styles.Render("~/assets/css/literallycanvas")
     <script>
@@ -22,7 +23,13 @@
             exitMode = true;
         }
     </script>
-    <style>
+    <style type="text/css">
+        .user {
+            padding: 5px;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
         .collapsed {
             display: none; /* hide it for small displays */
         }
@@ -31,122 +38,48 @@
             display: inline-block;
             border: 0px solid red;
         }
-        .nomarginrow{
+
+        .nomarginrow {
             margin-right: 0px;
-    margin-left: 0px;
+            margin-left: 0px;
         }
     </style>
 }
-
-
 @section scripts {
     <script>
         $('#bbImage-list').slimScroll({
             height: '500px'
         });
-        //$(window).load(function() {
-        //    // Animate loader off screen
-        //    $(".se-pre-con").fadeOut("slow");
-        //});
-
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#test-left').BootSideMenu({
+                side: "left",
+                onBeforeOpen: function () {
+                },
+                onBeforeClose: function () {
+                }
+            });
+            $('#test-right').BootSideMenu({
+                side: "right",
+                pushBody: false,
+                onOpen: function () {
+                },
+                onClose: function () {
+                }
+            });
+        });
     </script>
 }
-
 @section outsideContainer {
-
     <input type="hidden" id="hdnConnId" />
     <div class="row nomarginrow" style="margin-top:-60px;">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-lg-2" id="sidebar-left">
-                    <div class="pull-right"><a href="javascript:void(0)" class="closebtn toggle-sidebar-left" onclick="closeNav('.toggle-sidebar-left,.closebtn.toggle-sidebar-left')">&times;</a></div>                    
-                    <div class="col-md-12">
-                        <div style="background:#cccccc;border:1px solid #cccccc;">
-                            <div class="dropdown">
-                                <div class='inline' style="font-weight: bold;"><div>@Model.lesson.Description</div></div>
-                                <div class="dropdown-toggle" type="button" data-toggle="dropdown" style="font-size: smaller;">
-                                    @*<div>@Model.lesson.Description</div> &nbsp; <div>@Model.lesson.Subject<span class="caret"></span></div>*@
-
-                                    <div class='inline'><div>@Model.lesson.Subject<span class="caret"></span></div></div>
-                                </div>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation" class="have-child">
-                                        @if (Model.IsTeacher)
-                                        {
-                                            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
-                                                <i class="fa fa-calendar"></i> Reschedule lesson
-                                            </a>
-                                            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
-                                                <i class="fa fa-edit"></i> Edit lesson details
-                                            </a>
-                                        }
-                                        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-md btn-primary">
-                                            <i class="fa fa-video-camera"></i> Start video
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="row">
-                            <br />
-                            <div class="col-md-4">
-                                @if (string.IsNullOrEmpty(Model.host.Picture))
-                                {
-                                    <img style="height: 50px; width: 50px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-                                }
-                                else
-                                {
-                                    <img style="height: 50px; width: 50px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
-                                }
-                            </div>
-                            <div class="col-md-8">
-                                @Model.host.Fname @Model.host.Lname<br />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12" style="font-size: 14px;">
-                                Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")<br />
-                                Duration mins: @Model.lesson.DurationMins<br />
-                                Class size: @Model.lesson.ClassSize
-                            </div>
-                        </div>
-                        <br />
-                    </div>
-                    <div class="col-md-12">
-                        <strong>
-                            Attendees
-                        </strong>
-                        <div class="col-md-12" style="overflow:auto;font-size: 16px;">
-                            @foreach (var student in Model.others)
-                            {
-                                <text>
-                                    <br />
-                                    <i class="fa fa-user"></i> @student.Fname @student.Lname
-                                </text>
-                            }
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-5" id="middle-content">
-                    
-                        <button type="button" class="btn toggle-sidebar-left" style='display:none'  onclick="closeNav('.closebtn.toggle-sidebar-left,.toggle-sidebar-left')"><span class="glyphicon glyphicon-chevron-right"></span></button>
-                        <button type="button" class="btn toggle-sidebar-right pull-right" style='display:none'  onclick="closeNav('.closebtn.toggle-sidebar-right,.toggle-sidebar-right')"><span class="glyphicon glyphicon-chevron-left"></span></button>
-
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-12">
-                            @Html.Partial("_PartialWhiteboard", Model)
-                        </div>
-                    </div>
-
+                <div class="col-lg-7" id="middle-content">
+                    @Html.Partial("_PartialWhiteboard", Model)
                 </div>
                 <div class="col-lg-5" id="sidebar-right">
-                    <div class="pull-left"><a href="javascript:void(0)" class="closebtn toggle-sidebar-right" onclick="closeNav('.toggle-sidebar-right,.closebtn.toggle-sidebar-right')">&times;</a></div>
                     <div class="row">
                         <div class="col-lg-12">
                             <video width="100%" height="100%" controls="controls" controlsList="nodownload">
@@ -163,10 +96,66 @@
             </div>
         </div>
     </div>
+    <div id="test-left">
+        <div style="background:#cccccc;border:1px solid #cccccc;">
+            <div class="dropdown" style="margin-left: 5px;">
+                <div class='inline' style="font-weight: bold;"><div>@Model.lesson.Description</div></div>
+                <div class="dropdown-toggle" type="button" data-toggle="dropdown" style="font-size: smaller;">
+                    <div class='inline'><div>@Model.lesson.Subject<span class="caret"></span></div></div>
+                </div>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation" class="have-child">
+                        @if (Model.IsTeacher)
+                        {
+                            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
+                                <i class="fa fa-calendar"></i> Reschedule lesson
+                            </a>
+                            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
+                                <i class="fa fa-edit"></i> Edit lesson details
+                            </a>
+                        }
+                        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-md btn-primary">
+                            <i class="fa fa-video-camera"></i> Start video
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="user">
+            @if (string.IsNullOrEmpty(Model.host.Picture))
+            {
+                <img style="height: 50px; width: 50px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
+            }
+            else
+            {
+                <img style="height: 50px; width: 50px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
+            }
+            <a href="#" target="_blank" class="navbar-link">@Model.host.Fname @Model.host.Lname</a>
+            <div style="font-size: 15px;text-align: left;">
+                Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")<br />
+                Duration mins: @Model.lesson.DurationMins<br />
+                Class size: @Model.lesson.ClassSize
+            </div>
+        </div>
+        <div>
+            <div style="overflow:auto;font-size: 18px;margin-left: 10px;">
+                <strong>
+                    Attendees
+                </strong>
+                @foreach (var student in Model.others)
+                {
+                    <text>
+                        <br />
+                        <i class="fa fa-user"></i> @student.Fname @student.Lname
+                    </text>
+                }
+            </div>
+        </div>
+    </div>
     <br />
     <br />
     <br />
-    <!-- Modal -->
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
         <div style="width:630px" class="modal-dialog" role="document">
             <div class="modal-content">
@@ -189,55 +178,51 @@
             </div>
         </div>
     </div>
-
-<div class="modal fade" id="BBListModal" tabindex="-1" role="dialog" aria-labelledby="BBListModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="form-group">
-                    <input type="text" class="modal-title form-control" id="BBListTitle">
-                </div>
-            </div>
-            <div class="modal-body">
-                <div id="BBListContainer" style="width:100%;">
-                    <div id="bbImage-list">
-                        @foreach (var resource in Model.lessonResources)
-                        {
-                            if (resource.Type_ID == bat.logic.Constants.Types.Image)
-                            {
-                                <div style="overflow: auto;">
-                                    <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID')">
-                                        @resource.Original_Name
-                                    </button>
-
-                                    <a href="@Url.Action("DeleteResource", "Lessons", new {id = Model.lesson.ID, resourceId = resource.ID})"
-                                       class="pull-right" style="padding: 10px;">
-                                        <i class="fa fa-remove"></i>
-                                    </a>
-                                </div>
-                            }
-                        }
+    <div class="modal fade" id="BBListModal" tabindex="-1" role="dialog" aria-labelledby="BBListModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="form-group">
+                        <input type="text" class="modal-title form-control" id="BBListTitle">
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Load Image</button>
+                <div class="modal-body">
+                    <div id="BBListContainer" style="width:100%;">
+                        <div id="bbImage-list">
+                            @foreach (var resource in Model.lessonResources)
+                            {
+                                if (resource.Type_ID == bat.logic.Constants.Types.Image)
+                                {
+                                    <div style="overflow: auto;">
+                                        <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID')">
+                                            @resource.Original_Name
+                                        </button>
+
+                                        <a href="@Url.Action("DeleteResource", "Lessons", new {id = Model.lesson.ID, resourceId = resource.ID})"
+                                           class="pull-right" style="padding: 10px;">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Load Image</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-    @*<div id="lc"></div>*@
 
 }
 
 @Scripts.Render("~/assets/js/lesson")
-@*@Scripts.Render("~/assets/vendor/slimscroll")*@
 <script src="~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"></script>
-@*@Scripts.Render("~/signalr")*@
 <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
 @Scripts.Render("~/signalr/hubs")
+@Scripts.Render("~/assets/js/BootSideMenu")
 @Scripts.Render("~/assets/vendor/pdf")
 @Scripts.Render("~/assets/js/literallycanvas")

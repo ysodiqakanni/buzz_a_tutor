@@ -36,9 +36,17 @@ namespace bat
                 "~/assets/css/blackboard.css"
             ));
 
+            bundles.Add(new StyleBundle("~/assets/css/BootSideMenu").Include(
+                "~/assets/css/BootSideMenu.css"
+            ));
+
             bundles.Add(new ScriptBundle("~/assets/js/lesson").Include(
                 "~/assets/js/lessonJS.js",
                 "~/assets/js/lessonResource.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/assets/js/BootSideMenu").Include(
+                "~/assets/js/BootSideMenu.js"
             ));
 
             //bundles.Add(new ScriptBundle("~/assets/vendor/slimscroll").Include(
