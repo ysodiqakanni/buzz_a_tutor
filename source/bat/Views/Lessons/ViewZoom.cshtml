@@ -76,6 +76,13 @@
     <div class="row nomarginrow" style="margin-top:-60px;">
         <div class="col-md-12">
             <div class="row">
+                <div class="col-md-12">
+                    <div class='inline'><div><span style="font-weight: bold;">Teacher - </span><span>@Model.host.Fname @Model.host.Lname</span></div></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class='inline'><div><span style="font-weight: bold;">Lesson - </span><span>@Model.lesson.Description</span></div></div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-7" id="middle-content">
                     @Html.Partial("_PartialWhiteboard", Model)
                 </div>
