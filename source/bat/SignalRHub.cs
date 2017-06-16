@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace bat
 {
@@ -42,6 +43,19 @@ namespace bat
             }
             Groups.Add(Context.ConnectionId, groupName);
             RefreshList();
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true");
+
+            if (index != -1)
+            {
+                ConnectedUsers[index].Status = "Disconnected";
+                ConnectedUsers[index].IsHaveControl = "false";
+            }
+            RefreshList();
+            return base.OnDisconnected(stopCalled);
         }
 
         public void RefreshList()

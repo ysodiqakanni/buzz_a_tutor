@@ -59,6 +59,7 @@ LC.defineOptionsStyle("userList", React.createClass({
             // access the foo property using result[0].foo
             var user = result[0];
             $("#hdnConnId").val(user.ConnectionId);
+            $("#hdnUserId").val(user.UserId);
             if (user.IsHaveControl == "true") {
                 $("#btnAction").val("Revoke");
             }
@@ -73,6 +74,7 @@ LC.defineOptionsStyle("userList", React.createClass({
 
     },
     AssignHandle: function (event) {
+        debugger;
         var connectionId = $("#hdnConnId").val();
         if (event.currentTarget.value == "Grant")
             GiveControl(connectionId);
@@ -97,6 +99,7 @@ LC.defineOptionsStyle("userList", React.createClass({
                 user = arg;
                 if (user.IsHost == "false") {
                     $("#hdnConnId").val(allUsers[0].ConnectionId);
+                    $("#hdnUserId").val(allUsers[0].UserId);
                     btnStatus = allUsers[0].IsHaveControl == "true" ? "Revoke" : "Grant";
                     return option({
                         value: user.UserId,
@@ -398,11 +401,14 @@ function RevokeControl(connectionId) {
     blackboardHub.server.removeHandle(lessonId, connectionId, JSON.stringify(snaps));
 }
 function SetInitialValue() {
+    debugger;
     var selectedUserConnId = $("#hdnConnId").val();
+    var selectedUserId = $("#hdnUserId").val();
     if (selectedUserConnId != undefined && selectedUserConnId != "") {
-        var result = $.grep(allUsers, function (e) { return e.ConnectionId == selectedUserConnId; });
+        var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
         var user = result[0];
         $("#hdnConnId").val(user.ConnectionId);
+        $("#hdnUserId").val(user.UserId);
         $('#users option[value="' + user.UserId + '"]').attr('selected', 'selected');
         if (user.IsHaveControl == "true") {
             $("#btnAction").val("Revoke");
@@ -413,6 +419,7 @@ function SetInitialValue() {
     }
     else {
         $("#hdnConnId").val(allUsers[0].ConnectionId);
+        $("#hdnUserId").val(allUsers[0].UserId);
         $('#users option[value="' + allUsers[0].UserId + '"]');
     }
 }
