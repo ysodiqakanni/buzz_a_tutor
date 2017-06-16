@@ -43,6 +43,22 @@ var MyTool = function (lc) {  // take lc as constructor arg
     }
 };
 
+var NoTool = function (lc) {  // take lc as constructor arg
+    var self = this;
+
+    return {
+        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
+        name: 'NoTool',
+        didBecomeActive: function (lc) {
+            //console.log("activeted");
+        },
+
+        willBecomeInactive: function (lc) {
+            //console.log("activeted sonn");
+        }
+    }
+};
+
 LC.defineOptionsStyle("userList", React.createClass({
     displayName: 'userList',
     getInitialState: function () {
@@ -152,7 +168,8 @@ $(function () {
             snapshot: JSON.parse(snapshotString),
             toolbarPosition: 'hidden',
             defaultStrokeWidth: 2,
-            strokeWidths: [1, 2, 3, 5, 30]
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [NoTool]
         };
         isHaveControl = "false";
         InitCanvas(options, isHaveControl);
@@ -163,7 +180,8 @@ $(function () {
             imageURLPrefix: '../assets/img/lc-images',
             toolbarPosition: 'hidden',
             defaultStrokeWidth: 2,
-            strokeWidths: [1, 2, 3, 5, 30]
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [NoTool]
         };
         isHaveControl = "false";
         InitCanvas(options, isHaveControl);
@@ -253,7 +271,8 @@ $(function () {
             snapshot: JSON.parse(snapshotString),
             toolbarPosition: 'hidden',
             defaultStrokeWidth: 2,
-            strokeWidths: [1, 2, 3, 5, 30]
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [NoTool]
         };
         isHaveControl = "false";
         InitCanvas(options, isHaveControl);
