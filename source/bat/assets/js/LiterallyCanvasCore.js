@@ -12,6 +12,14 @@ var selectedUserId;
 var useImg = false,
     imgData = '';
 
+var unsubscribeClearEvent;
+var unsubscribePanEvent;
+var unsubscribeUndoEvent;
+var unsubscribeRedoEvent;
+var unsubscribePrimaryColorEvent;
+var unsubscribeZoomEvent;
+var unsubscribeEvent;
+
 var imageModel = {
     group: lessonId,
     clear: true,
@@ -90,7 +98,6 @@ LC.defineOptionsStyle("userList", React.createClass({
 
     },
     AssignHandle: function (event) {
-        debugger;
         var connectionId = $("#hdnConnId").val();
         if (event.currentTarget.value == "Grant")
             GiveControl(connectionId);
@@ -296,7 +303,70 @@ $(function () {
         }
     };
 
+    blackboardHub.client.removeEvents = function (snapshotString, connectedUsers) {
+        var selectedUser = returnSelectedUser(connectedUsers);
+        options = {
+            imageURLPrefix: '../assets/img/lc-images',
+            snapshot: JSON.parse(snapshotString),
+            toolbarPosition: 'bottom',
+            defaultStrokeWidth: 2,
+            secondaryColor: 'transparent',
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [MyTool],
+        };
+        isHaveControl = "false";
+        InitCanvas(options, isHaveControl);
+        if (selectedUser != undefined) {
+            setSelectedOption(selectedUser);
+        }
+    }
+    blackboardHub.client.assignEvents = function (snapshotString, connectedUsers) {
+        var selectedUser = returnSelectedUser(connectedUsers);
+        options = {
+            imageURLPrefix: '../assets/img/lc-images',
+            snapshot: JSON.parse(snapshotString),
+            toolbarPosition: 'bottom',
+            defaultStrokeWidth: 2,
+            secondaryColor: 'transparent',
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [MyTool,LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, SaveWhiteboardTool, DownloadWhiteboardTool],
+        };
+        isHaveControl = "true";
+        InitCanvas(options, isHaveControl);
+        if (selectedUser != undefined) {
+            setSelectedOption(selectedUser);
+        }
+    }
+
 });
+
+function returnSelectedUser(connectedUsers) {
+    allUsers = [];
+    $.each(connectedUsers, function (i, user) {
+        if (user.IsHost != "true") {
+            allUsers.push(user);
+        }
+    });
+    var selectedUser;
+    var selectedUserId = $("#hdnUserId").val();
+    if (selectedUserId != undefined) {
+        var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
+        selectedUser = result[0];
+    }
+    return selectedUser;
+}
+
+function setSelectedOption(selectedUser) {
+    $("#hdnConnId").val(selectedUser.ConnectionId);
+    $("#hdnUserId").val(selectedUser.UserId);
+    $('#users option[value="' + selectedUser.UserId + '"]').attr('selected', 'selected');
+    if (selectedUser.IsHaveControl == "true") {
+        $("#btnAction").val("Revoke");
+    }
+    else {
+        $("#btnAction").val("Grant");
+    }
+}
 
 function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connectedUsers, activeUserId) {
     $.each(connectedUsers, function (i, k) {
@@ -350,49 +420,33 @@ function InitCanvas(options, isHost) {
     resizeContainer(".chatBody", "#board-wrap", 40);
     resizeContainer("#video-content", "#board-wrap", 0);
     if (isHaveControl == "true") {
-        var unsubscribe = buzzCanvas.on("shapeSave", function (shape, previousShapeId) {
-            var shapeString = LC.shapeToJSON(shape.shape);
-            blackboardHub.server.uploadShape(JSON.stringify(shapeString), previousShapeId, lessonId);
-        });
-
-        buzzCanvas.on("clear", function () {
-            blackboardHub.server.clearBoard(lessonId);
-            //if (isHaveControl == "true") {
-            //    blackboardHub.server.clearBoard(lessonId);
-            //}
-        });
-
-        buzzCanvas.on("pan", function (coords) {
-            blackboardHub.server.panAction(JSON.stringify(coords), lessonId);
-        });
-
-        buzzCanvas.on("undo", function () {
-            blackboardHub.server.undoAction(lessonId);
-        });
-        buzzCanvas.on("redo", function () {
-            blackboardHub.server.redoAction(lessonId);
-        });
-        buzzCanvas.on("primaryColorChange", function (newColor) {
-            blackboardHub.server.colorChange("primary", newColor, lessonId);
-        });
-        buzzCanvas.on("secondaryColorChange", function (newColor) {
-            blackboardHub.server.colorChange("secondary", newColor, lessonId);
-        });
-        buzzCanvas.on("backgroundColorChange", function (newColor) {
-            blackboardHub.server.colorChange("background", newColor, lessonId);
-        });
-        buzzCanvas.on("zoom", function (amount) {
-            blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
-        });
-
-        //buzzCanvas.on("pointerdown", function () {
-        //    if (buzzCanvas.tool.currentShapeState != undefined) {
-        //        if (buzzCanvas.tool.currentShapeState == "editing") {
-        //            console.log(buzzCanvas);
-        //        }
-        //    }
-        //});
+        bindEvent();
     }
+}
+
+function bindEvent() {
+    unsubscribeEvent = buzzCanvas.on("shapeSave", function (shape, previousShapeId) {
+        var shapeString = LC.shapeToJSON(shape.shape);
+        blackboardHub.server.uploadShape(JSON.stringify(shapeString), previousShapeId, lessonId);
+    });
+    unsubscribeClearEvent = buzzCanvas.on("clear", function () {
+        blackboardHub.server.clearBoard(lessonId);
+    });
+    unsubscribePanEvent = buzzCanvas.on("pan", function (coords) {
+        blackboardHub.server.panAction(JSON.stringify(coords), lessonId);
+    });
+    unsubscribeUndoEvent = buzzCanvas.on("undo", function () {
+        blackboardHub.server.undoAction(lessonId);
+    });
+    unsubscribeRedoEvent = buzzCanvas.on("redo", function () {
+        blackboardHub.server.redoAction(lessonId);
+    });
+    unsubscribePrimaryColorEvent = buzzCanvas.on("primaryColorChange", function (newColor) {
+        blackboardHub.server.colorChange("primary", newColor, lessonId);
+    });
+    unsubscribeZoomEvent = buzzCanvas.on("zoom", function (amount) {
+        blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
+    });
 }
 
 function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
@@ -436,7 +490,6 @@ function RevokeControl(connectionId) {
     blackboardHub.server.removeHandle(lessonId, connectionId, JSON.stringify(snaps));
 }
 function SetInitialValue() {
-    debugger;
     var selectedUserConnId = $("#hdnConnId").val();
     var selectedUserId = $("#hdnUserId").val();
     if (selectedUserConnId != undefined && selectedUserConnId != "") {
@@ -471,7 +524,6 @@ var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
         strokeWidth: lc.opts.defaultStrokeWidth,
 
         didBecomeActive: function (lc) {
-            debugger;
             var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
                               img2SaveArray = img2SaveRaw.split(','),
                               img2Save = img2SaveArray[1],

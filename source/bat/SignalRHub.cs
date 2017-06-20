@@ -168,6 +168,7 @@ namespace bat
             string LastUpdatedBy = Context.ConnectionId;
             Clients.Client(connectionId).AssignHandle(snapshotString);
             RemoveOthersHandler(Group, connectionId, LastUpdatedBy, snapshotString);
+            Clients.Client(LastUpdatedBy).removeEvents(snapshotString,ConnectedUsers);
             RefreshList(LastUpdatedBy);
         }
 
@@ -188,6 +189,7 @@ namespace bat
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
             if (index != -1)
                 ConnectedUsers[index].IsHaveControl = "false";
+            Clients.Client(LastUpdatedBy).assignEvents(snapshotString, ConnectedUsers);
             RefreshList(LastUpdatedBy);
         }
 
