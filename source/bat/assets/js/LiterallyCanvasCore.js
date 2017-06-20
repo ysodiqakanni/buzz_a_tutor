@@ -398,6 +398,7 @@ $(document).ready(function () {
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
             if (onInit) {
+                debugger;
                 onInit = false;
                 var snaps = buzzCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);

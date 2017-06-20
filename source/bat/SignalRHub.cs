@@ -101,6 +101,12 @@ namespace bat
                 Clients.Client(userConnectionId).loadOnInitWithSnapShot(snapshot);
             //Clients.Group(groupName, teacherConnectionId).loadOnInitWithSnapShot(snapshot);
         }
+        public void UploadSnapshotOnInit(string snapshot, string groupName)
+        {
+            var teacherConnectionId = retriveTeacherContextId(groupName);
+            if (teacherConnectionId != "")
+                Clients.Group(groupName, teacherConnectionId).loadOnInitWithSnapShot(snapshot);
+        }
 
         public void GetTeacherSnapshot(string groupName)
         {
