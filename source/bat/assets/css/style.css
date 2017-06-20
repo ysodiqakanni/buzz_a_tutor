@@ -3137,10 +3137,10 @@ body.side-push-panel.side-panel-open:not(.device-xxs):not(.device-xs):not(.devic
 	border:7px solid #ff982e;
 	margin-bottom:10px;
 }
-#message-wrap {
-	margin-top:10px;
+#message-wrap {	
 	width: 100%;
 	border:7px solid #999;
+    margin-bottom:1%;
 }
 #photo-wrap {
 	float:left;
@@ -13077,4 +13077,12 @@ footer p {
 
 .no-margin {
     margin: 0px;
+}
+
+@media only screen and (min-width: 1024px) {
+	
+    #chat-content{
+        padding-left:0px;
+        padding-right:0px;
+    }
 }

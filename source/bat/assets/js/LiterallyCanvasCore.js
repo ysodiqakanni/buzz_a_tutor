@@ -347,6 +347,8 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
+    resizeContainer(".chatBody", "#board-wrap", 40);
+    resizeContainer("#video-content", "#board-wrap", 0);
     if (isHaveControl == "true") {
         var unsubscribe = buzzCanvas.on("shapeSave", function (shape, previousShapeId) {
             var shapeString = LC.shapeToJSON(shape.shape);
@@ -382,7 +384,19 @@ function InitCanvas(options, isHost) {
         buzzCanvas.on("zoom", function (amount) {
             blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
         });
+
+        //buzzCanvas.on("pointerdown", function () {
+        //    if (buzzCanvas.tool.currentShapeState != undefined) {
+        //        if (buzzCanvas.tool.currentShapeState == "editing") {
+        //            console.log(buzzCanvas);
+        //        }
+        //    }
+        //});
     }
+}
+
+function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
+    $(resizeToContainer).css("height", $(resizeFromContainer).height() - offset);
 }
 
 function uploadSnapShot() {
@@ -396,6 +410,8 @@ function resizeTeacherCanvas() {
             var elementsToResize = $(".lc-drawing.with-gui canvas");
             var scale = 1;
             LC.util.matchElementSize(elementToMatch, elementsToResize, scale, callback = null);
+            //alert($("#board-wrap").height())
+            //$("#message-wrap").css("height", $("#board-wrap").height());
         }, 1000);
     }
 }
