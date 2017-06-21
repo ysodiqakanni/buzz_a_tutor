@@ -243,6 +243,7 @@
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="assets\css\animate.css" />
+    <Content Include="assets\css\app.css" />
     <Content Include="assets\css\batstickyfoot.css" />
     <Content Include="assets\css\batmain.css" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -390,6 +391,7 @@
     <Content Include="assets\img\landing\3.jpg" />
     <Content Include="assets\img\landing\4.jpg" />
     <Content Include="assets\img\vertical_line.png" />
+    <Content Include="assets\js\app.js" />
     <Content Include="assets\js\blackboard.js" />
     <Content Include="assets\js\BootSideMenu.js" />
     <Content Include="assets\js\calendar.js" />
