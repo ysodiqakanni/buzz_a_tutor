@@ -329,7 +329,7 @@ $(function () {
             defaultStrokeWidth: 2,
             secondaryColor: 'transparent',
             strokeWidths: [1, 2, 3, 5, 30],
-            tools: [MyTool,LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, SaveWhiteboardTool, DownloadWhiteboardTool],
+            tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, SaveWhiteboardTool, DownloadWhiteboardTool],
         };
         isHaveControl = "true";
         InitCanvas(options, isHaveControl);
@@ -404,8 +404,9 @@ $(document).ready(function () {
             }
         }
         else {
-            resizeStudentCanvas();
-            setTimeout(function () { blackboardHub.server.getTeacherSnapshot(lessonId); }, 3000);
+            //resizeStudentCanvas();
+            //setTimeout(function () { blackboardHub.server.getTeacherSnapshot(lessonId); }, 3000);
+            blackboardHub.server.getTeacherSnapshot(lessonId);
         }
 
     });
@@ -417,11 +418,11 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
-    resizeContainer(".chatBody", "#board-wrap", 40);
-    resizeContainer("#video-content", "#board-wrap", 0);
-    resizeContainer("#video-wrap", "#board-wrap", 40);
-    resizeContainer("#teacher", "#board-wrap", 55);
-    resizeContainer("#streamBoxTeacher", "#board-wrap", 55);
+    //resizeContainer(".chatBody", "#board-wrap", 40);
+    //resizeContainer("#video-content", "#board-wrap", 0);
+    //resizeContainer("#video-wrap", "#board-wrap", 40);
+    resizeContainer("#teacher", "#video-wrap", 0);
+    resizeContainer("#streamBoxTeacher", "#video-wrap", 55);
     if (isHaveControl == "true") {
         bindEvent();
     }
@@ -453,6 +454,7 @@ function bindEvent() {
 }
 
 function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
+    console.log($(resizeFromContainer).height());
     $(resizeToContainer).css("height", $(resizeFromContainer).height() - offset);
 }
 

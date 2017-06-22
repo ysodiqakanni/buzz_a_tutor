@@ -3134,12 +3134,12 @@ body.side-push-panel.side-panel-open:not(.device-xxs):not(.device-xs):not(.devic
 -----------------------------------------------------------------*/
 #video-wrap {
 	width: 100%;
-	border:7px solid #ff982e;
+	border:7px solid #703641;
 	margin-bottom:10px;
 }
 #message-wrap {	
 	width: 100%;
-	border:7px solid #999;
+	border:7px solid #703641;
     margin-bottom:1%;
 }
 #photo-wrap {
@@ -13048,13 +13048,13 @@ body:not(.no-transition) #wrapper,
 
 /* Lesson Stream */
 #video-wrap {
-	width: 415px; 
-	height:233px;
+	width: auto; 
+	height:560px;
 }
 
 /* Chat Box */
 .chatBody {
-	height: 30vh;
+	height: 560px;
 	overflow: scroll;
 }
 

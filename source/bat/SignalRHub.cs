@@ -42,25 +42,38 @@ namespace bat
                 ConnectedUsers[index].Status = "Online";
             }
             Groups.Add(Context.ConnectionId, groupName);
-            RefreshList();
+            RefreshList(groupName, userId);//groupName, userId
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
             var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true");
+            var userId = "";
+            var groupName = "";
 
             if (index != -1)
             {
                 ConnectedUsers[index].Status = "Disconnected";
                 ConnectedUsers[index].IsHaveControl = "false";
+                groupName = ConnectedUsers[index].GroupName;
+                userId = ConnectedUsers[index].UserId;
+                RefreshList(groupName, userId);
             }
-            RefreshList();
+            
             return base.OnDisconnected(stopCalled);
         }
 
-        public void RefreshList()
+        public void RefreshList(string groupName, string userId)//string groupName,string userId
         {
-            Clients.All.refreshList(ConnectedUsers);
+            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName);
+            if (tempList != null)
+            {
+                Clients.Group(groupName).refreshList(tempList);
+            }
+        }
+        public void RefreshList(string connectionId)
+        {
+            Clients.Client(connectionId).refreshList(ConnectedUsers);
         }
 
         public void UpdateModel(ChalkModel clientModel)
@@ -199,15 +212,12 @@ namespace bat
             RefreshList(LastUpdatedBy);
         }
 
-        public void RefreshList(string connectionId)
-        {
-            Clients.Client(connectionId).refreshList(ConnectedUsers);
-        }
+        
 
         private string retriveTeacherContextId(string groupName)
         {
             string teacherContextId = "";
-            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true" && p.GroupName == groupName);
+            var index = ConnectedUsers.FindIndex(p => p.IsHost == "true" && p.GroupName == groupName && p.Status == "Online");
             if (index != -1)
                 teacherContextId = ConnectedUsers[index].ConnectionId;
             return teacherContextId;

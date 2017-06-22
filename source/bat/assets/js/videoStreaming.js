@@ -65,6 +65,7 @@ var connect = function (sessionId) {
 
     // ***** Subscribing *****
     session.on("streamCreated", function (event) {
+        debugger;
         var subStreamWidth,
             subStreamHeight;
 
@@ -85,6 +86,8 @@ var connect = function (sessionId) {
         //console.log(streamLessonID);       
         //if teacher
         if (streamRole == 'Teacher') {
+            teacherWidth = $("#teacher").width();
+            teacherHeight = $("#teacher").height();
             options.width = teacherWidth;
             options.height = teacherHeight;
             session.subscribe(stream, teacherBox, options);
@@ -147,7 +150,7 @@ var startStream = function (sessionId, token) {
             width: streamWidth,
             height: streamHeight,
             name: streamName,
-            nameDisplayMode: "off"
+            nameDisplayMode: "on"
         });
 
         session.publish(publisher, function (error) {
