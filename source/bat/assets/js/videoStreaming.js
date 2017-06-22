@@ -125,6 +125,7 @@ var targetElement; // The element on page to be replaced with tokbox video eleme
 var streamWidth,
     streamHeight;
 if (role == '2') {
+ 
     targetElement = 'streamBoxTeacher';
     streamWidth = teacherWidth;
     streamHeight = teacherHeight;
@@ -138,6 +139,8 @@ if (role == '2') {
 // Creating a stream
 var startStream = function (sessionId, token) {
     if (connected == true) {
+        streamWidth = $("#teacher").width();
+        streamHeight = $("#teacher").height();
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,

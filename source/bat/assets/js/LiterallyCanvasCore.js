@@ -398,7 +398,6 @@ $(document).ready(function () {
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
             if (onInit) {
-                debugger;
                 onInit = false;
                 var snaps = buzzCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
@@ -420,6 +419,9 @@ function InitCanvas(options, isHost) {
     buzzCanvas = LC.init(document.getElementById("lc"), options);
     resizeContainer(".chatBody", "#board-wrap", 40);
     resizeContainer("#video-content", "#board-wrap", 0);
+    resizeContainer("#video-wrap", "#board-wrap", 40);
+    resizeContainer("#teacher", "#board-wrap", 55);
+    resizeContainer("#streamBoxTeacher", "#board-wrap", 55);
     if (isHaveControl == "true") {
         bindEvent();
     }

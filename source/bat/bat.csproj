@@ -284,6 +284,7 @@
     <Content Include="assets\css\magnific-popup.css" />
     <Content Include="assets\css\media-queries.css" />
     <Content Include="assets\css\nivo-slider.css" />
+    <Content Include="assets\css\owl.carousel.min.css" />
     <Content Include="assets\css\responsive.css" />
     <Content Include="assets\css\Site.css" />
     <Content Include="assets\css\style.css" />
@@ -418,6 +419,7 @@
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\moment-timezone.js" />
     <Content Include="assets\js\moment.min.js" />
+    <Content Include="assets\js\owl.carousel.min.js" />
     <Content Include="assets\js\pdfConvert.js" />
     <Content Include="assets\js\plugins.js" />
     <Content Include="assets\js\react-0.14.4.js" />

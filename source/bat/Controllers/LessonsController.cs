@@ -30,11 +30,11 @@ namespace bat.Controllers
                 }
 
                 // TokBox option, disable for now to try Zoom only
-                //if (model.WebRTCAvailable)
-                //{
-                //    model.GenerateTokBoxToken();
-                //    return View("ViewTokBox", model);
-                //}
+                if (model.WebRTCAvailable)
+                {
+                    model.GenerateTokBoxToken();
+                    return View("ViewTokBox", model);
+                }
 
                 if (!model.CurrentlyAZoomUser)
                 {
@@ -51,7 +51,7 @@ namespace bat.Controllers
 
                     case Types.AccountTypes.Teacher:
                         model.CreateZoomMeeting();
-                        return View("ViewZoom", model);
+                        return View("ViewTokBox", model);
 
                     default:
                         throw new Exception("Invalid account type.");
@@ -59,7 +59,7 @@ namespace bat.Controllers
 
 
                 model.CreateZoomMeeting();
-                return View("ViewZoom", model);
+                return View("ViewTokBox", model);
             }
             catch(ZoomException ex) when (ex.Code == bat.logic.Constants.Zoom.ErrorCode_CannotCreateMeeting)
             {
