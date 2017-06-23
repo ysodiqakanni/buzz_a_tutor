@@ -99,10 +99,23 @@ LC.defineOptionsStyle("userList", React.createClass({
     },
     AssignHandle: function (event) {
         var connectionId = $("#hdnConnId").val();
-        if (event.currentTarget.value == "Grant")
-            GiveControl(connectionId);
-        else
-            RevokeControl(connectionId);
+        var selectedUserId = $("#hdnUserId").val();
+        var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
+        var user = result[0];
+        if (user.Status == "Disconnected") {
+            swal({
+                title: "Error!",
+                text: user.UserName + " is offline now.",
+                type: "warning",
+                timer: 3000
+            });
+        }
+        else {
+            if (event.currentTarget.value == "Grant")
+                GiveControl(connectionId);
+            else
+                RevokeControl(connectionId);
+        }
     },
     render: function () {
         var br, div, input, label, lc, optgroup, option, ref4, select, span, ul;
@@ -329,7 +342,7 @@ $(function () {
             defaultStrokeWidth: 2,
             secondaryColor: 'transparent',
             strokeWidths: [1, 2, 3, 5, 30],
-            tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, SaveWhiteboardTool, DownloadWhiteboardTool],
+            tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan],//, SaveWhiteboardTool, DownloadWhiteboardTool
         };
         isHaveControl = "true";
         InitCanvas(options, isHaveControl);
@@ -393,7 +406,7 @@ $(document).ready(function () {
                 defaultStrokeWidth: 2,
                 secondaryColor: 'transparent',
                 strokeWidths: [1, 2, 3, 5, 30],
-                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool, SaveWhiteboardTool, DownloadWhiteboardTool],
+                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
             };
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
@@ -402,11 +415,15 @@ $(document).ready(function () {
                 var snaps = buzzCanvas.getSnapshot();
                 blackboardHub.server.uploadSnapshotOnInit(JSON.stringify(snaps), lessonId);
             }
+            $("#btnSaveWhiteboard").show();
+            $("#btnDownlaodWhiteboard").show();
         }
         else {
             //resizeStudentCanvas();
             //setTimeout(function () { blackboardHub.server.getTeacherSnapshot(lessonId); }, 3000);
             blackboardHub.server.getTeacherSnapshot(lessonId);
+            $("#btnSaveWhiteboard").hide();
+            $("#btnDownlaodWhiteboard").hide();
         }
 
     });
@@ -547,6 +564,29 @@ var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
     }
 };
 
+function SaveWhiteBoard() {
+    if (buzzCanvas.getSnapshot().shapes.length > 0) {
+        var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
+                                  img2SaveArray = img2SaveRaw.split(','),
+                                  img2Save = img2SaveArray[1],
+                                  imgExtension = img2SaveArray[0];
+        imgData = img2Save;
+        $('#previewCanvas').css("height", buzzCanvas.canvas.clientHeight);
+        $('#previewCanvas').css("width", buzzCanvas.canvas.clientWidth);
+        $('#previewCanvas').css("background-image", "url('" + imgExtension + "," + img2Save + "')");
+        $('#previewCanvas').css("background-repeat", "no-repeat");
+        $('#previewTitle').val('White-Board');
+        $('#previewModal').modal();
+    } else {
+        swal({
+            title: "Error!",
+            text: "No drawings to save!!.",
+            type: "warning",
+            timer: 3000
+        });
+    }
+}
+
 var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
     var self = this;
 
@@ -565,6 +605,10 @@ var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
         }
     }
 };
+
+function DownloadWhiteboard() {
+    $('#BBListModal').modal();
+}
 
 function uploadCanvas() {
     var title = $('#previewTitle').val();

@@ -3135,7 +3135,7 @@ body.side-push-panel.side-panel-open:not(.device-xxs):not(.device-xs):not(.devic
 #video-wrap {
 	width: 100%;
 	border:7px solid #703641;
-	margin-bottom:10px;
+	/*margin-bottom:10px;*/
 }
 #message-wrap {	
 	width: 100%;
@@ -13049,7 +13049,7 @@ body:not(.no-transition) #wrapper,
 /* Lesson Stream */
 #video-wrap {
 	width: auto; 
-	height:560px;
+	height:566px;
 }
 
 /* Chat Box */

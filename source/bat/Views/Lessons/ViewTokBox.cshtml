@@ -5,44 +5,45 @@
 }
 
 @section head {
-<link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
-<link href="~/assets/css/owl.carousel.min.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+    <link href="~/assets/css/owl.carousel.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="@Url.Content("~/assets/img/favicon.png")">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/css/blackboard.css")">
-@Styles.Render("~/assets/css/BootSideMenu")
-@Styles.Render("~/assets/css/blackboard")
-@Styles.Render("~/assets/css/literallycanvas")
+    <link href="~/assets/css/sweetalert.css" rel="stylesheet" />
+    @Styles.Render("~/assets/css/BootSideMenu")
+    @Styles.Render("~/assets/css/blackboard")
+    @Styles.Render("~/assets/css/literallycanvas")
 
-<style type="text/css">
-    .user {
-        padding: 5px;
-        margin-bottom: 5px;
-        text-align: left;
-    }
+    <style type="text/css">
+        .user {
+            padding: 5px;
+            margin-bottom: 5px;
+            text-align: left;
+        }
 
-    .collapsed {
-        display: none; /* hide it for small displays */
-    }
+        .collapsed {
+            display: none; /* hide it for small displays */
+        }
 
-    .inline {
-        display: inline-block;
-        border: 0px solid red;
-    }
+        .inline {
+            display: inline-block;
+            border: 0px solid red;
+        }
 
-    .nomarginrow {
-        margin-right: 0px;
-        margin-left: 0px;
-    }
-</style>
+        .nomarginrow {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+    </style>
 }
 @section scripts {
-<script>
+    <script>
         $('#bbImage-list').slimScroll({
             height: '500px'
         });
-</script>
-<script type="text/javascript">
+    </script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $('#test-left').BootSideMenu({
                 side: "left",
@@ -62,7 +63,7 @@
             //alert($("#board-wrap").height())
             //$("#message-wrap").css("height",$("#board-wrap").height());
         });
-</script>
+    </script>
 }
 
 <script>
@@ -90,7 +91,9 @@
     var IsHost = "false";
     var IsHaveControl = "false";
     var exitMode = false;
-    if(@Model.account.AccountType_ID == 2)
+    debugger;
+    var hostId = @Model.host.ID;
+    if(hostId == id)
     {
         IsHost = "true";
         IsHaveControl = "true";
@@ -104,10 +107,14 @@
     <div class="row nomarginrow" style="margin-top:-60px;">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-12">
-                    <div class='inline'><div><span style="font-weight: bold;">Teacher - </span><span>@Model.host.Fname @Model.host.Lname</span></div></div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class='inline'><div><span style="font-weight: bold;">Lesson - </span><span>@Model.lesson.Description</span></div></div>
+                <div class="col-md-12" style="margin-bottom:2px;">
+                    <div class='inline'><div><span style="font-weight: bold;">Teacher - </span><span style="font-size: 15px;">@Model.host.Fname @Model.host.Lname</span></div></div>
+                    &nbsp;&nbsp;
+                    <div class='inline'><div><span style="font-weight: bold;">Lesson - </span><span style="font-size: 15px;">@Model.lesson.Description</span></div></div>
+                    &nbsp;&nbsp;
+                    <div class='inline'><button id="btnSaveWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="SaveWhiteBoard();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button></div>
+                    &nbsp;&nbsp;
+                    <div class='inline'><button id="btnDownlaodWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="DownloadWhiteboard();"> <i class="fa fa-download" aria-hidden="true"></i> Download</button></div>
                 </div>
             </div>
             <div class="row">
@@ -261,6 +268,7 @@
 @Scripts.Render("~/assets/js/BootSideMenu")
 @Scripts.Render("~/assets/vendor/pdf")
 @Scripts.Render("~/assets/js/literallycanvas")
+<script src="~/assets/js/sweetalert.min.js"></script>
 <!-- TokBox API  -->
 <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 

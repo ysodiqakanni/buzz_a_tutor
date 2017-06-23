@@ -288,6 +288,7 @@
     <Content Include="assets\css\responsive.css" />
     <Content Include="assets\css\Site.css" />
     <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\sweetalert.css" />
     <Content Include="assets\css\vmap.css" />
     <Content Include="assets\css\yellow.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
@@ -424,6 +425,7 @@
     <Content Include="assets\js\plugins.js" />
     <Content Include="assets\js\react-0.14.4.js" />
     <Content Include="assets\js\react-dom-0.14.3.js" />
+    <Content Include="assets\js\sweetalert.min.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
