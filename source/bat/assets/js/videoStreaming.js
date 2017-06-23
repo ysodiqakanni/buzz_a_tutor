@@ -141,8 +141,13 @@ if (role == '2') {
 // Creating a stream
 var startStream = function (sessionId, token) {
     if (connected == true) {
-        streamWidth = $("#teacher").width();
-        streamHeight = $("#teacher").height();
+        if (role == '2') {
+            streamWidth = $("#teacher").width();
+            streamHeight = $("#teacher").height();
+        } else {
+            streamWidth = $("#self").width();
+            streamHeight = $("#self").height();
+        }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
