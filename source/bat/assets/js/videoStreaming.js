@@ -91,6 +91,8 @@ var connect = function (sessionId) {
             options.height = teacherHeight;
             session.subscribe(stream, teacherBox, options);
         } else {
+            otherWidth = $("div[id^=other-]").width();
+            otherHeight = $("div[id^=other-]").height();
             options.width = otherWidth;
             options.height = otherHeight;
             otherBox = 'streamBoxOther-' + streamUserId;
