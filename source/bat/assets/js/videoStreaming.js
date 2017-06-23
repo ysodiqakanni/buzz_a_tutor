@@ -65,7 +65,6 @@ var connect = function (sessionId) {
 
     // ***** Subscribing *****
     session.on("streamCreated", function (event) {
-        debugger;
         var subStreamWidth,
             subStreamHeight;
 
