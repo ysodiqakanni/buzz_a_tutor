@@ -102,19 +102,21 @@ LC.defineOptionsStyle("userList", React.createClass({
         var selectedUserId = $("#hdnUserId").val();
         var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
         var user = result[0];
-        if (user.Status == "Disconnected") {
-            swal({
-                title: "Error!",
-                text: user.UserName + " is offline now.",
-                type: "warning",
-                timer: 3000
-            });
-        }
-        else {
-            if (event.currentTarget.value == "Grant")
-                GiveControl(connectionId);
-            else
-                RevokeControl(connectionId);
+        if (user != undefined) {
+            if (user.Status == "Disconnected") {
+                swal({
+                    title: "Error!",
+                    text: user.UserName + " is offline now.",
+                    type: "warning",
+                    timer: 3000
+                });
+            }
+            else {
+                if (event.currentTarget.value == "Grant")
+                    GiveControl(connectionId);
+                else
+                    RevokeControl(connectionId);
+            }
         }
     },
     render: function () {
@@ -417,6 +419,7 @@ $(document).ready(function () {
             }
             $("#btnSaveWhiteboard").show();
             $("#btnDownlaodWhiteboard").show();
+            //$("#whiteBoardController").text(username+" is controlling the whiteboard");
         }
         else {
             //resizeStudentCanvas();
@@ -435,11 +438,8 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
-    //resizeContainer(".chatBody", "#board-wrap", 40);
-    //resizeContainer("#video-content", "#board-wrap", 0);
-    //resizeContainer("#video-wrap", "#board-wrap", 40);
-    resizeContainer("#teacher", "#video-wrap", 0);
-    resizeContainer("#streamBoxTeacher", "#video-wrap", 55);
+    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
     if (isHaveControl == "true") {
         bindEvent();
     }
@@ -471,7 +471,7 @@ function bindEvent() {
 }
 
 function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
-    console.log($(resizeFromContainer).height());
+    //console.log($(resizeFromContainer).height());
     $(resizeToContainer).css("height", $(resizeFromContainer).height() - offset);
 }
 
@@ -517,14 +517,16 @@ function SetInitialValue() {
     if (selectedUserConnId != undefined && selectedUserConnId != "") {
         var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
         var user = result[0];
-        $("#hdnConnId").val(user.ConnectionId);
-        $("#hdnUserId").val(user.UserId);
-        $('#users option[value="' + user.UserId + '"]').attr('selected', 'selected');
-        if (user.IsHaveControl == "true") {
-            $("#btnAction").val("Revoke");
-        }
-        else {
-            $("#btnAction").val("Grant");
+        if (user != undefined) {
+            $("#hdnConnId").val(user.ConnectionId);
+            $("#hdnUserId").val(user.UserId);
+            $('#users option[value="' + user.UserId + '"]').attr('selected', 'selected');
+            if (user.IsHaveControl == "true") {
+                $("#btnAction").val("Revoke");
+            }
+            else {
+                $("#btnAction").val("Grant");
+            }
         }
     }
     else {

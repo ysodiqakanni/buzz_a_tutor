@@ -35,6 +35,16 @@
             margin-right: 0px;
             margin-left: 0px;
         }
+
+        /*#whiteBoardController {
+            width: 82%;
+            height: 5%;
+            position: absolute;
+            top: 1%;
+            left: 14%;
+            background-color: #e6e6e6;
+            z-index: 1;
+        }*/
     </style>
 }
 @section scripts {
@@ -118,6 +128,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-5" id="middle-content">
+                    @*<div id="whiteBoardController">a</div>*@
                     @Html.Partial("_PartialWhiteboard", Model)
                 </div>
                 <div class="col-lg-3" id="chat-content">
@@ -129,6 +140,54 @@
                     <div id="video-wrap">
                         <div id="teacher" class="streamWindow">
                             <div id="streamBoxTeacher"></div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div id="shop" class="clearfix ">
+                            <div id="oc-images" class="owl-carousel image-carousel">
+                                @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Student)
+                                {
+                                    <div class="oc-item">
+                                        <div id="self" class="streamWindow" style="width: 85.76px; height: 111px">
+                                            <div id="streamBoxSelf"></div>
+                                        </div>
+                                        <div class="name4">@Model.account.Fname</div>
+                                    </div>
+                                }
+                                @foreach (var other in Model.others.Where(o => o.ID != Model.account.ID))
+                                {
+                                    <div id="otherBox-@other.ID" class="oc-item">
+                                        <div id="otherCon-@other.ID" class="streamBody">
+                                            <div id="other-@other.ID" class="streamWindow" style="width: 85.76px; height: 111px">
+                                                <div id="streamBoxOther-@other.ID"></div>
+                                            </div>
+                                        </div>
+                                        <div class="name4">@other.Fname</div>
+                                    </div>
+                                }
+                            </div>
+
+                            <script type="text/javascript">
+                                $(document).ready(function($) {
+                                    var ocImages = $("#oc-images");
+
+                                    ocImages.owlCarousel({
+                                        margin: 10,
+                                        nav: true,
+                                        navText: ['<i class="icon-angle-left"></i>', '<i class="icon-angle-right"></i>'],
+                                        autoplay: false,
+                                        autoplayHoverPause: true,
+                                        dots: false,
+                                        navRewind: false,
+                                        responsive: {
+                                            0: { items: 4 },
+                                            600: { items: 3 },
+                                            1000: { items: 3 },
+                                            1200: { items: 4 }
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
