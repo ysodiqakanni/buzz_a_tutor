@@ -156,6 +156,14 @@ LC.defineOptionsStyle("userList", React.createClass({
     }
 }));
 
+function replicateOtherStudent(studentId, studentName) {
+    return "<div id='otherBox-" + studentId + "' class='oc-item'><div id='otherCon-" + studentId + "' class='streamBody'><div id='other-" + studentId + "' class='streamWindow' style='width: 98.76px; height: 111px'><div id='streamBoxOther-"+studentId+"'></div></div></div><div class='name4'>" + studentName + "</div></div>";
+}
+
+function replicateSelfStudent(studentId, studentName) {
+    return "<div id='selfBox-" + studentId + "' class='oc-item'><div id='self' class='streamWindow' style='width: 98.76px; height: 111px'><div id='streamBoxSelf'></div></div><div class='name4'>" + studentName + "</div></div>";
+}
+
 $(function () {
 
     blackboardHub.client.refreshList = function (connectedUsers) {
@@ -177,6 +185,43 @@ $(function () {
                 }
             });
             SetInitialValue();
+        }
+    };
+
+    blackboardHub.client.fetchUserList = function (connectedUsers) {
+        var itemCount = $('.owl-item').length;
+        for (var i = 0; i < itemCount; i++) {
+            $(".owl-carousel").trigger('remove.owl.carousel', [i]);
+        }
+        $.each(connectedUsers, function (index, user) {
+            if (user.IsHost == "true") {
+                $("#teacher").css("height", $("#video-wrap").height() - 111);
+                $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+            }
+            else if (id != user.UserId && user.IsHost != "true") {
+                $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+            }
+            else {
+                $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+            }
+        });
+    };
+    blackboardHub.client.fetchUserListOnDisconnect = function (connectedUsers, userId) {
+        var itemCount = $('.owl-item').length;        
+        var elemIndex = -1;
+        if (itemCount > 0) {
+            debugger;
+            var itemArr = $('.owl-item').children();
+            $.each(itemArr, function (index, value) {
+                var id = value.id.split("-")[1];
+                if (id == userId) {
+                    elemIndex = index;
+                }
+            });
+        }
+        console.log(elemIndex);
+        if (elemIndex != -1) {
+            $(".owl-carousel").trigger('remove.owl.carousel', [elemIndex]);
         }
     };
 
@@ -400,7 +445,6 @@ $(document).ready(function () {
 
     $.connection.hub.start().done(function () {
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
-
         if (isHost === "true") {
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
@@ -419,11 +463,8 @@ $(document).ready(function () {
             }
             $("#btnSaveWhiteboard").show();
             $("#btnDownlaodWhiteboard").show();
-            //$("#whiteBoardController").text(username+" is controlling the whiteboard");
         }
         else {
-            //resizeStudentCanvas();
-            //setTimeout(function () { blackboardHub.server.getTeacherSnapshot(lessonId); }, 3000);
             blackboardHub.server.getTeacherSnapshot(lessonId);
             $("#btnSaveWhiteboard").hide();
             $("#btnDownlaodWhiteboard").hide();
@@ -471,7 +512,6 @@ function bindEvent() {
 }
 
 function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
-    //console.log($(resizeFromContainer).height());
     $(resizeToContainer).css("height", $(resizeFromContainer).height() - offset);
 }
 

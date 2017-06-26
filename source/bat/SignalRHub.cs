@@ -43,11 +43,12 @@ namespace bat
             }
             Groups.Add(Context.ConnectionId, groupName);
             RefreshList(groupName, userId);//groupName, userId
+            FetchUserList(groupName);
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true");
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId);//&& p.IsHost != "true"
             var userId = "";
             var groupName = "";
 
@@ -58,9 +59,28 @@ namespace bat
                 groupName = ConnectedUsers[index].GroupName;
                 userId = ConnectedUsers[index].UserId;
                 RefreshList(groupName, userId);
+                FetchUserListOnDisconnect(groupName,Context.ConnectionId, userId);
             }
             
             return base.OnDisconnected(stopCalled);
+        }
+
+        public void FetchUserList(string groupName)
+        {
+            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
+            if (tempList != null)
+            {
+                Clients.Group(groupName).fetchUserList(tempList);
+            }
+        }
+
+        public void FetchUserListOnDisconnect(string groupName,string connectionId,string userId)
+        {
+            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
+            if (tempList != null)
+            {
+                Clients.Group(groupName, connectionId).fetchUserListOnDisconnect(tempList, userId);
+            }
         }
 
         public void RefreshList(string groupName, string userId)//string groupName,string userId
@@ -94,6 +114,8 @@ namespace bat
             // Update the Chalk model within our broadcaster
             Clients.Group(Update.Group).UpdateList(Update);
         }
+
+        
 
         public void BoardImage(ImageModel imageModel)
         {

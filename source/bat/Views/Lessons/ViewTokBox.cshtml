@@ -147,22 +147,11 @@
                             <div id="oc-images" class="owl-carousel image-carousel">
                                 @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Student)
                                 {
-                                    <div class="oc-item">
+                                    <div id="selfBox-@Model.account.ID" class="oc-item">
                                         <div id="self" class="streamWindow" style="width: 98.76px; height: 111px">
                                             <div id="streamBoxSelf"></div>
                                         </div>
                                         <div class="name4">@Model.account.Fname</div>
-                                    </div>
-                                }
-                                @foreach (var other in Model.others.Where(o => o.ID != Model.account.ID))
-                                {
-                                    <div id="otherBox-@other.ID" class="oc-item">
-                                        <div id="otherCon-@other.ID" class="streamBody">
-                                            <div id="other-@other.ID" class="streamWindow" style="width: 98.76px; height: 111px">
-                                                <div id="streamBoxOther-@other.ID"></div>
-                                            </div>
-                                        </div>
-                                        <div class="name4">@other.Fname</div>
                                     </div>
                                 }
                             </div>
