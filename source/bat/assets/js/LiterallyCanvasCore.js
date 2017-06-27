@@ -168,10 +168,13 @@ $(function () {
 
     blackboardHub.client.refreshList = function (connectedUsers) {
         allUsers = [];
+        $("ul[id=attendees]").empty();
+        $("#attendees").append("<span style='font-weight:bold'>Attendees</span>");
         $.each(connectedUsers, function (i, user) {
             if (user.IsHost != "true") {
                 allUsers.push(user);
-            }
+                $("#attendees").append("<li><i class='fa fa-user'></i> <span>" + user.UserName + "</span></li>");
+            }          
         });
         if ($("#connected-users")[0] != undefined) {
             $("#users").empty();
@@ -189,10 +192,6 @@ $(function () {
     };
 
     blackboardHub.client.fetchUserList = function (connectedUsers,userId) {
-        //var itemCount = $('.owl-item').length;
-        //for (var i = 0; i < itemCount; i++) {
-        //    $(".owl-carousel").trigger('remove.owl.carousel', [i]);
-        //}
         $.each(connectedUsers, function (index, user) {
             if (user.IsHost == "true") {
                 $("#teacher").css("height", $("#video-wrap").height() - 111);
@@ -202,7 +201,7 @@ $(function () {
                 $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
             }
             else {
-                //$('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+                
             }
         });
     };

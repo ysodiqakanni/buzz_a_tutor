@@ -186,16 +186,11 @@ var stopStream = function () {
         $("#self").append('<div id="streamBoxSelf"></div>');
         EndStreamingStudent();
     }
-    //blackboardHub.server.fetchUserListOnDisconnect(lessonId, $.connection.hub.id, id);
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }
 
 function BeforeStartStreamingStudent() {
-    //var itemCount = $('.owl-item').length;
-    //for (var i = 0; i < itemCount; i++) {
-    //    $(".owl-carousel").trigger('remove.owl.carousel', [i]);
-    //}
     $("#teacher").css("height", $("#video-wrap").height() - 111);
     $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
     $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
@@ -203,7 +198,6 @@ function BeforeStartStreamingStudent() {
 }
 
 function EndStreamingStudent() {
-    //$(".owl-carousel").trigger('remove.owl.carousel', [0]);
     var itemCount = $('.owl-item').length;
     var elemIndex = -1;
     if (itemCount > 0) {

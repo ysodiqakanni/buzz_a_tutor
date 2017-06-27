@@ -82,10 +82,6 @@
     tbKey = "@bat.logic.Constants.TokBox.ApiKey";
     sessionId = "@Model.lesson.TokBoxSessionId";
     token = "@Model.token";
-
-    //tbKey = "45897022";
-    //sessionId = "2_MX40NTg5NzAyMn5-MTQ5ODEwNzYwOTIzMn5PWjc0T29rbUZ1bm5rS1FHdUxHR1ByZXN-fg";
-    //token = "T1==cGFydG5lcl9pZD00NTg5NzAyMiZzaWc9ZmQ5NjY0ZjQzZGY5YjhiNDAwMTI5MzFlN2EzZmQzNmExYjU3OGM0MzpzZXNzaW9uX2lkPTJfTVg0ME5UZzVOekF5TW41LU1UUTVPREV3TnpZd09USXpNbjVQV2pjMFQyOXJiVVoxYm01clMxRkhkVXhIUjFCeVpYTi1mZyZjcmVhdGVfdGltZT0xNDk4MTA3NjM5Jm5vbmNlPTAuOTI1NTI2MjU4MDIwMTgyNiZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTAwNjk5NjM5";
     lessonId = "@Model.lesson.ID";
     id = @Model.account.ID;
     userFirstName = "@Model.account.Fname";
@@ -145,38 +141,8 @@
                         <div class="clear"></div>
 
                         <div id="shop" class="clearfix ">
-                            <div id="oc-images" class="owl-carousel image-carousel">
-                                @*@if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Student)
-                                {
-                                    <div id="selfBox-@Model.account.ID" class="oc-item">
-                                        <div id="self" class="streamWindow" style="width: 98.76px; height: 111px">
-                                            <div id="streamBoxSelf"></div>
-                                        </div>
-                                        <div class="name4">@Model.account.Fname</div>
-                                    </div>
-                                }*@
-                                @*@if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Student)
-                                {
-                                    <div class="oc-item">
-                                        <div id="self" class="streamWindow" style="width: 85.76px; height: 111px">
-                                            <div id="streamBoxSelf"></div>
-                                        </div>
-                                        <div class="name4">@Model.account.Fname</div>
-                                    </div>
-                                }
-                                @foreach (var other in Model.others.Where(o => o.ID != Model.account.ID))
-                                {
-                                    <div id="otherBox-@other.ID" class="oc-item">
-                                        <div id="otherCon-@other.ID" class="streamBody">
-                                            <div id="other-@other.ID" class="streamWindow" style="width: 85.76px; height: 111px">
-                                                <div id="streamBoxOther-@other.ID"></div>
-                                            </div>
-                                        </div>
-                                        <div class="name4">@other.Fname</div>
-                                    </div>
-                                }*@
+                            <div id="oc-images" class="owl-carousel image-carousel">                                
                             </div>
-
                             <script type="text/javascript">
                                 $(document).ready(function($) {
                                     var ocImages = $("#oc-images");
@@ -248,17 +214,16 @@
         </div>
         <div>
             <div style="overflow:auto;font-size: 18px;margin-left: 10px;">
-                <strong>
-                    Attendees
-                </strong>
-                @foreach (var student in Model.others)
-                {
-                    <text>
-                        <br />
-                        <i class="fa fa-user"></i> @student.Fname @student.Lname
-                    </text>
-                }
-            </div>
+                <ul id="attendees">
+                    <span style="font-weight:bold">Attendees</span>
+                    @foreach (var student in Model.others)
+                    {
+                        <li>
+                            <i class="fa fa-user"></i> <span>@student.Fname @student.Lname</span>
+                        </li>
+                    }
+            </ul>
+        </div>
         </div>
     </div>
     <br />
