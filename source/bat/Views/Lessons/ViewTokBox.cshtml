@@ -48,11 +48,6 @@
     </style>
 }
 @section scripts {
-    <script>
-        $('#bbImage-list').slimScroll({
-            height: '500px'
-        });
-    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#test-left').BootSideMenu({
@@ -70,10 +65,26 @@
                 onClose: function () {
                 }
             });
-            //alert($("#board-wrap").height())
-            //$("#message-wrap").css("height",$("#board-wrap").height());
+            $('#bbImage-list').slimScroll({
+                height: '500px'
+            });
+            connect(sessionId);
         });
-    </script>
+</script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    @Scripts.Render("~/assets/js/lesson")
+    <script src="~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    @Scripts.Render("~/signalr/hubs")
+    @Scripts.Render("~/assets/js/BootSideMenu")
+    @Scripts.Render("~/assets/vendor/pdf")
+    @Scripts.Render("~/assets/js/literallycanvas")
+    <script src="~/assets/js/sweetalert.min.js"></script>
+    <!-- TokBox API  -->
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+    <!-- Link to local TokBox script  -->
+    <script type="text/javascript" src="@Url.Content("~/assets/js/videoStreaming.js")"></script>
 }
 
 <script>
@@ -118,9 +129,11 @@
                     &nbsp;&nbsp;
                     <div class='inline'><div><span style="font-weight: bold;">Lesson - </span><span style="font-size: 15px;">@Model.lesson.Description</span></div></div>
                     &nbsp;&nbsp;
-                    <div class='inline'><button id="btnSaveWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="SaveWhiteBoard();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button></div>
+                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Save" id="btnSaveWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="SaveWhiteBoard();"><i class="fa fa-floppy-o" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
-                    <div class='inline'><button id="btnDownlaodWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="DownloadWhiteboard();"> <i class="fa fa-download" aria-hidden="true"></i> Download</button></div>
+                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Download" id="btnDownlaodWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="DownloadWhiteboard();"> <i class="fa fa-download" aria-hidden="true"></i></button></div>
+                    &nbsp;&nbsp;
+                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Upload" id="btnUploadWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="uploadImageModal();"> <i class="fa fa-upload" aria-hidden="true"></i></button></div>
                 </div>
             </div>
             <div class="row">
@@ -141,7 +154,7 @@
                         <div class="clear"></div>
 
                         <div id="shop" class="clearfix ">
-                            <div id="oc-images" class="owl-carousel image-carousel">                                
+                            <div id="oc-images" class="owl-carousel image-carousel">
                             </div>
                             <script type="text/javascript">
                                 $(document).ready(function($) {
@@ -222,8 +235,8 @@
                             <i class="fa fa-user"></i> <span>@student.Fname @student.Lname</span>
                         </li>
                     }
-            </ul>
-        </div>
+                </ul>
+            </div>
         </div>
     </div>
     <br />
@@ -237,7 +250,7 @@
                     <h4 class="no-margin">Upload an image to use on the Blackboard</h4>
                 </div>
                 <div class="modal-body">
-                    <input style="margin-bottom: 2px;" type='file' class="form-control" name="Upload Blackboard image" id="bbImageInput" />
+                    <input style="margin-bottom: 2px;" type="file" class="form-control" name="UploadBlackboardimage" id="bbImageInput" />
                     <div id="preview-carousel" class="carousel slide">
                         <div id="canvasCarousel" class="carousel-inner" role="listbox">
                         </div>
@@ -257,7 +270,8 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <div class="form-group">
-                        <input type="text" class="modal-title form-control" id="BBListTitle">
+                        @*<input type="text" class="modal-title form-control" id="BBListTitle">*@
+                        <h4>Download Image on Whiteboard</h4>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -284,7 +298,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Load Image</button>
+                    @*<button type="button" class="btn btn-primary">Load Image</button>*@
                 </div>
             </div>
         </div>
@@ -293,21 +307,21 @@
 }
 
 
-<script src="~/assets/js/owl.carousel.min.js"></script>
-@Scripts.Render("~/assets/js/lesson")
-<script src="~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"></script>
-<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-@Scripts.Render("~/signalr/hubs")
-@Scripts.Render("~/assets/js/BootSideMenu")
-@Scripts.Render("~/assets/vendor/pdf")
-@Scripts.Render("~/assets/js/literallycanvas")
-<script src="~/assets/js/sweetalert.min.js"></script>
-<!-- TokBox API  -->
-<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+@*<script src="~/assets/js/owl.carousel.min.js"></script>
+    @Scripts.Render("~/assets/js/lesson")
+    <script src="~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    @Scripts.Render("~/signalr/hubs")
+    @Scripts.Render("~/assets/js/BootSideMenu")
+    @Scripts.Render("~/assets/vendor/pdf")
+    @Scripts.Render("~/assets/js/literallycanvas")
+    <script src="~/assets/js/sweetalert.min.js"></script>
+    <!-- TokBox API  -->
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 
-<!-- Link to local TokBox script  -->
-<script type="text/javascript" src="@Url.Content("~/assets/js/videoStreaming.js")"></script>
+    <!-- Link to local TokBox script  -->
+    <script type="text/javascript" src="@Url.Content("~/assets/js/videoStreaming.js")"></script>*@
 
-<script>
+@*<script>
     connect(sessionId);
-</script>
+</script>*@

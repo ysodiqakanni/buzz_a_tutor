@@ -464,11 +464,13 @@ $(document).ready(function () {
             }
             $("#btnSaveWhiteboard").show();
             $("#btnDownlaodWhiteboard").show();
+            $("#btnUploadWhiteboard").show();
         }
         else {
             blackboardHub.server.getTeacherSnapshot(lessonId);
             $("#btnSaveWhiteboard").hide();
             $("#btnDownlaodWhiteboard").hide();
+            $("#btnUploadWhiteboard").hide();
         }
 
     });
