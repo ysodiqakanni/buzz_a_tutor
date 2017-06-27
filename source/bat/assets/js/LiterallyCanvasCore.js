@@ -332,6 +332,27 @@ $(function () {
 
 
     };
+
+    blackboardHub.client.revertControl = function (connectedUsers) {
+        debugger;
+        var snapshotString = buzzCanvas.getSnapshot();
+        var selectedUser = returnSelectedUser(connectedUsers);
+        options = {
+            imageURLPrefix: '../assets/img/lc-images',
+            snapshot: snapshotString,
+            toolbarPosition: 'bottom',
+            defaultStrokeWidth: 2,
+            secondaryColor: 'transparent',
+            strokeWidths: [1, 2, 3, 5, 30],
+            tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan],//, SaveWhiteboardTool, DownloadWhiteboardTool
+        };
+        isHaveControl = "true";
+        InitCanvas(options, isHaveControl);
+        if (selectedUser != undefined) {
+            setSelectedOption(selectedUser);
+        }
+    };
+
     blackboardHub.client.removeHandle = function (snapshotString) {
         options = {
             imageURLPrefix: '../assets/img/lc-images',
@@ -409,9 +430,11 @@ function returnSelectedUser(connectedUsers) {
     });
     var selectedUser;
     var selectedUserId = $("#hdnUserId").val();
-    if (selectedUserId != undefined) {
-        var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
-        selectedUser = result[0];
+    if (selectedUserId != undefined && selectedUserId != "") {
+        if (allUsers.length > 0) {
+            var result = $.grep(allUsers, function (e) { return e.UserId == selectedUserId; });
+            selectedUser = result[0];
+        }
     }
     return selectedUser;
 }

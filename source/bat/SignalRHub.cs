@@ -59,6 +59,10 @@ namespace bat
                 groupName = ConnectedUsers[index].GroupName;
                 userId = ConnectedUsers[index].UserId;
                 RefreshList(groupName, null);
+                var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
+                var teacherConnectionId = retriveTeacherContextId(groupName);
+                if (teacherConnectionId != "")
+                    Clients.Client(teacherConnectionId).revertControl(tempList);
                 //FetchUserListOnDisconnect(groupName,Context.ConnectionId, userId);
             }
             
