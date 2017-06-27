@@ -178,7 +178,6 @@ $(function () {
         });
         if ($("#connected-users")[0] != undefined) {
             $("#users").empty();
-
             $.each(allUsers, function (index, user) {
                 if (user.IsHost != "true") {
                     $('#users').append($('<option>', {

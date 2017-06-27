@@ -42,13 +42,13 @@ namespace bat
                 ConnectedUsers[index].Status = "Online";
             }
             Groups.Add(Context.ConnectionId, groupName);
-            RefreshList(groupName, userId);//groupName, userId
+            RefreshList(groupName, null);//groupName, userId
             //FetchUserList(groupName);
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId);//&& p.IsHost != "true"
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true");//&& p.IsHost != "true"
             var userId = "";
             var groupName = "";
 
@@ -58,7 +58,7 @@ namespace bat
                 ConnectedUsers[index].IsHaveControl = "false";
                 groupName = ConnectedUsers[index].GroupName;
                 userId = ConnectedUsers[index].UserId;
-                RefreshList(groupName, userId);
+                RefreshList(groupName, null);
                 //FetchUserListOnDisconnect(groupName,Context.ConnectionId, userId);
             }
             
@@ -83,13 +83,21 @@ namespace bat
             }
         }
 
-        public void RefreshList(string groupName, string userId)//string groupName,string userId
+        public void RefreshList(string groupName, string connectionId)//string groupName,string userId
         {
-            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName);
+            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
             if (tempList != null)
             {
-                Clients.Group(groupName).refreshList(tempList);
+                if (connectionId == null)
+                {
+                    Clients.Group(groupName).refreshList(tempList);
+                }
+                else
+                {
+                    Clients.Client(connectionId).refreshList(tempList);
+                }
             }
+            
         }
         public void RefreshList(string connectionId)
         {
@@ -209,29 +217,40 @@ namespace bat
             string LastUpdatedBy = Context.ConnectionId;
             Clients.Client(connectionId).AssignHandle(snapshotString);
             RemoveOthersHandler(Group, connectionId, LastUpdatedBy, snapshotString);
-            Clients.Client(LastUpdatedBy).removeEvents(snapshotString,ConnectedUsers);
-            RefreshList(LastUpdatedBy);
+            var tempList = ConnectedUsers.Where(p => p.GroupName == Group && p.Status == "Online");
+            if (tempList != null)
+            {
+                Clients.Client(LastUpdatedBy).removeEvents(snapshotString, tempList);
+            }
+            RefreshList(Group, LastUpdatedBy);
         }
 
         public void RemoveOthersHandler(string Group, string connectionId, string LastUpdatedBy, string snapshotString)
         {
             Clients.Group(Group, connectionId, LastUpdatedBy).RemoveHandle(snapshotString);
-            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
-            for (int i = 0; i < ConnectedUsers.Count; i++)
+            var tempList = ConnectedUsers.Where(p => p.GroupName == Group && p.Status == "Online" && p.ConnectionId != connectionId).ToList<Participant>();
+            for (int i = 0; i < tempList.Count; i++)
             {
-                if (i != index)
-                    ConnectedUsers[i].IsHaveControl = "false";
+                var index = ConnectedUsers.FindIndex(p => p.ConnectionId == tempList[i].ConnectionId);
+                ConnectedUsers[index].IsHaveControl = "false";
             }
+            //var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
+            //for (int i = 0; i < ConnectedUsers.Count; i++)
+            //{
+            //    if (i != index)
+            //        ConnectedUsers[i].IsHaveControl = "false";
+            //}
         }
         public void RemoveHandle(string Group, string connectionId, string snapshotString)
         {
             string LastUpdatedBy = Context.ConnectionId;
             Clients.Group(Group, LastUpdatedBy).RemoveHandle(snapshotString);
-            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId && p.GroupName == Group);
             if (index != -1)
                 ConnectedUsers[index].IsHaveControl = "false";
-            Clients.Client(LastUpdatedBy).assignEvents(snapshotString, ConnectedUsers);
-            RefreshList(LastUpdatedBy);
+            var tempList = ConnectedUsers.Where(p => p.GroupName == Group && p.Status == "Online");
+            Clients.Client(LastUpdatedBy).assignEvents(snapshotString, tempList);
+            RefreshList(Group,LastUpdatedBy);
         }
 
         
