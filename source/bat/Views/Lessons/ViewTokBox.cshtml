@@ -201,9 +201,9 @@
                                 <i class="fa fa-edit"></i> Edit lesson details
                             </a>
                         }
-                        <a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-md btn-primary">
+                        @*<a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-md btn-primary">
                             <i class="fa fa-video-camera"></i> Start video
-                        </a>
+                        </a>*@
                     </li>
 
                 </ul>
@@ -218,7 +218,7 @@
             {
                 <img style="height: 50px; width: 50px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
             }
-            <a class="navbar-link">@Model.host.Fname @Model.host.Lname</a>
+            <a class="navbar-link" style="font-size:14px;">@Model.host.Fname @Model.host.Lname</a>
             <div style="font-size: 15px;text-align: left;">
                 Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")<br />
                 Duration mins: @Model.lesson.DurationMins<br />
