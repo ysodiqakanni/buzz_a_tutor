@@ -147,9 +147,10 @@ var startStream = function (sessionId, token) {
             streamWidth = $("#teacher").width();
             streamHeight = $("#teacher").height();
         } else {
+            BeforeStartStreamingStudent();
             streamWidth = $("#self").width();
             streamHeight = $("#self").height();
-        }
+        }        
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
@@ -182,8 +183,42 @@ var stopStream = function () {
     if (role == '2') {
         $("#teacher").append('<div id="streamBoxTeacher"></div>')
     } else {
-        $("#self").append('<div id="streamBoxSelf"></div>')
+        $("#self").append('<div id="streamBoxSelf"></div>');
+        EndStreamingStudent();
     }
+    //blackboardHub.server.fetchUserListOnDisconnect(lessonId, $.connection.hub.id, id);
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
+}
+
+function BeforeStartStreamingStudent() {
+    //var itemCount = $('.owl-item').length;
+    //for (var i = 0; i < itemCount; i++) {
+    //    $(".owl-carousel").trigger('remove.owl.carousel', [i]);
+    //}
+    $("#teacher").css("height", $("#video-wrap").height() - 111);
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+    $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
+    blackboardHub.server.fetchUserList(lessonId,id);
+}
+
+function EndStreamingStudent() {
+    //$(".owl-carousel").trigger('remove.owl.carousel', [0]);
+    var itemCount = $('.owl-item').length;
+    var elemIndex = -1;
+    if (itemCount > 0) {
+        var itemArr = $('.owl-item').children();
+        $.each(itemArr, function (index, value) {
+            var tempId = value.id.split("-")[1];
+            if (tempId == id) {
+                elemIndex = index;
+            }
+        });
+    }
+    if (elemIndex != -1) {
+        $(".owl-carousel").trigger('remove.owl.carousel', [elemIndex]);
+    }
+    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    blackboardHub.server.fetchUserListOnDisconnect(lessonId, $.connection.hub.id, id);
 }

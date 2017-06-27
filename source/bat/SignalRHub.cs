@@ -43,7 +43,7 @@ namespace bat
             }
             Groups.Add(Context.ConnectionId, groupName);
             RefreshList(groupName, userId);//groupName, userId
-            FetchUserList(groupName);
+            //FetchUserList(groupName);
         }
 
         public override Task OnDisconnected(bool stopCalled)
@@ -59,18 +59,18 @@ namespace bat
                 groupName = ConnectedUsers[index].GroupName;
                 userId = ConnectedUsers[index].UserId;
                 RefreshList(groupName, userId);
-                FetchUserListOnDisconnect(groupName,Context.ConnectionId, userId);
+                //FetchUserListOnDisconnect(groupName,Context.ConnectionId, userId);
             }
             
             return base.OnDisconnected(stopCalled);
         }
 
-        public void FetchUserList(string groupName)
+        public void FetchUserList(string groupName,string userId)
         {
             var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
             if (tempList != null)
             {
-                Clients.Group(groupName).fetchUserList(tempList);
+                Clients.Group(groupName,Context.ConnectionId).fetchUserList(tempList, userId);
             }
         }
 

@@ -188,21 +188,21 @@ $(function () {
         }
     };
 
-    blackboardHub.client.fetchUserList = function (connectedUsers) {
-        var itemCount = $('.owl-item').length;
-        for (var i = 0; i < itemCount; i++) {
-            $(".owl-carousel").trigger('remove.owl.carousel', [i]);
-        }
+    blackboardHub.client.fetchUserList = function (connectedUsers,userId) {
+        //var itemCount = $('.owl-item').length;
+        //for (var i = 0; i < itemCount; i++) {
+        //    $(".owl-carousel").trigger('remove.owl.carousel', [i]);
+        //}
         $.each(connectedUsers, function (index, user) {
             if (user.IsHost == "true") {
                 $("#teacher").css("height", $("#video-wrap").height() - 111);
                 $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
             }
-            else if (id != user.UserId && user.IsHost != "true") {
+            else if (id != user.UserId && user.IsHost != "true" && userId == user.UserId) {
                 $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
             }
             else {
-                $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+                //$('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
             }
         });
     };
@@ -210,7 +210,6 @@ $(function () {
         var itemCount = $('.owl-item').length;        
         var elemIndex = -1;
         if (itemCount > 0) {
-            debugger;
             var itemArr = $('.owl-item').children();
             $.each(itemArr, function (index, value) {
                 var id = value.id.split("-")[1];
@@ -219,9 +218,12 @@ $(function () {
                 }
             });
         }
-        console.log(elemIndex);
         if (elemIndex != -1) {
             $(".owl-carousel").trigger('remove.owl.carousel', [elemIndex]);
+        }
+        if ($('.owl-item').length == 0) {
+            $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
+            $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
         }
     };
 
