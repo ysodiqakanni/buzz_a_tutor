@@ -70,6 +70,7 @@ var NoTool = function (lc) {  // take lc as constructor arg
 LC.defineOptionsStyle("userList", React.createClass({
     displayName: 'userList',
     getInitialState: function () {
+        blackboardHub.server.fetchOnlineUsers(lessonId);
         return {
 
         };
@@ -175,6 +176,30 @@ $(function () {
                 allUsers.push(user);
                 $("#attendees").append("<li><i class='fa fa-user'></i> <span>" + user.UserName + "</span></li>");
             }          
+        });
+        if ($("#connected-users")[0] != undefined) {
+            $("#users").empty();
+            $.each(allUsers, function (index, user) {
+                if (user.IsHost != "true") {
+                    $('#users').append($('<option>', {
+                        value: user.UserId,
+                        text: user.UserName,
+                    }));
+                }
+            });
+            SetInitialValue();
+        }
+    };
+
+    blackboardHub.client.fetchOnlineUsers = function (connectedUsers) {
+        allUsers = [];
+        $("ul[id=attendees]").empty();
+        $("#attendees").append("<span style='font-weight:bold'>Attendees</span>");
+        $.each(connectedUsers, function (i, user) {
+            if (user.IsHost != "true") {
+                allUsers.push(user);
+                $("#attendees").append("<li><i class='fa fa-user'></i> <span>" + user.UserName + "</span></li>");
+            }
         });
         if ($("#connected-users")[0] != undefined) {
             $("#users").empty();
@@ -469,13 +494,21 @@ $(document).ready(function () {
     $.connection.hub.start().done(function () {
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
         if (isHost === "true") {
+            //options = {
+            //    imageURLPrefix: '../assets/img/lc-images',
+            //    toolbarPosition: 'bottom',
+            //    defaultStrokeWidth: 2,
+            //    secondaryColor: 'transparent',
+            //    strokeWidths: [1, 2, 3, 5, 30],
+            //    tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
+            //};
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
                 toolbarPosition: 'bottom',
                 defaultStrokeWidth: 2,
                 secondaryColor: 'transparent',
                 strokeWidths: [1, 2, 3, 5, 30],
-                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
+                tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan],//, SaveWhiteboardTool, DownloadWhiteboardTool
             };
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
@@ -494,7 +527,7 @@ $(document).ready(function () {
             $("#btnDownlaodWhiteboard").hide();
             $("#btnUploadWhiteboard").hide();
         }
-
+        blackboardHub.server.fetchOnlineUsers(lessonId);
     });
 });
 
@@ -586,6 +619,7 @@ function SetInitialValue() {
             $("#hdnConnId").val(user.ConnectionId);
             $("#hdnUserId").val(user.UserId);
             $('#users option[value="' + user.UserId + '"]').attr('selected', 'selected');
+            $("#btnAction").prop('disabled', false);
             if (user.IsHaveControl == "true") {
                 $("#btnAction").val("Revoke");
             }
@@ -595,9 +629,14 @@ function SetInitialValue() {
         }
     }
     else {
-        $("#hdnConnId").val(allUsers[0].ConnectionId);
-        $("#hdnUserId").val(allUsers[0].UserId);
-        $('#users option[value="' + allUsers[0].UserId + '"]');
+        if (allUsers.length > 0) {
+            $("#btnAction").prop('disabled', false);
+            $("#hdnConnId").val(allUsers[0].ConnectionId);
+            $("#hdnUserId").val(allUsers[0].UserId);
+            $('#users option[value="' + allUsers[0].UserId + '"]');
+        }else{
+            $("#btnAction").prop('disabled', true);
+        }
     }
 }
 

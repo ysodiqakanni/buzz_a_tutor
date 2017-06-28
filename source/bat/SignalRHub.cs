@@ -78,6 +78,15 @@ namespace bat
             }
         }
 
+        public void FetchOnlineUsers(string group)
+        {
+            var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
+            if (tempList != null)
+            {
+                Clients.Client(Context.ConnectionId).fetchOnlineUsers(tempList);
+            }
+        }
+
         public void FetchUserListOnDisconnect(string groupName,string connectionId,string userId)
         {
             var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
