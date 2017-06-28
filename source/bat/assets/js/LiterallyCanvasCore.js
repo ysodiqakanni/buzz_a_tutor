@@ -529,6 +529,10 @@ $(document).ready(function () {
         }
         blackboardHub.server.fetchOnlineUsers(lessonId);
     });
+    // Lost connection with Server
+    $.connection.hub.reconnecting(function () {
+        blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
+    });
 });
 
 

@@ -111,7 +111,8 @@ var connect = function (sessionId) {
         if (streamRole == 'Teacher') {
             $("#teacher").append('<div id="streamBoxTeacher"></div>')
         } else {
-            $("#other-"+ streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
+            $("#other-" + streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
+            EndStreamingStudent();
         }
     });
 }
