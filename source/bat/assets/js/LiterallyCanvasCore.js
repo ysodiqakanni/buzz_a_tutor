@@ -222,7 +222,9 @@ $(function () {
                 $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
             }
             else if (id != user.UserId && user.IsHost != "true" && userId == user.UserId) {
-                $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+                if ($("#otherBox-" + user.UserId + "").length == 0) {
+                    $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+                }
             }
             else {
                 
