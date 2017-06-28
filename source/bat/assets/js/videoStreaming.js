@@ -47,6 +47,10 @@ var connect = function (sessionId) {
         connectionDestroyed: function connectionDestroyedHandler(event) {
             connectionCount--;
             console.log('A client disconnected. ' + connectionCount + ' total.');
+            //if (role == '2') {
+            //} else {
+            //    EndStreamingStudent();
+            //}
         }
     });
 
@@ -112,7 +116,6 @@ var connect = function (sessionId) {
             $("#teacher").append('<div id="streamBoxTeacher"></div>')
         } else {
             $("#other-" + streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
-            EndStreamingStudent();
         }
     });
 }

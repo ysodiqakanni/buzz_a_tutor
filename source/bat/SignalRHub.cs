@@ -87,7 +87,7 @@ namespace bat
             var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
             if (tempList != null)
             {
-                Clients.Group(groupName, connectionId).fetchUserListOnDisconnect(tempList, userId);
+                Clients.Group(groupName, Context.ConnectionId).fetchUserListOnDisconnect(tempList, userId);
             }
         }
 
