@@ -369,7 +369,7 @@ $(function () {
             defaultStrokeWidth: 2,
             secondaryColor: 'transparent',
             strokeWidths: [1, 2, 3, 5, 30],
-            tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan],//, SaveWhiteboardTool, DownloadWhiteboardTool
+            tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
         };
         isHaveControl = "true";
         InitCanvas(options, isHaveControl);
@@ -508,7 +508,7 @@ $(document).ready(function () {
                 defaultStrokeWidth: 2,
                 secondaryColor: 'transparent',
                 strokeWidths: [1, 2, 3, 5, 30],
-                tools: [MyTool, LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan],//, SaveWhiteboardTool, DownloadWhiteboardTool
+                tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
             };
             isHaveControl = "true";
             InitCanvas(options, isHaveControl);
