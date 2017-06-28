@@ -495,15 +495,8 @@ $(document).ready(function () {
 
     $.connection.hub.start().done(function () {
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
+        EndStreamingStudent();
         if (isHost === "true") {
-            //options = {
-            //    imageURLPrefix: '../assets/img/lc-images',
-            //    toolbarPosition: 'bottom',
-            //    defaultStrokeWidth: 2,
-            //    secondaryColor: 'transparent',
-            //    strokeWidths: [1, 2, 3, 5, 30],
-            //    tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
-            //};
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
                 toolbarPosition: 'bottom',

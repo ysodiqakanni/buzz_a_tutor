@@ -47,6 +47,15 @@ var connect = function (sessionId) {
         connectionDestroyed: function connectionDestroyedHandler(event) {
             connectionCount--;
             console.log('A client disconnected. ' + connectionCount + ' total.');
+        },
+        sessionReconnecting: function (event) {
+            console.log('Disconnected from the session. Attempting to reconnect...');
+        },
+        sessionReconnected: function (event) {
+            console.log('Reconnected to the session.');
+        },
+        sessionDisconnected: function (event) {
+            console.log('Disconnected from the session.');
         }
     });
 
