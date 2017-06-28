@@ -14,12 +14,6 @@ namespace bat
 
         static List<Participant> ConnectedUsers = new List<Participant>();
 
-        //public void JoinGroup(string groupName)
-        //{
-        //    Groups.Add(Context.ConnectionId, groupName);
-        //    //Clients.Group(groupName).getSnapShot();
-        //}
-
         public void JoinGroup(string groupName, string userId, string userName, string isHost, string isHaveControl)
         {
             if (ConnectedUsers.Count(u => u.UserId == userId && u.GroupName == groupName) == 0)
@@ -42,16 +36,15 @@ namespace bat
                 ConnectedUsers[index].Status = "Online";
             }
             Groups.Add(Context.ConnectionId, groupName);
-            RefreshList(groupName, null);//groupName, userId
-            //FetchUserList(groupName);
+            RefreshList(groupName, null);
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true");//&& p.IsHost != "true"
+            var index = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true");
             var userId = "";
             var groupName = "";
-
+            var revertIndex = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost != "true" && p.IsHaveControl == "true");
             if (index != -1)
             {
                 ConnectedUsers[index].Status = "Disconnected";
@@ -59,11 +52,13 @@ namespace bat
                 groupName = ConnectedUsers[index].GroupName;
                 userId = ConnectedUsers[index].UserId;
                 RefreshList(groupName, null);
-                var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
-                var teacherConnectionId = retriveTeacherContextId(groupName);
-                if (teacherConnectionId != "")
-                    Clients.Client(teacherConnectionId).revertControl(tempList);
-                //FetchUserListOnDisconnect(groupName,Context.ConnectionId, userId);
+                if (revertIndex != -1)
+                {
+                    var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
+                    var teacherConnectionId = retriveTeacherContextId(groupName);
+                    if (teacherConnectionId != "")
+                        Clients.Client(teacherConnectionId).revertControl(tempList);
+                }
             }
             
             return base.OnDisconnected(stopCalled);
@@ -71,7 +66,7 @@ namespace bat
 
         public void FetchUserList(string groupName,string userId)
         {
-            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
+            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
             if (tempList != null)
             {
                 Clients.Group(groupName,Context.ConnectionId).fetchUserList(tempList, userId);
@@ -80,7 +75,7 @@ namespace bat
 
         public void FetchOnlineUsers(string group)
         {
-            var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
+            var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online");
             if (tempList != null)
             {
                 Clients.Client(Context.ConnectionId).fetchOnlineUsers(tempList);
@@ -89,14 +84,14 @@ namespace bat
 
         public void FetchUserListOnDisconnect(string groupName,string connectionId,string userId)
         {
-            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");//&& p.ConnectionId == Context.ConnectionId
+            var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
             if (tempList != null)
             {
                 Clients.Group(groupName, connectionId).fetchUserListOnDisconnect(tempList, userId);
             }
         }
 
-        public void RefreshList(string groupName, string connectionId)//string groupName,string userId
+        public void RefreshList(string groupName, string connectionId)
         {
             var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
             if (tempList != null)
@@ -120,19 +115,16 @@ namespace bat
         public void UpdateModel(ChalkModel clientModel)
         {
             clientModel.LastUpdatedBy = Context.ConnectionId;
-            // Update the Chalk model within our broadcaster
             Clients.Group(clientModel.Group, clientModel.LastUpdatedBy).UpdateChalk(clientModel);
         }
 
         public void UpdateBBText(textModel textModel)
         {
             textModel.LastUpdatedBy = Context.ConnectionId;
-            // Update the Chalk model within our broadcaster
             Clients.Group(textModel.Group, textModel.LastUpdatedBy).BBText(textModel);
         }
         public void UpdateList(BBListUpdate Update)
         {
-            // Update the Chalk model within our broadcaster
             Clients.Group(Update.Group).UpdateList(Update);
         }
 
@@ -155,7 +147,6 @@ namespace bat
             var teacherConnectionId = retriveTeacherContextId(groupName);
             if (teacherConnectionId != "")
                 Clients.Client(userConnectionId).loadOnInitWithSnapShot(snapshot);
-            //Clients.Group(groupName, teacherConnectionId).loadOnInitWithSnapShot(snapshot);
         }
         public void UploadSnapshotOnInit(string snapshot, string groupName)
         {
@@ -247,12 +238,6 @@ namespace bat
                 var index = ConnectedUsers.FindIndex(p => p.ConnectionId == tempList[i].ConnectionId);
                 ConnectedUsers[index].IsHaveControl = "false";
             }
-            //var index = ConnectedUsers.FindIndex(p => p.ConnectionId == connectionId);
-            //for (int i = 0; i < ConnectedUsers.Count; i++)
-            //{
-            //    if (i != index)
-            //        ConnectedUsers[i].IsHaveControl = "false";
-            //}
         }
         public void RemoveHandle(string Group, string connectionId, string snapshotString)
         {
