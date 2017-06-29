@@ -563,6 +563,7 @@
     <Content Include="Views\Profile\Complete.cshtml" />
     <Content Include="Views\Lessons\Cancel.cshtml" />
     <Content Include="Views\Lessons\CancelledLesson.cshtml" />
+    <Content Include="Views\Lessons\WebRTCUnavailable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -626,7 +627,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50965</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

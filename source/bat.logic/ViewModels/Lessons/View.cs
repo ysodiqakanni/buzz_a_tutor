@@ -65,9 +65,6 @@ namespace bat.logic.ViewModels.Lessons
 
                 }
 
-                if (browser.Contains("chrome"))
-                    return false;
-
                 return false;
             }
         }
