@@ -156,10 +156,11 @@ var startStream = function (sessionId, token) {
             streamWidth = $("#teacher").width();
             streamHeight = $("#teacher").height();
         } else {
+            blackboardHub.server.updateStreamStudents(lessonId, id, "true");
             BeforeStartStreamingStudent();
             streamWidth = $("#self").width();
             streamHeight = $("#self").height();
-        }        
+        }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
@@ -188,7 +189,7 @@ var startStream = function (sessionId, token) {
 var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
-
+    blackboardHub.server.updateStreamStudents(lessonId, id, "false");
     if (role == '2') {
         $("#teacher").append('<div id="streamBoxTeacher"></div>')
     } else {
@@ -203,7 +204,7 @@ function BeforeStartStreamingStudent() {
     $("#teacher").css("height", $("#video-wrap").height() - 111);
     $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
     $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
-    blackboardHub.server.fetchUserList(lessonId,id);
+    blackboardHub.server.fetchUserOnStartClickList(lessonId,id);
 }
 
 function EndStreamingStudent() {
