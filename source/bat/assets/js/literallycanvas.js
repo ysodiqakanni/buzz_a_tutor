@@ -4832,7 +4832,7 @@ ColorPickers = React.createFactory(React.createClass({
         }, ColorWell({
             lc: lc,
             colorName: 'primary',
-            label: _('stroke')
+            label: _('')
         }));
     }
 }));
