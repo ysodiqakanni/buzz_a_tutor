@@ -223,33 +223,7 @@ $(function () {
                 if ($("#otherBox-" + user.UserId + "").length == 0) {
                     $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
                 }
-            }
-            ////if ($("#otherBox-" + user.UserId + "").length == 0) {
-            ////    $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            ////}
-            //if (user.IsHost == "true") {
-            //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            //    }
-            //}
-            //else {
-            //    if ($("#selfBox-" + user.UserId + "").length == 0) {
-            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            //    }
-            //    else if($("#otherBox-" + user.UserId + "").length == 0) {
-            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            //    }
-            //}
-            //else if (userId == user.UserId) {
-            //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            //    }
-            //}
-            //else {
-            //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            //    }
-            //}
+            }            
         });
     };
 
@@ -524,7 +498,6 @@ function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connecte
 }
 
 $(document).ready(function () {
-
     $.connection.hub.start().done(function () {
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
         EndStreamingStudent();
@@ -560,14 +533,12 @@ $(document).ready(function () {
     });
     // Lost connection with Server
     $.connection.hub.reconnecting(function () {
-        blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
+        console.log("reconnecting hub for literally canvas");
     });
     $.connection.hub.disconnected(function () {
-        //blackboardHub.server.removeStreamStudents(lessonId, id);
-        console.log("hub disconnects");
-        //setTimeout(function () {
-        //    $.connection.hub.start();
-        //}, 5000); // Re-start connection after 5 seconds
+       setTimeout(function () {
+            $.connection.hub.start();
+        }, 5000); // Re-start connection after 5 seconds
     });
 });
 
