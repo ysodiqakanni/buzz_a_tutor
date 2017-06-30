@@ -548,6 +548,11 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
+    debugger;
+    if (isHost == "false" && isHaveControl == "false") {
+        $(".literally .lc-drawing.with-gui").addClass("custom");
+        buzzCanvas.respondToSizeChange();
+    }
     $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
     $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
     if (isHaveControl == "true") {

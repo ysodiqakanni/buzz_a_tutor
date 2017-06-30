@@ -13086,3 +13086,5 @@ footer p {
         padding-right:0px;
     }
 }
+
+.custom{right:0;left:0px !important;cursor:default}
