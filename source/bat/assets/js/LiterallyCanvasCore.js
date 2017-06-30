@@ -341,17 +341,6 @@ $(function () {
             buzzCanvas.setColor(colorType, colorValue);
         }
     };
-
-    //blackboardHub.client.zoomAction = function (zoomAmount) {
-    //    if (isHaveControl == "true") {
-    //        return false;
-    //    }
-    //    else {
-    //        var coordsObj = JSON.parse(zoomAmount);
-    //        buzzCanvas.setZoom(coordsObj.newScale);
-    //    }
-    //};
-
     blackboardHub.client.assignHandle = function (snapshotString) {
         options = {
             imageURLPrefix: '../assets/img/lc-images',
@@ -369,7 +358,6 @@ $(function () {
     };
 
     blackboardHub.client.revertControl = function (connectedUsers) {
-        debugger;
         var snapshotString = buzzCanvas.getSnapshot();
         var selectedUser = returnSelectedUser(connectedUsers);
         options = {
@@ -550,12 +538,8 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
-    debugger;
     if (isHost == "false" && isHaveControl == "false") {
         $(".literally .lc-drawing.with-gui").addClass("custom");
-        //$(".lc-color-pickers").addClass("custom");
-        //$(".lc-undo-redo").addClass("custom");
-        //$(".lc-clear").addClass("custom");
         buzzCanvas.respondToSizeChange();
     }
     $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
@@ -585,9 +569,6 @@ function bindEvent() {
     unsubscribePrimaryColorEvent = buzzCanvas.on("primaryColorChange", function (newColor) {
         blackboardHub.server.colorChange("primary", newColor, lessonId);
     });
-    //unsubscribeZoomEvent = buzzCanvas.on("zoom", function (amount) {
-    //    blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
-    //});
 }
 
 function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
