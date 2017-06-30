@@ -4879,9 +4879,6 @@ Picker = React.createClass({
     }), UndoRedoButtons({
       lc: lc,
       imageURLPrefix: imageURLPrefix
-    }), ZoomButtons({
-      lc: lc,
-      imageURLPrefix: imageURLPrefix
     }), ClearButton({
       lc: lc
     })));

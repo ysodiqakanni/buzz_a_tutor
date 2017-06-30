@@ -12,6 +12,8 @@ var selectedUserId;
 var useImg = false,
     imgData = '';
 
+var zoomPercent = 1.0;
+
 var unsubscribeClearEvent;
 var unsubscribePanEvent;
 var unsubscribeUndoEvent;
@@ -340,15 +342,15 @@ $(function () {
         }
     };
 
-    blackboardHub.client.zoomAction = function (zoomAmount) {
-        if (isHaveControl == "true") {
-            return false;
-        }
-        else {
-            var coordsObj = JSON.parse(zoomAmount);
-            buzzCanvas.setZoom(coordsObj.newScale);
-        }
-    };
+    //blackboardHub.client.zoomAction = function (zoomAmount) {
+    //    if (isHaveControl == "true") {
+    //        return false;
+    //    }
+    //    else {
+    //        var coordsObj = JSON.parse(zoomAmount);
+    //        buzzCanvas.setZoom(coordsObj.newScale);
+    //    }
+    //};
 
     blackboardHub.client.assignHandle = function (snapshotString) {
         options = {
@@ -551,6 +553,9 @@ function InitCanvas(options, isHost) {
     debugger;
     if (isHost == "false" && isHaveControl == "false") {
         $(".literally .lc-drawing.with-gui").addClass("custom");
+        //$(".lc-color-pickers").addClass("custom");
+        //$(".lc-undo-redo").addClass("custom");
+        //$(".lc-clear").addClass("custom");
         buzzCanvas.respondToSizeChange();
     }
     $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
@@ -580,9 +585,9 @@ function bindEvent() {
     unsubscribePrimaryColorEvent = buzzCanvas.on("primaryColorChange", function (newColor) {
         blackboardHub.server.colorChange("primary", newColor, lessonId);
     });
-    unsubscribeZoomEvent = buzzCanvas.on("zoom", function (amount) {
-        blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
-    });
+    //unsubscribeZoomEvent = buzzCanvas.on("zoom", function (amount) {
+    //    blackboardHub.server.zoomAction(JSON.stringify(amount), lessonId);
+    //});
 }
 
 function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
@@ -655,6 +660,32 @@ function SetInitialValue() {
         }
     }
 }
+
+function zoomIn() {
+    zoomPercent = parseFloat(zoomPercent.toFixed(2));
+    zoomPercent += 0.2;
+    if (zoomPercent == 4.0) {
+        $("#btnZoomIn").prop("disabled", true);
+    }
+    else {
+        $("#btnZoomOut").prop("disabled", false);
+    }
+    buzzCanvas.setZoom(zoomPercent);
+}
+
+function zoomOut() {
+    zoomPercent = parseFloat(zoomPercent.toFixed(2));
+    zoomPercent -= 0.2;
+    if(zoomPercent == 0.2){
+        $("#btnZoomOut").prop("disabled", true);
+    }       
+    else
+    {
+        $("#btnZoomIn").prop("disabled", false);
+    }
+    buzzCanvas.setZoom(zoomPercent);
+}
+
 
 //Save whiteboard
 

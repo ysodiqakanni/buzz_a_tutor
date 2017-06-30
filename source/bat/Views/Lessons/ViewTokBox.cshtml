@@ -125,15 +125,19 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12" style="margin-bottom:2px;">
-                    <div class='inline'><div><span style="font-weight: bold;">Teacher - </span><span style="font-size: 15px;">@Model.host.Fname @Model.host.Lname</span></div></div>
+                    <div class='inline'><div><span style="font-weight: bold;font-size: 15px;">Teacher - </span><span style="font-size: 13px;">@Model.host.Fname @Model.host.Lname</span></div></div>
                     &nbsp;&nbsp;
-                    <div class='inline'><div><span style="font-weight: bold;">Lesson - </span><span style="font-size: 15px;">@Model.lesson.Description</span></div></div>
+                    <div class='inline'><div><span style="font-weight: bold;font-size: 15px;">Lesson - </span><span style="font-size: 13px;">@Model.lesson.Description</span></div></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Save" id="btnSaveWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="SaveWhiteBoard();"><i class="fa fa-floppy-o" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Download" id="btnDownlaodWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="DownloadWhiteboard();"> <i class="fa fa-download" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Upload" id="btnUploadWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="uploadImageModal();"> <i class="fa fa-upload" aria-hidden="true"></i></button></div>
+                    &nbsp;&nbsp;
+                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom Out" id="btnZoomOut" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomOut();"> <i class="fa fa-search-minus" aria-hidden="true"></i></button></div>
+                    &nbsp;&nbsp; 
+                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom In" id="btnZoomIn" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomIn();"> <i class="fa fa-search-plus" aria-hidden="true"></i></button></div>
                 </div>
             </div>
             <div class="row">
