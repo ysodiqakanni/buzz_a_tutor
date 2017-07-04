@@ -28,40 +28,40 @@ namespace bat.Controllers
                 {
                     return View("CancelledLesson", model);
                 }
+                
+                if (model.WebRTCAvailable)
+                {
+                    model.GenerateTokBoxToken();
+                    return View("ViewTokBox", model);
+                }
+                else
+                {
+                    return View("WebRTCUnavailable", model);
+                }
 
-                // TokBox option, disable for now to try Zoom only
-                //if (model.WebRTCAvailable)
+                // no longer using zoom
+                //if (!model.CurrentlyAZoomUser)
                 //{
-                //    model.GenerateTokBoxToken();
-                //    return View("ViewTokBox", model);
+                //    model.CheckZoomUser();
+                //    return View("NewZoomUserAccount", model);
                 //}
 
-                if (!model.CurrentlyAZoomUser)
-                {
-                    model.CheckZoomUser();
-                    return View("NewZoomUserAccount", model);
-                }
+                //switch (model.accountType)
+                //{
+                //    case Types.AccountTypes.Student:
+                //        if (!model.LessonReady)
+                //            return View("ZoomLessonHostNotReady", model);
+                //        break;
 
-                switch (model.accountType)
-                {
-                    case Types.AccountTypes.Student:
-                        if (!model.LessonReady)
-                            return View("ZoomLessonHostNotReady", model);
-                        break;
+                //    case Types.AccountTypes.Teacher:
+                //        model.CreateZoomMeeting();
+                //        return View("ViewZoom", model);
 
-                    case Types.AccountTypes.Teacher:
-                        model.CreateZoomMeeting();
-                        return View("ViewZoom", model);
-
-                    default:
-                        throw new Exception("Invalid account type.");
-                }
-
-
-                model.CreateZoomMeeting();
-                return View("ViewZoom", model);
+                //    default:
+                //        throw new Exception("Invalid account type.");
+                //}
             }
-            catch(ZoomException ex) when (ex.Code == bat.logic.Constants.Zoom.ErrorCode_CannotCreateMeeting)
+            catch (ZoomException ex) when (ex.Code == bat.logic.Constants.Zoom.ErrorCode_CannotCreateMeeting)
             {
                 return View("NewZoomUserAccount", model);
             }

@@ -8,7 +8,7 @@ var uploadBtn = '<button type="button" class="btn btn-primary" onclick="uploadIm
 var uploadingIcon = '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>';
 
 var uploadImageModal = function () {
-    $("#bbImageInput").val('');
+    $("#bbImageInput").val(null);
     $("#modal-button-container").empty();
     $("#canvasCarousel").empty();
     $("#bbImageInput").empty();
@@ -18,7 +18,7 @@ var uploadImageModal = function () {
     $('#uploadModal').modal();
 };
 
-$("#bbImageInput").change(function (event) {
+$("#bbImageInput").on('change',function (event) {
     $("#canvasCarousel").empty();
     $("#modal-button-container").empty();
     $("#modal-button-container").append(cancelBtn);
@@ -38,8 +38,8 @@ $("#bbImageInput").change(function (event) {
             canvas.style.display = "block";
             var context = canvas.getContext('2d');
             canvas.id = "p" + currPage + "-canvas";
-            canvas.height = 568;
-            canvas.width = 600;
+            canvas.height = 200;
+            canvas.width = 300;
 
             //Draw it on the canvas
             var img = new Image();
@@ -153,7 +153,10 @@ function uploadImage() {
             success: function (data) {
                 updateImageList(lessonId);
                 if (page > pages) {
-                    blackboardHub.server.updateList(listModel);
+                    imgData = "";
+                    ListUpdate.update = true;
+                    blackboardHub.server.updateList(ListUpdate);
+                    //blackboardHub.server.updateList(listModel);
                     //$("#modal-button-container").empty();
                     //$("#modal-button-container").append(successBtn);
                     $('#uploadModal').modal('toggle');

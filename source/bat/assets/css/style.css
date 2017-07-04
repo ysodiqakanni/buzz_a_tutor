@@ -3134,13 +3134,13 @@ body.side-push-panel.side-panel-open:not(.device-xxs):not(.device-xs):not(.devic
 -----------------------------------------------------------------*/
 #video-wrap {
 	width: 100%;
-	border:7px solid #ff982e;
-	margin-bottom:10px;
+	border:7px solid #703641;
+	/*margin-bottom:10px;*/
 }
-#message-wrap {
-	margin-top:10px;
+#message-wrap {	
 	width: 100%;
-	border:7px solid #999;
+	border:7px solid #703641;
+    margin-bottom:1%;
 }
 #photo-wrap {
 	float:left;
@@ -6251,7 +6251,7 @@ p.wp-caption-text {
 	border:0px solid red;
 }
 
-.oc-item {border:7px solid #ff982e;}
+.oc-item {border:1px solid #703641;}
 .product {
 	position: relative;
 	float: left;
@@ -13048,13 +13048,13 @@ body:not(.no-transition) #wrapper,
 
 /* Lesson Stream */
 #video-wrap {
-	width: 415px; 
-	height:233px;
+	width: auto; 
+	height:566px;
 }
 
 /* Chat Box */
 .chatBody {
-	height: 60vh;
+	height: 560px;
 	overflow: scroll;
 }
 
@@ -13078,3 +13078,13 @@ footer p {
 .no-margin {
     margin: 0px;
 }
+
+@media only screen and (min-width: 1024px) {
+	
+    #chat-content{
+        padding-left:0px;
+        padding-right:0px;
+    }
+}
+
+.custom{right:0;left:0px !important;cursor:default}

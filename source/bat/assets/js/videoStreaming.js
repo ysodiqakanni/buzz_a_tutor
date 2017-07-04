@@ -47,6 +47,15 @@ var connect = function (sessionId) {
         connectionDestroyed: function connectionDestroyedHandler(event) {
             connectionCount--;
             console.log('A client disconnected. ' + connectionCount + ' total.');
+        },
+        sessionReconnecting: function (event) {
+            console.log('Disconnected from the session. Attempting to reconnect...');
+        },
+        sessionReconnected: function (event) {
+            console.log('Reconnected to the session.');
+        },
+        sessionDisconnected: function (event) {
+            console.log('Disconnected from the session.');
         }
     });
 
@@ -85,10 +94,14 @@ var connect = function (sessionId) {
         //console.log(streamLessonID);       
         //if teacher
         if (streamRole == 'Teacher') {
+            teacherWidth = $("#teacher").width();
+            teacherHeight = $("#teacher").height();
             options.width = teacherWidth;
             options.height = teacherHeight;
             session.subscribe(stream, teacherBox, options);
         } else {
+            otherWidth = $("div[id^=other-]").width();
+            otherHeight = $("div[id^=other-]").height();
             options.width = otherWidth;
             options.height = otherHeight;
             otherBox = 'streamBoxOther-' + streamUserId;
@@ -125,6 +138,7 @@ var targetElement; // The element on page to be replaced with tokbox video eleme
 var streamWidth,
     streamHeight;
 if (role == '2') {
+ 
     targetElement = 'streamBoxTeacher';
     streamWidth = teacherWidth;
     streamHeight = teacherHeight;
@@ -138,13 +152,22 @@ if (role == '2') {
 // Creating a stream
 var startStream = function (sessionId, token) {
     if (connected == true) {
+        if (role == '2') {
+            streamWidth = $("#teacher").width();
+            streamHeight = $("#teacher").height();
+        } else {
+            blackboardHub.server.updateStreamStudents(lessonId, id, "true");
+            BeforeStartStreamingStudent();
+            streamWidth = $("#self").width();
+            streamHeight = $("#self").height();
+        }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
             width: streamWidth,
             height: streamHeight,
             name: streamName,
-            nameDisplayMode: "off"
+            nameDisplayMode: "on"
         });
 
         session.publish(publisher, function (error) {
@@ -166,12 +189,40 @@ var startStream = function (sessionId, token) {
 var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
-
+    blackboardHub.server.updateStreamStudents(lessonId, id, "false");
     if (role == '2') {
         $("#teacher").append('<div id="streamBoxTeacher"></div>')
     } else {
-        $("#self").append('<div id="streamBoxSelf"></div>')
+        $("#self").append('<div id="streamBoxSelf"></div>');
+        EndStreamingStudent();
     }
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
+}
+
+function BeforeStartStreamingStudent() {
+    $("#teacher").css("height", $("#video-wrap").height() - 111);
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+    $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
+    blackboardHub.server.fetchUserOnStartClickList(lessonId,id);
+}
+
+function EndStreamingStudent() {
+    var itemCount = $('.owl-item').length;
+    var elemIndex = -1;
+    if (itemCount > 0) {
+        var itemArr = $('.owl-item').children();
+        $.each(itemArr, function (index, value) {
+            var tempId = value.id.split("-")[1];
+            if (tempId == id) {
+                elemIndex = index;
+            }
+        });
+    }
+    if (elemIndex != -1) {
+        $(".owl-carousel").trigger('remove.owl.carousel', [elemIndex]);
+    }
+    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    blackboardHub.server.fetchUserListOnDisconnect(lessonId, $.connection.hub.id, id);
 }

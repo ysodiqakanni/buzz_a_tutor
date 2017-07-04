@@ -243,6 +243,7 @@
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="assets\css\animate.css" />
+    <Content Include="assets\css\app.css" />
     <Content Include="assets\css\batstickyfoot.css" />
     <Content Include="assets\css\batmain.css" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -262,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\blackboard.css" />
+    <Content Include="assets\css\BootSideMenu.css" />
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\chatStyle.css" />
     <Content Include="assets\css\colors.css" />
@@ -277,12 +279,16 @@
     <Content Include="assets\css\fonts\Simple-Line-Icons.svg" />
     <Content Include="assets\css\fullcalendar.min.css" />
     <Content Include="assets\css\lessonStyle.css" />
+    <Content Include="assets\css\literallycanvas.css" />
     <Content Include="assets\css\login.css" />
     <Content Include="assets\css\magnific-popup.css" />
     <Content Include="assets\css\media-queries.css" />
     <Content Include="assets\css\nivo-slider.css" />
+    <Content Include="assets\css\owl.carousel.min.css" />
     <Content Include="assets\css\responsive.css" />
+    <Content Include="assets\css\Site.css" />
     <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\sweetalert.css" />
     <Content Include="assets\css\vmap.css" />
     <Content Include="assets\css\yellow.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
@@ -345,6 +351,32 @@
     <Content Include="assets\img\icons\widget-link-dark%402x.png" />
     <Content Include="assets\img\icons\widget-link-dark.png" />
     <Content Include="assets\img\icons\widget-link.png" />
+    <Content Include="assets\img\lc-images\alpha.png" />
+    <Content Include="assets\img\lc-images\checkerboard-8x8.png" />
+    <Content Include="assets\img\lc-images\dashed-line.png" />
+    <Content Include="assets\img\lc-images\download.png" />
+    <Content Include="assets\img\lc-images\ellipse.png" />
+    <Content Include="assets\img\lc-images\eraser.png" />
+    <Content Include="assets\img\lc-images\eyedropper.png" />
+    <Content Include="assets\img\lc-images\hue.png" />
+    <Content Include="assets\img\lc-images\line-with-arrow.png" />
+    <Content Include="assets\img\lc-images\line.png" />
+    <Content Include="assets\img\lc-images\pan.png" />
+    <Content Include="assets\img\lc-images\pencil.png" />
+    <Content Include="assets\img\lc-images\polygon-cancel.png" />
+    <Content Include="assets\img\lc-images\polygon-closed.png" />
+    <Content Include="assets\img\lc-images\polygon-open.png" />
+    <Content Include="assets\img\lc-images\polygon.png" />
+    <Content Include="assets\img\lc-images\rectangle.png" />
+    <Content Include="assets\img\lc-images\redo.png" />
+    <Content Include="assets\img\lc-images\saturation.png" />
+    <Content Include="assets\img\lc-images\save.png" />
+    <Content Include="assets\img\lc-images\screenshot.png" />
+    <Content Include="assets\img\lc-images\text.png" />
+    <Content Include="assets\img\lc-images\undo.png" />
+    <Content Include="assets\img\lc-images\user.png" />
+    <Content Include="assets\img\lc-images\zoom-in.png" />
+    <Content Include="assets\img\lc-images\zoom-out.png" />
     <Content Include="assets\img\line.gif" />
     <Content Include="assets\img\logo%402x.png" />
     <Content Include="assets\img\logo.png" />
@@ -361,7 +393,9 @@
     <Content Include="assets\img\landing\3.jpg" />
     <Content Include="assets\img\landing\4.jpg" />
     <Content Include="assets\img\vertical_line.png" />
+    <Content Include="assets\js\app.js" />
     <Content Include="assets\js\blackboard.js" />
+    <Content Include="assets\js\BootSideMenu.js" />
     <Content Include="assets\js\calendar.js" />
     <Content Include="assets\js\canvas.slider.fade.js" />
     <Content Include="assets\js\chatRoom.js" />
@@ -381,14 +415,21 @@
     <Content Include="assets\js\jquery.vmap.js" />
     <Content Include="assets\js\lessonJS.js" />
     <Content Include="assets\js\lessonResource.js" />
+    <Content Include="assets\js\literallycanvas.js" />
+    <Content Include="assets\js\literallyCanvasCore.js" />
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\moment-timezone.js" />
     <Content Include="assets\js\moment.min.js" />
+    <Content Include="assets\js\owl.carousel.min.js" />
     <Content Include="assets\js\pdfConvert.js" />
     <Content Include="assets\js\plugins.js" />
+    <Content Include="assets\js\react-0.14.4.js" />
+    <Content Include="assets\js\react-dom-0.14.3.js" />
+    <Content Include="assets\js\sweetalert.min.js" />
     <Content Include="assets\js\videoStreaming.js" />
     <Content Include="assets\js\whiteboard.js" />
     <Content Include="assets\js\zoom.js" />
+    <Content Include="assets\sample\video1.mp4" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
     <Content Include="assets\vendor\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
@@ -522,6 +563,7 @@
     <Content Include="Views\Profile\Complete.cshtml" />
     <Content Include="Views\Lessons\Cancel.cshtml" />
     <Content Include="Views\Lessons\CancelledLesson.cshtml" />
+    <Content Include="Views\Lessons\WebRTCUnavailable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -585,7 +627,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50965</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -58,12 +58,25 @@ $(function () {
         }
 
         $('#sendmessage').click(function () {
-            sendMessage();
+            try
+            {
+                sendMessage();
+            }
+            catch(ex)
+            {
+                ReconnectChatroom();
+            }
         });
 
-        $("#message").keydown(function(event) {
-            if (event.which === 13) {
-                sendMessage();
+        $("#message").keydown(function (event) {
+            try
+            {
+                if (event.which === 13) {
+                    sendMessage();
+                }
+            }
+            catch (ex) {
+                ReconnectChatroom();
             }
         });
     });
@@ -73,4 +86,11 @@ $(function () {
         // Add the disconnect message to the page.
         $('#discussion').prepend('<li class="chatMessage"><strong> Classroom:</strong> Rejoining Classroom</li>');
     });
+
+    function ReconnectChatroom()
+    {
+        setTimeout(function () {
+            $.connection.hub.start();
+        }, 5000); // Re-start connection after 5 seconds
+    }
 });

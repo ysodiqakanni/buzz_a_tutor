@@ -6,11 +6,14 @@
                 e.stopPropagation();
             });
         });
+        
     </script>
 
     <div id="board-wrap">
+        <div id="loader-container" class="se-pre-con"></div>
         <input id="getChatHistoryPath" type="hidden" value="@Url.HttpRouteUrl("api/chat/gethistory", new { controller = "ChatApi", action = "GetChatHistory" })" />
-        <div id="board-top">
+        <div id="lc"></div>    
+    @*<div id="board-top">
             <div class="fleft">
                 <div class="btn-group">
                     <button onclick="defaultBoard()" type="button" class="btn btn-primary" data-toggle="tooltip" title="New Board">
@@ -40,7 +43,7 @@
                 <canvas id="canvas" style="align-content:center"></canvas>
                 <div id="loading-spinner" class="hidden"></div>
             </div>
-        </div>
+        </div>*@
     </div><!-- /board-wrap-->
     <div class="shadow2"><img style="width:100%" src="@Url.Content("~/assets/img/shadow.png")"></div>
 
@@ -56,7 +59,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="pdfContainer" style="width:100%;">
-                        <canvas id="previewCanvas"></canvas>
+                        <div id="previewCanvas"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -68,8 +71,9 @@
     </div>
 </div>
 
-@Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
+@*@Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
 @Scripts.Render("~/signalr/hubs")
 @Scripts.Render("~/assets/vendor/pdf.js/build/pdf.js")
 @Scripts.Render("~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js")
 @Scripts.Render("~/assets/js/blackboard.js")
+@Scripts.Render("~/assets/js/literallyCanvasCore.js")*@

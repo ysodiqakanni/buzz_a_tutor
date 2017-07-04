@@ -54,10 +54,10 @@ namespace bat.logic.ViewModels.Lessons
                 // TokBox disabled for now
                 //// note, relayed can't be archived (saved)
                 //// when saving or archiving video, must be routed not relayed
-                //var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
-                //var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
-                //var tokSessionId = session.Id;
-                string tokSessionId = null;
+                var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+                var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
+                var tokSessionId = session.Id;
+                //string tokSessionId = null;
 
                 this.lesson = new Lesson()
                 {

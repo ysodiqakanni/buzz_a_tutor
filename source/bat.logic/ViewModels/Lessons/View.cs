@@ -65,9 +65,6 @@ namespace bat.logic.ViewModels.Lessons
 
                 }
 
-                if (browser.Contains("chrome"))
-                    return false;
-
                 return false;
             }
         }
@@ -158,7 +155,26 @@ namespace bat.logic.ViewModels.Lessons
         {
             var opentok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
             var connectionMetadata = "email=" + this.account.Email + ";accid=" + this.account.ID;
-            this.token = opentok.GenerateToken(this.lesson.TokBoxSessionId, Role.PUBLISHER, 0, connectionMetadata);
+            if (this.lesson.TokBoxSessionId != null)
+            {
+                this.token = opentok.GenerateToken(this.lesson.TokBoxSessionId, Role.PUBLISHER, 0, connectionMetadata);
+            }
+            else
+            {
+                using (var conn = new dbEntities())
+                {
+                    var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
+                    var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
+                    var currentLession = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
+                    if (currentLession != null)
+                    {
+                        currentLession.TokBoxSessionId = session.Id;
+                        conn.SaveChanges();
+                        this.lesson = currentLession;
+                    }
+                    if(this.lesson.TokBoxSessionId != null) this.token = opentok.GenerateToken(this.lesson.TokBoxSessionId, Role.PUBLISHER, 0, connectionMetadata);
+                }
+            }
         }
 
         public void UploadImage(int lessonId, string title, HttpPostedFileBase data)
