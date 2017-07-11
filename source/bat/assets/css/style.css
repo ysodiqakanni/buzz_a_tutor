@@ -3139,8 +3139,9 @@ body.side-push-panel.side-panel-open:not(.device-xxs):not(.device-xs):not(.devic
 }
 #message-wrap {	
 	width: 100%;
-	border:7px solid #703641;
+	border:2px solid #703641;
     margin-bottom:1%;
+    height:99%
 }
 #photo-wrap {
 	float:left;
@@ -12353,7 +12354,7 @@ fieldset[disabled] .btn {
 	border-top: 1px solid #EEE;
 }
 
-.widget:first-child { margin-top: 0; }
+.widget:first-child { margin-top: 0; height:96%;}
 
 .sidebar-widgets-wrap .widget:first-child {
 	padding-top: 0;
@@ -13054,7 +13055,7 @@ body:not(.no-transition) #wrapper,
 
 /* Chat Box */
 .chatBody {
-	height: 560px;
+	height: 100%;
 	overflow: scroll;
 }
 

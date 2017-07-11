@@ -489,6 +489,7 @@ function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connecte
 
 $(document).ready(function () {
     $.connection.hub.start().done(function () {
+        $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
         EndStreamingStudent();
         blackboardHub.server.addToStreamStudents(sessionId, token, id, lessonId, username, "false", isHost);

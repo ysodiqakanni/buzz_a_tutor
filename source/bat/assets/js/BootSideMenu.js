@@ -22,6 +22,7 @@
             pushBody: true,
             closeOnClick: true,
             width: "15%",
+            rightWidth: "30%",
             onTogglerClick: function () {
                 //code to be executed when the toggler arrow was clicked
             },
@@ -63,7 +64,11 @@
 
         menu.addClass("container");
         menu.addClass("bootsidemenu");
-        menu.css("width", options.width);
+        if (options.side == "left") {
+            menu.css("width", options.width);
+        } else {
+            menu.css("width", options.rightWidth);
+        }
 
         if (options.side == "left") {
             menu.addClass("bootsidemenu-left");

@@ -72,7 +72,7 @@
                 connect(sessionId);
             }
         });
-</script>
+    </script>
     <script src="~/assets/js/owl.carousel.min.js"></script>
     @Scripts.Render("~/assets/js/lesson")
     <script src="~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"></script>
@@ -138,17 +138,13 @@
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Upload" id="btnUploadWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="uploadImageModal();"> <i class="fa fa-upload" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom Out" id="btnZoomOut" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomOut();"> <i class="fa fa-search-minus" aria-hidden="true"></i></button></div>
-                    &nbsp;&nbsp; 
+                    &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom In" id="btnZoomIn" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomIn();"> <i class="fa fa-search-plus" aria-hidden="true"></i></button></div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-5" id="middle-content">
-                    @*<div id="whiteBoardController">a</div>*@
+                <div class="col-lg-8" id="middle-content">
                     @Html.Partial("_PartialWhiteboard", Model)
-                </div>
-                <div class="col-lg-3" id="chat-content">
-                    @Html.Partial("_PartialChatBox", Model)
                 </div>
                 <div class="col-lg-4" id="video-content">
                     <button type="button" id="start" class="button button-3d button-small button-rounded button-red" onclick="startStream(sessionId, token)"><i class="icon-video"></i>Start Video</button>
@@ -200,31 +196,21 @@
                     <li role="presentation" class="have-child">
                         @if (Model.IsTeacher)
                         {
-                            <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
-                                <i class="fa fa-calendar"></i> Reschedule lesson
-                            </a>
-                            <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
-                                <i class="fa fa-edit"></i> Edit lesson details
-                            </a>
+                        <a href="@Url.Action("Reschedule", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
+                            <i class="fa fa-calendar"></i> Reschedule lesson
+                        </a>
+                        <a href="@Url.Action("Edit", new {id = Model.lesson.ID})" class="btn btn-md btn-default">
+                            <i class="fa fa-edit"></i> Edit lesson details
+                        </a>
                         }
-                        @*<a href="@Model.lesson.ZoomJoinUrl" target="_blank" class="btn btn-md btn-primary">
-                            <i class="fa fa-video-camera"></i> Start video
-                        </a>*@
                     </li>
-
                 </ul>
             </div>
         </div>
         <div class="user">
-            @if (string.IsNullOrEmpty(Model.host.Picture))
-            {
-                <img style="height: 50px; width: 50px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
-            }
-            else
-            {
-                <img style="height: 50px; width: 50px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.host.ID, name = Model.host.Fname})" alt="Profile Pic" />
-            }
-            <a class="navbar-link" style="font-size:14px;">@Model.host.Fname @Model.host.Lname</a>
+            <div style="text-wrap:initial">
+                <span id="lesssonDetailedDescrition" style="font-size: 15px;">@Model.lesson.DetailedDescription</span>
+            </div>
             <div style="font-size: 15px;text-align: left;">
                 Date: @Model.lesson.BookingDate.ToString("dd/MM/yyyy hh:mm tt")<br />
                 Duration mins: @Model.lesson.DurationMins<br />
@@ -237,15 +223,17 @@
                     <span style="font-weight:bold">Attendees</span>
                     @foreach (var student in Model.others)
                     {
-                        <li>
-                            <i class="fa fa-user"></i> <span>@student.Fname @student.Lname</span>
-                        </li>
+                    <li>
+                        <i class="fa fa-user"></i> <span>@student.Fname @student.Lname</span>
+                    </li>
                     }
                 </ul>
             </div>
         </div>
     </div>
-    <br />
+    <div id="test-right">
+        @Html.Partial("_PartialChatBox", Model)
+    </div>
     <br />
     <br />
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
@@ -276,7 +264,6 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <div class="form-group">
-                        @*<input type="text" class="modal-title form-control" id="BBListTitle">*@
                         <h4>Download Image on Whiteboard</h4>
                     </div>
                 </div>
@@ -304,30 +291,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    @*<button type="button" class="btn btn-primary">Load Image</button>*@
                 </div>
             </div>
         </div>
     </div>
 
 }
-
-
-@*<script src="~/assets/js/owl.carousel.min.js"></script>
-    @Scripts.Render("~/assets/js/lesson")
-    <script src="~/assets/vendor/jQuery-slimScroll-1.3.8/jquery.slimscroll.min.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-    @Scripts.Render("~/signalr/hubs")
-    @Scripts.Render("~/assets/js/BootSideMenu")
-    @Scripts.Render("~/assets/vendor/pdf")
-    @Scripts.Render("~/assets/js/literallycanvas")
-    <script src="~/assets/js/sweetalert.min.js"></script>
-    <!-- TokBox API  -->
-    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-
-    <!-- Link to local TokBox script  -->
-    <script type="text/javascript" src="@Url.Content("~/assets/js/videoStreaming.js")"></script>*@
-
-@*<script>
-    connect(sessionId);
-</script>*@
