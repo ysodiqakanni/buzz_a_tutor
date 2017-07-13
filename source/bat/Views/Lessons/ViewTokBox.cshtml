@@ -143,19 +143,27 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8" id="middle-content">
+                <div class="col-lg-12" id="middle-content">
                     @Html.Partial("_PartialWhiteboard", Model)
                 </div>
-                <div class="col-lg-4" id="video-content">
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <button type="button" id="start" class="button button-3d button-small button-rounded button-red" onclick="startStream(sessionId, token)"><i class="icon-video"></i>Start Video</button>
                     <button type="button" id="stop" class="button button-3d button-small button-rounded  hidden" onclick="stopStream()"><i class="fa fa-stop"></i>Stop Video</button>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-4 col-sm-4 col-md-4" id="video-content">
+                    
                     <div id="video-wrap">
                         <div id="teacher" class="streamWindow">
                             <div id="streamBoxTeacher"></div>
                         </div>
                         <div class="clear"></div>
 
-                        <div id="shop" class="clearfix ">
+                        @*<div id="shop" class="clearfix ">
                             <div id="oc-images" class="owl-carousel image-carousel">
                             </div>
                             <script type="text/javascript">
@@ -179,9 +187,39 @@
                                     });
                                 });
                             </script>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
+                <div class="col-lg-8 col-sm-8 col-md-8">
+                    <div id="shop" class="clearfix ">
+                        @*<div id="oc-images" class="owl-carousel image-carousel">
+                        </div>*@
+                        @*<script type="text/javascript">
+                                $(document).ready(function($) {
+                                    var ocImages = $("#oc-images");
+
+                                    ocImages.owlCarousel({
+                                        margin: 10,
+                                        nav: true,
+                                        navText: ['<i class="icon-angle-left"></i>', '<i class="icon-angle-right"></i>'],
+                                        autoplay: false,
+                                        autoplayHoverPause: true,
+                                        dots: false,
+                                        navRewind: false,
+                                        responsive: {
+                                            0: { items: 4 },
+                                            600: { items: 3 },
+                                            1000: { items: 3 },
+                                            1200: { items: 4 }
+                                        }
+                                    });
+                                });
+                        </script>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
             </div>
         </div>
     </div>

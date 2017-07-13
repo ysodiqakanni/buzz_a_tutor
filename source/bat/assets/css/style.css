@@ -13050,7 +13050,11 @@ body:not(.no-transition) #wrapper,
 /* Lesson Stream */
 #video-wrap {
 	width: auto; 
-	height:566px;
+	/*height:566px;*/
+}
+
+#teacher{
+    height:100% !important;
 }
 
 /* Chat Box */

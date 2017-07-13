@@ -201,9 +201,9 @@ var stopStream = function () {
 }
 
 function BeforeStartStreamingStudent() {
-    $("#teacher").css("height", $("#video-wrap").height() - 111);
-    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-    $('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
+    //$("#teacher").css("height", $("#video-wrap").height() - 111);
+    //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+    //$('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
     blackboardHub.server.fetchUserOnStartClickList(lessonId,id);
 }
 

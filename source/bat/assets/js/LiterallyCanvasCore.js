@@ -160,7 +160,7 @@ LC.defineOptionsStyle("userList", React.createClass({
 }));
 
 function replicateOtherStudent(studentId, studentName) {
-    return "<div id='otherBox-" + studentId + "' class='oc-item'><div id='otherCon-" + studentId + "' class='streamBody'><div id='other-" + studentId + "' class='streamWindow' style='width: 98.76px; height: 111px'><div id='streamBoxOther-" + studentId + "'></div></div></div><div class='name4'>" + studentName + "</div></div>";
+    return "<div id='otherBox-" + studentId + "' class='oc-item'><div id='otherCon-" + studentId + "' class='streamBody'><div id='other-" + studentId + "' class='streamWindow' style='width: 100%; height: 111px'><div id='streamBoxOther-" + studentId + "'></div></div></div><div class='name4'>" + studentName + "</div></div>";
 }
 
 function replicateSelfStudent(studentId, studentName) {
@@ -218,25 +218,72 @@ $(function () {
     };
 
     blackboardHub.client.fetchUserList = function (connectedUsers, userId) {
-        $.each(connectedUsers, function (index, user) {
-            $("#teacher").css("height", $("#video-wrap").height() - 111);
-            $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-            if (userId == user.UserId) {
-                if ($("#otherBox-" + user.UserId + "").length == 0) {
-                    $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+        //$.each(connectedUsers, function (index, user) {
+            //$("#teacher").css("height", $("#video-wrap").height() - 111);
+            //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+            //if (userId == user.UserId) {
+            //    if ($("#otherBox-" + user.UserId + "").length == 0) {
+            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+            //    }
+            //} 
+        var gridString = "";
+        $("#shop").html(gridString);
+        var flag = false;
+            for (var i = 0; i < connectedUsers.length; i++) {
+                if (i == 0) {
+                    flag = false;
+                    gridString += "<div class='row'>";
+                    gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
                 }
-            }            
-        });
+                else if (i != 0 && i % 4 == 0) {
+                    flag = true;
+                    gridString += "</div>";
+                }
+                else {
+                    flag = false;
+                    gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                }
+            }
+            if (flag) {
+                gridString += "</div>";
+            }
+            debugger;
+            $("#shop").html(gridString);
+
+        //});
     };
 
     blackboardHub.client.onInitRenderStream = function (streamUsers) {
-        $.each(streamUsers, function (index, user) {
-            $("#teacher").css("height", $("#video-wrap").height() - 111);
-            $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-            if ($("#otherBox-" + user.UserId + "").length == 0) {
-                $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+        //$.each(streamUsers, function (index, user) {
+        //    $("#teacher").css("height", $("#video-wrap").height() - 111);
+        //    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+        //    if ($("#otherBox-" + user.UserId + "").length == 0) {
+        //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+        //    }
+        //});
+        var gridString = "";
+        $("#shop").html(gridString);
+        var flag = false;
+        for (var i = 0; i < streamUsers.length; i++) {
+            if (i == 0) {
+                flag = false;
+                gridString += "<div class='row'>";
+                gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(streamUsers[i].UserId, streamUsers[i].UserName.split(" ")[0]) + "</div>";
             }
-        });
+            else if (i != 0 && i % 4 == 0) {
+                flag = true;
+                gridString += "</div>";
+            }
+            else {
+                flag = false;
+                gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+            }
+        }
+        if (flag) {
+            gridString += "</div>";
+        }
+        debugger;
+        $("#shop").html(gridString);
     };
 
     blackboardHub.client.fetchUserListOnDisconnect = function (connectedUsers, userId) {
@@ -543,6 +590,9 @@ function InitCanvas(options, isHost) {
         $(".literally .lc-drawing.with-gui").addClass("custom");
         buzzCanvas.respondToSizeChange();
     }
+    else {
+        $(".literally.toolbar-at-bottom").css("min-height", "400px");
+    }
     $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
     $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
     if (isHaveControl == "true") {
@@ -572,32 +622,9 @@ function bindEvent() {
     });
 }
 
-function resizeContainer(resizeToContainer, resizeFromContainer, offset) {
-    $(resizeToContainer).css("height", $(resizeFromContainer).height() - offset);
-}
-
 function uploadSnapShot() {
     var snaps = buzzCanvas.getSnapshot();
     blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
-}
-function resizeTeacherCanvas() {
-    if (isHost === "true") {
-        setTimeout(function () {
-            var elementToMatch = $(".with-gui")[0];
-            var elementsToResize = $(".lc-drawing.with-gui canvas");
-            var scale = 1;
-            LC.util.matchElementSize(elementToMatch, elementsToResize, scale, callback = null);
-            //alert($("#board-wrap").height())
-            //$("#message-wrap").css("height", $("#board-wrap").height());
-        }, 1000);
-    }
-}
-
-function resizeStudentCanvas() {
-    var elementToMatch = $("#lc")[0];
-    var elementsToResize = $(".lc-drawing.with-gui canvas");
-    var scale = 1;
-    LC.util.matchElementSize(elementToMatch, elementsToResize, scale, callback = null);
 }
 
 function GiveControl(connectionId) {
