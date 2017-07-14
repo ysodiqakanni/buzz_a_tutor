@@ -140,7 +140,18 @@ namespace bat
             var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online");
             if (tempList != null)
             {
+                
                 Clients.Client(Context.ConnectionId).fetchOnlineUsers(tempList);
+                //FetchOnlineUsersExceptTeacher(group);
+            }
+        }
+
+        public void FetchOnlineUsersExceptTeacher(string group)//,string userId,string userFirstName
+        {
+            var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online" && p.IsHost != "true");
+            if (tempList != null)
+            {
+                Clients.Group(group).fetchOnlineUsersExceptTeacher(tempList);
             }
         }
 

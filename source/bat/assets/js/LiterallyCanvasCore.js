@@ -164,7 +164,7 @@ function replicateOtherStudent(studentId, studentName) {
 }
 
 function replicateSelfStudent(studentId, studentName) {
-    return "<div id='selfBox-" + studentId + "' class='oc-item'><div id='self' class='streamWindow' style='width: 98.76px; height: 111px'><div id='streamBoxSelf'></div></div><div class='name4'>" + studentName + "</div></div>";
+    return "<div id='selfBox-" + studentId + "' class='oc-item'><div id='self' class='streamWindow' style='width: 125px; height: 111px'><div id='streamBoxSelf'></div></div><div class='name4'>" + studentName + "</div></div>";
 }
 
 $(function () {
@@ -214,7 +214,14 @@ $(function () {
                 }
             });
             SetInitialValue();
+            
         }
+        blackboardHub.server.fetchOnlineUsersExceptTeacher(lessonId);
+        //createGridStructureForAllUsers(connectedUsers);
+    };
+
+    blackboardHub.client.fetchOnlineUsersExceptTeacher = function (connectedUsers) {//, userId, userFirstName
+        createGridStructureForAllUsers(connectedUsers);//, userId, userFirstName
     };
 
     blackboardHub.client.fetchUserList = function (connectedUsers, userId) {
@@ -543,9 +550,12 @@ $(document).ready(function () {
     $.connection.hub.start().done(function () {
         $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
-        EndStreamingStudent();
-        blackboardHub.server.addToStreamStudents(sessionId, token, id, lessonId, username, "false", isHost);
-        blackboardHub.server.onInitRenderStream(lessonId);
+
+
+
+        //EndStreamingStudent();
+        //blackboardHub.server.addToStreamStudents(sessionId, token, id, lessonId, username, "false", isHost);
+        //blackboardHub.server.onInitRenderStream(lessonId);
         if (isHost === "true") {
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
@@ -573,6 +583,7 @@ $(document).ready(function () {
             $("#btnUploadWhiteboard").hide();
         }
         blackboardHub.server.fetchOnlineUsers(lessonId);
+        //blackboardHub.server.fetchOnlineUsersExceptTeacher(lessonId, id, userFirstName);
     });
     // Lost connection with Server
     $.connection.hub.reconnecting(function () {
@@ -925,3 +936,40 @@ $(document).on('click', '.icon_close', function (e) {
     //$(this).parent().parent().parent().parent().remove();
     $("#chat_window_1").remove();
 });
+
+
+function createGridStructureForAllUsers(connectedUsers) {//, userId, userName
+    var gridString = "";
+    var flag = false;
+    if (role == '1'){
+        gridString += "<div class='row'>";
+        gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateSelfStudent(id, userFirstName) + "</div>";
+    }
+    for (var i = 0; i < connectedUsers.length; i++) {
+        if (i == 0) {
+            flag = false;
+            //gridString += "<div class='row'>";
+            if (parseInt(connectedUsers[i].UserId) == id) {
+                //gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateSelfStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+            } else {
+                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+            }
+        }
+        else if (i != 0 && i % 4 == 0) {
+            flag = true;
+            gridString += "</div>";
+        }
+        else {
+            flag = false;
+            if (parseInt(connectedUsers[i].UserId) == id) {
+                //gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateSelfStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+            } else {
+                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+            }
+        }
+    }
+    if (flag) {
+        gridString += "</div>";
+    }
+    $("#shop").html(gridString);
+}
