@@ -13060,7 +13060,7 @@ body:not(.no-transition) #wrapper,
 /* Chat Box */
 .chatBody {
 	height: 100%;
-	overflow: scroll;
+    overflow: hidden;
 }
 
 #discussion {
@@ -13093,3 +13093,51 @@ footer p {
 }
 
 .custom{right:0;left:0px !important;cursor:default}
+
+.panel{
+    margin-bottom: 0px;
+}
+.chat-window{
+    bottom:0;
+    position:fixed;
+    float:right;
+}
+.chat-window > div > .panel{
+    border-radius: 5px 5px 0 0;
+}
+.icon_minim{
+    padding:2px 10px;
+}
+.msg_container_base{
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 10px 10px;
+  max-height:300px;
+  overflow-x:hidden;
+}
+.top-bar {
+  background: #666;
+  color: white;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media only screen and (min-width: 768px) {
+	
+    .chat-window{
+        margin-left:60% !important;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+	
+    .chat-window{
+        margin-left:75% !important;
+    }
+}
+
+.icon_minim {
+    color: #ff982e !important;
+}
+

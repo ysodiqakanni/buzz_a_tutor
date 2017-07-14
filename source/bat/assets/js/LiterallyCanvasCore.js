@@ -219,36 +219,41 @@ $(function () {
 
     blackboardHub.client.fetchUserList = function (connectedUsers, userId) {
         //$.each(connectedUsers, function (index, user) {
-            //$("#teacher").css("height", $("#video-wrap").height() - 111);
-            //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-            //if (userId == user.UserId) {
-            //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-            //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-            //    }
-            //} 
+        //$("#teacher").css("height", $("#video-wrap").height() - 111);
+        //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
+        //if (userId == user.UserId) {
+        //    if ($("#otherBox-" + user.UserId + "").length == 0) {
+        //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
+        //    }
+        //} 
         var gridString = "";
-        $("#shop").html(gridString);
+        debugger;
+        //$("#shop").html(gridString);
         var flag = false;
-            for (var i = 0; i < connectedUsers.length; i++) {
-                if (i == 0) {
-                    flag = false;
-                    gridString += "<div class='row'>";
-                    gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                }
-                else if (i != 0 && i % 4 == 0) {
-                    flag = true;
-                    gridString += "</div>";
-                }
-                else {
-                    flag = false;
-                    gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+        for (var i = 0; i < connectedUsers.length; i++) {
+            if (connectedUsers[i].UserId == userId) {
+                if ($("#otherBox-" + connectedUsers[i].UserId + "").length == 0) {
+                    if (i == 0) {
+                        flag = false;
+                        gridString += "<div class='row'>";
+                        gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                    }
+                    else if (i != 0 && i % 4 == 0) {
+                        flag = true;
+                        gridString += "</div>";
+                    }
+                    else {
+                        flag = false;
+                        gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                    }
                 }
             }
-            if (flag) {
-                gridString += "</div>";
-            }
-            debugger;
-            $("#shop").html(gridString);
+        }
+        if (flag) {
+            gridString += "</div>";
+        }
+        debugger;
+        $("#shop").html(gridString);
 
         //});
     };
@@ -480,7 +485,7 @@ $(function () {
             defaultStrokeWidth: 2,
             secondaryColor: 'transparent',
             strokeWidths: [1, 2, 3, 5, 30],
-            tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan,MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
+            tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line, LC.tools.Ellipse, LC.tools.Rectangle, LC.tools.Text, LC.tools.Pan, MyTool],//, SaveWhiteboardTool, DownloadWhiteboardTool
         };
         isHaveControl = "true";
         InitCanvas(options, isHaveControl);
@@ -574,7 +579,7 @@ $(document).ready(function () {
         console.log("reconnecting hub for literally canvas");
     });
     $.connection.hub.disconnected(function () {
-       setTimeout(function () {
+        setTimeout(function () {
             $.connection.hub.start();
         }, 5000); // Re-start connection after 5 seconds
     });
@@ -587,6 +592,11 @@ function InitCanvas(options, isHost) {
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
     if (isHost == "false" && isHaveControl == "false") {
+        if (role === 2) {
+            $(".literally.toolbar-at-bottom").css("min-height", "400px");
+        } else {
+            $(".literally.toolbar-hidden").css("min-height", "400px");
+        }
         $(".literally .lc-drawing.with-gui").addClass("custom");
         buzzCanvas.respondToSizeChange();
     }
@@ -685,11 +695,10 @@ function zoomIn() {
 function zoomOut() {
     zoomPercent = parseFloat(zoomPercent.toFixed(2));
     zoomPercent -= 0.2;
-    if(zoomPercent == 0.2){
+    if (zoomPercent == 0.2) {
         $("#btnZoomOut").prop("disabled", true);
-    }       
-    else
-    {
+    }
+    else {
         $("#btnZoomIn").prop("disabled", false);
     }
     buzzCanvas.setZoom(zoomPercent);
@@ -884,3 +893,35 @@ function clearOrLoadBoard() {
         }
     }
 }
+
+$(document).on('click', '.panel-heading span.icon_minim', function (e) {
+    var $this = $(this);
+    if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
+    } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
+    }
+});
+$(document).on('focus', '.panel-footer input.chat_input', function (e) {
+    var $this = $(this);
+    if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $('#minim_chat_window').removeClass('panel-collapsed');
+        $('#minim_chat_window').removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
+    }
+});
+$(document).on('click', '#new_chat', function (e) {
+    var size = $(".chat-window:last-child").css("margin-left");
+    size_total = parseInt(size) + 400;
+    alert(size_total);
+    var clone = $("#chat_window_1").clone().appendTo(".container");
+    clone.css("margin-left", size_total);
+});
+$(document).on('click', '.icon_close', function (e) {
+    //$(this).parent().parent().parent().parent().remove();
+    $("#chat_window_1").remove();
+});
