@@ -941,18 +941,30 @@ $(document).on('click', '.icon_close', function (e) {
 function createGridStructureForAllUsers(connectedUsers) {//, userId, userName
     var gridString = "";
     var flag = false;
-    if (role == '1'){
-        gridString += "<div class='row'>";
-        gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateSelfStudent(id, userFirstName) + "</div>";
+    if (role == '1') {
+        debugger;
+        var checkForDiv = $("#selfBox-" + id);
+        if (checkForDiv.length < 1) {
+            gridString += "<div class='row'>";
+            gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateSelfStudent(id, userFirstName) + "</div>";
+        } else {
+            gridString += "<div class='row'>";
+            gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#selfBox-" + id)[0].outerHTML + "</div>";
+        }
     }
     for (var i = 0; i < connectedUsers.length; i++) {
         if (i == 0) {
             flag = false;
-            //gridString += "<div class='row'>";
             if (parseInt(connectedUsers[i].UserId) == id) {
-                //gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateSelfStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+               
             } else {
-                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                debugger;
+                var checkForDiv = $("#otherBox-" + id);
+                if (checkForDiv.length < 1) {
+                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                } else {
+                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
+                }
             }
         }
         else if (i != 0 && i % 4 == 0) {
@@ -962,9 +974,16 @@ function createGridStructureForAllUsers(connectedUsers) {//, userId, userName
         else {
             flag = false;
             if (parseInt(connectedUsers[i].UserId) == id) {
-                //gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateSelfStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                
             } else {
-                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                debugger;
+                var checkForDiv = $("#otherBox-" + id);
+                if (checkForDiv.length < 1) {
+                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+                }
+                else {
+                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
+                }
             }
         }
     }

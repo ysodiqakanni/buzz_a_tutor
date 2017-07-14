@@ -155,6 +155,16 @@ namespace bat
             }
         }
 
+        public void ChangeVideoState(string group, string userId, string state)//,string userId,string userFirstName
+        {
+            //var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online" && p.IsHost != "true");
+            //if (tempList != null)
+            //{
+            //    Clients.Group(group).fetchOnlineUsersExceptTeacher(tempList);
+            //}
+            Clients.Group(group,Context.ConnectionId).changeVideoState(userId, state);
+        }
+
         public void FetchUserListOnDisconnect(string groupName,string connectionId,string userId)
         {
             var tempList = StreamUsers.Where(p => p.GroupName == groupName && p.IsStartVideo == "true");

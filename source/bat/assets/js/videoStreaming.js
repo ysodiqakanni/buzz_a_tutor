@@ -157,7 +157,7 @@ var startStream = function (sessionId, token) {
             streamHeight = $("#teacher").height();
         } else {
             blackboardHub.server.updateStreamStudents(lessonId, id, "true");
-            //BeforeStartStreamingStudent();
+            BeforeStartStreamingStudent();
             streamWidth = $("#self").width();
             streamHeight = $("#self").height();
         }
@@ -194,13 +194,15 @@ var stopStream = function () {
         $("#teacher").append('<div id="streamBoxTeacher"></div>')
     } else {
         $("#self").append('<div id="streamBoxSelf"></div>');
-        //EndStreamingStudent();
+        EndStreamingStudent();
     }
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }
 
 function BeforeStartStreamingStudent() {
+    //$("#selfBox-" + id).css("display", "block");
+    //blackboardHub.server.changeVideoState(lessonId, id,"true");
     //$("#teacher").css("height", $("#video-wrap").height() - 111);
     //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
     //$('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
@@ -208,6 +210,8 @@ function BeforeStartStreamingStudent() {
 }
 
 function EndStreamingStudent() {
+    //$("#selfBox-" + id).css("display", "none");
+    //blackboardHub.server.changeVideoState(lessonId, id, "true");
     //var itemCount = $('.owl-item').length;
     //var elemIndex = -1;
     //if (itemCount > 0) {
