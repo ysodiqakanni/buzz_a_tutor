@@ -542,12 +542,7 @@ $(document).ready(function () {
     $.connection.hub.start().done(function () {
         $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
-
-
-
-        //EndStreamingStudent();
-        //blackboardHub.server.addToStreamStudents(sessionId, token, id, lessonId, username, "false", isHost);
-        //blackboardHub.server.onInitRenderStream(lessonId);
+        $("#chat_window_1").draggable();
         if (isHost === "true") {
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
@@ -594,19 +589,6 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
-    //setCanvasSize();
-    //if (isHost == "false" && isHaveControl == "false") {
-    //    if (role === 2) {
-    //        $(".literally.toolbar-at-bottom").css("min-height", "400px");
-    //    } else {
-    //        $(".literally.toolbar-hidden").css("min-height", "400px");
-    //    }
-    //    $(".literally .lc-drawing.with-gui").addClass("custom");
-    //    buzzCanvas.respondToSizeChange();
-    //}
-    //else {
-    //    $(".literally.toolbar-at-bottom").css("min-height", "400px");
-    //}
     $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
     $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
     buzzCanvas.respondToSizeChange();
@@ -944,14 +926,21 @@ function clearOrLoadBoard() {
 
 $(document).on('click', '.panel-heading span.icon_minim', function (e) {
     var $this = $(this);
+    var windowHeight = $(window).height();
     if (!$this.hasClass('panel-collapsed')) {
         $this.parents('.panel').find('.panel-body').slideUp();
         $this.addClass('panel-collapsed');
         $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
+        
+        $("#chat_window_1").draggable('disable');
+        $("#chat_window_1").css({ 'top': windowHeight - 55, 'left': '0'})
     } else {
+        $("#chat_window_1").css({ 'top': windowHeight - 355, 'left': '0' })
         $this.parents('.panel').find('.panel-body').slideDown();
         $this.removeClass('panel-collapsed');
         $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
+        $("#chat_window_1").draggable('enable');
+        
     }
 });
 $(document).on('focus', '.panel-footer input.chat_input', function (e) {
