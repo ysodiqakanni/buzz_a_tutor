@@ -105,7 +105,35 @@ var connect = function (sessionId) {
             options.width = otherWidth;
             options.height = otherHeight;
             otherBox = 'streamBoxOther-' + streamUserId;
-            session.subscribe(stream, otherBox, options);
+
+            var dummyRow = "";
+            var rowNum = $("#students").children().length-1;
+            var currentStreamRow = $("#Row-" + rowNum);
+            var studentVideoCount = currentStreamRow.children().length;
+            if (studentVideoCount == 2) {
+                var newRowNum = rowNum + 1;
+                dummyRow = $("#hdnRow").clone();
+                $("#students").append(dummyRow);
+                $("#students #hdnRow").attr("id", "Row-" + newRowNum);
+                $("#students #Row-" + newRowNum).css("display", "block");
+                var subContainer = document.createElement('div');
+                subContainer.id = 'stream-' + streamUserId;
+                subContainer.className = "StudentVideo";
+                document.getElementById('Row-' + newRowNum).appendChild(subContainer);
+                session.subscribe(stream, subContainer, options);
+            } else {
+                var subContainer = document.createElement('div');
+                subContainer.id = 'stream-' + streamUserId;
+                subContainer.className = "StudentVideo";
+                document.getElementById('Row-' + rowNum).appendChild(subContainer);
+                session.subscribe(stream, subContainer, options);
+            }
+            //var subContainer = document.createElement('div');
+            //console.log(subContainer);
+            //subContainer.id = 'stream-' + streamUserId;
+            //document.getElementById('students').appendChild(subContainer);
+            //session.subscribe(stream, subContainer, options);
+            
         }
     });
 
@@ -120,7 +148,8 @@ var connect = function (sessionId) {
         if (streamRole == 'Teacher') {
             $("#teacher").append('<div id="streamBoxTeacher"></div>')
         } else {
-            $("#other-"+ streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
+            $("#students").remove("#stream-" + streamUserId);
+            //$("#other-"+ streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
         }
     });
 }
@@ -146,6 +175,32 @@ if (role == '2') {
     targetElement = 'streamBoxSelf';
     streamWidth = selfWidth;
     streamHeight = selfHeight;
+
+    //var dummyRow = "";
+    //var rowNum = $("#students").children().length - 1;
+    //var currentStreamRow = $("#Row-" + rowNum);
+    //var studentVideoCount = currentStreamRow.children().length;
+    //if (studentVideoCount == 2) {
+    //    var newRowNum = rowNum + 1;
+    //    dummyRow = $("#hdnRow").clone();
+    //    $("#students").append(dummyRow);
+    //    $("#students #hdnRow").attr("id", "Row-" + newRowNum);
+    //    $("#students #Row-" + newRowNum).css("display", "block");
+    //    targetElement = document.createElement('div');
+    //    targetElement.id = 'stream-' + id;
+    //    targetElement.className = "StudentVideo";
+    //    document.getElementById('Row-' + newRowNum).appendChild(targetElement);
+    //} else {
+    //    targetElement = document.createElement('div');
+    //    targetElement.id = 'stream-' + id;
+    //    targetElement.className = "StudentVideo";
+    //    document.getElementById('Row-' + rowNum).appendChild(targetElement);
+    //}
+
+    //targetElement = document.createElement('div');
+    
+    //targetElement.id = 'stream-' + id;
+    //document.getElementById('students').appendChild(targetElement);
 }
 
 
@@ -156,8 +211,31 @@ var startStream = function (sessionId, token) {
             streamWidth = $("#teacher").width();
             streamHeight = $("#teacher").height();
         } else {
-            blackboardHub.server.updateStreamStudents(lessonId, id, "true");
-            BeforeStartStreamingStudent();
+            //blackboardHub.server.updateStreamStudents(lessonId, id, "true");
+            //BeforeStartStreamingStudent();
+
+
+            var dummyRow = "";
+            var rowNum = $("#students").children().length - 1;
+            var currentStreamRow = $("#Row-" + rowNum);
+            var studentVideoCount = currentStreamRow.children().length;
+            if (studentVideoCount == 2) {
+                var newRowNum = rowNum + 1;
+                dummyRow = $("#hdnRow").clone();
+                $("#students").append(dummyRow);
+                $("#students #hdnRow").attr("id", "Row-" + newRowNum);
+                $("#students #Row-" + newRowNum).css("display", "block");
+                targetElement = document.createElement('div');
+                targetElement.id = 'stream-' + id;
+                targetElement.className = "StudentVideo";
+                document.getElementById('Row-' + newRowNum).appendChild(targetElement);
+            } else {
+                targetElement = document.createElement('div');
+                targetElement.id = 'stream-' + id;
+                targetElement.className = "StudentVideo";
+                document.getElementById('Row-' + rowNum).appendChild(targetElement);
+            }
+
             streamWidth = $("#self").width();
             streamHeight = $("#self").height();
         }
@@ -189,12 +267,13 @@ var startStream = function (sessionId, token) {
 var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
-    blackboardHub.server.updateStreamStudents(lessonId, id, "false");
+    //blackboardHub.server.updateStreamStudents(lessonId, id, "false");
     if (role == '2') {
         $("#teacher").append('<div id="streamBoxTeacher"></div>')
     } else {
-        $("#self").append('<div id="streamBoxSelf"></div>');
-        EndStreamingStudent();
+        $("#students").remove("#stream-" + id);
+        //$("#self").append('<div id="streamBoxSelf"></div>');
+        //EndStreamingStudent();
     }
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');

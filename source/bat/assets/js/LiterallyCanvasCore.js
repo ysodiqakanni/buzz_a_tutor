@@ -225,17 +225,9 @@ $(function () {
     };
 
     blackboardHub.client.fetchUserList = function (connectedUsers, userId) {
-        //$.each(connectedUsers, function (index, user) {
-        //$("#teacher").css("height", $("#video-wrap").height() - 111);
-        //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-        //if (userId == user.UserId) {
-        //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-        //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-        //    }
-        //} 
+        
         var gridString = "";
-        debugger;
-        //$("#shop").html(gridString);
+
         var flag = false;
         for (var i = 0; i < connectedUsers.length; i++) {
             if (connectedUsers[i].UserId == userId) {
@@ -259,7 +251,7 @@ $(function () {
         if (flag) {
             gridString += "</div>";
         }
-        debugger;
+
         $("#shop").html(gridString);
 
         //});
@@ -294,7 +286,7 @@ $(function () {
         if (flag) {
             gridString += "</div>";
         }
-        debugger;
+
         $("#shop").html(gridString);
     };
 
@@ -602,23 +594,68 @@ function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
+    //setCanvasSize();
+    //if (isHost == "false" && isHaveControl == "false") {
+    //    if (role === 2) {
+    //        $(".literally.toolbar-at-bottom").css("min-height", "400px");
+    //    } else {
+    //        $(".literally.toolbar-hidden").css("min-height", "400px");
+    //    }
+    //    $(".literally .lc-drawing.with-gui").addClass("custom");
+    //    buzzCanvas.respondToSizeChange();
+    //}
+    //else {
+    //    $(".literally.toolbar-at-bottom").css("min-height", "400px");
+    //}
+    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    buzzCanvas.respondToSizeChange();
+    setCanvasSize();
+    if (isHaveControl == "true") {
+        bindEvent();
+    }
+}
+
+function setCanvasSize() {
+    
+    var windowHeight = parseFloat($(window).height());
+    var whiteboardHeight;
+
+    var multiplier = getMultiplier(windowHeight);
+
+    whiteboardHeight = windowHeight * (parseFloat(multiplier) / 100);
+
     if (isHost == "false" && isHaveControl == "false") {
         if (role === 2) {
-            $(".literally.toolbar-at-bottom").css("min-height", "400px");
+            $(".literally.toolbar-at-bottom").css("min-height", whiteboardHeight);
         } else {
-            $(".literally.toolbar-hidden").css("min-height", "400px");
+            $(".literally.toolbar-hidden").css("min-height", whiteboardHeight);
         }
         $(".literally .lc-drawing.with-gui").addClass("custom");
         buzzCanvas.respondToSizeChange();
     }
     else {
-        $(".literally.toolbar-at-bottom").css("min-height", "400px");
+        $(".literally.toolbar-at-bottom").css("min-height", whiteboardHeight);
     }
-    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
-    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
-    if (isHaveControl == "true") {
-        bindEvent();
+}
+
+function getMultiplier(height) {
+    var multiplier = 50;
+    switch (height) {
+        case 1414:
+            multiplier = 70;
+            break;
+        case 707:
+            multiplier = 45;
+            break;
+        case 744:
+            multiplier = 45;
+            break;
+        default:
+            multiplier = 45;
+            break;
     }
+    return multiplier;
 }
 
 function bindEvent() {
@@ -939,53 +976,53 @@ $(document).on('click', '.icon_close', function (e) {
 
 
 function createGridStructureForAllUsers(connectedUsers) {//, userId, userName
-    var gridString = "";
-    var flag = false;
-    if (role == '1') {
-        var checkForDiv = $("#selfBox-" + id);
-        if (checkForDiv.length < 1) {
-            gridString += "<div class='row'>";
-            gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateSelfStudent(id, userFirstName) + "</div>";
-        } else {
-            gridString += "<div class='row'>";
-            gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#selfBox-" + id)[0].outerHTML + "</div>";
-        }
-    }
-    for (var i = 0; i < connectedUsers.length; i++) {
-        if (i == 0) {
-            flag = false;
-            if (parseInt(connectedUsers[i].UserId) == id) {
+    //var gridString = "";
+    //var flag = false;
+    //if (role == '1') {
+    //    var checkForDiv = $("#selfBox-" + id);
+    //    if (checkForDiv.length < 1) {
+    //        gridString += "<div class='row'>";
+    //        gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateSelfStudent(id, userFirstName) + "</div>";
+    //    } else {
+    //        gridString += "<div class='row'>";
+    //        gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#selfBox-" + id)[0].outerHTML + "</div>";
+    //    }
+    //}
+    //for (var i = 0; i < connectedUsers.length; i++) {
+    //    if (i == 0) {
+    //        flag = false;
+    //        if (parseInt(connectedUsers[i].UserId) == id) {
                
-            } else {
-                var checkForDiv = $("#otherBox-" + id);
-                if (checkForDiv.length < 1) {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                } else {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
-                }
-            }
-        }
-        else if (i != 0 && i % 4 == 0) {
-            flag = true;
-            gridString += "</div>";
-        }
-        else {
-            flag = false;
-            if (parseInt(connectedUsers[i].UserId) == id) {
+    //        } else {
+    //            var checkForDiv = $("#otherBox-" + id);
+    //            if (checkForDiv.length < 1) {
+    //                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+    //            } else {
+    //                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
+    //            }
+    //        }
+    //    }
+    //    else if (i != 0 && i % 4 == 0) {
+    //        flag = true;
+    //        gridString += "</div>";
+    //    }
+    //    else {
+    //        flag = false;
+    //        if (parseInt(connectedUsers[i].UserId) == id) {
                 
-            } else {
-                var checkForDiv = $("#otherBox-" + id);
-                if (checkForDiv.length < 1) {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                }
-                else {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
-                }
-            }
-        }
-    }
-    if (flag) {
-        gridString += "</div>";
-    }
-    $("#shop").html(gridString);
+    //        } else {
+    //            var checkForDiv = $("#otherBox-" + id);
+    //            if (checkForDiv.length < 1) {
+    //                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
+    //            }
+    //            else {
+    //                gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
+    //            }
+    //        }
+    //    }
+    //}
+    //if (flag) {
+    //    gridString += "</div>";
+    //}
+    //$("#shop").html(gridString);
 }
