@@ -15620,7 +15620,7 @@ footer p {
 
     .chat-window {
         margin-left: 0% !important;
-        width:100% !important;
+        width: 100% !important;
     }
 }
 
@@ -15628,7 +15628,7 @@ footer p {
 
     .chat-window {
         margin-left: 60% !important;
-        width:40% !important;
+        width: 40% !important;
     }
 }
 
@@ -15636,7 +15636,7 @@ footer p {
 
     .chat-window {
         margin-left: 60% !important;
-        width:40% !important;
+        width: 40% !important;
     }
 }
 
@@ -15644,7 +15644,7 @@ footer p {
 
     .chat-window {
         margin-left: 70% !important;
-        width:30% !important;
+        width: 30% !important;
     }
 }
 
@@ -15652,9 +15652,88 @@ footer p {
     color: #ff982e !important;
 }
 
-.StudentVideo {
+/*.StudentVideo {
     height: 150px !important;
     width: 150px !important;
     float: left;
     margin: 5px !important;
+}*/
+
+@media only screen and (min-width: 320px) {
+
+    .StudentVideo {
+        height: 100px !important;
+        width: 130px !important;
+        float: left;
+        margin: 5px !important;
+    }
+    .streamWindow{
+        margin-left:8% !important;
+    }
+}
+
+@media only screen and (min-width:375px) {
+
+    .StudentVideo {
+        height: 100px !important;
+        width: 150px !important;
+        float: left;
+        margin: 5px !important;
+    }
+    .streamWindow{
+        margin-left:8% !important;
+    }
+}
+
+@media only screen and (min-width: 425px) {
+
+    .StudentVideo {
+        height: 130px !important;
+        width: 130px !important;
+        float: left;
+        margin: 5px !important;
+    }
+    .streamWindow{
+        margin-left:3% !important;
+    }
+}
+
+@media only screen and (min-width:768px) {
+
+    .StudentVideo {
+        height: 150px !important;
+        width: 150px !important;
+        float: left;
+        margin: 5px !important;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+
+    .StudentVideo {
+        height: 150px !important;
+        width: 150px !important;
+        float: left;
+        margin: 5px !important;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+
+    .StudentVideo {
+        height: 150px !important;
+        width: 150px !important;
+        float: left;
+        margin: 5px !important;
+    }
+}
+
+@media only screen and (min-width: 2560px) {
+
+    .StudentVideo {
+        height: 150px !important;
+        width: 150px !important;
+        float: left;
+        margin: 5px !important;
+    }
 }

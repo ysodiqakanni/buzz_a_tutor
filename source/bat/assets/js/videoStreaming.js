@@ -28,6 +28,8 @@ var selfBox = 'streamBoxSelf';
 var teacherBox = 'streamBoxTeacher';
 var otherBox;
 
+var displayVideoCount;
+
 //  **** Sessions *****
 var connected = false; // Check if connected to the session
 
@@ -103,10 +105,10 @@ var connect = function (sessionId) {
             otherBox = 'streamBoxOther-' + streamUserId;
 
             var dummyRow = "";
-            var rowNum = $("#students").children().length-1;
+            var rowNum = $("#students").children().length - 1;
             var currentStreamRow = $("#videoStreamRow-" + rowNum);
             var studentVideoCount = currentStreamRow.children().length;
-            if (studentVideoCount == 2) {
+            if (studentVideoCount == displayVideoCount) {
                 var newRowNum = rowNum + 1;
                 dummyRow = $("#hdnRow").clone();
                 $("#students").append(dummyRow);
@@ -123,7 +125,7 @@ var connect = function (sessionId) {
                 subContainer.className = "StudentVideo";
                 document.getElementById('videoStreamRow-' + rowNum).appendChild(subContainer);
                 session.subscribe(stream, subContainer, options);
-            } 
+            }
         }
     });
 
@@ -156,7 +158,7 @@ var targetElement; // The element on page to be replaced with tokbox video eleme
 var streamWidth,
     streamHeight;
 if (role == '2') {
- 
+
     targetElement = 'streamBoxTeacher';
     streamWidth = teacherWidth;
     streamHeight = teacherHeight;
@@ -178,7 +180,7 @@ var startStream = function (sessionId, token) {
             var rowNum = $("#students").children().length - 1;
             var currentStreamRow = $("#videoStreamRow-" + rowNum);
             var studentVideoCount = currentStreamRow.children().length;
-            if (studentVideoCount == 2) {
+            if (studentVideoCount == displayVideoCount) {
                 var newRowNum = rowNum + 1;
                 dummyRow = $("#hdnRow").clone();
                 $("#students").append(dummyRow);
@@ -234,3 +236,33 @@ var stopStream = function () {
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }
+
+$(function () {
+    var windowWidth = $(window).width();
+    switch (windowWidth) {
+        case 320:
+            displayVideoCount = 2;
+            break;
+        case 375:
+            displayVideoCount = 2;
+            break;
+        case 425:
+            displayVideoCount = 3;
+            break;
+        case 768:
+            displayVideoCount = 3;
+            break;
+        case 1024:
+            displayVideoCount = 4;
+            break;
+        case 1440:
+            displayVideoCount = 5;
+            break;
+        case 2560:
+            displayVideoCount = 6;
+            break;
+        default:
+            displayVideoCount = 4;
+            break;
+    }
+});
