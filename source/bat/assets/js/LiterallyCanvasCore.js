@@ -491,6 +491,7 @@ function InitCanvas(options, isHost) {
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
     setCanvasSize();
+    setZIndexForToolBar();
     if (isHaveControl == "true") {
         bindEvent();
     }
@@ -821,3 +822,13 @@ $(document).on('click', '.icon_close', function (e) {
     //$(this).parent().parent().parent().parent().remove();
     $("#chat_window_1").remove();
 });
+
+function setZIndexForToolBar() {
+    if ($(window).width() <= 425) {
+        $(".literally .lc-picker").css("z-index", "0");
+    }
+    else {
+        console.log("big screens")
+        $(".literally .lc-picker").css("z-index", "1001");
+    }
+}

@@ -15616,17 +15616,35 @@ footer p {
     overflow: hidden;
 }
 
+@media only screen and (min-width: 320px) {
+
+    .chat-window {
+        margin-left: 0% !important;
+        width:100% !important;
+    }
+}
+
 @media only screen and (min-width: 768px) {
 
     .chat-window {
         margin-left: 60% !important;
+        width:40% !important;
     }
 }
 
 @media only screen and (min-width: 1024px) {
 
     .chat-window {
-        margin-left: 75% !important;
+        margin-left: 60% !important;
+        width:40% !important;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+
+    .chat-window {
+        margin-left: 70% !important;
+        width:30% !important;
     }
 }
 
