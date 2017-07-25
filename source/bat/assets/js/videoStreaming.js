@@ -108,24 +108,24 @@ var connect = function (sessionId) {
 
             var dummyRow = "";
             var rowNum = $("#students").children().length-1;
-            var currentStreamRow = $("#Row-" + rowNum);
+            var currentStreamRow = $("#videoStreamRow-" + rowNum);
             var studentVideoCount = currentStreamRow.children().length;
             if (studentVideoCount == 2) {
                 var newRowNum = rowNum + 1;
                 dummyRow = $("#hdnRow").clone();
                 $("#students").append(dummyRow);
-                $("#students #hdnRow").attr("id", "Row-" + newRowNum);
-                $("#students #Row-" + newRowNum).css("display", "block");
+                $("#students #hdnRow").attr("id", "videoStreamRow-" + newRowNum);
+                $("#students #videoStreamRow-" + newRowNum).css("display", "block");
                 var subContainer = document.createElement('div');
                 subContainer.id = 'stream-' + streamUserId;
                 subContainer.className = "StudentVideo";
-                document.getElementById('Row-' + newRowNum).appendChild(subContainer);
+                document.getElementById('videoStreamRow-' + newRowNum).appendChild(subContainer);
                 session.subscribe(stream, subContainer, options);
             } else {
                 var subContainer = document.createElement('div');
                 subContainer.id = 'stream-' + streamUserId;
                 subContainer.className = "StudentVideo";
-                document.getElementById('Row-' + rowNum).appendChild(subContainer);
+                document.getElementById('videoStreamRow-' + rowNum).appendChild(subContainer);
                 session.subscribe(stream, subContainer, options);
             }
             //var subContainer = document.createElement('div');
@@ -178,23 +178,23 @@ if (role == '2') {
 
     //var dummyRow = "";
     //var rowNum = $("#students").children().length - 1;
-    //var currentStreamRow = $("#Row-" + rowNum);
+    //var currentStreamRow = $("#videoStreamRow-" + rowNum);
     //var studentVideoCount = currentStreamRow.children().length;
     //if (studentVideoCount == 2) {
     //    var newRowNum = rowNum + 1;
     //    dummyRow = $("#hdnRow").clone();
     //    $("#students").append(dummyRow);
-    //    $("#students #hdnRow").attr("id", "Row-" + newRowNum);
-    //    $("#students #Row-" + newRowNum).css("display", "block");
+    //    $("#students #hdnRow").attr("id", "videoStreamRow-" + newRowNum);
+    //    $("#students #videoStreamRow-" + newRowNum).css("display", "block");
     //    targetElement = document.createElement('div');
     //    targetElement.id = 'stream-' + id;
     //    targetElement.className = "StudentVideo";
-    //    document.getElementById('Row-' + newRowNum).appendChild(targetElement);
+    //    document.getElementById('videoStreamRow-' + newRowNum).appendChild(targetElement);
     //} else {
     //    targetElement = document.createElement('div');
     //    targetElement.id = 'stream-' + id;
     //    targetElement.className = "StudentVideo";
-    //    document.getElementById('Row-' + rowNum).appendChild(targetElement);
+    //    document.getElementById('videoStreamRow-' + rowNum).appendChild(targetElement);
     //}
 
     //targetElement = document.createElement('div');
@@ -217,23 +217,23 @@ var startStream = function (sessionId, token) {
 
             var dummyRow = "";
             var rowNum = $("#students").children().length - 1;
-            var currentStreamRow = $("#Row-" + rowNum);
+            var currentStreamRow = $("#videoStreamRow-" + rowNum);
             var studentVideoCount = currentStreamRow.children().length;
             if (studentVideoCount == 2) {
                 var newRowNum = rowNum + 1;
                 dummyRow = $("#hdnRow").clone();
                 $("#students").append(dummyRow);
-                $("#students #hdnRow").attr("id", "Row-" + newRowNum);
-                $("#students #Row-" + newRowNum).css("display", "block");
+                $("#students #hdnRow").attr("id", "videoStreamRow-" + newRowNum);
+                $("#students #videoStreamRow-" + newRowNum).css("display", "block");
                 targetElement = document.createElement('div');
                 targetElement.id = 'stream-' + id;
                 targetElement.className = "StudentVideo";
-                document.getElementById('Row-' + newRowNum).appendChild(targetElement);
+                document.getElementById('videoStreamRow-' + newRowNum).appendChild(targetElement);
             } else {
                 targetElement = document.createElement('div');
                 targetElement.id = 'stream-' + id;
                 targetElement.className = "StudentVideo";
-                document.getElementById('Row-' + rowNum).appendChild(targetElement);
+                document.getElementById('videoStreamRow-' + rowNum).appendChild(targetElement);
             }
 
             streamWidth = $("#self").width();
