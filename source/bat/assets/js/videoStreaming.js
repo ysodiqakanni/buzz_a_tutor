@@ -33,7 +33,7 @@ var connected = false; // Check if connected to the session
 
 //Connecting to the session
 var connect = function (sessionId) {
-    if (OT || OT == undefined) {
+    if (OT === null || OT === undefined) {
         console.log("OpenTok object undefined");
     }
     session = OT.initSession(apiKey, sessionId);
@@ -165,7 +165,7 @@ var startStream = function (sessionId, token) {
             streamWidth = options.width;
             streamHeight = options.height;
         }
-        if (OT || OT === undefined) {
+        if (OT === null || OT === undefined) {
             console.log("OpenTok object undefined");
         }
         publisher = OT.initPublisher(targetElement, {
