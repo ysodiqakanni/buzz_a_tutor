@@ -233,64 +233,68 @@ $(function () {
 
 function setVideoSize() {
     var windowWidth = $(window).width();
-    var newOptions = {};
-    switch (windowWidth) {
-        case 320:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        case 375:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        case 425:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        case 768:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        case 1024:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        case 1440:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        case 2560:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-        default:
-            newOptions = {
-                width: "45%",
-                height: "45%",
-                nameDisplayMode: "off"
-            }
-            break;
-    }
+    var newOptions = {
+        width: "45%",
+        height: "45%",
+        nameDisplayMode: "off"
+    };
+    //switch (windowWidth) {
+    //    case 320:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    case 375:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    case 425:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    case 768:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    case 1024:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    case 1440:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    case 2560:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //    default:
+    //        newOptions = {
+    //            width: "45%",
+    //            height: "45%",
+    //            nameDisplayMode: "off"
+    //        }
+    //        break;
+    //}
     return newOptions;
 }
