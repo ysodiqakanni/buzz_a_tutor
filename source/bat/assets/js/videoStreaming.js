@@ -160,9 +160,9 @@ var startStream = function (sessionId, token) {
             targetElement.id = 'stream-' + id;
             targetElement.className = "StudentVideo";
             document.getElementById('videoStreamRow-0').appendChild(targetElement);
-
-            //streamWidth = $("#self").width();
-            //streamHeight = $("#self").height();
+            var options = setVideoSize();
+            streamWidth = options.width;
+            streamHeight = options.height;
         }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
