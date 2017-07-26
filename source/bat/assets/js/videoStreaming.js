@@ -28,13 +28,14 @@ var selfBox = 'streamBoxSelf';
 var teacherBox = 'streamBoxTeacher';
 var otherBox;
 
-var displayVideoCount;
-
 //  **** Sessions *****
 var connected = false; // Check if connected to the session
 
 //Connecting to the session
 var connect = function (sessionId) {
+    if (OT == undefined) {
+        console.log("OpenTok object undefined");
+    }
     session = OT.initSession(apiKey, sessionId);
 
     //Logs when clients joins and disconnects from the session
@@ -164,6 +165,9 @@ var startStream = function (sessionId, token) {
             streamWidth = options.width;
             streamHeight = options.height;
         }
+        if (OT == undefined) {
+            console.log("OpenTok object undefined");
+        }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
             frameRate: 15,
@@ -201,100 +205,53 @@ var stopStream = function () {
     $('#stop').addClass('hidden');
 }
 
-$(function () {
-    var windowWidth = $(window).width();
-    switch (windowWidth) {
-        case 320:
-            displayVideoCount = 2;
-            break;
-        case 375:
-            displayVideoCount = 2;
-            break;
-        case 425:
-            displayVideoCount = 3;
-            break;
-        case 768:
-            displayVideoCount = 3;
-            break;
-        case 1024:
-            displayVideoCount = 4;
-            break;
-        case 1440:
-            displayVideoCount = 5;
-            break;
-        case 2560:
-            displayVideoCount = 6;
-            break;
-        default:
-            displayVideoCount = 4;
-            break;
-    }
-});
-
 function setVideoSize() {
     var windowWidth = $(window).width();
-    var newOptions = {
-        width: "45%",
-        height: "45%",
-        nameDisplayMode: "off"
-    };
-    //switch (windowWidth) {
-    //    case 320:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    case 375:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    case 425:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    case 768:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    case 1024:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    case 1440:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    case 2560:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //    default:
-    //        newOptions = {
-    //            width: "45%",
-    //            height: "45%",
-    //            nameDisplayMode: "off"
-    //        }
-    //        break;
-    //}
+    var newOptions = {};
+
+    if (windowWidth <= 375) {
+        //display count = 2
+        newOptions = {
+            width: "45%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 375 && windowWidth <= 768) {
+        //display count = 3
+        newOptions = {
+            width: "32%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 768 && windowWidth <= 1024) {
+        //display count = 4
+        newOptions = {
+            width: "22%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 1024 && windowWidth <= 1440) {
+        //display count = 5
+        newOptions = {
+            width: "19%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 1440 && windowWidth <= 2560) {
+        //display count = 6
+        newOptions = {
+            width: "15%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 2560) {
+        //display count = 6
+        newOptions = {
+            width: "20%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    }
+
     return newOptions;
 }
