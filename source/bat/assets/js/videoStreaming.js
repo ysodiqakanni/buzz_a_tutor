@@ -98,34 +98,13 @@ var connect = function (sessionId) {
             options.height = teacherHeight;
             session.subscribe(stream, teacherBox, options);
         } else {
-            otherWidth = $("div[id^=other-]").width();
-            otherHeight = $("div[id^=other-]").height();
-            options.width = otherWidth;
-            options.height = otherHeight;
-            otherBox = 'streamBoxOther-' + streamUserId;
+            options = setVideoSize();
 
-            var dummyRow = "";
-            var rowNum = $("#students").children().length - 1;
-            var currentStreamRow = $("#videoStreamRow-" + rowNum);
-            var studentVideoCount = currentStreamRow.children().length;
-            if (studentVideoCount == displayVideoCount) {
-                var newRowNum = rowNum + 1;
-                dummyRow = $("#hdnRow").clone();
-                $("#students").append(dummyRow);
-                $("#students #hdnRow").attr("id", "videoStreamRow-" + newRowNum);
-                $("#students #videoStreamRow-" + newRowNum).css("display", "block");
-                var subContainer = document.createElement('div');
-                subContainer.id = 'stream-' + streamUserId;
-                subContainer.className = "StudentVideo";
-                document.getElementById('videoStreamRow-' + newRowNum).appendChild(subContainer);
-                session.subscribe(stream, subContainer, options);
-            } else {
-                var subContainer = document.createElement('div');
-                subContainer.id = 'stream-' + streamUserId;
-                subContainer.className = "StudentVideo";
-                document.getElementById('videoStreamRow-' + rowNum).appendChild(subContainer);
-                session.subscribe(stream, subContainer, options);
-            }
+            var subContainer = document.createElement('div');
+            subContainer.id = 'stream-' + streamUserId;
+            subContainer.className = "StudentVideo";
+            document.getElementById('videoStreamRow-0').appendChild(subContainer);
+            session.subscribe(stream, subContainer, options);
         }
     });
 
@@ -176,29 +155,14 @@ var startStream = function (sessionId, token) {
             streamWidth = $("#teacher").width();
             streamHeight = $("#teacher").height();
         } else {
-            var dummyRow = "";
-            var rowNum = $("#students").children().length - 1;
-            var currentStreamRow = $("#videoStreamRow-" + rowNum);
-            var studentVideoCount = currentStreamRow.children().length;
-            if (studentVideoCount == displayVideoCount) {
-                var newRowNum = rowNum + 1;
-                dummyRow = $("#hdnRow").clone();
-                $("#students").append(dummyRow);
-                $("#students #hdnRow").attr("id", "videoStreamRow-" + newRowNum);
-                $("#students #videoStreamRow-" + newRowNum).css("display", "block");
-                targetElement = document.createElement('div');
-                targetElement.id = 'stream-' + id;
-                targetElement.className = "StudentVideo";
-                document.getElementById('videoStreamRow-' + newRowNum).appendChild(targetElement);
-            } else {
-                targetElement = document.createElement('div');
-                targetElement.id = 'stream-' + id;
-                targetElement.className = "StudentVideo";
-                document.getElementById('videoStreamRow-' + rowNum).appendChild(targetElement);
-            }
 
-            streamWidth = $("#self").width();
-            streamHeight = $("#self").height();
+            targetElement = document.createElement('div');
+            targetElement.id = 'stream-' + id;
+            targetElement.className = "StudentVideo";
+            document.getElementById('videoStreamRow-0').appendChild(targetElement);
+
+            //streamWidth = $("#self").width();
+            //streamHeight = $("#self").height();
         }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
@@ -266,3 +230,67 @@ $(function () {
             break;
     }
 });
+
+function setVideoSize() {
+    var windowWidth = $(window).width();
+    var newOptions = {};
+    switch (windowWidth) {
+        case 320:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        case 375:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        case 425:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        case 768:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        case 1024:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        case 1440:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        case 2560:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+        default:
+            newOptions = {
+                width: "45%",
+                height: "45%",
+                nameDisplayMode: "off"
+            }
+            break;
+    }
+    return newOptions;
+}

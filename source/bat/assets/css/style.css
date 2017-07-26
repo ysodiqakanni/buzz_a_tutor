@@ -15652,14 +15652,21 @@ footer p {
     color: #ff982e !important;
 }
 
-/*.StudentVideo {
-    height: 150px !important;
+.StudentVideo {
+    /*height: 150px !important;
     width: 150px !important;
-    float: left;
+    float: left;*/
     margin: 5px !important;
-}*/
+    display: inline-block;
+}
 
-@media only screen and (min-width: 320px) {
+#videoStreamRow-0 {
+    height: 225px !important;
+    overflow:auto !important;
+}
+
+
+/*@media only screen and (min-width: 320px) {
 
     .StudentVideo {
         height: 100px !important;
@@ -15669,6 +15676,7 @@ footer p {
     }
     .streamWindow{
         margin-left:8% !important;
+        height:225px !important;
     }
 }
 
@@ -15682,6 +15690,7 @@ footer p {
     }
     .streamWindow{
         margin-left:8% !important;
+        height:225px !important;
     }
 }
 
@@ -15695,6 +15704,7 @@ footer p {
     }
     .streamWindow{
         margin-left:3% !important;
+        height:285px !important;
     }
 }
 
@@ -15736,4 +15746,4 @@ footer p {
         float: left;
         margin: 5px !important;
     }
-}
+}*/
