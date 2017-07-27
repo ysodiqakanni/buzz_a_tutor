@@ -805,6 +805,7 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
         $this.parents('.panel').find('.panel-body').slideUp();
         $this.addClass('panel-collapsed');
         $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
+        debugger;
         if ($(window).width() > 768) {
             $("#chat_window_1").draggable('disable');
             $("#innerChatDiv").resizable('disable');
@@ -814,6 +815,7 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
             $(".panel-body").css({ "width": '100%' })
         }
     } else {
+        debugger;
         $this.parents('.panel').find('.panel-body').slideDown();
         $this.removeClass('panel-collapsed');
         $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
