@@ -821,7 +821,7 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
             $("#chat_window_1").css({ 'top': windowHeight - 403, 'left': '0' })
             $("#innerChatDiv").css({ 'height': '402px' })
             $(".chatBody").css({ 'height': '300px' })
-            $(".panel-body").css({ "height": '355px' })
+            $(".panel-body").css({ 'height': '355px' })
             console.log($(".panel-body").height());
             $("#chat_window_1").draggable('enable');
             $("#innerChatDiv").resizable('enable');
@@ -834,6 +834,7 @@ $(document).on('focus', '.panel-footer input.chat_input', function (e) {
         $this.parents('.panel').find('.panel-body').slideDown();
         $('#minim_chat_window').removeClass('panel-collapsed');
         $('#minim_chat_window').removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
+        console.log($(".panel-body").height() + " - new height");
     }
 });
 $(document).on('click', '#new_chat', function (e) {
