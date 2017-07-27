@@ -15542,9 +15542,16 @@ body:not(.no-transition) #wrapper,
 
 /* Chat Box */
 .chatBody {
-    height: 100%;
-    overflow: hidden;
+    /*height: 100%;*/
+    overflow: auto;
+    height: 300px;
 }
+
+/*#innerChatDiv{
+    overflow-y: auto;
+    overflow-x:hidden;
+    height: 300px;
+}*/
 
 #discussion {
     color: black;
@@ -15604,8 +15611,6 @@ footer p {
     background: #e5e5e5;
     margin: 0;
     padding: 0 10px 10px;
-    max-height: 300px;
-    overflow-x: hidden;
 }
 
 .top-bar {

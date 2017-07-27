@@ -446,6 +446,21 @@ $(document).ready(function () {
         $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
         $("#chat_window_1").draggable();
+        $("#innerChatDiv").resizable({
+            helper: "ui-resizable-helper",
+            grid: [10, 10]
+            //alsoResize: ".panel-body .chatBody"
+        });
+
+        $("#innerChatDiv").on("resizestop", function (event, ui) {
+            console.log(event);
+            console.log(ui)
+            $(".panel-body").css("height", ui.size.height - 50)
+            $(".panel-body").css("width", ui.size.width)
+            $(".chatBody").css("height", ui.size.height - 107)
+            $(".chatBody").css("width", ui.size.width - 30)
+        });
+
         if (isHost === "true") {
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
@@ -793,14 +808,21 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
         $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
         
         $("#chat_window_1").draggable('disable');
-        $("#chat_window_1").css({ 'top': windowHeight - 55, 'left': '0'})
+        $("#innerChatDiv").resizable('disable');
+        $("#chat_window_1").css({ 'top': windowHeight - 50, 'left': '0', 'width': '30%' });
+        $("#innerChatDiv").css({ 'width': '100%' })
+        $(".chatBody").css({ 'width': '100%' })
+        $(".panel-body").css({ "width": '100%' })
     } else {
-        $("#chat_window_1").css({ 'top': windowHeight - 355, 'left': '0' })
+        $("#chat_window_1").css({ 'top': windowHeight - 403, 'left': '0' })
+        $("#innerChatDiv").css({ 'height': '402px' })
+        $(".chatBody").css({ 'height': '300px' })
+        $(".panel-body").css({ "height": '355px' })
         $this.parents('.panel').find('.panel-body').slideDown();
         $this.removeClass('panel-collapsed');
         $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
         $("#chat_window_1").draggable('enable');
-        
+        $("#innerChatDiv").resizable('enable');
     }
 });
 $(document).on('focus', '.panel-footer input.chat_input', function (e) {

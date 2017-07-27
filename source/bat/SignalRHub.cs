@@ -60,6 +60,13 @@ namespace bat
                         Clients.Client(teacherConnectionId).revertControl(tempList);
                 }
             }
+
+            var teacherIndex = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost == "true");
+
+            if (teacherIndex != -1)
+            {
+                ConnectedUsers[teacherIndex].Status = "Disconnected";
+            }
             
             return base.OnDisconnected(stopCalled);
         }

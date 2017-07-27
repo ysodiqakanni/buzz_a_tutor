@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/css/blackboard.css")">
     <link href="~/assets/css/sweetalert.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     @Styles.Render("~/assets/css/BootSideMenu")
     @Styles.Render("~/assets/css/blackboard")
     @Styles.Render("~/assets/css/literallycanvas")
@@ -35,7 +36,6 @@
             margin-right: 0px;
             margin-left: 0px;
         }
-
         /*#whiteBoardController {
             width: 82%;
             height: 5%;
@@ -178,10 +178,8 @@
             </div>
         </div>
     </div>
-
     <div class="row chat-window col-xs-8 col-md-3" id="chat_window_1" style="margin-left:10px;z-index:1;">
-        <div class="col-xs-12 col-md-12">
-            <div class="panel panel-default">
+            <div id="innerChatDiv" class="panel panel-default ui-widget-content">
                 <div class="panel-heading top-bar">
                     <div class="col-md-8 col-xs-8 col-sm-7">
                         <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat </h3>
@@ -195,7 +193,6 @@
                     @Html.Partial("_PartialChatBox", Model)
                 </div>
             </div>
-        </div>
     </div>
 
     <div id="test-left">
