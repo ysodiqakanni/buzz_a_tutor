@@ -822,6 +822,7 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
             $("#innerChatDiv").css({ 'height': '402px' })
             $(".chatBody").css({ 'height': '300px' })
             $(".panel-body").css({ "height": '355px' })
+            console.log($(".panel-body").height());
             $("#chat_window_1").draggable('enable');
             $("#innerChatDiv").resizable('enable');
         }
