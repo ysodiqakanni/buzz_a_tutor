@@ -802,9 +802,6 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
     var $this = $(this);
     var windowHeight = $(window).height();
     if (!$this.hasClass('panel-collapsed')) {
-        $this.parents('.panel').find('.panel-body').slideUp();
-        $this.addClass('panel-collapsed');
-        $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
         if ($(window).width() > 768) {
             $("#chat_window_1").draggable('disable');
             $("#innerChatDiv").resizable('disable');
@@ -813,19 +810,21 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
             $(".chatBody").css({ 'width': '100%' })
             $(".panel-body").css({ "width": '100%' })
         }
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
     } else {
-        $this.parents('.panel').find('.panel-body').slideDown();
-        $this.removeClass('panel-collapsed');
-        $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
         if ($(window).width() > 768) {
             $("#chat_window_1").css({ 'top': windowHeight - 403, 'left': '0' })
             $("#innerChatDiv").css({ 'height': '402px' })
             $(".chatBody").css({ 'height': '300px' })
-            $(".panel-body").css({ 'height': '355px' })
-            console.log($(".panel-body").height());
+            $(".panel-body").css({ "height": '355px' })
             $("#chat_window_1").draggable('enable');
             $("#innerChatDiv").resizable('enable');
         }
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
     }
 });
 $(document).on('focus', '.panel-footer input.chat_input', function (e) {
@@ -834,7 +833,6 @@ $(document).on('focus', '.panel-footer input.chat_input', function (e) {
         $this.parents('.panel').find('.panel-body').slideDown();
         $('#minim_chat_window').removeClass('panel-collapsed');
         $('#minim_chat_window').removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
-        console.log($(".panel-body").height() + " - new height");
     }
 });
 $(document).on('click', '#new_chat', function (e) {
