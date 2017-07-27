@@ -33,6 +33,9 @@ var connected = false; // Check if connected to the session
 
 //Connecting to the session
 var connect = function (sessionId) {
+    if (OT === null || OT === undefined) {
+        console.log("OpenTok object undefined");
+    }
     session = OT.initSession(apiKey, sessionId);
 
     //Logs when clients joins and disconnects from the session
@@ -89,10 +92,6 @@ var connect = function (sessionId) {
         var streamNameArray = streamName.split('-');
         var streamUserId = streamNameArray[0];
         var streamRole = streamNameArray[1];
-
-        // Debugging
-        //console.log(streamLessonID);       
-        //if teacher
         if (streamRole == 'Teacher') {
             teacherWidth = $("#teacher").width();
             teacherHeight = $("#teacher").height();
@@ -100,12 +99,13 @@ var connect = function (sessionId) {
             options.height = teacherHeight;
             session.subscribe(stream, teacherBox, options);
         } else {
-            otherWidth = $("div[id^=other-]").width();
-            otherHeight = $("div[id^=other-]").height();
-            options.width = otherWidth;
-            options.height = otherHeight;
-            otherBox = 'streamBoxOther-' + streamUserId;
-            session.subscribe(stream, otherBox, options);
+            options = setVideoSize();
+
+            var subContainer = document.createElement('div');
+            subContainer.id = 'stream-' + streamUserId;
+            subContainer.className = "StudentVideo";
+            document.getElementById('videoStreamRow-0').appendChild(subContainer);
+            session.subscribe(stream, subContainer, options);
         }
     });
 
@@ -120,7 +120,7 @@ var connect = function (sessionId) {
         if (streamRole == 'Teacher') {
             $("#teacher").append('<div id="streamBoxTeacher"></div>')
         } else {
-            $("#other-"+ streamUserId).append('<div id="streamBoxOther-' + streamUserId + '"></div>')
+            $("#students").remove("#stream-" + streamUserId);
         }
     });
 }
@@ -138,7 +138,7 @@ var targetElement; // The element on page to be replaced with tokbox video eleme
 var streamWidth,
     streamHeight;
 if (role == '2') {
- 
+
     targetElement = 'streamBoxTeacher';
     streamWidth = teacherWidth;
     streamHeight = teacherHeight;
@@ -156,10 +156,17 @@ var startStream = function (sessionId, token) {
             streamWidth = $("#teacher").width();
             streamHeight = $("#teacher").height();
         } else {
-            blackboardHub.server.updateStreamStudents(lessonId, id, "true");
-            BeforeStartStreamingStudent();
-            streamWidth = $("#self").width();
-            streamHeight = $("#self").height();
+
+            targetElement = document.createElement('div');
+            targetElement.id = 'stream-' + id;
+            targetElement.className = "StudentVideo";
+            document.getElementById('videoStreamRow-0').appendChild(targetElement);
+            var options = setVideoSize();
+            streamWidth = options.width;
+            streamHeight = options.height;
+        }
+        if (OT === null || OT === undefined) {
+            console.log("OpenTok object undefined");
         }
         publisher = OT.initPublisher(targetElement, {
             resolution: '320x240',
@@ -189,44 +196,62 @@ var startStream = function (sessionId, token) {
 var stopStream = function () {
     session.unpublish(publisher);
     console.log("Stopped streaming")
-    blackboardHub.server.updateStreamStudents(lessonId, id, "false");
     if (role == '2') {
         $("#teacher").append('<div id="streamBoxTeacher"></div>')
     } else {
-        $("#self").append('<div id="streamBoxSelf"></div>');
-        EndStreamingStudent();
+        $("#students").remove("#stream-" + id);
     }
     $('#start').removeClass('hidden');
     $('#stop').addClass('hidden');
 }
 
-function BeforeStartStreamingStudent() {
-    //$("#selfBox-" + id).css("display", "block");
-    //blackboardHub.server.changeVideoState(lessonId, id,"true");
-    //$("#teacher").css("height", $("#video-wrap").height() - 111);
-    //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-    //$('.owl-carousel').trigger('add.owl.carousel', [replicateSelfStudent(id, userFirstName)]).trigger('refresh.owl.carousel');
-    //blackboardHub.server.fetchUserOnStartClickList(lessonId,id);
-}
+function setVideoSize() {
+    var windowWidth = $(window).width();
+    var newOptions = {};
 
-function EndStreamingStudent() {
-    //$("#selfBox-" + id).css("display", "none");
-    //blackboardHub.server.changeVideoState(lessonId, id, "true");
-    //var itemCount = $('.owl-item').length;
-    //var elemIndex = -1;
-    //if (itemCount > 0) {
-    //    var itemArr = $('.owl-item').children();
-    //    $.each(itemArr, function (index, value) {
-    //        var tempId = value.id.split("-")[1];
-    //        if (tempId == id) {
-    //            elemIndex = index;
-    //        }
-    //    });
-    //}
-    //if (elemIndex != -1) {
-    //    $(".owl-carousel").trigger('remove.owl.carousel', [elemIndex]);
-    //}
-    //$("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
-    //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
-    //blackboardHub.server.fetchUserListOnDisconnect(lessonId, $.connection.hub.id, id);
+    if (windowWidth <= 375) {
+        //display count = 2
+        newOptions = {
+            width: "45%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 375 && windowWidth <= 768) {
+        //display count = 3
+        newOptions = {
+            width: "32%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 768 && windowWidth <= 1024) {
+        //display count = 4
+        newOptions = {
+            width: "22%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 1024 && windowWidth <= 1440) {
+        //display count = 5
+        newOptions = {
+            width: "19%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 1440 && windowWidth <= 2560) {
+        //display count = 6
+        newOptions = {
+            width: "15%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    } else if (windowWidth > 2560) {
+        //display count = 6
+        newOptions = {
+            width: "20%",
+            height: "45%",
+            nameDisplayMode: "on"
+        };
+    }
+
+    return newOptions;
 }

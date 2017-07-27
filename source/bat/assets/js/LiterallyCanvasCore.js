@@ -14,14 +14,6 @@ var useImg = false,
 
 var zoomPercent = 1.0;
 
-var unsubscribeClearEvent;
-var unsubscribePanEvent;
-var unsubscribeUndoEvent;
-var unsubscribeRedoEvent;
-var unsubscribePrimaryColorEvent;
-var unsubscribeZoomEvent;
-var unsubscribeEvent;
-
 var imageModel = {
     group: lessonId,
     clear: true,
@@ -33,6 +25,7 @@ var ListUpdate = {
     update: false,
 }
 
+//Users Tool
 var MyTool = function (lc) {  // take lc as constructor arg
     var self = this;
 
@@ -53,22 +46,7 @@ var MyTool = function (lc) {  // take lc as constructor arg
     }
 };
 
-var NoTool = function (lc) {  // take lc as constructor arg
-    var self = this;
-
-    return {
-        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
-        name: 'NoTool',
-        didBecomeActive: function (lc) {
-            //console.log("activeted");
-        },
-
-        willBecomeInactive: function (lc) {
-            //console.log("activeted sonn");
-        }
-    }
-};
-
+//User list at bottom tool
 LC.defineOptionsStyle("userList", React.createClass({
     displayName: 'userList',
     getInitialState: function () {
@@ -159,14 +137,24 @@ LC.defineOptionsStyle("userList", React.createClass({
     }
 }));
 
-function replicateOtherStudent(studentId, studentName) {
-    return "<div id='otherBox-" + studentId + "' class='oc-item'><div id='otherCon-" + studentId + "' class='streamBody'><div id='other-" + studentId + "' class='streamWindow' style='width: 100%; height: 111px'><div id='streamBoxOther-" + studentId + "'></div></div></div><div class='name4'>" + studentName + "</div></div>";
-}
+//Blank tool for students
+var NoTool = function (lc) {  // take lc as constructor arg
+    var self = this;
 
-function replicateSelfStudent(studentId, studentName) {
-    return "<div id='selfBox-" + studentId + "' class='oc-item'><div id='self' class='streamWindow' style='width: 125px; height: 111px'><div id='streamBoxSelf'></div></div><div class='name4'>" + studentName + "</div></div>";
-}
+    return {
+        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
+        name: 'NoTool',
+        didBecomeActive: function (lc) {
+            //console.log("activeted");
+        },
 
+        willBecomeInactive: function (lc) {
+            //console.log("activeted sonn");
+        }
+    }
+};
+
+//SignalR client side events
 $(function () {
 
     blackboardHub.client.refreshList = function (connectedUsers) {
@@ -193,6 +181,7 @@ $(function () {
         }
     };
 
+    //For fetch online users and display them at left side pannel
     blackboardHub.client.fetchOnlineUsers = function (connectedUsers) {
         allUsers = [];
         $("ul[id=attendees]").empty();
@@ -213,109 +202,7 @@ $(function () {
                     }));
                 }
             });
-            SetInitialValue();
-            
-        }
-        blackboardHub.server.fetchOnlineUsersExceptTeacher(lessonId);
-        //createGridStructureForAllUsers(connectedUsers);
-    };
-
-    blackboardHub.client.fetchOnlineUsersExceptTeacher = function (connectedUsers) {//, userId, userFirstName
-        createGridStructureForAllUsers(connectedUsers);//, userId, userFirstName
-    };
-
-    blackboardHub.client.fetchUserList = function (connectedUsers, userId) {
-        //$.each(connectedUsers, function (index, user) {
-        //$("#teacher").css("height", $("#video-wrap").height() - 111);
-        //$("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-        //if (userId == user.UserId) {
-        //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-        //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-        //    }
-        //} 
-        var gridString = "";
-        debugger;
-        //$("#shop").html(gridString);
-        var flag = false;
-        for (var i = 0; i < connectedUsers.length; i++) {
-            if (connectedUsers[i].UserId == userId) {
-                if ($("#otherBox-" + connectedUsers[i].UserId + "").length == 0) {
-                    if (i == 0) {
-                        flag = false;
-                        gridString += "<div class='row'>";
-                        gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                    }
-                    else if (i != 0 && i % 4 == 0) {
-                        flag = true;
-                        gridString += "</div>";
-                    }
-                    else {
-                        flag = false;
-                        gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                    }
-                }
-            }
-        }
-        if (flag) {
-            gridString += "</div>";
-        }
-        debugger;
-        $("#shop").html(gridString);
-
-        //});
-    };
-
-    blackboardHub.client.onInitRenderStream = function (streamUsers) {
-        //$.each(streamUsers, function (index, user) {
-        //    $("#teacher").css("height", $("#video-wrap").height() - 111);
-        //    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - 111);
-        //    if ($("#otherBox-" + user.UserId + "").length == 0) {
-        //        $('.owl-carousel').trigger('add.owl.carousel', [replicateOtherStudent(user.UserId, user.UserName.split(" ")[0])]).trigger('refresh.owl.carousel');
-        //    }
-        //});
-        var gridString = "";
-        $("#shop").html(gridString);
-        var flag = false;
-        for (var i = 0; i < streamUsers.length; i++) {
-            if (i == 0) {
-                flag = false;
-                gridString += "<div class='row'>";
-                gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(streamUsers[i].UserId, streamUsers[i].UserName.split(" ")[0]) + "</div>";
-            }
-            else if (i != 0 && i % 4 == 0) {
-                flag = true;
-                gridString += "</div>";
-            }
-            else {
-                flag = false;
-                gridString += "<div class='col-lg-3 col-sm-3 col-md-3'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-            }
-        }
-        if (flag) {
-            gridString += "</div>";
-        }
-        debugger;
-        $("#shop").html(gridString);
-    };
-
-    blackboardHub.client.fetchUserListOnDisconnect = function (connectedUsers, userId) {
-        var itemCount = $('.owl-item').length;
-        var elemIndex = -1;
-        if (itemCount > 0) {
-            var itemArr = $('.owl-item').children();
-            $.each(itemArr, function (index, value) {
-                var id = value.id.split("-")[1];
-                if (id == userId) {
-                    elemIndex = index;
-                }
-            });
-        }
-        if (elemIndex != -1) {
-            $(".owl-carousel").trigger('remove.owl.carousel', [elemIndex]);
-        }
-        if ($('.owl-item').length == 0) {
-            $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
-            $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
+            SetInitialValue();   
         }
     };
 
@@ -367,6 +254,7 @@ $(function () {
         }
         //buzzCanvas.clear();
     };
+
     blackboardHub.client.undoAction = function () {
         if (isHaveControl == "true") {
             return false;
@@ -375,6 +263,7 @@ $(function () {
             buzzCanvas.undo();
         }
     };
+
     blackboardHub.client.redoAction = function () {
         if (isHaveControl == "true") {
             return false;
@@ -383,6 +272,7 @@ $(function () {
             buzzCanvas.redo();
         }
     };
+
     blackboardHub.client.panAction = function (coordsString) {
         if (isHaveControl == "true") {
             return false;
@@ -392,6 +282,7 @@ $(function () {
             buzzCanvas.setPan(coordsObj.x, coordsObj.y);
         }
     };
+
     blackboardHub.client.colorChange = function (colorType, colorValue) {
         if (isHaveControl == "true") {
             return false;
@@ -400,6 +291,7 @@ $(function () {
             buzzCanvas.setColor(colorType, colorValue);
         }
     };
+
     blackboardHub.client.assignHandle = function (snapshotString) {
         options = {
             imageURLPrefix: '../assets/img/lc-images',
@@ -455,6 +347,7 @@ $(function () {
             updateImageList(lessonId);
         }
     }
+
     blackboardHub.client.boardImage = function (model) {
         imageModel = model;
         if (imageModel.clear === true) {
@@ -483,6 +376,7 @@ $(function () {
             setSelectedOption(selectedUser);
         }
     }
+
     blackboardHub.client.assignEvents = function (snapshotString, connectedUsers) {
         var selectedUser = returnSelectedUser(connectedUsers);
         options = {
@@ -546,16 +440,26 @@ function RefreshUserList(referenceContainer, referenceRow, appendRowTo, connecte
     });
 }
 
+//document ready event
 $(document).ready(function () {
     $.connection.hub.start().done(function () {
         $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
+        
+        if ($(window).width() > 768) {
+            $("#chat_window_1").draggable();
+            $("#innerChatDiv").resizable({
+                helper: "ui-resizable-helper",
+                grid: [10, 10]
+            });
+            $("#innerChatDiv").on("resizestop", function (event, ui) {
+                $(".panel-body").css("height", ui.size.height - 50)
+                $(".panel-body").css("width", ui.size.width)
+                $(".chatBody").css("height", ui.size.height - 107)
+                $(".chatBody").css("width", ui.size.width - 30)
+            });
+        }
 
-
-
-        //EndStreamingStudent();
-        //blackboardHub.server.addToStreamStudents(sessionId, token, id, lessonId, username, "false", isHost);
-        //blackboardHub.server.onInitRenderStream(lessonId);
         if (isHost === "true") {
             options = {
                 imageURLPrefix: '../assets/img/lc-images',
@@ -583,7 +487,6 @@ $(document).ready(function () {
             $("#btnUploadWhiteboard").hide();
         }
         blackboardHub.server.fetchOnlineUsers(lessonId);
-        //blackboardHub.server.fetchOnlineUsersExceptTeacher(lessonId, id, userFirstName);
     });
     // Lost connection with Server
     $.connection.hub.reconnecting(function () {
@@ -596,49 +499,79 @@ $(document).ready(function () {
     });
 });
 
-
-
+//Initialise canvas 
 function InitCanvas(options, isHost) {
     if (buzzCanvas != undefined)
         buzzCanvas.teardown();
     buzzCanvas = LC.init(document.getElementById("lc"), options);
-    if (isHost == "false" && isHaveControl == "false") {
-        if (role === 2) {
-            $(".literally.toolbar-at-bottom").css("min-height", "400px");
-        } else {
-            $(".literally.toolbar-hidden").css("min-height", "400px");
-        }
-        $(".literally .lc-drawing.with-gui").addClass("custom");
-        buzzCanvas.respondToSizeChange();
-    }
-    else {
-        $(".literally.toolbar-at-bottom").css("min-height", "400px");
-    }
-    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
-    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    setCanvasSize();
+    setZIndexForToolBar();
     if (isHaveControl == "true") {
         bindEvent();
     }
 }
 
+//Render canvas with aproprite size depending on device
+function setCanvasSize() {
+    $("#teacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    $("#streamBoxTeacher").css("height", $("#video-wrap").height() - $("#shop").height());
+    var windowHeight = parseFloat($(window).height());
+    var whiteboardHeight;
+    var multiplier = getMultiplier(windowHeight);
+    whiteboardHeight = windowHeight * (parseFloat(multiplier) / 100);
+    if (isHost == "false" && isHaveControl == "false") {
+        if (role === 2) {
+            $(".literally.toolbar-at-bottom").css("min-height", whiteboardHeight);
+        } else {
+            $(".literally.toolbar-hidden").css("min-height", whiteboardHeight);
+        }
+        $(".literally .lc-drawing.with-gui").addClass("custom");
+    }
+    else {
+        $(".literally.toolbar-at-bottom").css("min-height", whiteboardHeight);
+    }
+    buzzCanvas.respondToSizeChange();
+}
+
+//get percent of canvas size depending on device
+function getMultiplier(height) {
+    var multiplier = 50;
+    switch (height) {
+        case 1414:
+            multiplier = 70;
+            break;
+        case 707:
+            multiplier = 45;
+            break;
+        case 744:
+            multiplier = 45;
+            break;
+        default:
+            multiplier = 45;
+            break;
+    }
+    return multiplier;
+}
+
+//Bind signalR event to canvas
 function bindEvent() {
-    unsubscribeEvent = buzzCanvas.on("shapeSave", function (shape, previousShapeId) {
+    buzzCanvas.on("shapeSave", function (shape, previousShapeId) {
         var shapeString = LC.shapeToJSON(shape.shape);
         blackboardHub.server.uploadShape(JSON.stringify(shapeString), previousShapeId, lessonId);
     });
-    unsubscribeClearEvent = buzzCanvas.on("clear", function () {
+    buzzCanvas.on("clear", function () {
         blackboardHub.server.clearBoard(lessonId);
     });
-    unsubscribePanEvent = buzzCanvas.on("pan", function (coords) {
+    buzzCanvas.on("pan", function (coords) {
         blackboardHub.server.panAction(JSON.stringify(coords), lessonId);
     });
-    unsubscribeUndoEvent = buzzCanvas.on("undo", function () {
+    buzzCanvas.on("undo", function () {
         blackboardHub.server.undoAction(lessonId);
     });
-    unsubscribeRedoEvent = buzzCanvas.on("redo", function () {
+    buzzCanvas.on("redo", function () {
         blackboardHub.server.redoAction(lessonId);
     });
-    unsubscribePrimaryColorEvent = buzzCanvas.on("primaryColorChange", function (newColor) {
+    buzzCanvas.on("primaryColorChange", function (newColor) {
         blackboardHub.server.colorChange("primary", newColor, lessonId);
     });
 }
@@ -648,18 +581,23 @@ function uploadSnapShot() {
     blackboardHub.server.uploadSnapshot(JSON.stringify(snaps), lessonId);
 }
 
+//Give whiteboard control to particular student
 function GiveControl(connectionId) {
     isHaveControl = "false";
     btnStatus = "Revoke";
     var snaps = buzzCanvas.getSnapshot();
     blackboardHub.server.assignHandle(lessonId, connectionId, JSON.stringify(snaps));
 }
+
+//Revert back whiteboard control from student
 function RevokeControl(connectionId) {
     isHaveControl = "true";
     btnStatus = "Grant";
     var snaps = buzzCanvas.getSnapshot();
     blackboardHub.server.removeHandle(lessonId, connectionId, JSON.stringify(snaps));
 }
+
+//Set initial values for teacher when logged in and display whiteboard access button according
 function SetInitialValue() {
     var selectedUserConnId = $("#hdnConnId").val();
     var selectedUserId = $("#hdnUserId").val();
@@ -691,6 +629,7 @@ function SetInitialValue() {
     }
 }
 
+//Zoom In whiteboard
 function zoomIn() {
     zoomPercent = parseFloat(zoomPercent.toFixed(2));
     zoomPercent += 0.2;
@@ -703,6 +642,7 @@ function zoomIn() {
     buzzCanvas.setZoom(zoomPercent);
 }
 
+//Zoom out whiteboard
 function zoomOut() {
     zoomPercent = parseFloat(zoomPercent.toFixed(2));
     zoomPercent -= 0.2;
@@ -715,37 +655,7 @@ function zoomOut() {
     buzzCanvas.setZoom(zoomPercent);
 }
 
-
 //Save whiteboard
-
-var SaveWhiteboardTool = function (lc) {  // take lc as constructor arg
-    var self = this;
-
-    return {
-        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
-        name: 'Save',
-        iconName: 'save',
-        strokeWidth: lc.opts.defaultStrokeWidth,
-
-        didBecomeActive: function (lc) {
-            var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
-                              img2SaveArray = img2SaveRaw.split(','),
-                              img2Save = img2SaveArray[1],
-                              imgExtension = img2SaveArray[0];
-            imgData = img2Save;
-            $('#previewCanvas').css("height", buzzCanvas.canvas.clientHeight);
-            $('#previewCanvas').css("width", buzzCanvas.canvas.clientWidth);
-            $('#previewCanvas').css("background-image", "url('" + imgExtension + "," + img2Save + "')");
-            $('#previewCanvas').css("background-repeat", "no-repeat");
-            $('#previewTitle').val('White-Board');
-            $('#previewModal').modal();
-        },
-
-        willBecomeInactive: function (lc) {
-        }
-    }
-};
-
 function SaveWhiteBoard() {
     if (buzzCanvas.getSnapshot().shapes.length > 0) {
         var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
@@ -769,25 +679,7 @@ function SaveWhiteBoard() {
     }
 }
 
-var DownloadWhiteboardTool = function (lc) {  // take lc as constructor arg
-    var self = this;
-
-    return {
-        usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
-        name: 'Download',
-        iconName: 'download',
-        strokeWidth: lc.opts.defaultStrokeWidth,
-
-        didBecomeActive: function (lc) {
-            $('#BBListModal').modal();
-        },
-
-        willBecomeInactive: function (lc) {
-
-        }
-    }
-};
-
+//Download images to whiteboard
 function DownloadWhiteboard() {
     $('#BBListModal').modal();
 }
@@ -905,13 +797,31 @@ function clearOrLoadBoard() {
     }
 }
 
+//Chat box events
 $(document).on('click', '.panel-heading span.icon_minim', function (e) {
     var $this = $(this);
+    var windowHeight = $(window).height();
     if (!$this.hasClass('panel-collapsed')) {
+        if ($(window).width() > 768) {
+            $("#chat_window_1").draggable('disable');
+            $("#innerChatDiv").resizable('disable');
+            $("#chat_window_1").css({ 'top': windowHeight - 50, 'left': '0', 'width': '30%' });
+            $("#innerChatDiv").css({ 'width': '100%' })
+            $(".chatBody").css({ 'width': '100%' })
+            $(".panel-body").css({ "width": '100%' })
+        }
         $this.parents('.panel').find('.panel-body').slideUp();
         $this.addClass('panel-collapsed');
         $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
     } else {
+        if ($(window).width() > 768) {
+            $("#chat_window_1").css({ 'top': windowHeight - 403, 'left': '0' })
+            $("#innerChatDiv").css({ 'height': '402px' })
+            $(".chatBody").css({ 'height': '300px' })
+            $(".panel-body").css({ "height": '355px' })
+            $("#chat_window_1").draggable('enable');
+            $("#innerChatDiv").resizable('enable');
+        }
         $this.parents('.panel').find('.panel-body').slideDown();
         $this.removeClass('panel-collapsed');
         $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
@@ -937,55 +847,12 @@ $(document).on('click', '.icon_close', function (e) {
     $("#chat_window_1").remove();
 });
 
-
-function createGridStructureForAllUsers(connectedUsers) {//, userId, userName
-    var gridString = "";
-    var flag = false;
-    if (role == '1') {
-        var checkForDiv = $("#selfBox-" + id);
-        if (checkForDiv.length < 1) {
-            gridString += "<div class='row'>";
-            gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateSelfStudent(id, userFirstName) + "</div>";
-        } else {
-            gridString += "<div class='row'>";
-            gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#selfBox-" + id)[0].outerHTML + "</div>";
-        }
+function setZIndexForToolBar() {
+    if ($(window).width() <= 425) {
+        $(".literally .lc-picker").css("z-index", "0");
     }
-    for (var i = 0; i < connectedUsers.length; i++) {
-        if (i == 0) {
-            flag = false;
-            if (parseInt(connectedUsers[i].UserId) == id) {
-               
-            } else {
-                var checkForDiv = $("#otherBox-" + id);
-                if (checkForDiv.length < 1) {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                } else {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
-                }
-            }
-        }
-        else if (i != 0 && i % 4 == 0) {
-            flag = true;
-            gridString += "</div>";
-        }
-        else {
-            flag = false;
-            if (parseInt(connectedUsers[i].UserId) == id) {
-                
-            } else {
-                var checkForDiv = $("#otherBox-" + id);
-                if (checkForDiv.length < 1) {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + replicateOtherStudent(connectedUsers[i].UserId, connectedUsers[i].UserName.split(" ")[0]) + "</div>";
-                }
-                else {
-                    gridString += "<div class='col-lg-2 col-sm-2 col-md-2'>" + $("#otherBox-" + id)[0].outerHTML + "</div>";
-                }
-            }
-        }
+    else {
+        console.log("big screens")
+        $(".literally .lc-picker").css("z-index", "1001");
     }
-    if (flag) {
-        gridString += "</div>";
-    }
-    $("#shop").html(gridString);
 }

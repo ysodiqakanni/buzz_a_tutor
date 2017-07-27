@@ -13,7 +13,6 @@ namespace bat
         //Connect to Group
 
         static List<Participant> ConnectedUsers = new List<Participant>();
-        static List<TokBoxInfo> StreamUsers = new List<TokBoxInfo>();
 
         public void JoinGroup(string groupName, string userId, string userName, string isHost, string isHaveControl)
         {
@@ -53,7 +52,6 @@ namespace bat
                 groupName = ConnectedUsers[index].GroupName;
                 userId = ConnectedUsers[index].UserId;
                 RefreshList(groupName, null);
-                RemoveStreamStudents(groupName, userId);
                 if (revertIndex != -1)
                 {
                     var tempList = ConnectedUsers.Where(p => p.GroupName == groupName && p.Status == "Online");
@@ -62,77 +60,15 @@ namespace bat
                         Clients.Client(teacherConnectionId).revertControl(tempList);
                 }
             }
+
+            var teacherIndex = ConnectedUsers.FindIndex(p => p.ConnectionId == Context.ConnectionId && p.IsHost == "true");
+
+            if (teacherIndex != -1)
+            {
+                ConnectedUsers[teacherIndex].Status = "Disconnected";
+            }
             
             return base.OnDisconnected(stopCalled);
-        }
-
-        public void FetchUserList(string groupName,string userId)
-        {
-            var tempList = StreamUsers.Where(p => p.GroupName == groupName && p.IsStartVideo == "true");
-            if (tempList != null)
-            {
-                Clients.Group(groupName).fetchUserList(tempList, userId);
-            }
-        }
-
-        public void OnInitRenderStream(string groupName)
-        {
-            var tempList = StreamUsers.Where(p => p.GroupName == groupName && p.IsStartVideo == "true");
-            if (tempList != null)
-            {
-                Clients.Client(Context.ConnectionId).onInitRenderStream(tempList);
-            }
-        }
-
-        public void FetchUserOnStartClickList(string groupName, string userId)
-        {
-            var tempList = StreamUsers.Where(p => p.GroupName == groupName && p.IsStartVideo == "true");
-            if (tempList != null)
-            {
-                Clients.Group(groupName,Context.ConnectionId).fetchUserList(tempList, userId);
-            }
-        }
-
-        public void AddToStreamStudents(string sessionId, string tokenId, string userId, string groupName, string userName,string isStartVideo, string isHost)
-        {
-            if (StreamUsers.Count(u => u.UserId == userId && u.GroupName == groupName) == 0)
-                StreamUsers.Add(new TokBoxInfo()
-                {
-                    ConnectionId = Context.ConnectionId,
-                    UserId = userId,
-                    UserName = userName,
-                    TokenId = tokenId,
-                    SessionId = sessionId,
-                    IsStartVideo = isStartVideo,
-                    GroupName = groupName,
-                    IsHost = isHost,
-                });
-            else
-            {
-                var index = StreamUsers.FindIndex(p => p.UserId == userId && p.GroupName == groupName);
-                StreamUsers[index].ConnectionId = Context.ConnectionId;
-                StreamUsers[index].IsStartVideo = isStartVideo;
-                StreamUsers[index].TokenId = tokenId;
-                StreamUsers[index].SessionId = sessionId;
-            }
-        }
-
-        public void UpdateStreamStudents(string groupName, string userId, string isStartVideo)
-        {
-            var index = StreamUsers.FindIndex(p => p.UserId == userId && p.GroupName == groupName);
-            if(index != -1)
-            {
-                StreamUsers[index].IsStartVideo = isStartVideo;
-            }
-        }
-
-        public void RemoveStreamStudents(string groupName, string userId)
-        {
-            var index = StreamUsers.FindIndex(p => p.UserId == userId && p.GroupName == groupName);
-            if (index != -1)
-            {
-                StreamUsers.RemoveAt(index);
-            }
         }
 
         public void FetchOnlineUsers(string group)
@@ -142,35 +78,6 @@ namespace bat
             {
                 
                 Clients.Client(Context.ConnectionId).fetchOnlineUsers(tempList);
-                //FetchOnlineUsersExceptTeacher(group);
-            }
-        }
-
-        public void FetchOnlineUsersExceptTeacher(string group)//,string userId,string userFirstName
-        {
-            var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online" && p.IsHost != "true");
-            if (tempList != null)
-            {
-                Clients.Group(group).fetchOnlineUsersExceptTeacher(tempList);
-            }
-        }
-
-        public void ChangeVideoState(string group, string userId, string state)//,string userId,string userFirstName
-        {
-            //var tempList = ConnectedUsers.Where(p => p.GroupName == group && p.Status == "Online" && p.IsHost != "true");
-            //if (tempList != null)
-            //{
-            //    Clients.Group(group).fetchOnlineUsersExceptTeacher(tempList);
-            //}
-            Clients.Group(group,Context.ConnectionId).changeVideoState(userId, state);
-        }
-
-        public void FetchUserListOnDisconnect(string groupName,string connectionId,string userId)
-        {
-            var tempList = StreamUsers.Where(p => p.GroupName == groupName && p.IsStartVideo == "true");
-            if (tempList != null)
-            {
-                Clients.Group(groupName).fetchUserListOnDisconnect(tempList, userId);
             }
         }
 

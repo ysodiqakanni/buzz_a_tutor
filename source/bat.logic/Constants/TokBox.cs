@@ -10,7 +10,11 @@ namespace bat.logic.Constants
     {
         //public const int ApiKey = 45496652;
         //public const string ApiSecret = "87c3f7c76f5b8bbcc2ee97b7bf9fe49ab8804193";
-        public const int ApiKey = 45897022;
-        public const string ApiSecret = "5ec4dd747450670ffee73df18f8b9a83617ec45a";
+
+        //public const int ApiKey = 45897022;
+        //public const string ApiSecret = "5ec4dd747450670ffee73df18f8b9a83617ec45a";
+
+        public const int ApiKey = 45924292;
+        public const string ApiSecret = "1e2e0bf42a40a109bf9a7922285032ca87d0357d";
     }
 }
