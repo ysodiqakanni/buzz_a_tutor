@@ -805,28 +805,23 @@ $(document).on('click', '.panel-heading span.icon_minim', function (e) {
         $this.parents('.panel').find('.panel-body').slideUp();
         $this.addClass('panel-collapsed');
         $this.removeClass('glyphicon-minus').addClass('glyphicon-fullscreen');
-        debugger;
-        if ($(window).width() > 768) {
-            $("#chat_window_1").draggable('disable');
-            $("#innerChatDiv").resizable('disable');
-            $("#chat_window_1").css({ 'top': windowHeight - 50, 'left': '0', 'width': '30%' });
-            $("#innerChatDiv").css({ 'width': '100%' })
-            $(".chatBody").css({ 'width': '100%' })
-            $(".panel-body").css({ "width": '100%' })
-        }
+        
+        $("#chat_window_1").draggable('disable');
+        $("#innerChatDiv").resizable('disable');
+        $("#chat_window_1").css({ 'top': windowHeight - 50, 'left': '0', 'width': '30%' });
+        $("#innerChatDiv").css({ 'width': '100%' })
+        $(".chatBody").css({ 'width': '100%' })
+        $(".panel-body").css({ "width": '100%' })
     } else {
-        debugger;
+        $("#chat_window_1").css({ 'top': windowHeight - 403, 'left': '0' })
+        $("#innerChatDiv").css({ 'height': '402px' })
+        $(".chatBody").css({ 'height': '300px' })
+        $(".panel-body").css({ "height": '355px' })
         $this.parents('.panel').find('.panel-body').slideDown();
         $this.removeClass('panel-collapsed');
         $this.removeClass('glyphicon-fullscreen').addClass('glyphicon-minus');
-        if ($(window).width() > 768) {
-            $("#chat_window_1").css({ 'top': windowHeight - 403, 'left': '0' })
-            $("#innerChatDiv").css({ 'height': '402px' })
-            $(".chatBody").css({ 'height': '300px' })
-            $(".panel-body").css({ "height": '355px' })
-            $("#chat_window_1").draggable('enable');
-            $("#innerChatDiv").resizable('enable');
-        }
+        $("#chat_window_1").draggable('enable');
+        $("#innerChatDiv").resizable('enable');
     }
 });
 $(document).on('focus', '.panel-footer input.chat_input', function (e) {
