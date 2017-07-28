@@ -98,7 +98,7 @@
 
     @RenderSection("outsideContainer", required: false)
     
-    @if ((ViewBag.NoFooter ?? false) == false)
+    @if (!(ViewBag.HideFooter ?? false))
     {
         <footer class="footer">
             <div class="container">
