@@ -51,7 +51,7 @@ namespace bat.logic.Rules
                 conn.Accounts.Add(account);
                 conn.SaveChanges();
 
-                Rules.ZoomApi.CreateZoomUserAccount(account.ID);
+                // Rules.ZoomApi.CreateZoomUserAccount(account.ID);
 
                 EventLogging.Register(account);
             }

@@ -102,54 +102,54 @@ namespace bat.logic.ViewModels.Lessons
             }
         }
 
-        public bool CurrentlyAZoomUser
-        {
-            get
-            {
-                try
-                {
-                    if (string.IsNullOrEmpty(this.account.ZoomUserId)) return false;
+        //public bool CurrentlyAZoomUser
+        //{
+        //    get
+        //    {
+        //        try
+        //        {
+        //            if (string.IsNullOrEmpty(this.account.ZoomUserId)) return false;
 
-                    // will error if not yet activated
-                    var user = ZoomApi.GetUser(this.account.ZoomUserId);
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-        }
+        //            // will error if not yet activated
+        //            var user = ZoomApi.GetUser(this.account.ZoomUserId);
+        //            return true;
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //}
 
-        public void CheckZoomUser()
-        {
-            if (string.IsNullOrEmpty(account.ZoomUserId))
-                this.account = Rules.ZoomApi.CreateZoomUserAccount(this.account.ID);
-        }
+        //public void CheckZoomUser()
+        //{
+        //    if (string.IsNullOrEmpty(account.ZoomUserId))
+        //        this.account = Rules.ZoomApi.CreateZoomUserAccount(this.account.ID);
+        //}
 
         public bool LessonReady
             => !string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && !string.IsNullOrEmpty(this.lesson.ZoomJoinUrl);
 
-        public void CreateZoomMeeting()
-        {
-            if (string.IsNullOrEmpty(this.host.ZoomUserId))
-                throw new Exception("The lesson host requires a Zoom account");
+        //public void CreateZoomMeeting()
+        //{
+        //    if (string.IsNullOrEmpty(this.host.ZoomUserId))
+        //        throw new Exception("The lesson host requires a Zoom account");
 
-            if (!string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && !string.IsNullOrEmpty(this.lesson.ZoomJoinUrl))
-                return;
+        //    if (!string.IsNullOrEmpty(this.lesson.ZoomStartUrl) && !string.IsNullOrEmpty(this.lesson.ZoomJoinUrl))
+        //        return;
 
-            using (var conn = new dbEntities())
-            {
-                this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
-                if (this.lesson == null) throw new Exception("Lesson does not exist.");
+        //    using (var conn = new dbEntities())
+        //    {
+        //        this.lesson = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
+        //        if (this.lesson == null) throw new Exception("Lesson does not exist.");
 
-                var zoomLesson = ZoomApi.CreateMeeting(this.host.ZoomUserId, this.lesson.Description);
-                this.lesson.ZoomStartUrl = zoomLesson.start_url;
-                this.lesson.ZoomJoinUrl = zoomLesson.join_url;
+        //        var zoomLesson = ZoomApi.CreateMeeting(this.host.ZoomUserId, this.lesson.Description);
+        //        this.lesson.ZoomStartUrl = zoomLesson.start_url;
+        //        this.lesson.ZoomJoinUrl = zoomLesson.join_url;
 
-                conn.SaveChanges();
-            }
-        }
+        //        conn.SaveChanges();
+        //    }
+        //}
 
         public void GenerateTokBoxToken()
         {

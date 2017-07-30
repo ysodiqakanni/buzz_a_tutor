@@ -61,10 +61,10 @@ namespace bat.Controllers
                 //        throw new Exception("Invalid account type.");
                 //}
             }
-            catch (ZoomException ex) when (ex.Code == bat.logic.Constants.Zoom.ErrorCode_CannotCreateMeeting)
-            {
-                return View("NewZoomUserAccount", model);
-            }
+            //catch (ZoomException ex) when (ex.Code == bat.logic.Constants.Zoom.ErrorCode_CannotCreateMeeting)
+            //{
+            //    return View("NewZoomUserAccount", model);
+            //}
             catch (Exception ex)
             {
                 ErrorSignal.FromCurrentContext().Raise(ex);
