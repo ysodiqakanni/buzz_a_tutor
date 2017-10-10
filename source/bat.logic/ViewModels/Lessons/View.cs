@@ -163,8 +163,7 @@ namespace bat.logic.ViewModels.Lessons
             {
                 using (var conn = new dbEntities())
                 {
-                    var tok = new OpenTok(Constants.TokBox.ApiKey, Constants.TokBox.ApiSecret);
-                    var session = tok.CreateSession("", MediaMode.RELAYED, ArchiveMode.MANUAL);
+                    var session = opentok.CreateSession("", MediaMode.ROUTED, ArchiveMode.MANUAL);
                     var currentLession = conn.Lessons.FirstOrDefault(l => l.ID == this.lesson.ID);
                     if (currentLession != null)
                     {
