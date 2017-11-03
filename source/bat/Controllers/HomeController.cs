@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using bat.logic.Constants;
-using Elmah;
-using Microsoft.AspNet.Identity;
-using bat.data;
-using bat.logic.ViewModels.Homepage;
 
 namespace bat.Controllers
 {
@@ -49,7 +44,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error");
             }
@@ -90,7 +84,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Landing", model);
             }
@@ -139,7 +132,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.LoginErrMsg = ex.Message;
                 return View();
             }
@@ -250,7 +242,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.LoginErrMsg = ex.Message;
             }
 
@@ -284,7 +275,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -304,7 +294,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -326,7 +315,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -348,7 +336,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -373,7 +360,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("LoginSignup");
             }

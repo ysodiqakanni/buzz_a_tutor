@@ -1,5 +1,4 @@
-﻿using Elmah;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -67,7 +66,6 @@ namespace bat.Controllers
             //}
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }
@@ -89,7 +87,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
             
@@ -114,7 +111,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -137,7 +133,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -160,7 +155,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -183,7 +177,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
             return View(model);
@@ -206,7 +199,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
             return RedirectToRoute("home");
@@ -228,7 +220,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
             }
 
@@ -262,7 +253,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }
@@ -290,7 +280,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }
@@ -325,7 +314,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }
@@ -353,7 +341,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }
@@ -388,7 +375,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }
@@ -416,7 +402,6 @@ namespace bat.Controllers
             }
             catch (Exception ex)
             {
-                ErrorSignal.FromCurrentContext().Raise(ex);
                 ViewBag.Error = ex.Message;
                 return View("Error", model);
             }

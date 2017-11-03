@@ -1,15 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7AEA1E9A-FF2B-4227-A88A-4445B8BD82EF}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{8173C56B-3D74-40A9-B072-BE13FBF38A8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{C5E2C418-CD16-46CE-A684-9C145809C6BB}"
@@ -54,5 +47,8 @@ Global
 		{2A3DA2D5-5093-4FCC-B8C0-522EACDBE91C} = {8173C56B-3D74-40A9-B072-BE13FBF38A8A}
 		{2C5439AC-F920-4E61-BC0B-C4D515EDA8F0} = {C5E2C418-CD16-46CE-A684-9C145809C6BB}
 		{202DE9C4-FAB6-4498-AEA0-E9717E667000} = {5F18D4FD-A0F5-4888-9073-9FB682F8C34F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {918032DF-D4D4-42A4-9AC6-2889A721EB4A}
 	EndGlobalSection
 EndGlobal
