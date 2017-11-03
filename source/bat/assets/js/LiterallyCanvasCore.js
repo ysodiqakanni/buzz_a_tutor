@@ -1,4 +1,4 @@
-﻿
+
 var blackboardHub = $.connection.blackboardHub;
 var buzzCanvas;
 var previewCanvas;
@@ -509,6 +509,7 @@ function InitCanvas(options, isHost) {
     if (isHaveControl == "true") {
         bindEvent();
     }
+   
 }
 
 //Render canvas with aproprite size depending on device
@@ -531,6 +532,7 @@ function setCanvasSize() {
         $(".literally.toolbar-at-bottom").css("min-height", whiteboardHeight);
     }
     buzzCanvas.respondToSizeChange();
+
 }
 
 //get percent of canvas size depending on device
@@ -792,7 +794,7 @@ function clearOrLoadBoard() {
             buzzCanvas.clear();
             var img = new Image();
             img.src = "data:image/png;base64," + imgData;
-            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img }));
+            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img ,scale:0.3}));
         }
     }
 }
