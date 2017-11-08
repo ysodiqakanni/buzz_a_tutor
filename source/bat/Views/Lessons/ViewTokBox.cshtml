@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/css/blackboard.css")">
     <link href="~/assets/css/sweetalert.css" rel="stylesheet" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     @Styles.Render("~/assets/css/BootSideMenu")
     @Styles.Render("~/assets/css/blackboard")
     @Styles.Render("~/assets/css/literallycanvas")
@@ -46,6 +46,10 @@
             background-color: #e6e6e6;
             z-index: 1;
         }*/
+        .disabledbutton {
+            pointer-events: none;
+            opacity: 0.4;
+        }
     </style>
 }
 @section scripts {
@@ -69,7 +73,7 @@
             $('#bbImage-list').slimScroll({
                 height: '500px'
             });
-            if(sessionId != null){
+            if (sessionId != null) {
                 connect(sessionId);
             }
         });
@@ -120,6 +124,7 @@
         IsHaveControl = "true";
         exitMode = true;
     }
+    var downloadableResources = '@Model.downloadableResources';
 </script>
 
 @section outsideContainer {
@@ -142,7 +147,17 @@
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom Out" id="btnZoomOut" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomOut();"> <i class="fa fa-search-minus" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom In" id="btnZoomIn" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomIn();"> <i class="fa fa-search-plus" aria-hidden="true"></i></button></div>
+                    <div id="divPdfNavPanel" class="pull-right" style="margin-bottom:2px;">
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger FirstPage" style="font-weight: bold;"> <i class="fa fa-step-backward" aria-hidden="true"></i></a></div>
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger PrevPage" style="font-weight: bold;"> <i class="fa fa-backward" aria-hidden="true"></i></a></div>
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger NextPage" style="font-weight: bold;"> <i class="fa fa-forward" aria-hidden="true"></i></a></div>
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger LastPage" style="font-weight: bold;"> <i class="fa fa-step-forward" aria-hidden="true"></i></a></div>
+                    </div>
                 </div>
+
+            </div>
+            <div id="lessonThree" style="display:none;">
+                <ul id="NewFiles" class="chosen-results"></ul>
             </div>
             <div class="row" id="Row-2">
                 <div class="col-lg-12" id="middle-content">
@@ -180,20 +195,20 @@
         </div>
     </div>
     <div class="row chat-window col-xs-8 col-md-3" id="chat_window_1" style="margin-left:10px;z-index:1;">
-            <div id="innerChatDiv" class="panel panel-default ui-widget-content">
-                <div class="panel-heading top-bar">
-                    <div class="col-md-8 col-xs-8 col-sm-7">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat </h3>
-                    </div>
-                    <div class="col-md-4 col-xs-4 col-sm-5" style="text-align: right;">
-                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
-                        @*<a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>*@
-                    </div>
+        <div id="innerChatDiv" class="panel panel-default ui-widget-content">
+            <div class="panel-heading top-bar">
+                <div class="col-md-8 col-xs-8 col-sm-7">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat </h3>
                 </div>
-                <div class="panel-body msg_container_base">
-                    @Html.Partial("_PartialChatBox", Model)
+                <div class="col-md-4 col-xs-4 col-sm-5" style="text-align: right;">
+                    <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
+                    @*<a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>*@
                 </div>
             </div>
+            <div class="panel-body msg_container_base">
+                @Html.Partial("_PartialChatBox", Model)
+            </div>
+        </div>
     </div>
 
     <div id="test-left">
@@ -283,7 +298,7 @@
                                 if (resource.Type_ID == bat.logic.Constants.Types.Image)
                                 {
                                     <div style="overflow: auto;">
-                                        <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID')">
+                                        <button class="btn btn-link pull-left" onclick="loadCloudImg('@resource.ID',' @resource.Original_Name')">
                                             @resource.Original_Name
                                         </button>
 

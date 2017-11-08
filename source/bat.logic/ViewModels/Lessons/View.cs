@@ -11,7 +11,7 @@ using bat.logic.Models.Lessons;
 using bat.logic.Rules;
 using OpenTokSDK;
 using bat.logic.Exceptions;
-
+using Newtonsoft.Json;
 namespace bat.logic.ViewModels.Lessons
 {
     public class View : Master, Partials.IPartialWhiteboard
@@ -24,7 +24,7 @@ namespace bat.logic.ViewModels.Lessons
         public Lesson lesson { get; set; }
         public List<Attachment> attachments { get; set; }
         public List<LessonResource> lessonResources { get; set; }
-
+        public string downloadableResources { get; set; }
         public View()
         {
             this.lesson = new Lesson()
@@ -92,7 +92,12 @@ namespace bat.logic.ViewModels.Lessons
 
                 this.lessonResources = conn.LessonResources.Where(r => r.Lession_ID == id)
                         .ToList();
-
+                var resources = new List<Resource>();
+                var imageResources = this.lessonResources.Select(lr => new Resource { id = lr.ID, original_name = lr.Original_Name }).OrderBy(x=>x.original_name).ToList();
+                this.downloadableResources = JsonConvert.SerializeObject(imageResources, new JsonSerializerSettings
+                                                                                                {
+                                                                                                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                                                                                                });
                 foreach (var participant in this.lesson.LessonParticipants.ToList())
                 {
                     var other = conn.Accounts.FirstOrDefault(a => a.ID == participant.Account_ID);

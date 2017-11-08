@@ -202,7 +202,7 @@ $(function () {
                     }));
                 }
             });
-            SetInitialValue();   
+            SetInitialValue();
         }
     };
 
@@ -445,7 +445,7 @@ $(document).ready(function () {
     $.connection.hub.start().done(function () {
         $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
-        
+
         if ($(window).width() > 768) {
             $("#chat_window_1").draggable();
             $("#innerChatDiv").resizable({
@@ -479,12 +479,14 @@ $(document).ready(function () {
             $("#btnSaveWhiteboard").show();
             $("#btnDownlaodWhiteboard").show();
             $("#btnUploadWhiteboard").show();
+            $("#divPdfNavPanel").show();
         }
         else {
             blackboardHub.server.getTeacherSnapshot(lessonId);
             $("#btnSaveWhiteboard").hide();
             $("#btnDownlaodWhiteboard").hide();
             $("#btnUploadWhiteboard").hide();
+            $("#divPdfNavPanel").hide();
         }
         blackboardHub.server.fetchOnlineUsers(lessonId);
     });
@@ -509,7 +511,7 @@ function InitCanvas(options, isHost) {
     if (isHaveControl == "true") {
         bindEvent();
     }
-   
+
 }
 
 //Render canvas with aproprite size depending on device
@@ -661,9 +663,9 @@ function zoomOut() {
 function SaveWhiteBoard() {
     if (buzzCanvas.getSnapshot().shapes.length > 0) {
         var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
-                                  img2SaveArray = img2SaveRaw.split(','),
-                                  img2Save = img2SaveArray[1],
-                                  imgExtension = img2SaveArray[0];
+            img2SaveArray = img2SaveRaw.split(','),
+            img2Save = img2SaveArray[1],
+            imgExtension = img2SaveArray[0];
         imgData = img2Save;
         $('#previewCanvas').css("height", buzzCanvas.canvas.clientHeight);
         $('#previewCanvas').css("width", buzzCanvas.canvas.clientWidth);
@@ -713,8 +715,9 @@ function uploadCanvas() {
         })
     }
 }
+toggle_pannel(false);
 
-function loadCloudImg(id) {
+function loadCloudImg(id, name, type) {
     useImg = true;
     $.ajax({
         type: "POST", // Type of request
@@ -729,13 +732,77 @@ function loadCloudImg(id) {
             blackboardHub.server.boardImage(imageModel);
             imgData = data;
             clearOrLoadBoard();
-            $('#BBListModal').modal('toggle');
+            if (type != true) {
+                GetAllFilesInPdf(name);
+                $('#BBListModal').modal('toggle');
+            }
         },
         error: function (err) {
             console.log("error[" + err.status + "]: " + err.statusText);
         }
     });
 }
+
+function GetAllFilesInPdf(name) {
+    $("#lessonThree").find('ul').empty();
+    var allFiles = JSON.parse(downloadableResources.replace(/&quot;/g, '"'));
+    var i = 1;
+    var list = $("#lessonThree").find('ul');
+    var NewFile = [];
+    var extension = name.split('-')[0].trim().split('.');
+    allFiles.forEach(function (Files) {
+        if (Files.original_name.split('-')[0].trim() == name.split('-')[0].trim()) {
+            var li = document.createElement('li');
+            if (Files.original_name.trim() == name.trim())
+                li.setAttribute('class', 'active');
+            else
+                li.setAttribute('class', '');
+            li.setAttribute('id', Files.id);
+            list.append(li);
+            NewFile.push(Files.id);
+        }
+    });
+
+    if (NewFile.length > 1 && extension[1] == "pdf")
+        toggle_pannel(true);
+    else
+        toggle_pannel(false);
+}
+
+function toggle_pannel(mode) {
+    if (mode === false)
+        $("#divPdfNavPanel").addClass("disabledbutton");
+    else
+        $("#divPdfNavPanel").removeClass("disabledbutton");
+}
+
+$("a.FirstPage").click(function () {
+    loadCloudImg($('#lessonThree').find('ul li:first')[0].id, "", true);
+    $('.active').removeClass('active');
+    $('#lessonThree').find('ul li:first').addClass('active');
+});
+$("a.LastPage").click(function () {
+    loadCloudImg($('#lessonThree').find('ul li:last')[0].id, "", true);
+    $('.active').removeClass('active');
+    $('#lessonThree').find('ul li:last').addClass('active');
+});
+
+
+var liNum = 0;
+
+$("a.NextPage").click(function () {
+    var $toHighlight = $('.active').next().length > 0 ? $('.active').next() : $('#lessonThree li').first();
+    loadCloudImg($toHighlight[0].id, "", true);
+    $('.active').removeClass('active');
+    $toHighlight.addClass('active');
+});
+
+$("a.PrevPage").click(function () {
+    var $toHighlight = $('.active').prev().length > 0 ? $('.active').prev() : $('#lessonThree li').last();
+    $('.active').removeClass('active');
+    loadCloudImg($toHighlight[0].id, "", true);
+    $toHighlight.addClass('active');
+});
 
 function loadBackground(id) {
     $.ajax({
@@ -794,7 +861,7 @@ function clearOrLoadBoard() {
             buzzCanvas.clear();
             var img = new Image();
             img.src = "data:image/png;base64," + imgData;
-            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img ,scale:0.3}));
+            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img, scale: 0.3 }));
         }
     }
 }
