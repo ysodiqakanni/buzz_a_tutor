@@ -46,6 +46,10 @@
             background-color: #e6e6e6;
             z-index: 1;
         }*/
+        .disabledbutton {
+            pointer-events: none;
+            opacity: 0.4;
+        }
     </style>
 }
 @section scripts {
@@ -260,6 +264,12 @@
                     <div id="bbImageError"></div>
                 </div>
                 <div class="modal-footer">
+                    <div id="divPdfNavPanel" class="pull-left" style="margin-bottom:2px;">
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger FirstPage disabled" style="font-weight: bold;"> <i class="fa fa-step-backward" aria-hidden="true"></i></a></div>
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger PrevPage disabled" style="font-weight: bold;"> <i class="fa fa-backward" aria-hidden="true"></i></a></div>
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger NextPage" style="font-weight: bold;"> <i class="fa fa-forward" aria-hidden="true"></i></a></div>
+                        <div class='inline'><a data-toggle="tooltip" data-placement="bottom" title="Download" href="#" class="btn btn-sm btn-danger LastPage" style="font-weight: bold;"> <i class="fa fa-step-forward" aria-hidden="true"></i></a></div>
+                    </div>
                     <div class="pull-right" id="modal-button-container">
                     </div>
                 </div>

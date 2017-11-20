@@ -15,10 +15,11 @@ var uploadImageModal = function () {
     $("#bbImageError").empty();
     $(".carousel-control").addClass("hidden");
     $("#modal-button-container").append(cancelBtn);
+    $("#divPdfNavPanel").hide();
     $('#uploadModal').modal();
 };
 
-$("#bbImageInput").on('change',function (event) {
+$("#bbImageInput").on('change', function (event) {
     $("#canvasCarousel").empty();
     $("#modal-button-container").empty();
     $("#modal-button-container").append(cancelBtn);
@@ -28,16 +29,17 @@ $("#bbImageInput").on('change',function (event) {
     var fileName = imageFile.name;
     var fileExt = fileName.split('.').pop().toLowerCase();
     if (fileExt === "png" || fileExt === "jpg" || fileExt === "tif") {
+        $("#divPdfNavPanel").hide();
         var fileReader = new FileReader();
         fileReader.addEventListener("load", function () {
             var currPage = 1; //Pages are 1-based not 0-based
-            var id = "p" + 1;
+            var id = "p-" + 1;
             $('#canvasCarousel').append('<div id="' + id + '"class="item active hidden"></div>');
             var carouselItem = document.getElementById(id)
             var canvas = document.createElement("canvas");
             canvas.style.display = "block";
             var context = canvas.getContext('2d');
-            canvas.id = "p" + currPage + "-canvas";
+            canvas.id = "p-" + currPage + "-canvas";
             canvas.height = 200;
             canvas.width = 300;
 
@@ -49,13 +51,13 @@ $("#bbImageInput").on('change',function (event) {
             };
 
             carouselItem.appendChild(canvas);
-            $('#' + id).append('<div class="carousel-caption"><input class="hidden" id="' + id + '-check" type="checkbox" checked/></div');
         }, false);
 
         //Step 3:Read the file as ArrayBuffer
         fileReader.readAsDataURL(imageFile);
         $("#modal-button-container").append(uploadBtn);
     } else if (fileExt === "pdf") {
+        $("#divPdfNavPanel").show();
         //Step 2: Read the file using file reader
         var fileReader = new FileReader();
         fileReader.onload = function () {
@@ -81,7 +83,7 @@ $("#bbImageInput").on('change',function (event) {
                 var viewport = page.getViewport(1);
 
                 //We'll create a canvas for each page to draw it on
-                var id = 'p' + currPage;
+                var id = 'p-' + currPage;
                 if (currPage === 1) {
                     $('#canvasCarousel').append('<div id="' + id + '"class="item active"></div>');
                 } else {
@@ -91,7 +93,7 @@ $("#bbImageInput").on('change',function (event) {
                 var carouselItem = document.getElementById(id);
 
                 var canvas = document.createElement("canvas");
-                canvas.id = "p" + currPage + "-canvas";
+                canvas.id = "p-" + currPage + "-canvas";
                 canvas.style.display = "block";
                 var context = canvas.getContext('2d');
                 canvas.height = viewport.height;
@@ -102,12 +104,11 @@ $("#bbImageInput").on('change',function (event) {
 
                 //Add it to the web page
                 carouselItem.appendChild(canvas);
-                $('#' + id).append('<div class="carousel-caption"><input id="' + id + '-check" type="checkbox"/></div');
 
                 if (currPage === numPages) {
                     $("#preview-carousel").append('<a class="left carousel-control" href="#preview-carousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span></a>');
                     $("#preview-carousel").append('<a class="right carousel-control" href="#preview-carousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span></a>');
-                    $('#preview-carousel').carousel();
+                    $('#preview-carousel').carousel({ interval: false });
                 }
 
                 //Move to next page
@@ -130,60 +131,36 @@ $("#bbImageInput").on('change',function (event) {
 function uploadImage() {
     $("#modal-button-container").empty();
     $("#modal-button-container").append(uploadingIcon);
-    var page = 1;
-    var pages = $("#canvasCarousel .item").length;
+    var selectedPageId = $("#canvasCarousel div.item.active")[0].id;
+    var pageNo = selectedPageId.split("-")[1];
 
-    function postCanvas(id) {
-        var canvas = document.getElementById(id + "-canvas");
-        var img2SaveRaw = canvas.toDataURL('image/png'),
+    var canvas = document.getElementById(selectedPageId + "-canvas");
+    var img2SaveRaw = canvas.toDataURL('image/png'),
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = imageFile.name;
-        //window.open("data:image/png;base64," + img2Save);
-        $.ajax({
-            type: "POST", // Type of request
-            url: "../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
-            dataType: "json",
-            data: {
-                "lessonid": lessonId,
-                "title": title + "-" + id,
-                "data": img2Save
-            },
+    $.ajax({
+        type: "POST", // Type of request
+        url: "../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
+        dataType: "json",
+        data: {
+            "lessonid": lessonId,
+            "title": title + "-" + pageNo,
+            "data": img2Save
+        },
 
-            success: function (data) {
-                updateImageList(lessonId);
-                if (page > pages) {
-                    imgData = "";
-                    ListUpdate.update = true;
-                    blackboardHub.server.updateList(ListUpdate);
-                    //blackboardHub.server.updateList(listModel);
-                    //$("#modal-button-container").empty();
-                    //$("#modal-button-container").append(successBtn);
-                    $('#uploadModal').modal('toggle');
-                }
-            },
+        success: function (data) {
+            updateImageList(lessonId);
+            imgData = "";
+            ListUpdate.update = true;
+            blackboardHub.server.updateList(ListUpdate);
+            $('#uploadModal').modal('toggle');
+        },
 
-            error: function(err) {
-                errorMessage = "Something went wrong, try again later.";
-                $("#bbImageError").append(errorStart + errorMessage + errorEnd);
-                console.log("error[" + err.status + "]: " + err.statusText);
-            }
-        });
-    }
-
-    function ifchecked() {
-        var id = 'p' + page;
-        var inputId = id + "-check";
-        if ($("#" + inputId).is(":checked")) {
-            postCanvas(id);
+        error: function (err) {
+            errorMessage = "Something went wrong, try again later.";
+            $("#bbImageError").append(errorStart + errorMessage + errorEnd);
+            console.log("error[" + err.status + "]: " + err.statusText);
         }
-        page++;
-        if (page <= pages) {
-            ifchecked();
-        }
-    }
-
-    if (page <= pages) {
-        ifchecked();
-    }
+    });
 }

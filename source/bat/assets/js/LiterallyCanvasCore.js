@@ -737,6 +737,67 @@ function loadCloudImg(id) {
     });
 }
 
+/////////////////////////Start section Events for pdf//////////////////
+
+//move to first page
+$("a.FirstPage").click(function () {
+    toggleButton("a.FirstPage", true);
+    toggleButton("a.LastPage", false);
+    toggleButton("a.NextPage", false);
+    toggleButton("a.PrevPage", true);
+    $("#canvasCarousel div.item.active").removeClass("active");
+    $("#canvasCarousel div.item").first().addClass("active");
+});
+
+//move to last page
+$("a.LastPage").click(function () {
+    toggleButton("a.FirstPage", false);
+    toggleButton("a.LastPage", true);
+    toggleButton("a.NextPage", true);
+    toggleButton("a.PrevPage", false);
+    $("#canvasCarousel div.item.active").removeClass("active");
+    $("#canvasCarousel div.item").last().addClass("active");
+});
+
+//move to next page
+$("a.NextPage").click(function () {
+    var $toHighlight = $('.active').next().length > 0 ? $('.active').next() : $('#lessonThree li').first();
+    if ($toHighlight.length != 0) {
+        $('.active').removeClass('active');
+        $toHighlight.addClass('active');
+        $("a.PrevPage").removeClass("disabled");
+        $("a.FirstPage").removeClass("disabled");
+    } else {
+        $("a.NextPage").addClass("disabled");
+        $("a.LastPage").addClass("disabled");
+    }
+});
+
+//move to prev page
+$("a.PrevPage").click(function () {
+    var $toHighlight = $('.active').prev().length > 0 ? $('.active').prev() : $('#lessonThree li').last();
+    if ($toHighlight.length != 0) {
+        $('.active').removeClass('active');
+        $toHighlight.addClass('active');
+        $("a.NextPage").removeClass("disabled");
+        $("a.LastPage").removeClass("disabled");
+    } else {
+        $("a.PrevPage").addClass("disabled");
+        $("a.FirstPage").addClass("disabled");
+    }
+});
+
+//disable/enable button
+function toggleButton(button, status) {
+    if (status) {
+        $(button).addClass("disabled");
+    } else {
+        $(button).removeClass("disabled");
+    }
+}
+
+//////////////////////////////close section////////////////////////////////
+
 function loadBackground(id) {
     $.ajax({
         type: "POST", // Type of request
@@ -794,7 +855,7 @@ function clearOrLoadBoard() {
             buzzCanvas.clear();
             var img = new Image();
             img.src = "data:image/png;base64," + imgData;
-            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img ,scale:0.3}));
+            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img ,scale:1}));
         }
     }
 }
@@ -845,7 +906,6 @@ $(document).on('click', '#new_chat', function (e) {
     clone.css("margin-left", size_total);
 });
 $(document).on('click', '.icon_close', function (e) {
-    //$(this).parent().parent().parent().parent().remove();
     $("#chat_window_1").remove();
 });
 
