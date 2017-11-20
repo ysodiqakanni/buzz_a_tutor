@@ -275,7 +275,6 @@
     <Compile Include="ViewModels\Lessons\Edit.cs" />
     <Compile Include="ViewModels\Lessons\Cancel.cs" />
     <Compile Include="ViewModels\Lessons\Reschedule.cs" />
-    <Compile Include="ViewModels\Lessons\Resource.cs" />
     <Compile Include="ViewModels\Lessons\View.cs" />
     <Compile Include="ViewModels\Lessons\New.cs" />
     <Compile Include="ViewModels\Master.cs" />
