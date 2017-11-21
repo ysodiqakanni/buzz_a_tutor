@@ -852,10 +852,18 @@ function updateImageList(lessonId) {
 function clearOrLoadBoard() {
     if (useImg === true) {
         if (buzzCanvas != undefined) {
+            var selectedTool = new LC.tools.Pan();
             buzzCanvas.clear();
             var img = new Image();
             img.src = "data:image/png;base64," + imgData;
-            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img ,scale:1}));
+            var scale = 1;
+            if ($(window).width() > 768)
+                scale = 1;
+            else
+                scale = 0.3;
+            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img, scale: scale }));
+            buzzCanvas.setTool(selectedTool);
+            $(".lc-pick-tool")[6].click();
         }
     }
 }

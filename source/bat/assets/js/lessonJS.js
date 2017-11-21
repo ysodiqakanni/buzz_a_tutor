@@ -111,6 +111,18 @@ $("#bbImageInput").on('change', function (event) {
                     $('#preview-carousel').carousel({ interval: false });
                 }
 
+                if (numPages <= 1) {
+                    toggleButton("a.FirstPage", true);
+                    toggleButton("a.LastPage", true);
+                    toggleButton("a.NextPage", true);
+                    toggleButton("a.PrevPage", true);
+                } else {
+                    toggleButton("a.FirstPage", true);
+                    toggleButton("a.LastPage", false);
+                    toggleButton("a.NextPage", false);
+                    toggleButton("a.PrevPage", true);
+                }
+
                 //Move to next page
 
                 currPage++;
