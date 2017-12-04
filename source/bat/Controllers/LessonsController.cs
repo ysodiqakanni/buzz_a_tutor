@@ -19,7 +19,11 @@ namespace bat.Controllers
             {
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
-
+                if(id == 0)
+                {
+                    string error = TempData["Error"] as string;
+                    throw new Exception(error);
+                }
                 model.Initialise(user.ID);
                 model.Load(id);
 
@@ -112,6 +116,7 @@ namespace bat.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
+                TempData["Error"] = ex.Message;
             }
 
             return RedirectToAction("Index", new { id = model.lesson.ID });
