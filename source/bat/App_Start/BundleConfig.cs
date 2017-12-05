@@ -65,7 +65,8 @@ namespace bat
             ));
 
             bundles.Add(new ScriptBundle("~/assets/vendor/pdf").Include(
-                "~/assets/vendor/pdf.js/build/pdf.js"
+                "~/assets/vendor/pdf.js/build/pdf.js",
+                "~/assets/vendor/pdf.js/build/pdf.worker.js"
            ));
         }
     }
