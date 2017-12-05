@@ -665,7 +665,8 @@ function SaveWhiteBoard() {
                                   img2Save = img2SaveArray[1],
                                   imgExtension = img2SaveArray[0];
         imgData = img2Save;
-        $('#previewCanvas').css("height", buzzCanvas.canvas.clientHeight);
+        $('#pdfContainer').css("height", buzzCanvas.canvas.clientHeight);
+        $('#previewCanvas').css("height", buzzCanvas.canvas.clientWidth);
         $('#previewCanvas').css("width", buzzCanvas.canvas.clientWidth);
         $('#previewCanvas').css("background-image", "url('" + imgExtension + "," + img2Save + "')");
         $('#previewCanvas').css("background-repeat", "no-repeat");
