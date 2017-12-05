@@ -863,7 +863,8 @@ function clearOrLoadBoard() {
                 scale = 0.3;
             buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img, scale: scale }));
             buzzCanvas.setTool(selectedTool);
-            $(".lc-pick-tool")[6].click();
+            if ($(".lc-pick-tool")[6] != undefined)
+                $(".lc-pick-tool")[6].click();
         }
     }
 }
