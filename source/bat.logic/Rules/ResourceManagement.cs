@@ -49,15 +49,30 @@ namespace bat.logic.Rules
                 {
                     var lesson = conn.Lessons.FirstOrDefault(l => l.ID == lessonId);
                     if (lesson == null) throw new Exception("Lesson does not exist.");
+                    int lessonResourceId = 0;
 
-                    var lessonResource = new LessonResource()
+                    if (lesson.LessonResources.Count > 0)
                     {
-                        Lession_ID = lessonId,
-                        Original_Name = resourceImage["title"],
-                        Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResourceImage(resourceImage["data"]),
-                        Type_ID = Constants.Types.Image
-                    };
-                    conn.LessonResources.Add(lessonResource);
+                        var lessonResource = lesson.LessonResources.FirstOrDefault();
+                        lessonResource.Lession_ID = lessonId;
+                        lessonResourceId = lessonResource.ID;
+                        lessonResource.Original_Name = resourceImage["title"];
+                        lessonResource.Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResourceImage(resourceImage["data"]);
+                        lessonResource.Type_ID = Constants.Types.Image;
+                    }
+
+                    if (lessonResourceId == 0)
+                    {
+                        var lessonResource = new LessonResource()
+                        {
+                            Lession_ID = lessonId,
+                            Original_Name = resourceImage["title"],
+                            Item_Storage_Name = logic.Helpers.AzureStorage.StoredResources.UploadLessonResourceImage(resourceImage["data"]),
+                            Type_ID = Constants.Types.Image
+                        };
+
+                        conn.LessonResources.Add(lessonResource);
+                    }
 
                     conn.SaveChanges();
                 }
@@ -151,7 +166,7 @@ namespace bat.logic.Rules
 
                     using (var memoryStream = new MemoryStream())
                     {
-                        if(account.Picture == null)
+                        if (account.Picture == null)
                         {
                             return null;
                         }

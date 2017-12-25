@@ -14,6 +14,10 @@ var useImg = false,
 
 var zoomPercent = 1.0;
 
+var timeIntervalToAutoSaveCanvas = 300000; // Time interval is 5 minutes default 300000
+var defaultTitle = "WhiteBoardImage_" + lessonId; // This title is used when canvas save
+var isFromAutoSave = false;
+
 var imageModel = {
     group: lessonId,
     clear: true,
@@ -445,7 +449,6 @@ $(document).ready(function () {
     $.connection.hub.start().done(function () {
         $("#lesssonDetailedDescrition").html(decodeURIComponent($("#lesssonDetailedDescrition").html().replace(/\+/g, ' ')));
         blackboardHub.server.joinGroup(lessonId, id, username, isHost, IsHaveControl);
-        
         if ($(window).width() > 768) {
             $("#chat_window_1").draggable();
             $("#innerChatDiv").resizable({
@@ -479,6 +482,12 @@ $(document).ready(function () {
             $("#btnSaveWhiteboard").show();
             $("#btnDownlaodWhiteboard").show();
             $("#btnUploadWhiteboard").show();
+
+            //fetch an image assosiated with this lesson
+            updateImageList(lessonId);
+
+            //execute this method on a specific time to auto save whiteboard
+            saveCanvasOnTimeInterval(timeIntervalToAutoSaveCanvas);
         }
         else {
             blackboardHub.server.getTeacherSnapshot(lessonId);
@@ -498,6 +507,27 @@ $(document).ready(function () {
         }, 5000); // Re-start connection after 5 seconds
     });
 });
+
+//This method is called on specific time interval. Default is 5 minutes.
+function saveCanvasOnTimeInterval(milliseconds) {
+    setInterval(function () {
+        AutoSaveWhiteboard();
+    }, milliseconds);
+}
+
+//This method is used to capture screenshot of canvas and save it to db.
+function AutoSaveWhiteboard() {
+    if (buzzCanvas.getSnapshot().shapes.length > 0) {
+        isFromAutoSave = true;
+        var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
+            img2SaveArray = img2SaveRaw.split(','),
+            img2Save = img2SaveArray[1],
+            imgExtension = img2SaveArray[0];
+        imgData = img2Save;
+        $('#previewTitle').val(defaultTitle);
+        uploadCanvas();
+    }
+}
 
 //Initialise canvas 
 function InitCanvas(options, isHost) {
@@ -688,6 +718,8 @@ function DownloadWhiteboard() {
 }
 
 function uploadCanvas() {
+    $("#modal-button-container").empty();
+    $("#modal-button-container").append(uploadingIcon);
     var title = $('#previewTitle').val();
     if (title == '') {
         $('#imgSaveFail').removeClass('hidden');
@@ -703,9 +735,13 @@ function uploadCanvas() {
             },
             success: function (data) {
                 imgData = "";
-                ListUpdate.update = true;
-                blackboardHub.server.updateList(ListUpdate);
-                $('#previewModal').modal('toggle');
+                updateImageList(lessonId);
+                updateSavedTime("autoSavedWhitboard");
+                if (isFromAutoSave) {
+                    isFromAutoSave = false;                                    
+                } else {
+                    $('#previewModal').modal('toggle');
+                }
             },
             error: function (err) {
                 console.log("error[" + err.status + "]: " + err.statusText);
@@ -715,27 +751,55 @@ function uploadCanvas() {
     }
 }
 
+function updateSavedTime(containerId) {
+    var now = new Date();
+    var hh = now.getHours();
+    var min = now.getMinutes();
+
+    var ampm = (hh >= 12) ? 'pm' : 'am';
+    hh = hh % 12;
+    hh = hh ? hh : 12;
+    hh = hh < 10 ? '0' + hh : hh;
+    min = min < 10 ? '0' + min : min;
+
+    var time = hh + " : " + min + " " + ampm;
+
+    $("#" + containerId).text(time);   
+}
+
 function loadCloudImg(id) {
-    useImg = true;
-    $.ajax({
-        type: "POST", // Type of request
-        url: "../api/lessons/downloadfromcloud", //The controller/Action
-        dataType: "json",
-        data: {
-            "attachmentid": id
-        },
-        success: function (data) {
-            imageModel.clear = false;
-            imageModel.imageId = id;
-            blackboardHub.server.boardImage(imageModel);
-            imgData = data;
-            clearOrLoadBoard();
-            $('#BBListModal').modal('toggle');
-        },
-        error: function (err) {
-            console.log("error[" + err.status + "]: " + err.statusText);
-        }
-    });
+    if (id != 0) {
+        useImg = true;
+        $("#modal-button-container1").empty();
+        $("#modal-button-container1").append(uploadingIcon);
+        $.ajax({
+            type: "POST", // Type of request
+            url: "../api/lessons/downloadfromcloud", //The controller/Action
+            dataType: "json",
+            data: {
+                "attachmentid": id
+            },
+            success: function (data) {
+                imageModel.clear = false;
+                imageModel.imageId = id;
+                blackboardHub.server.boardImage(imageModel);
+                imgData = data;
+                clearOrLoadBoard();
+               // $('#BBListModal').modal('toggle');
+                $("#modal-button-container1").empty();
+            },
+            error: function (err) {
+                console.log("error[" + err.status + "]: " + err.statusText);
+            }
+        });
+    } else {
+        swal({
+            title: "Error!",
+            text: "No drawings to download!!.",
+            type: "warning",
+            timer: 3000
+        });
+    }
 }
 
 /////////////////////////Start section Events for pdf//////////////////
@@ -826,21 +890,30 @@ function updateImageList(lessonId) {
             "lessonid": lessonId
         },
         success: function (data) {
-            $("#bbImage-list").empty();
-            $(jQuery.parseJSON(data)).each(function () {
-                var id = this.id;
-                var title = this.title;
-                var attachmentLink =
-                    '<div style="overflow: auto;"><button class="btn btn-link pull-left" onclick="loadCloudImg(' + id + ')">' + title + '</button>' +
-                    '<a href="' + deleteResourceUrl + '/?resourceId=' + id + '" class="pull-right" style="padding: 10px;">' +
-                    '<i class="fa fa-remove"></i>' +
-                    '</a>' +
-                    '</div>';
-                $("#bbImage-list").append(attachmentLink);
-                $('#bbImage-list').slimScroll({
-                    height: '500px'
+            //$("#bbImage-list").empty();
+            if (jQuery.parseJSON(data).length > 0) {
+                $(jQuery.parseJSON(data)).each(function () {
+                    var id = this.id;
+                    $("#btnDownlaodWhiteboard").click(function () {
+                        loadCloudImg(id);
+                    });
+                    //var title = this.title;
+                    //var attachmentLink =
+                    //    '<div style="overflow: auto;"><button class="btn btn-link pull-left" onclick="loadCloudImg(' + id + ')">' + title + '</button>' +
+                    //    '<a href="' + deleteResourceUrl + '/?resourceId=' + id + '" class="pull-right" style="padding: 10px;">' +
+                    //    '<i class="fa fa-remove"></i>' +
+                    //    '</a>' +
+                    //    '</div>';
+                    //$("#bbImage-list").append(attachmentLink);
+                    //$('#bbImage-list').slimScroll({
+                    //    height: '500px'
+                    //});
                 });
-            });
+            } else {
+                $("#btnDownlaodWhiteboard").click(function () {
+                    loadCloudImg(0);
+                });
+            }
         },
         error: function (err) {
             errorMessage = "Something went wrong, try again later.";
@@ -857,6 +930,27 @@ function clearOrLoadBoard() {
             buzzCanvas.clear();
             var img = new Image();
             img.src = "data:image/png;base64," + imgData;
+            var scale = 1;
+            if ($(window).width() > 768)
+                scale = 1;
+            else
+                scale = 0.3;
+            buzzCanvas.saveShape(LC.createShape('Image', { x: 10, y: 10, image: img, scale: scale }));
+            buzzCanvas.setTool(selectedTool);
+            if ($(".lc-pick-tool")[6] != undefined)
+                $(".lc-pick-tool")[6].click();
+        }
+    }
+}
+
+//This function is used for upload image to canvas from upload model
+function loadWhiteBoardWithImage() {
+    if (useImg === true) {
+        if (buzzCanvas != undefined) {
+            var selectedTool = new LC.tools.Pan();
+            buzzCanvas.clear();
+            var img = new Image();
+            img.src = imgData;
             var scale = 1;
             if ($(window).width() > 768)
                 scale = 1;

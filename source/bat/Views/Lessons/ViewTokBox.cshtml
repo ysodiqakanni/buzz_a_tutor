@@ -139,13 +139,15 @@
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Save" id="btnSaveWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="SaveWhiteBoard();"><i class="fa fa-floppy-o" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
-                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Download" id="btnDownlaodWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="DownloadWhiteboard();"> <i class="fa fa-download" aria-hidden="true"></i></button></div>
+                    <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Download" id="btnDownlaodWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;"> <i class="fa fa-download" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Upload" id="btnUploadWhiteboard" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="uploadImageModal();"> <i class="fa fa-upload" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom Out" id="btnZoomOut" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomOut();"> <i class="fa fa-search-minus" aria-hidden="true"></i></button></div>
                     &nbsp;&nbsp;
                     <div class='inline'><button data-toggle="tooltip" data-placement="bottom" title="Zoom In" id="btnZoomIn" class="btn btn-sm btn-danger" style="font-weight: bold;" onclick="zoomIn();"> <i class="fa fa-search-plus" aria-hidden="true"></i></button></div>
+                    &nbsp;&nbsp;
+                    <div class='inline'><span style="font-weight: bold;font-size:15px;">Last Saved - </span><span id="autoSavedWhitboard" style="font-size:15px;"></span></div>
                 </div>
             </div>
             <div class="row" id="Row-2">
@@ -309,6 +311,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div class="pull-right" id="modal-button-container1">
+                    </div>
                 </div>
             </div>
         </div>

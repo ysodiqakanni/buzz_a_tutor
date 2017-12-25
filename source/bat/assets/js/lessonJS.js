@@ -1,10 +1,10 @@
-﻿var cancelBtn = '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+﻿var cancelBtn = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
 var successBtn = '<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>';
 var errorStart = '<p style="color:red"><i class="fa fa-times" aria-hidden="true"></i> ';
 var errorMessage = '';
 var errorEnd = '</p>';
 var imageFile;
-var uploadBtn = '<button type="button" class="btn btn-primary" onclick="uploadImage()">Upload</button>';
+var uploadBtn = '<button type="button" class="btn btn-primary" onclick="uploadImage()">Render</button>';
 var uploadingIcon = '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>';
 
 var uploadImageModal = function () {
@@ -151,28 +151,37 @@ function uploadImage() {
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = imageFile.name;
-    $.ajax({
-        type: "POST", // Type of request
-        url: "../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
-        dataType: "json",
-        data: {
-            "lessonid": lessonId,
-            "title": title + "-" + pageNo,
-            "data": img2Save
-        },
 
-        success: function (data) {
-            updateImageList(lessonId);
-            imgData = "";
-            ListUpdate.update = true;
-            blackboardHub.server.updateList(ListUpdate);
-            $('#uploadModal').modal('toggle');
-        },
+    imgData = img2SaveRaw;
 
-        error: function (err) {
-            errorMessage = "Something went wrong, try again later.";
-            $("#bbImageError").append(errorStart + errorMessage + errorEnd);
-            console.log("error[" + err.status + "]: " + err.statusText);
-        }
-    });
+    useImg = true;
+
+    //clearOrLoadBoard(img2SaveRaw);
+    loadWhiteBoardWithImage(img2SaveRaw);
+    $('#uploadModal').modal('toggle');
+    updateImageList(lessonId);
+    //$.ajax({
+    //    type: "POST", // Type of request
+    //    url: "../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
+    //    dataType: "json",
+    //    data: {
+    //        "lessonid": lessonId,
+    //        "title": title + "-" + pageNo,
+    //        "data": img2Save
+    //    },
+
+    //    success: function (data) {
+    //        updateImageList(lessonId);
+    //        imgData = "";
+    //        ListUpdate.update = true;
+    //        blackboardHub.server.updateList(ListUpdate);
+    //        $('#uploadModal').modal('toggle');
+    //    },
+
+    //    error: function (err) {
+    //        errorMessage = "Something went wrong, try again later.";
+    //        $("#bbImageError").append(errorStart + errorMessage + errorEnd);
+    //        console.log("error[" + err.status + "]: " + err.statusText);
+    //    }
+    //});
 }
