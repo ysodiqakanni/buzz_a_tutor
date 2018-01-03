@@ -53,7 +53,7 @@ namespace bat.logic.Rules
 
                     if (lesson.LessonResources.Count > 0)
                     {
-                        var lessonResource = lesson.LessonResources.FirstOrDefault();
+                        var lessonResource = lesson.LessonResources.OrderByDescending(r=>r.ID).FirstOrDefault();
                         lessonResource.Lession_ID = lessonId;
                         lessonResourceId = lessonResource.ID;
                         lessonResource.Original_Name = resourceImage["title"];

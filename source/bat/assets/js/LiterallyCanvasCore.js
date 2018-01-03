@@ -12,6 +12,8 @@ var selectedUserId;
 var useImg = false,
     imgData = '';
 
+var selectedResourceId = 0;
+
 var zoomPercent = 1.0;
 
 var timeIntervalToAutoSaveCanvas = 300000; // Time interval is 5 minutes default 300000
@@ -41,11 +43,8 @@ var MyTool = function (lc) {  // take lc as constructor arg
         optionsStyle: 'userList',
 
         didBecomeActive: function (lc) {
-            //console.log("activeted");
         },
-
         willBecomeInactive: function (lc) {
-            //console.log("activeted sonn");
         }
     }
 };
@@ -144,23 +143,18 @@ LC.defineOptionsStyle("userList", React.createClass({
 //Blank tool for students
 var NoTool = function (lc) {  // take lc as constructor arg
     var self = this;
-
     return {
         usesSimpleAPI: false,  // DO NOT FORGET THIS!!!
         name: 'NoTool',
         didBecomeActive: function (lc) {
-            //console.log("activeted");
         },
-
         willBecomeInactive: function (lc) {
-            //console.log("activeted sonn");
         }
     }
 };
 
 //SignalR client side events
 $(function () {
-
     blackboardHub.client.refreshList = function (connectedUsers) {
         allUsers = [];
         $("ul[id=attendees]").empty();
@@ -206,7 +200,7 @@ $(function () {
                     }));
                 }
             });
-            SetInitialValue();   
+            SetInitialValue();
         }
     };
 
@@ -256,7 +250,6 @@ $(function () {
         else {
             buzzCanvas.clear();
         }
-        //buzzCanvas.clear();
     };
 
     blackboardHub.client.undoAction = function () {
@@ -539,7 +532,7 @@ function InitCanvas(options, isHost) {
     if (isHaveControl == "true") {
         bindEvent();
     }
-   
+
 }
 
 //Render canvas with aproprite size depending on device
@@ -691,9 +684,9 @@ function zoomOut() {
 function SaveWhiteBoard() {
     if (buzzCanvas.getSnapshot().shapes.length > 0) {
         var img2SaveRaw = LC.renderSnapshotToImage(buzzCanvas.getSnapshot(), null).toDataURL('image/png'),
-                                  img2SaveArray = img2SaveRaw.split(','),
-                                  img2Save = img2SaveArray[1],
-                                  imgExtension = img2SaveArray[0];
+            img2SaveArray = img2SaveRaw.split(','),
+            img2Save = img2SaveArray[1],
+            imgExtension = img2SaveArray[0];
         imgData = img2Save;
         $('#pdfContainer').css("height", buzzCanvas.canvas.clientHeight);
         $('#previewCanvas').css("height", buzzCanvas.canvas.clientWidth);
@@ -710,11 +703,6 @@ function SaveWhiteBoard() {
             timer: 3000
         });
     }
-}
-
-//Download images to whiteboard
-function DownloadWhiteboard() {
-    $('#BBListModal').modal();
 }
 
 function uploadCanvas() {
@@ -738,7 +726,7 @@ function uploadCanvas() {
                 updateImageList(lessonId);
                 updateSavedTime("autoSavedWhitboard");
                 if (isFromAutoSave) {
-                    isFromAutoSave = false;                                    
+                    isFromAutoSave = false;
                 } else {
                     $('#previewModal').modal('toggle');
                 }
@@ -751,6 +739,7 @@ function uploadCanvas() {
     }
 }
 
+// This method is used to display a last auto saved time.
 function updateSavedTime(containerId) {
     var now = new Date();
     var hh = now.getHours();
@@ -763,11 +752,12 @@ function updateSavedTime(containerId) {
     min = min < 10 ? '0' + min : min;
 
     var time = hh + " : " + min + " " + ampm;
-
-    $("#" + containerId).text(time);   
+    $("#" + containerId).text("");
+    $("#" + containerId).text(time);
 }
 
 function loadCloudImg(id) {
+    id = selectedResourceId;
     if (id != 0) {
         useImg = true;
         $("#modal-button-container1").empty();
@@ -785,7 +775,6 @@ function loadCloudImg(id) {
                 blackboardHub.server.boardImage(imageModel);
                 imgData = data;
                 clearOrLoadBoard();
-               // $('#BBListModal').modal('toggle');
                 $("#modal-button-container1").empty();
             },
             error: function (err) {
@@ -890,29 +879,13 @@ function updateImageList(lessonId) {
             "lessonid": lessonId
         },
         success: function (data) {
-            //$("#bbImage-list").empty();
-            if (jQuery.parseJSON(data).length > 0) {
-                $(jQuery.parseJSON(data)).each(function () {
-                    var id = this.id;
-                    $("#btnDownlaodWhiteboard").click(function () {
-                        loadCloudImg(id);
-                    });
-                    //var title = this.title;
-                    //var attachmentLink =
-                    //    '<div style="overflow: auto;"><button class="btn btn-link pull-left" onclick="loadCloudImg(' + id + ')">' + title + '</button>' +
-                    //    '<a href="' + deleteResourceUrl + '/?resourceId=' + id + '" class="pull-right" style="padding: 10px;">' +
-                    //    '<i class="fa fa-remove"></i>' +
-                    //    '</a>' +
-                    //    '</div>';
-                    //$("#bbImage-list").append(attachmentLink);
-                    //$('#bbImage-list').slimScroll({
-                    //    height: '500px'
-                    //});
-                });
+            var resource = JSON.parse(data);
+            if (resource.id != null) {
+                selectedResourceId = resource.id;
+                $("#btnDownlaodWhiteboard").bind("click", loadCloudImg);
             } else {
-                $("#btnDownlaodWhiteboard").click(function () {
-                    loadCloudImg(0);
-                });
+                selectedResourceId = 0;
+                $("#btnDownlaodWhiteboard").bind("click", loadCloudImg);
             }
         },
         error: function (err) {

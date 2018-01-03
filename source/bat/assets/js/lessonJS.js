@@ -151,37 +151,9 @@ function uploadImage() {
         img2SaveArray = img2SaveRaw.split(','),
         img2Save = img2SaveArray[1],
         title = imageFile.name;
-
     imgData = img2SaveRaw;
-
     useImg = true;
-
-    //clearOrLoadBoard(img2SaveRaw);
     loadWhiteBoardWithImage(img2SaveRaw);
     $('#uploadModal').modal('toggle');
     updateImageList(lessonId);
-    //$.ajax({
-    //    type: "POST", // Type of request
-    //    url: "../api/lessons/uploadtocloud", //"../api/lessons/upload", //The controller/Action
-    //    dataType: "json",
-    //    data: {
-    //        "lessonid": lessonId,
-    //        "title": title + "-" + pageNo,
-    //        "data": img2Save
-    //    },
-
-    //    success: function (data) {
-    //        updateImageList(lessonId);
-    //        imgData = "";
-    //        ListUpdate.update = true;
-    //        blackboardHub.server.updateList(ListUpdate);
-    //        $('#uploadModal').modal('toggle');
-    //    },
-
-    //    error: function (err) {
-    //        errorMessage = "Something went wrong, try again later.";
-    //        $("#bbImageError").append(errorStart + errorMessage + errorEnd);
-    //        console.log("error[" + err.status + "]: " + err.statusText);
-    //    }
-    //});
 }

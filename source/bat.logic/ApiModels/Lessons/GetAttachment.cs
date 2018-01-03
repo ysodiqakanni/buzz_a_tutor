@@ -34,21 +34,21 @@ namespace bat.logic.ApiModels.Lessons
             using (var conn = new dbEntities())
             {
                 var json = new JavaScriptSerializer();
-                var bbImageList = new List<blackboardImage>();
-                var resources = conn.LessonResources.Where(a => a.Lession_ID == lessonId && a.Type_ID == Constants.Types.Image).ToList();
-                if (resources == null)
-                    throw new Exception("Attachment not found.");
-
-                foreach(var r in resources)
+                var bbImageList = new blackboardImage();
+                try
+                {
+                    //fetch last attached resorce with lesson
+                    var resources = conn.LessonResources.Where(a => a.Lession_ID == lessonId && a.Type_ID == Constants.Types.Image).OrderByDescending(rid => rid.ID).FirstOrDefault();
+                    if (resources == null)
+                        throw new Exception("Attachment not found.");
+                    bbImageList.id = Convert.ToString(resources.ID);
+                    bbImageList.title = resources.Original_Name;
+                }
+                catch (Exception)
                 {
 
-                    bbImageList.Add(new blackboardImage
-                    {
-                        id = Convert.ToString(r.ID),
-                        title = r.Original_Name
-                    });
+                    //throw;
                 }
-
                 return json.Serialize(bbImageList);
             }
         }
