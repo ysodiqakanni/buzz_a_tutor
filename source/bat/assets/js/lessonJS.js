@@ -24,6 +24,7 @@ $("#bbImageInput").on('change', function (event) {
     $("#modal-button-container").empty();
     $("#modal-button-container").append(cancelBtn);
     $("upload-Canvas").empty();
+    $("#bbImageError").empty();
     event.preventDefault();
     imageFile = event.target.files[0];
     var fileName = imageFile.name;
