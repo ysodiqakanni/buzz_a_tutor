@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bat.logic.ViewModels
 {
-    public class PaginatedLists : Master
+    public class PaginatedLists
     {
         internal string page = "";
         internal int pageSize = 20;

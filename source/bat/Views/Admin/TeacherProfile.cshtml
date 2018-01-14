@@ -1,7 +1,7 @@
 ﻿@model bat.logic.ViewModels.Admin.TeacherProfile
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    ViewBag.Title = ("Profile: " + Model.GetFullAccountName(Model.teacher.ID));
+    ViewBag.Title = ("Profile: " + bat.logic.Helpers.UserAccountInfo.GetFullAccountName(Model.teacher.ID));
 }
 
 <div class="row" style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: solid;">
@@ -16,12 +16,12 @@
         }
         else {
             <div class="txt-center">
-                <img style="height: 100%; width: 100%;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.teacher.ID, name = Model.GetFullAccountName(Model.teacher.ID)})" alt="Profile Pic" />
+                <img style="height: 100%; width: 100%;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.teacher.ID, name = bat.logic.Helpers.UserAccountInfo.GetFullAccountName(Model.teacher.ID)})" alt="Profile Pic" />
             </div>
         }
     </div>
     <div class="col-md-8 col-md-offset-1">
-        <p><strong>Name:</strong> @Model.GetFullAccountName(Model.teacher.ID)</p>
+        <p><strong>Name:</strong> @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(Model.teacher.ID)</p>
         <p><strong>Email Address:</strong> @Model.teacher.Email</p>
         <p><strong>Rate (&#163):</strong> @Model.teacher.Rate</p>
         <div>

@@ -42,7 +42,7 @@
             @foreach (var tutor in Model.tutors)
             {
                 <a href="@Url.Action("TeacherProfile", "Admin", new { id =  tutor.ID})" class="table-row">
-                    <div class="table-cell">@Model.GetFullAccountName(tutor.ID)</div>
+                    <div class="table-cell">@bat.logic.Helpers.UserAccountInfo.GetFullAccountName(tutor.ID)</div>
                     @if (tutor.Disabled != true)
                     {
                         <div class="table-cell" style="color:lawngreen">

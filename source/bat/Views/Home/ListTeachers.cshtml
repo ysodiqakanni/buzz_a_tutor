@@ -18,12 +18,12 @@
                 }
                 else
                 {
-                    <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = teacher.ID, name = Model.GetFullAccountName(teacher.ID)})" alt="Profile Pic" />
+                    <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = teacher.ID, name = bat.logic.Helpers.UserAccountInfo.GetFullAccountName(teacher.ID)})" alt="Profile Pic" />
                 }
             </p>
             <strong>
                 <p style="text-align: center;">
-                    @Model.GetFullAccountName(teacher.ID) - &#163 @rate.ToString("#.00") /hr
+                    @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(teacher.ID) - &#163 @rate.ToString("#.00") /hr
                 </p>
             </strong>
             <p style="text-align: center;">

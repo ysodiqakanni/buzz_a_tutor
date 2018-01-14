@@ -65,7 +65,7 @@ namespace bat.logic.Rules
             }
         }
 
-        public static void CreateLesson(Account teacher, bat.data.Lesson lesson)
+        public static void CreateLesson(int teacherId, bat.data.Lesson lesson)
         {
             using (var conn = new dbEntities())
             {
@@ -74,7 +74,7 @@ namespace bat.logic.Rules
 
                 conn.EventLogs.Add(new EventLog()
                 {
-                    Account_ID = teacher.ID,
+                    Account_ID = teacherId,
                     Type = Models.Auditing.CreateLesson.TypeToString(),
                     Data = JsonConvert.SerializeObject(
                         new Models.Auditing.CreateLesson()
@@ -83,7 +83,7 @@ namespace bat.logic.Rules
                             Lesson = new Models.Auditing.Lesson()
                             {
                                 ID = lesson.ID,
-                                Teacher_Account_ID = teacher.ID,
+                                Teacher_Account_ID = teacherId,
                                 BookingDate = lesson.BookingDate,
                                 DurationMins = lesson.DurationMins,
                                 Description = lesson.Description,
@@ -102,7 +102,9 @@ namespace bat.logic.Rules
             }
         }
 
-        public static void JoinLesson(int teacherId, bat.data.Lesson lesson, Account student)
+        public static void JoinLesson(
+            int teacherId, bat.data.Lesson lesson, 
+            int studentId, string studentFname, string studentLname, string studentEmail)
         {
             using (var conn = new dbEntities())
             {
@@ -111,7 +113,7 @@ namespace bat.logic.Rules
 
                 conn.EventLogs.Add(new EventLog()
                 {
-                    Account_ID = student.ID,
+                    Account_ID = studentId,
                     Type = Models.Auditing.JoinLesson.TypeToString(),
                     Data = JsonConvert.SerializeObject(
                         new Models.Auditing.JoinLesson()
@@ -131,10 +133,10 @@ namespace bat.logic.Rules
                                 Subject = lesson.Subject,
                                 DetailedDescription = lesson.DetailedDescription
                             },
-                            Participant_Account_ID = student.ID,
-                            Participant_Fname = student.Fname,
-                            Participant_Lname = student.Lname,
-                            Participant_Email = student.Email
+                            Participant_Account_ID = studentId,
+                            Participant_Fname = studentFname,
+                            Participant_Lname = studentLname,
+                            Participant_Email = studentEmail
                         }),
                     EventDate = DateTime.UtcNow,
                     IPAddress = Shearnie.Net.Web.ServerInfo.GetIPAddress
@@ -142,7 +144,7 @@ namespace bat.logic.Rules
                 conn.SaveChanges();
             }
         }
-        public static void EditLesson(Account teacher, bat.data.Lesson lesson)
+        public static void EditLesson(int teacherId, bat.data.Lesson lesson)
         {
             using (var conn = new dbEntities())
             {
@@ -151,7 +153,7 @@ namespace bat.logic.Rules
 
                 conn.EventLogs.Add(new EventLog()
                 {
-                    Account_ID = teacher.ID,
+                    Account_ID = teacherId,
                     Type = Models.Auditing.EditLesson.TypeToString(),
                     Data = JsonConvert.SerializeObject(
                         new Models.Auditing.EditLesson()
@@ -160,7 +162,7 @@ namespace bat.logic.Rules
                             Lesson = new Models.Auditing.Lesson()
                             {
                                 ID = lesson.ID,
-                                Teacher_Account_ID = teacher.ID,
+                                Teacher_Account_ID = teacherId,
                                 BookingDate = lesson.BookingDate,
                                 DurationMins = lesson.DurationMins,
                                 Description = lesson.Description,

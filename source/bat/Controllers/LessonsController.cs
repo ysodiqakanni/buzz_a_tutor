@@ -10,6 +10,14 @@ namespace bat.Controllers
 {
     public class LessonsController : Controller
     {
+        private readonly logic.Services.Lessons _lessonsService;
+
+        public LessonsController(
+            logic.Services.Lessons lessonsService)
+        {
+            _lessonsService = lessonsService;
+        }
+
         [Authorize]
         public ActionResult Index(int id)
         {
@@ -19,17 +27,17 @@ namespace bat.Controllers
             {
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
-                model.Initialise(user.ID);
-                model.Load(id);
+
+                model = _lessonsService.LoadView(id, user.ID);
 
                 if (model.lesson.CancelledDate.HasValue)
                 {
                     return View("CancelledLesson", model);
                 }
                 
-                if (model.WebRTCAvailable)
+                if (logic.Helpers.WebRTC.WebRTCAvailable())
                 {
-                    model.GenerateTokBoxToken();
+                    model = _lessonsService.GenerateTokBoxToken(model, user.ID, user.Email);
                     return View("ViewTokBox", model);
                 }
                 else
@@ -80,9 +88,10 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher || !model.IsEnabled) return RedirectToRoute("home");
-                model.SetDate(date);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher || !accInfo.IsEnabled) return RedirectToRoute("home");
+
+                model = _lessonsService.LoadNew(date);
             }
             catch (Exception ex)
             {
@@ -104,9 +113,10 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Save(frm);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher || !accInfo.IsEnabled) return RedirectToRoute("home");
+
+                model = _lessonsService.SaveNew(frm, user.ID);
             }
             catch (Exception ex)
             {
@@ -127,8 +137,9 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.Load(id))
+                model = _lessonsService.LoadJoin(id, user.ID);
+                
+                if (!model.CanContinue)
                     return RedirectToAction("Index", "Lessons", new { id = id });
             }
             catch (Exception ex)
@@ -150,8 +161,12 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                model.Save(id);
+                model = _lessonsService.LoadJoin(id, user.ID);
+
+                if (!model.CanContinue)
+                    return RedirectToAction("Index", "Lessons", new { id = id });
+
+                _lessonsService.SaveJoin(id, user.ID);
             }
             catch (Exception ex)
             {
@@ -171,8 +186,9 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.Load(lessonid))
+                model = _lessonsService.LoadLeave(lessonid, user.ID);
+
+                if (!model.CanContinue)
                     return RedirectToAction("Index", "Lessons", new { id = lessonid });
             }
             catch (Exception ex)
@@ -194,7 +210,13 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Delete(lessonid, studentid);
+                model = _lessonsService.LoadLeave(lessonid, user.ID);
+
+                if (!model.CanContinue)
+                    return RedirectToAction("Index", "Lessons", new { id = lessonid });
+
+                _lessonsService.SaveLeave(lessonid, studentid);
+
                 return RedirectToRoute("home");
             }
             catch (Exception ex)
@@ -208,15 +230,12 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult Upload(int id, HttpPostedFileBase data, string title)
         {
-            var model = new bat.logic.ViewModels.Lessons.View();
-
             try
             {
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                model.UploadImage(id, title, data);
+                _lessonsService.UploadImage(id, title, data, user.ID);
             }
             catch (Exception ex)
             {
@@ -236,9 +255,10 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Load(id);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher) return RedirectToRoute("home");
+
+                model = _lessonsService.LoadEdit(id, user.ID);
 
                 if (model.lesson.CancelledDate.HasValue)
                 {
@@ -270,9 +290,11 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Save(id, frm);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher) return RedirectToRoute("home");
+
+                model = _lessonsService.LoadEdit(id, user.ID);
+                _lessonsService.SaveEdit(id, user.ID, frm);
             }
             catch (WrongAccountException)
             {
@@ -297,9 +319,10 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Load(id);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher) return RedirectToRoute("home");
+
+                model = _lessonsService.LoadReschedule(id, user.ID);
 
                 if (model.lesson.CancelledDate.HasValue)
                 {
@@ -331,9 +354,10 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Save(id, frm);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher) return RedirectToRoute("home");
+
+                model = _lessonsService.SaveReschedule(id, user.ID, frm);
             }
             catch (WrongAccountException)
             {
@@ -358,9 +382,10 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Load(id);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher) return RedirectToRoute("home");
+
+                model = _lessonsService.LoadCancel(id, user.ID);
 
                 if (model.lesson.CancelledDate.HasValue)
                 {
@@ -392,9 +417,11 @@ namespace bat.Controllers
                 var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
                 if (user == null) return RedirectToRoute("home");
 
-                model.Initialise(user.ID);
-                if (!model.IsTeacher) return RedirectToRoute("home");
-                model.Save(id, frm);
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (!accInfo.IsTeacher) return RedirectToRoute("home");
+
+                model = _lessonsService.LoadCancel(id, user.ID);
+                _lessonsService.SaveCancel(id, user.ID, frm);
             }
             catch (WrongAccountException)
             {

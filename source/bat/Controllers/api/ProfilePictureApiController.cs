@@ -22,7 +22,6 @@ namespace bat.Controllers.api
                 var path = Path.Combine(dir + defaultImage);
                 return base.File(path, "image/png", "Default Image");
             }
-
         }
     }
 }

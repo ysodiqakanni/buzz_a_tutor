@@ -10,35 +10,35 @@
 }
 
 <div class="row">
-    @if (Model.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher)
+    @if (Model.AccInfo.account.AccountType_ID == (int)bat.logic.Constants.Types.AccountTypes.Teacher)
     {
         <div class="col-md-2 col-md-offset-2">
-            @if (string.IsNullOrEmpty(Model.account.Picture))
+            @if (string.IsNullOrEmpty(Model.AccInfo.account.Picture))
             {
                     <img style="height: 160px; width: 160px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
             }
             else
             {
-                <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.account.ID, name = Model.account.Fname})" alt="Profile Pic" />
+                <img style="height: 160px; width: 160px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.AccInfo.account.ID, name = Model.AccInfo.account.Fname})" alt="Profile Pic" />
             }
         </div>
         <div class="col-md-7 col-md-offset-1">
-            <h1>@Model.account.Fname @Model.account.Lname
-                @if (Model.account.Approved == true)
+            <h1>@Model.AccInfo.account.Fname @Model.AccInfo.account.Lname
+                @if (Model.AccInfo.account.Approved == true)
                 {
                     <span class="green small-bold">(Approved)</span>
                 }
             </h1>
             <h4>
-                Rate (&#163): @Model.account.Rate
+                Rate (&#163): @Model.AccInfo.account.Rate
             </h4>
             <p>
                 <strong>
-                    @Model.account.Qualifications
+                    @Model.AccInfo.account.Qualifications
                 </strong>
             </p>
             <p>
-                @Model.account.Description
+                @Model.AccInfo.account.Description
             </p>
             <p>
                 <a href="@Url.Action("edit")" class="btn btn-primary">Edit Details</a>
@@ -48,7 +48,7 @@
     else
     {
         <div class="col-md-8 col-md-offset-2">
-            <h1>@Model.account.Fname @Model.account.Lname</h1>
+            <h1>@Model.AccInfo.account.Fname @Model.AccInfo.account.Lname</h1>
             <p>
                 <a href="@Url.Action("edit")" class="btn btn-primary">Edit Details</a>
             </p>
@@ -64,14 +64,14 @@
                     <a href="@Url.Action("new")" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; New</a>
                 </div>
             </div>
-            @if (Model.familyMembers != null)
+            @if (Model.AccInfo.familyMembers != null)
             {
                 <table class="table">
-                    @foreach (var familyMember in Model.familyMembers)
+                    @foreach (var familyMember in Model.AccInfo.familyMembers)
                     {
                         <tr>
                             <td>
-                                <a href="@Url.Action("EditMember", new { id = familyMember.ID })">@Model.GetFullAccountName(familyMember.Account_ID)</a>
+                                <a href="@Url.Action("EditMember", new { id = familyMember.ID })">@bat.logic.Helpers.UserAccountInfo.GetFullAccountName(familyMember.Account_ID)</a>
                             </td>
                         </tr>
                     }

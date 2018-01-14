@@ -1,6 +1,7 @@
 ﻿@model bat.logic.ViewModels.Homepage.SubjectList
 @{
-    var nextCaption = Model.account.ID > 0 ? "Learn More" : "Register now";
+    var user = new bat.logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+    var nextCaption = (user?.ID ?? 0) > 0 ? "Learn More" : "Register now";
     ViewBag.Title = Model.tutor.Fname + " " + Model.tutor.Lname;
     var rate = Model.tutor.Rate ?? 0;
 }
@@ -12,13 +13,13 @@
         }
         else
         {
-            <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = Model.tutor.ID, name = Model.GetFullAccountName(Model.tutor.ID)})" alt="Profile Pic" />
+            <img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new {id = Model.tutor.ID, name = bat.logic.Helpers.UserAccountInfo.GetFullAccountName(Model.tutor.ID)})" alt="Profile Pic" />
         }
     </p>
     <div style="float: left; margin-left: 20px;">
         <strong>
             <p>
-                @Model.GetFullAccountName(Model.tutor.ID) - &#163 @rate.ToString("#.00") /hr
+                @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(Model.tutor.ID) - &#163 @rate.ToString("#.00") /hr
             </p>
         </strong>
         <p>

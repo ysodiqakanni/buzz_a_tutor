@@ -1,5 +1,6 @@
 ﻿@model bat.logic.ViewModels.Lessons.Join
 @{
+    var user = new bat.logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
     ViewBag.Title = "Join Lesson";
 }
 
@@ -19,18 +20,18 @@
     <div class="col-md-6">
         <div>
             <div class="pull-left">
-                @if (string.IsNullOrEmpty(Model.account.Picture))
+                @if (string.IsNullOrEmpty(bat.logic.Helpers.UserAccountInfo.GetAccountPicture(user.ID)))
                 {
                     <img style="height: 120px; width: 120px;" src="@Url.Content("~/assets/img/default-avatar.png")" alt="Profile Pic" />
                 }
                 else {
-                    <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = Model.account.ID, name = Model.account.Fname})" alt="Profile Pic" />
+                    <img style="height: 120px; width: 120px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = user.ID, name = bat.logic.Helpers.UserAccountInfo.GetAccountFirstName(user.ID) })" alt="Profile Pic" />
                 }            
             </div>
             <div class="pull-left" style="margin-left: 20px;">
                 <p>
                     <a href="@Url.RouteUrl("teacher", new {id = Model.teacher.ID})">
-                        @Model.GetFullAccountName(Model.teacher.ID)
+                        @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(Model.teacher.ID)
                     </a>
                 </p>
                 <p>

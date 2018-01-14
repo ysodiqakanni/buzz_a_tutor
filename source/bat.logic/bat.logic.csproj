@@ -36,12 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -95,14 +95,14 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.8.6.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTok, Version=2.4.6431.26897, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTok.2.4.4\lib\net35\OpenTok.dll</HintPath>
+    <Reference Include="OpenTok, Version=2.4.6541.21110, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTok.2.4.6\lib\net35\OpenTok.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -161,8 +161,9 @@
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Csp, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Csp.4.3.0\lib\net46\System.Security.Cryptography.Csp.dll</HintPath>
@@ -173,8 +174,8 @@
     <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.1\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Spatial, Version=5.8.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -213,9 +214,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiModels\Chat\Chat.cs" />
-    <Compile Include="ApiModels\DashBoard\GetDay.cs" />
-    <Compile Include="ApiModels\DashBoard\GetEvents.cs" />
+    <Compile Include="ApiViewModels\Chat\Chat.cs" />
+    <Compile Include="ApiViewModels\DashBoard\GetDay.cs" />
+    <Compile Include="ApiViewModels\DashBoard\GetEvents.cs" />
     <Compile Include="Constants\AdminLogin.cs" />
     <Compile Include="Constants\Azure.cs" />
     <Compile Include="Constants\Colors.cs" />
@@ -228,7 +229,6 @@
     <Compile Include="Constants\Types.cs" />
     <Compile Include="Constants\Zoom.cs" />
     <Compile Include="Exceptions\WrongAccountException.cs" />
-    <Compile Include="Exceptions\MasterModelNotInitialised.cs" />
     <Compile Include="Exceptions\ZoomException.cs" />
     <Compile Include="Helpers\AzureStorage\AzureBlobStorage.cs" />
     <Compile Include="Helpers\AzureStorage\StoredResources.cs" />
@@ -236,6 +236,9 @@
     <Compile Include="Helpers\Emailer.cs" />
     <Compile Include="Helpers\Numbers.cs" />
     <Compile Include="Helpers\PasswordStorage.cs" />
+    <Compile Include="Helpers\UserAccountInfo.cs" />
+    <Compile Include="Helpers\WebRTC.cs" />
+    <Compile Include="IoC\Autofac.cs" />
     <Compile Include="Models\Auditing\EditLesson.cs" />
     <Compile Include="Models\Auditing\JoinLesson.cs" />
     <Compile Include="Models\Auditing\CreateLesson.cs" />
@@ -248,8 +251,8 @@
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Exceptions\InvalidRecordException.cs" />
     <Compile Include="Exceptions\SaveException.cs" />
-    <Compile Include="ApiModels\Lessons\GetAttachment.cs" />
-    <Compile Include="ApiModels\Lessons\Upload.cs" />
+    <Compile Include="ApiViewModels\Lessons\GetAttachment.cs" />
+    <Compile Include="ApiViewModels\Lessons\Upload.cs" />
     <Compile Include="Models\Subjects\Department.cs" />
     <Compile Include="Models\Zoom\GetUser.cs" />
     <Compile Include="Models\Zoom\Error.cs" />
@@ -257,6 +260,14 @@
     <Compile Include="Rules\ImageValidation.cs" />
     <Compile Include="Rules\Signup.cs" />
     <Compile Include="Rules\Timezone.cs" />
+    <Compile Include="Services\AccountInfo.cs" />
+    <Compile Include="Services\Chat.cs" />
+    <Compile Include="Services\Lessons.cs" />
+    <Compile Include="Services\Profile.cs" />
+    <Compile Include="Services\Password.cs" />
+    <Compile Include="Services\HomePage.cs" />
+    <Compile Include="Services\Admin.cs" />
+    <Compile Include="Services\_ServiceClassBaseMarker.cs" />
     <Compile Include="ViewModels\Admin\Lesson.cs" />
     <Compile Include="ViewModels\Admin\Lessons.cs" />
     <Compile Include="ViewModels\Admin\Students.cs" />
@@ -264,10 +275,8 @@
     <Compile Include="ViewModels\Admin\Tutors.cs" />
     <Compile Include="ViewModels\Homepage\Dashboard.cs" />
     <Compile Include="ViewModels\Homepage\ResetPassword.cs" />
-    <Compile Include="ViewModels\Homepage\ForgotPassword.cs" />
     <Compile Include="ViewModels\Homepage\Landing.cs" />
     <Compile Include="Models\Lessons\Attachment.cs" />
-    <Compile Include="ViewModels\Homepage\Register.cs" />
     <Compile Include="ViewModels\Homepage\TeacherList.cs" />
     <Compile Include="ViewModels\Admin\Edit.cs" />
     <Compile Include="ViewModels\Lessons\Join.cs" />
@@ -277,7 +286,7 @@
     <Compile Include="ViewModels\Lessons\Reschedule.cs" />
     <Compile Include="ViewModels\Lessons\View.cs" />
     <Compile Include="ViewModels\Lessons\New.cs" />
-    <Compile Include="ViewModels\Master.cs" />
+    <Compile Include="Models\AccountInfo.cs" />
     <Compile Include="ViewModels\PaginatedLists.cs" />
     <Compile Include="ViewModels\Partials\IPartialWhiteboard.cs" />
     <Compile Include="ViewModels\Profile\Edit.cs" />

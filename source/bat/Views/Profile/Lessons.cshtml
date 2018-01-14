@@ -47,7 +47,7 @@
         {
             <strong>
                 <p>
-                    @Model.GetAccountFirstName(familyRecord.familyMember.ID)
+                    @bat.logic.Helpers.UserAccountInfo.GetAccountFirstName(familyRecord.familyMember.ID)
                 </p>
             </strong>
             foreach (var lesson in familyRecord.lessons)

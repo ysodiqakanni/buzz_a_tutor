@@ -6,23 +6,43 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace bat.Controllers.api
 {
     public class LessonsApiController : ApiController
     {
+        private readonly logic.Services.Lessons _lessonsService;
+
+        public LessonsApiController(
+            logic.Services.Lessons lessonsService)
+        {
+            _lessonsService = lessonsService;
+        }
+
         [HttpPost]
         public string Upload(FormDataCollection formData)
         {
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.ApiModels.Lessons.Upload.UploadImage(Convert.ToInt32(formData["lessonid"]), user.ID, formData["title"], formData["data"]);
+            var json = new JavaScriptSerializer();
+            try
+            {
+                return json.Serialize(_lessonsService.UploadEncodedImage(Convert.ToInt32(formData["lessonid"]), user.ID, formData["title"], formData["data"]));
+            }
+            catch (Exception e)
+            {
+                return json.Serialize(e.Message);
+            }
         }
 
         [HttpPost]
         public string UploadFile()
         {
+            var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) throw new Exception("Unauthorised access.");
+
             if (HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 // Get the uploaded image from the Files collection
@@ -60,14 +80,18 @@ namespace bat.Controllers.api
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.ApiModels.Lessons.GetAttachment.GetImageStream(Convert.ToInt32(formData["attachmentid"]));
+            return _lessonsService.GetImageStream(Convert.ToInt32(formData["attachmentid"]));
         }
 
         [Authorize]
         [System.Web.Http.HttpPost]
         public string GetBlackboardImages(FormDataCollection formData)
         {
-            return bat.logic.ApiModels.Lessons.GetAttachment.GetBlackboardImages(Convert.ToInt32(formData["lessonId"]));
+            var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
+            if (user == null) throw new Exception("Unauthorised access.");
+
+            var json = new JavaScriptSerializer();
+            return json.Serialize(_lessonsService.GetBlackboardImages(Convert.ToInt32(formData["lessonId"])));
         }
     }
 }

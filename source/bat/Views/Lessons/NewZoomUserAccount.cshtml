@@ -1,5 +1,7 @@
 ﻿@model bat.logic.ViewModels.Lessons.View
 @{
+    var user = new bat.logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+    var accInfo = bat.logic.Helpers.UserAccountInfo.GetAccount(user.ID);
     ViewBag.Title = "New Zoom User Account";
 }
 
@@ -23,7 +25,7 @@
 
     &nbsp;
 
-    @if (Model.IsTeacher)
+    @if (accInfo.IsTeacher)
     {
         <a href="@Url.Action("Edit", new { id = Model.lesson.ID })" class="btn btn-default">Edit lesson details</a>
     }

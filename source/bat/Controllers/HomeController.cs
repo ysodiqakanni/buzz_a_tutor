@@ -9,6 +9,20 @@ namespace bat.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly logic.Services.AccountInfo _accService;
+        private readonly logic.Services.HomePage _homeService;
+        private readonly logic.Services.Password _passwdService;
+
+        public HomeController(
+            logic.Services.AccountInfo accService,
+            logic.Services.HomePage homeService,
+            logic.Services.Password passwdService)
+        {
+            _accService = accService;
+            _homeService = homeService;
+            _passwdService = passwdService;
+        }
+
         [AllowAnonymous]
         public ActionResult Landing()
         {
@@ -32,15 +46,16 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
+                var accInfo = _accService.Get(user.ID);
 
-                if (model.accountType == Types.AccountTypes.Teacher && 
-                    (string.IsNullOrEmpty(model.account.Description) || string.IsNullOrEmpty(model.account.Qualifications)))
+                if (accInfo.IsTeacher && 
+                    (string.IsNullOrEmpty(accInfo.account.Description) || string.IsNullOrEmpty(accInfo.account.Qualifications)))
                 {
                     return RedirectToAction("Complete", "Profile");
                 }
 
-                model.Load();
+                model = _homeService.LoadDashboard(accInfo.accountType, accInfo.account.ID);
+                model.AccInfo = accInfo;
             }
             catch (Exception ex)
             {
@@ -48,7 +63,7 @@ namespace bat.Controllers
                 return View("Error");
             }
 
-            switch (model.accountType)
+            switch (model.AccInfo.accountType)
             {
                 case Types.AccountTypes.Student:
                     return View("DashStudent", model);
@@ -76,7 +91,7 @@ namespace bat.Controllers
                 ViewBag.firstName = firstname;
                 ViewBag.lastName = lastname;
                 ViewBag.email = email;
-                model.Signup(Convert.ToInt32(type), firstname, lastname, email, password);
+                model = _homeService.Signup(Convert.ToInt32(type), firstname, lastname, email, password);
 
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(email, password));
@@ -171,8 +186,7 @@ namespace bat.Controllers
         {
             try
             {
-                var model = new bat.logic.ViewModels.Homepage.ForgotPassword();
-                model.SetToken(txtUsername, Request.Url.AbsoluteUri.ToLower().Replace("forgotpassword", "resetpassword"));
+                _passwdService.SetForgotPasswordToken(txtUsername, Request.Url.AbsoluteUri.ToLower().Replace("forgotpassword", "resetpassword"));
                 ViewBag.Response = "Please check your email for your password reset link.";
             }
             catch (Exception ex)
@@ -195,7 +209,7 @@ namespace bat.Controllers
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Logout();
 
-                model.VerifyToken(t);
+                model = _passwdService.VerifyToken(t);
             }
             catch (Exception ex)
             {
@@ -212,7 +226,8 @@ namespace bat.Controllers
 
             try
             {
-                var account = model.ChangePassword(token, txtPassword1, txtPassword2);
+                model = _passwdService.VerifyToken(token);
+                var account = _passwdService.ChangePassword(token, txtPassword1, txtPassword2);
 
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(account);
@@ -268,10 +283,7 @@ namespace bat.Controllers
 
             try
             {
-                if (user != null)
-                    model.Initialise(user.ID);
-
-                model.Load(subject, user?.ID);
+                model = _homeService.LoadSubjectList(subject, user?.ID);
             }
             catch (Exception ex)
             {
@@ -284,34 +296,17 @@ namespace bat.Controllers
         [AllowAnonymous]
         public ActionResult SelectSubject()
         {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
-            var model = new bat.logic.ViewModels.Master();
-
-            try
-            {
-                if (user != null)
-                    model.Initialise(user.ID);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = ex.Message;
-            }
-
-            return View(model);
+            return View();
         }
 
         [AllowAnonymous]
         public ActionResult ListTeachers(string subject)
         {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             var model = new bat.logic.ViewModels.Homepage.TeacherList();
 
             try
             {
-                if (user != null)
-                    model.Initialise(user.ID);
-
-                model.Load(subject);
+                model = _homeService.LoadTeacherList(subject);
             }
             catch (Exception ex)
             {
@@ -324,15 +319,11 @@ namespace bat.Controllers
         [AllowAnonymous]
         public ActionResult ListTeacherLessons(int id)
         {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
             var model = new bat.logic.ViewModels.Homepage.SubjectList();
 
             try
             {
-                if (user != null)
-                    model.Initialise(user.ID);
-
-                model.LoadByTeacher(id);
+                model = _homeService.LoadSubjectListByTeacher(id);
             }
             catch (Exception ex)
             {
@@ -346,14 +337,12 @@ namespace bat.Controllers
         [HttpPost]
         public ActionResult Register(string type, string firstname, string lastname, string email, string password, string returnUrl)
         {
-            var model = new bat.logic.ViewModels.Homepage.Register();
-
             try
             {
                 ViewBag.firstName = firstname;
                 ViewBag.lastName = lastname;
                 ViewBag.email = email;
-                model.Signup(Convert.ToInt32(type), firstname, lastname, email, password);
+                var rs = _homeService.Signup(Convert.ToInt32(type), firstname, lastname, email, password);
 
                 var auth = new logic.Rules.Authentication(Request.GetOwinContext());
                 auth.Login(auth.GetUser(email, password));

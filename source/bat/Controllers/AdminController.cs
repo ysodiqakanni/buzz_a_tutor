@@ -9,13 +9,17 @@ namespace bat.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+        private readonly logic.Services.Admin _adminService;
+
+        public AdminController(logic.Services.Admin adminService)
+        {
+            _adminService = adminService;
+        }
+
         public ActionResult Index()
         {
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
                 return View();
             }
             catch (Exception ex)
@@ -31,10 +35,7 @@ namespace bat.Controllers
             
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load(subject);
+                model = _adminService.LoadEditViewModel(subject);
 
                 return View(model);
             }
@@ -53,12 +54,8 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load(subject);
-                model.Save(txtDescription);
-                model.Load(subject);
+                _adminService.Save(subject, txtDescription);
+                model = _adminService.LoadEditViewModel(subject);
 
                 return View(model);
             }
@@ -69,27 +66,19 @@ namespace bat.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult UploadExamPaper(int id, HttpPostedFileBase ExamPaper)
         {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-            if (user == null) return RedirectToRoute("home");
-
-            var model = new logic.ViewModels.Admin.Edit();
-            model.Load(id);
-            model.UploadPaper(ExamPaper);
+            var model = _adminService.LoadEditViewModel(id);
+            _adminService.UploadPaper(model.subjectDescription.ID, ExamPaper);
 
             return RedirectToAction("Edit", new { subject = model.subjectDescription.Subject });
         }
 
         public ActionResult DeleteExamPaper(int id)
         {
-            var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-            if (user == null) return RedirectToRoute("home");
-
             var model = new logic.ViewModels.Admin.Edit();
-            model.DeletePaper(id);
+            _adminService.DeletePaper(id);
 
             return RedirectToAction("Edit", new { subject = model.subjectDescription.Subject });
         }
@@ -100,10 +89,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load();
+                model = _adminService.LoadTutors();
 
                 return View(model);
             }
@@ -120,10 +106,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Save(id, status);
+                _adminService.SetAccountStatus(id, status);
                 return RedirectToAction("TeacherProfile", "Admin", new { id = id });
             }
             catch (Exception ex)
@@ -139,10 +122,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Approve(id, status);
+                _adminService.ApproveAccount(id, status);
                 return RedirectToAction("TeacherProfile", "Admin", new { id = id });
             }
             catch (Exception ex)
@@ -159,10 +139,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load();
+                model = _adminService.LoadLessons();
 
                 return View(model);
             }
@@ -179,10 +156,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load(id);
+                model = _adminService.LoadLesson(id);
                 return View(model);
             }
             catch (Exception ex)
@@ -198,10 +172,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.LessonVisibility(id, status);
+                _adminService.SetLessonVisibility(id, status);
                 return RedirectToAction("Lesson", "Admin", new { id = id });
             }
             catch (Exception ex)
@@ -217,10 +188,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load();
+                model = _adminService.LoadStudents();
 
                 return View(model);
             }
@@ -237,10 +205,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Save(id, status);
+                _adminService.SetAccountStatus(id, status);
                 return RedirectToAction("Students", "Admin");
             }
             catch (Exception ex)
@@ -256,10 +221,7 @@ namespace bat.Controllers
 
             try
             {
-                var user = new logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInAdminUser();
-                if (user == null) return RedirectToRoute("home");
-
-                model.Load(id);
+                model = _adminService.LoadTeacherProfile(id);
                 return View(model);
             }
             catch (Exception ex)

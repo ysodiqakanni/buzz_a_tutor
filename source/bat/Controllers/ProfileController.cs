@@ -9,6 +9,14 @@ namespace bat.Controllers
 {
     public class ProfileController : Controller
     {
+        private readonly logic.Services.Profile _profileService;
+
+        public ProfileController(
+            logic.Services.Profile profileService)
+        {
+            _profileService = profileService;
+        }
+
         [Authorize]
         public ActionResult Index()
         {
@@ -19,8 +27,7 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
+                model.AccInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
             }
             catch (Exception ex)
             {
@@ -40,8 +47,7 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
+                model = _profileService.LoadEdit(user.ID);
             }
             catch (Exception ex)
             {
@@ -61,8 +67,7 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
+                model = _profileService.LoadEdit(user.ID);
             }
             catch (Exception ex)
             {
@@ -82,9 +87,15 @@ namespace bat.Controllers
             var model = new bat.logic.ViewModels.Profile.Edit();
             try
             {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
-                model.Save(user.ID, FirstName, LastName, Description, Qualifications, Rate, Picture);
+                model = _profileService.ProfileEditSave(
+                    user.ID, 
+                    FirstName, 
+                    LastName, 
+                    Description, 
+                    Qualifications, 
+                    Rate, 
+                    Picture);
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -104,8 +115,8 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToAction("Index");
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (accInfo.IsTeacher) return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -125,10 +136,10 @@ namespace bat.Controllers
             var model = new bat.logic.ViewModels.Profile.New();
             try
             {
-                model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToAction("Index");
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (accInfo.IsTeacher) return RedirectToAction("Index");
 
-                model.Save(user.ID, frm);
+                model = _profileService.SaveNew(user.ID, frm);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -148,10 +159,10 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToAction("Index");
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (accInfo.IsTeacher) return RedirectToAction("Index");
 
-                model.load(id);
+                model = _profileService.LoadEditMember(id, user.ID);
             }
             catch (WrongAccountException)
             {
@@ -175,10 +186,10 @@ namespace bat.Controllers
             var model = new bat.logic.ViewModels.Profile.EditMember();
             try
             {
-                model.Initialise(user.ID);
-                if (model.IsTeacher) RedirectToAction("Index");
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (accInfo.IsTeacher) RedirectToAction("Index");
 
-                model.Save(frm);
+                model = _profileService.SaveEditMember(frm, user.ID);
                 return RedirectToAction("Index");
             }
             catch (WrongAccountException)
@@ -202,10 +213,10 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                if (model.IsTeacher) return RedirectToAction("Index");
+                var accInfo = logic.Helpers.UserAccountInfo.Get(user.ID);
+                if (accInfo.IsTeacher) RedirectToAction("Index");
 
-                model.Delete(id);
+                model = _profileService.DeleteEditMember(id, user.ID);
             }
             catch (WrongAccountException)
             {
@@ -221,7 +232,7 @@ namespace bat.Controllers
 
         public ActionResult ProfilePicture(int id)
         {
-            var imageData = logic.ViewModels.Profile.Profile.GetProfilePicture(id);
+            var imageData = _profileService.GetProfilePicture(id);
 
             return File(imageData, "image/jpg");
         }
@@ -236,8 +247,7 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                model.Load(user.ID);
+                model = _profileService.LoadLessons(user.ID);
             }
             catch (Exception ex)
             {
@@ -257,8 +267,7 @@ namespace bat.Controllers
 
             try
             {
-                model.Initialise(user.ID);
-                model.Load(id);
+                model = _profileService.LoadLessonDetails(id, user.ID);
             }
             catch (WrongAccountException)
             {

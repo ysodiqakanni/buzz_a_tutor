@@ -1,5 +1,6 @@
 ﻿@model bat.logic.ViewModels.Homepage.Dashboard
 @{
+    var user = new bat.logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
     ViewBag.Title = "Buzz a Tutor";
 }
 @section head {
@@ -16,7 +17,9 @@
 }
 <div class="row">
     <div class="col-md-12">
-        <h2>Welcome, @Model.account.Fname @Model.account.Lname</h2>
+        <h2>    
+            Welcome, @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(user.ID)
+        </h2>
     </div>
 </div>
 
@@ -52,7 +55,7 @@
                         <td style="vertical-align:middle">
                             @foreach (var participant in classroom.participants)
                             {
-                                @Model.GetFullAccountName(participant.Account_ID)
+                                @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(participant.Account_ID)
                             }
                         </td>
                         <td style="vertical-align:middle">
@@ -94,7 +97,7 @@
 </div>
 <div class="row" style="margin-top: 10px;">
     <div class="col-sm-6">
-        <input id="userID" type="hidden" value="@Model.account.ID" />
+        <input id="userID" type="hidden" value="@user.ID" />
         <input id="getEventsPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getevents", new { controller = "DashBoardApi", action = "Getevents" })" />
         <input id="getDayPath" type="hidden" value="@Url.HttpRouteUrl("api/dashboard/getday", new { controller = "DashBoardApi", action = "Getday" })" />
         <input id="getLessonPath" type="hidden" value="@Url.Action("Index", "Lessons")" />

@@ -49,7 +49,7 @@
             {
                 <a href="@Url.Action("Lesson", "Admin", new { id =  lesson.ID})" class="table-row">
                     <div class="table-cell">@lesson.Description</div>
-                    <div class="table-cell">@Model.GetFullAccountName(lesson.Account_ID)</div>
+                    <div class="table-cell">@bat.logic.Helpers.UserAccountInfo.GetFullAccountName(lesson.Account_ID)</div>
                     <div class="table-cell">@lesson.BookingDate.ToShortDateString()</div>
                     <div class="table-cell">@lesson.BookingDate.ToShortTimeString()</div>
                     @if (lesson.Hidden != true)

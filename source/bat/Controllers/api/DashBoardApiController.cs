@@ -6,11 +6,20 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace bat.Controllers.api
 {
     public class DashBoardApiController : ApiController
     {
+        private readonly logic.Services.HomePage _homeService;
+
+        public DashBoardApiController(
+            logic.Services.HomePage homeService)
+        {
+            _homeService = homeService;
+        }
+
         [Authorize]
         [System.Web.Http.HttpPost]
         public string Getevents(FormDataCollection formData)
@@ -18,7 +27,8 @@ namespace bat.Controllers.api
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.ApiModels.DashBoard.GetEvents.GetLessons(Convert.ToInt32(formData["userid"]));
+            var json = new JavaScriptSerializer();
+            return json.Serialize(_homeService.GetLessons(Convert.ToInt32(formData["userid"])));
         }
 
         [Authorize]
@@ -28,7 +38,8 @@ namespace bat.Controllers.api
             var user = new logic.Rules.Authentication(HttpContext.Current.Request.GetOwinContext()).GetLoggedInUser();
             if (user == null) throw new Exception("Unauthorised access.");
 
-            return bat.logic.ApiModels.DashBoard.GetDay.GDay(Convert.ToInt32(formData["userid"]), formData["date"]);
+            var json = new JavaScriptSerializer();
+            return json.Serialize(_homeService.GDay(Convert.ToInt32(formData["userid"]), formData["date"]));
         }
     }
 }

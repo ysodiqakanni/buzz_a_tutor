@@ -1,6 +1,7 @@
 ﻿@model bat.logic.ViewModels.Homepage.SubjectList
 @{
-    var nextCaption = Model.account.ID > 0 ? "Learn More" : "Register now";
+    var user = new bat.logic.Rules.Authentication(Request.GetOwinContext()).GetLoggedInUser();
+    var nextCaption = (user?.ID ?? 0) > 0 ? "Learn More" : "Register now";
     ViewBag.Title = "Lessons by Subject";
 }
 @section head {
@@ -78,11 +79,11 @@
                         </td>
                     }
                     else {
-                        <td class="td-center"><img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = classroom.tutor.ID, name = Model.GetFullAccountName(classroom.tutor.ID)})" alt="Profile Pic" /></td>
+                        <td class="td-center"><img style="height: 80px; width: 80px;" src="@Url.Action("DownloadResource", "ProfilePictureApi", new { id = classroom.tutor.ID, name = bat.logic.Helpers.UserAccountInfo.GetFullAccountName(classroom.tutor.ID)})" alt="Profile Pic" /></td>
                     }
                     <td>
                         <p>
-                            @Model.GetFullAccountName(classroom.tutor.ID)
+                            @bat.logic.Helpers.UserAccountInfo.GetFullAccountName(classroom.tutor.ID)
                         </p>
                         <p>
                             @classroom.tutor.Description

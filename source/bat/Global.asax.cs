@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -15,6 +18,20 @@ namespace bat
     {
         protected void Application_Start()
         {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule(new AutofacWebTypesModule());
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
+            builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>().InstancePerRequest();
+            builder.RegisterWebApiFilterProvider(GlobalConfiguration.Con‌​figuration);
+            builder = logic.IoC.Autofac.RegisterAll(builder);
+
+            var container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -26,6 +43,8 @@ namespace bat
 #if !DEBUG
             GlobalFilters.Filters.Add(new RequireHttpsAttribute());
 #endif
+
+            bat.DataVersioning.Migrate.Run();
         }
     }
 }

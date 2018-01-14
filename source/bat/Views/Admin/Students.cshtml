@@ -19,7 +19,7 @@
             @foreach (var student in Model.students)
             {
                 <tr>
-                    <td class="txt-center" >@Model.GetFullAccountName(student.ID)</td>
+                    <td class="txt-center" >@bat.logic.Helpers.UserAccountInfo.GetFullAccountName(student.ID)</td>
                     <td class="txt-center">
                         @if (student.Disabled != true)
                         {
